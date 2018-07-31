@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.cfcs.ehrnmt.Manager.ManagerActivity.ManagerSkillsAndCareerDashboard"
+    tools:showIn="@layout/activity_manager_skills_and_career_dashboard">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".5">
+
+            <!-- app:cardBackgroundColor="#D1C4E9"
+ -->
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/firsttile"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/edu"/>
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Education Details"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--app:cardBackgroundColor="#90CAF9"-->
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/secondtiles"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/exp"/>
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Previous Experience"/>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".5">
+
+            <!-- app:cardBackgroundColor="#D1C4E9"
+ -->
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/thirdtiles"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/lang"/>
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Language"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--app:cardBackgroundColor="#90CAF9"-->
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/fourthtile"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/skill"/>
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Skills"/>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

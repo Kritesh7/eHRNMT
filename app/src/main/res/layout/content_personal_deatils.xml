@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.cfcs.ehrnmt.Manager.ManagerActivity.PersonalDeatilsActivity"
+    tools:showIn="@layout/activity_personal_deatils">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/pro_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/prf"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/status_color"/>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/status_color"/>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proname"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Father Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/profathername"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="DOB"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/prodob"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/progender"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Preferred Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proprefreddname"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Material Status"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/promaterialstatus"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/noofchildernlay"
+                    android:visibility="gone"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="No. Of Children"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/pronoofchildern"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Nationality"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/pronationality"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Email"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proemail"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Alternate Email"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proalternativeemail"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Pan No."/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/propanno"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Passport Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/propassportname"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Passport Number"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/propassportno"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Information"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/status_color"/>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/status_color"/>
+
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Mobile Number"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/promobileno"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/prophoneno"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Personal Email"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/propersonalemail"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Corporate Email"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/procoprateemail"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Administrative Information"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/status_color"/>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/status_color"/>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Employee Id"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proempid"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Company Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/procompanyname"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Zone Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/prozonename"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Designation"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/prodesignation"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Department"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/prodepartment"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Joining Date"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/projoingdate"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Manager Name"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/promanagername"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medical Information"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/status_color"/>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/status_color"/>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Blood Group"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/probloodgroup"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Allergies"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proallergies"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Serious Illness"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/proseriousillness"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Family Doctor"/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/profamilydoctorname"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                      />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.0"
+                        android:layout_height="wrap_content"
+                        android:text="Family Doctor No."/>
+
+                    <TextView
+                        android:textColor="@color/dark_gray_background"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:text=":"/>
+
+                    <TextView
+                        android:id="@+id/profamilydoctornumber"
+                        android:layout_width="0dp"
+                        android:layout_weight="5.5"
+                        android:layout_height="wrap_content"
+                      />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

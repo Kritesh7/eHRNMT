@@ -1,0 +1,216 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.co.cfcs.ehrnmt.Fragment.AttendanceFragment">
+
+
+    <LinearLayout
+        android:id="@+id/mainlay"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+            <!--<TextView
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attendance"
+                android:textColor="@color/purple700"/>-->
+
+           <!-- <LinearLayout
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".1">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/purple500"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content"
+                    android:text="9 Sep 2017"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:textColor="@color/purple500"
+                    android:layout_height="wrap_content"
+                    android:text="10:32 Am"/>
+            </LinearLayout>
+-->
+
+            <RadioGroup
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/status_color"
+                    android:text="In"/>
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/status_color"
+                    android:text="Out"/>
+
+               <!-- <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_weight="3.3"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/status_color"
+                    android:text="Speak"/>-->
+
+            </RadioGroup>
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".6"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:elevation="10dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/locationtxt"
+                        android:layout_width="0dp"
+                        android:layout_weight=".8"
+                        android:layout_height="wrap_content"
+                        android:hint="Your Location"
+                        android:textColor="@color/purple700" />
+
+                    <ImageView
+                        android:id="@+id/locationimg"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight=".2"
+                        android:src="@drawable/gps"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+    <FrameLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:id="@+id/pro_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/prf"/>
+
+        <ImageView
+            android:id="@+id/procam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/editcam" />
+    </FrameLayout>
+
+                <fragment
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/mapwhere"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:textColor="@color/purple700"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:hint="Remark"/>
+
+                <LinearLayout
+                    android:id="@+id/buttonlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/submitbtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight=".5"
+                        android:background="@color/purple700"
+                        android:text="Submit"
+                        android:textColor="@color/white"
+
+                        />
+
+                    <Button
+                        android:id="@+id/cancelbtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/purple700"
+                        android:text="Cancel"
+                        android:textColor="@color/white"
+
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

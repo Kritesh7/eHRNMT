@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.cfcs.ehrnmt.Main.NewAddLeaveMangementActivity"
+    tools:showIn="@layout/activity_new_add_leave_mangement">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave Year"
+                android:textSize="16sp"
+                android:textColor="@color/purple700"/>
+
+            <Spinner
+                android:layout_marginTop="5dp"
+                android:id="@+id/leaveyearspinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leave Type"
+            android:textSize="16sp"
+            android:textColor="@color/purple700"/>
+
+        <Spinner
+            android:layout_marginTop="5dp"
+            android:id="@+id/leavetypespinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:textColor="@color/purple700"
+                android:textColorHint="@color/dark_gray"
+                android:background="@drawable/linebelowedittext"
+                android:enabled="false"
+                android:textSize="14sp"
+                android:id="@+id/startdate"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:hint="Start Date"/>
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/cal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cal"/>
+
+            <CheckBox
+                android:id="@+id/secondhalfcheck"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/purple700"
+                android:text="Second Half"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:textColor="@color/purple700"
+                android:textColorHint="@color/dark_gray"
+                android:background="@drawable/linebelowedittext"
+                android:enabled="false"
+                android:textSize="14sp"
+                android:id="@+id/enddate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:hint="End Date" />
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/end_cal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cal"/>
+
+            <CheckBox
+                android:id="@+id/firsthalfcheck"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/purple700"
+                android:text="First Half"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="#0D47A1"
+            app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+            <EditText
+                android:id="@+id/leave_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/linebelowedittext"
+                android:backgroundTint="@color/purple700"
+                android:hint="Comment"
+                android:inputType="textMultiLine"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/purple500"
+                android:textColorHint="@color/purple700"
+                android:textSize="16dp"
+                android:theme="@style/MyEditText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:padding="5dp"
+            android:id="@+id/applyleave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/purple700"
+            android:textColor="@color/white"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Apply Leave"/>
+
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

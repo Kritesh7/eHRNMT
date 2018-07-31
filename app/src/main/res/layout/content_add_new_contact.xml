@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.cfcs.ehrnmt.Main.AddNewContactActivity"
+    tools:showIn="@layout/activity_add_new_contact">
+    <LinearLayout
+        android:id="@+id/mainlay"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/newrequestbtn">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:id="@+id/emgtxt"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Emergency Contact"
+                    android:textColor="@color/status_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:id="@+id/radiobtnlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Address Type"
+                        android:textColor="@color/status_color"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <RadioGroup
+                        android:id="@+id/contact_radiogroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/parmanent_radiobtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple700"
+                            android:text="Permanent Contact"/>
+
+                        <RadioButton
+                            android:id="@+id/current_radiobtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple700"
+                            android:text="Current Contact"/>
+
+                        <RadioButton
+
+                            android:id="@+id/corspond_radiobtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple700"
+                            android:text="Correspondence Contact"/>
+
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/primory_layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="#0D47A1"
+                        app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                        <EditText
+                            android:id="@+id/contact_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/linebelowedittext"
+                            android:backgroundTint="@color/purple700"
+                            android:hint="Address"
+                            android:inputType="textPersonName"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/purple500"
+                            android:textColorHint="@color/purple700"
+                            android:textSize="16dp"
+                            android:theme="@style/MyEditText" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="#0D47A1"
+                        app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                        <EditText
+                            android:id="@+id/contact_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/linebelowedittext"
+                            android:backgroundTint="@color/purple700"
+                            android:hint="City"
+                            android:inputType="textPersonName"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/purple500"
+                            android:textColorHint="@color/purple700"
+                            android:textSize="16dp"
+                            android:theme="@style/MyEditText" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="#0D47A1"
+                        app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                        <EditText
+                            android:id="@+id/contact_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/linebelowedittext"
+                            android:backgroundTint="@color/purple700"
+                            android:hint="State"
+                            android:inputType="textPersonName"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/purple500"
+                            android:textColorHint="@color/purple700"
+                            android:textSize="16dp"
+                            android:theme="@style/MyEditText" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Country Name"
+                            android:textSize="16sp"
+                            android:textColor="@color/purple700"/>
+
+                        <Spinner
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/countrySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/secondary_layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColorHint="#0D47A1"
+                        app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                        <EditText
+                            android:id="@+id/contact_postalcode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/linebelowedittext"
+                            android:backgroundTint="@color/purple700"
+                            android:hint="Postal Code"
+                            android:inputType="numberDecimal"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/purple500"
+                            android:textColorHint="@color/purple700"
+                            android:textSize="16dp"
+                            android:theme="@style/MyEditText" />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <Button
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainlay"
+        android:id="@+id/newrequestbtn"
+        android:background="@color/purple700"
+        android:textColor="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Add New Contact"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

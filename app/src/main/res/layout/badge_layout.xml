@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/notify"
+        android:id="@+id/badge_icon_button"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/badge_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/badge_icon_button"
+        android:layout_alignRight="@id/badge_icon_button"
+        android:layout_alignEnd="@id/badge_icon_button"
+        android:text="0"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:textSize="11sp"
+        android:background="@drawable/bage_circle"/>
+</RelativeLayout>

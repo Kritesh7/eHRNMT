@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="design_navigation_icon_padding" tools:override="true">10dp</dimen>
+    <dimen name="design_navigation_separator_vertical_padding">0dp</dimen>
+</resources>

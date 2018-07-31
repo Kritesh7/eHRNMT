@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_container"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:background="#E0E0E0"
+    android:elevation="15dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:id="@+id/backimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logomain"
+            />
+
+    </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:alpha=".7"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:background="@android:color/transparent"
+        android:id="@+id/pro_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/prf"/>
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/empid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"/>
+
+            <TextView
+                android:id="@+id/designation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

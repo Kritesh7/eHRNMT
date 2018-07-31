@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/dashboard_icon"
+            android:title="DashBoard" />
+
+        <item
+            android:id="@+id/nav_mger"
+            android:icon="@drawable/mgric"
+            android:title="Manager" />
+
+        <item
+            android:id="@+id/nav_log_attendance"
+            android:title="Attendance Log List"
+            android:icon="@drawable/attlist"
+            />
+
+        <item
+            android:id="@+id/nav_attendance"
+            android:title="Attendance List"
+            android:icon="@drawable/attendance_icon"
+            />
+
+       <!-- <item
+            android:id="@+id/nav_Traning"
+            android:title="Training"
+            android:icon="@drawable/training"/>
+-->
+        <item
+            android:id="@+id/nav_Asset_details"
+            android:title="Assets Detail"
+            android:icon="@drawable/assets_details_new"/>
+
+        <item
+            android:title="Leave Management"
+            >
+
+            <menu>
+                <item
+                    android:id="@+id/nav_leavesummary"
+                    android:title="Leave Summary"
+                    android:icon="@drawable/leavesum"/>
+
+                <item
+                    android:id="@+id/nav_leavemanagment"
+                    android:title="Leave History"
+                    android:icon="@drawable/leavehistory"/>
+
+                <item
+                    android:id="@+id/nav_short_leave_history"
+                    android:icon="@drawable/shortleave"
+                    android:title="Short Leave History" />
+
+                <item
+                    android:id="@+id/nav_weekof"
+                    android:icon="@drawable/weekof"
+                    android:title="Week Off" />
+
+                <item
+                    android:id="@+id/nav_holidayList"
+                    android:icon="@drawable/holidaylist"
+                    android:title="Holiday List" />
+
+            </menu>
+
+
+        </item>
+
+        <item
+            android:id="@+id/nav_book_me"
+            android:title="Book Me A Provision"
+            >
+
+            <menu>
+                <item
+                    android:id="@+id/nav_stationary_request"
+                    android:icon="@drawable/stationary_icon"
+                    android:title="Stationary List" />
+                <item
+                    android:id="@+id/nav_document_list"
+                    android:icon="@drawable/document_icon"
+                    android:title="Document List" />
+
+                <item
+                    android:id="@+id/nav_cab_list"
+                    android:icon="@drawable/taxi_icon"
+                    android:title="Taxi/Cab List" />
+
+                <item
+                    android:id="@+id/nav_hotel_booking_list"
+                    android:icon="@drawable/hotel_booking_icon"
+                    android:title="Hotel Booking List" />
+
+            </menu>
+
+
+        </item>
+
+
+        <item
+            android:id="@+id/nav_employ_data"
+            android:title="Employee Data"
+            >
+
+            <menu>
+               <!-- <item
+                    android:id="@+id/nav_update_profile"
+                    android:icon="@drawable/update_profile"
+                    android:title="Update Profile" />-->
+                <item
+                    android:id="@+id/nav_personaldetails"
+                    android:icon="@drawable/personal_details"
+                    android:title="Personal Data" />
+
+                <item
+                    android:id="@+id/nav_medical_detials"
+                    android:icon="@drawable/medical_details_new"
+                    android:title="Medical Data" />
+
+                <item
+                    android:id="@+id/nav_officeally_details"
+                    android:icon="@drawable/officially"
+                    android:title="Official Data" />
+
+                <item
+                    android:id="@+id/nav_contact_details"
+                    android:icon="@drawable/addressbook"
+                    android:title="Address" />
+
+                <item
+                    android:id="@+id/nav_emergency_contact_details"
+                    android:icon="@drawable/emgcon"
+                    android:title="Emergency Address" />
+
+                <item
+                    android:id="@+id/nav_contact_phone"
+                    android:icon="@drawable/contact_details"
+                    android:title="Contact Phone" />
+
+                <item
+                    android:id="@+id/nav_dependents"
+                    android:icon="@drawable/dependent"
+                    android:title="Dependents" />
+
+                <item
+                    android:id="@+id/nav_medical_and_anssurence"
+                    android:icon="@drawable/medical_assurance"
+                    android:title="Medical And Insurance" />
+
+
+            </menu>
+
+
+        </item>
+
+        <item
+            android:id="@+id/nav_skills_devlopment"
+            android:title="Skill And Career"
+            >
+
+            <menu>
+                <item
+                    android:id="@+id/nav_education_details"
+                    android:icon="@drawable/education_details"
+                    android:title="Education Details" />
+                <item
+                    android:id="@+id/nav_previous_expreince"
+                    android:icon="@drawable/previous_expreience"
+                    android:title="Previous Experience" />
+                <item
+                    android:id="@+id/nav_languages"
+                    android:icon="@drawable/languages"
+                    android:title="Languages" />
+
+                <item
+                    android:id="@+id/nav_skills"
+                    android:icon="@drawable/skills"
+                    android:title="Skills" />
+
+            </menu>
+
+
+        </item>
+
+
+        <item
+            android:title="My Account"
+            >
+
+            <menu>
+
+                <item
+                    android:id="@+id/nav_pro"
+                    android:icon="@drawable/pro"
+                    android:title="My Profile"
+                    />
+                <item
+                    android:id="@+id/nav_change_password"
+                    android:icon="@drawable/chngpass"
+                    android:title="Change Password" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout"
+                    android:title="Logout" />
+
+            </menu>
+
+
+        </item>
+
+
+    </group>
+    <!--<item android:title="Apps">
+        <menu>
+
+
+            <item
+                android:id="@+id/nav_chat"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Chat" />
+            <item
+                android:id="@+id/nav_email"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Mail" />
+            <item
+                android:id="@+id/nav_note"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Notes" />
+            <item
+                android:id="@+id/nav_contacts"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Contacts" />
+            <item
+                android:id="@+id/nav_startus"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Status" />
+            <item
+                android:id="@+id/nav_announcement"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Announcement" />
+            <item
+                android:id="@+id/nav_attendance"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Attendance" />
+
+            <item
+                android:id="@+id/nav_plan"
+                android:title="Plans"
+                android:icon="@mipmap/ic_launcher"/>
+
+            <item
+                android:id="@+id/nav_subscription"
+                android:title="My Subscription"
+                android:icon="@mipmap/ic_launcher"/>
+
+
+            <item
+                android:title="" />
+
+        </menu>
+    </item>-->
+</menu>

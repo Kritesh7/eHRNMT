@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/leave_management_main_lay"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:id="@+id/pro_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/prf"/>
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/dahboard_textcolor"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Name"/>
+
+        <TextView
+            android:id="@+id/designation"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/dahboard_textcolor"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Designation"/>
+
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"/>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Zone"/>
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/zonename"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text=""/>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Punch Date"/>
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/punchdate"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Leave Type"/>
+        </LinearLayout>
+
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Punch Time"/>
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/punchtime"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Leave Type"/>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Punch By"/>
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/punchtype"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Leave Type"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/remarkview"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:id="@+id/reameklay"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remark"/>
+
+
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/remark"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Leave Type"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/approvalstatusview"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:id="@+id/approvalstatuslay"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="match_parent"
+                android:text="Status"/>
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/approvalstatus"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Status"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/approvaldateview"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:id="@+id/approvaldatelay"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="match_parent"
+                android:text="Approval Date"/>
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/approvaldate"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Approval Date"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/approvalbyview"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:id="@+id/approvalbylay"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="match_parent"
+                android:text="Approval By"/>
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/approvalby"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Approval By"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/locationview"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:elevation=".5dp"/>
+
+        <LinearLayout
+            android:id="@+id/punchlocationlay"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="match_parent"
+                android:text="Location Address"/>
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/status_color"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text=":"/>
+
+            <TextView
+                android:id="@+id/punchlocation"
+                android:textColor="@color/dahboard_textcolor"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="wrap_content"
+                android:text="Leave Type"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</android.support.v7.widget.CardView>

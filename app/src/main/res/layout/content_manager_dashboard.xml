@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.cfcs.ehrnmt.Manager.ManagerActivity.ManagerDashboardActivity"
+    tools:showIn="@layout/activity_manager_dashboard">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.3">
+
+            <!-- app:cardBackgroundColor="#D1C4E9"
+ -->
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/requesttoapprovetxt"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrreq"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Request To Approve"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--app:cardBackgroundColor="#90CAF9"-->
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/proceedlay"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrprocc"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Proceeded Request"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.3">
+
+            <!-- app:cardBackgroundColor="#D1C4E9"
+ -->
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/thirdTiles"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrleave"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Leave Management"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--app:cardBackgroundColor="#90CAF9"-->
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrrepo"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Report"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.3">
+
+            <!-- app:cardBackgroundColor="#D1C4E9"
+ -->
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/leavereq"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrempdata"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Employee Data"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--app:cardBackgroundColor="#90CAF9"-->
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/sixthtiles"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrass"/>
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Asset Details"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

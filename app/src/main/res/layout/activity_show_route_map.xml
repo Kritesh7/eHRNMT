@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:id="@+id/maps_cordinate"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/maptoolbar"
+        android:id="@+id/custome_bar"/>
+
+    <include layout="@layout/activity_showe_route_location"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:orientation="horizontal">
+
+        <Button
+            android:background="@color/purple700"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/button2"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finish" />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+

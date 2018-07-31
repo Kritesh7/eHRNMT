@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <View
+        android:background="#000000"
+        android:alpha=".6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.3"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5.3">
+
+
+        <View
+            android:background="#000000"
+            android:alpha=".6"
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:layout_height="match_parent"
+            />
+
+    <LinearLayout
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_width="0dp"
+        android:layout_weight=".8"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/remarktxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button3"
+        android:hint="Remark"
+        android:inputType="textMultiLine"
+        android:textColorHint="@color/colorPrimary"
+        android:textColor="@color/colorPrimary" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:background="@color/status_color"
+            android:text="Cancel Leave"
+            android:layout_marginRight="5dp"
+            android:id="@+id/cancel_leaverequest" />
+
+            <Button
+
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                android:background="@color/status_color"
+                android:text="Back"
+                android:id="@+id/backbtn" />
+
+        </LinearLayout>
+
+       </LinearLayout>
+
+        <View
+            android:background="#000000"
+            android:alpha=".6"
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:background="#000000"
+        android:alpha=".6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.3"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,169 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.co.cfcs.ehrnmt.Fragment.MedicalDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ScrollView
+        android:layout_above="@+id/editmedicaldetailsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Group"
+                android:textSize="16sp"
+                android:textColor="@color/purple700"/>
+
+            <Spinner
+                android:layout_marginTop="5dp"
+                android:id="@+id/bloodgroupspinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:nextFocusLeft="@id/autotext"
+                android:nextFocusUp="@id/autotext"
+                android:textColorHint="#0D47A1"
+                app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                <EditText
+                    android:id="@+id/allergies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/linebelowedittext"
+                    android:backgroundTint="@color/purple700"
+                    android:hint="Allergies"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Demos"
+                    android:textColor="@color/purple500"
+                    android:textColorHint="@color/purple700"
+                    android:textSize="16dp"
+                    android:theme="@style/MyEditText" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:nextFocusLeft="@id/autotext"
+                android:nextFocusUp="@id/autotext"
+                android:textColorHint="#0D47A1"
+                app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                <EditText
+                    android:id="@+id/serious_illness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/linebelowedittext"
+                    android:backgroundTint="@color/purple700"
+                    android:hint="Serious Illness"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Demos"
+                    android:textColor="@color/purple500"
+                    android:textColorHint="@color/purple700"
+                    android:textSize="16dp"
+                    android:theme="@style/MyEditText" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:nextFocusLeft="@id/autotext"
+                android:nextFocusUp="@id/autotext"
+                android:textColorHint="#0D47A1"
+                app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                <EditText
+                    android:id="@+id/family_doctor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/linebelowedittext"
+                    android:backgroundTint="@color/purple700"
+                    android:hint="Family Doctor Name"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Demos"
+                    android:textColor="@color/purple500"
+                    android:textColorHint="@color/purple700"
+                    android:textSize="16dp"
+                    android:theme="@style/MyEditText" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:nextFocusLeft="@id/autotext"
+                android:nextFocusUp="@id/autotext"
+                android:textColorHint="#0D47A1"
+                app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                <EditText
+                    android:id="@+id/family_doctor_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/linebelowedittext"
+                    android:backgroundTint="@color/purple700"
+                    android:hint="Family Doctor Number"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Demos"
+                    android:textColor="@color/purple500"
+                    android:textColorHint="@color/purple700"
+                    android:textSize="16dp"
+                    android:theme="@style/MyEditText" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+        <Button
+            android:id="@+id/editmedicaldetailsBtn"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple700"
+            android:text="Edit Medical Details"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

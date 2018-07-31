@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Personal Details"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/status_color"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:id="@+id/dialog_image"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/status_color"
+        />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/dialog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_gray_background"
+        android:textSize="18sp"
+        android:text="This feild is not editable" />
+
+    <Button
+        android:elevation="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/status_color"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:id="@+id/dialog_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_text"
+        android:text="Ok" />
+</LinearLayout>

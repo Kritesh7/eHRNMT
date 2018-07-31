@@ -1,0 +1,647 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.co.cfcs.ehrnmt.Fragment.PersonalDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/main_scrolled_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/editprofilebtn">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/titilespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                </Spinner>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/firstname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="First Name"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Demo"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/middlename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Middle Name"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Demo"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Last Name"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Demo"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/fathername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Father/Husband Name"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Parent Demo"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_weight=".8"
+                        android:layout_height="wrap_content"
+                        android:nextFocusLeft="@id/autotext"
+                        android:nextFocusUp="@id/autotext"
+                        android:textColorHint="#0D47A1"
+                        app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="D.O.B"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/dobimg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:src="@drawable/cal" />
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/designation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Designation"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="desg demos"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/genderradiogroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/mailradiobtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:buttonTint="@color/purple700"
+                            android:text="Male" />
+
+                        <RadioButton
+                            android:id="@+id/femailradiobtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:buttonTint="@color/purple700"
+                            android:text="Female" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Material Status"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/materialstatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                    </Spinner>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:nextFocusLeft="@id/autotext"
+                        android:nextFocusUp="@id/autotext"
+                        android:textColorHint="#0D47A1"
+                        app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                        <EditText
+                            android:id="@+id/childern"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/linebelowedittext"
+                            android:backgroundTint="@color/purple700"
+                            android:hint="Children"
+                            android:inputType="textPersonName"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp"
+                            android:text="desg demos"
+                            android:textColor="@color/purple500"
+                            android:textColorHint="@color/purple700"
+                            android:textSize="16dp"
+                            android:theme="@style/MyEditText" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                </LinearLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Email"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="desg.demos@fmail.com"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nationality"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/nationalityspinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/joiningdate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight=".8"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Joining Date"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+
+                    <ImageView
+                        android:id="@+id/joingimg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:src="@drawable/cal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zone"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/zonespinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Department"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/departmentspinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                    </Spinner>
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/employeid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Employ Id"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="EDFDF5"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/reportto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Report To"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="demos report"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/prefredname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Preferred Name"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="desg demos"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/passportname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Name as passport"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="desg demos"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/passportnumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Passport Number"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="FSFS45SFS4"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/alternativeemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Alternative Email"
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="desg.demos@gmail.com"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nextFocusLeft="@id/autotext"
+                    android:nextFocusUp="@id/autotext"
+                    android:textColorHint="#0D47A1"
+                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+
+                    <EditText
+                        android:id="@+id/panno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/linebelowedittext"
+                        android:backgroundTint="@color/purple700"
+                        android:hint="Pan No."
+                        android:inputType="textPersonName"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="DGDGFDHGDH454CBDNGFN4GFHFG"
+                        android:textColor="@color/purple500"
+                        android:textColorHint="@color/purple700"
+                        android:textSize="16dp"
+                        android:theme="@style/MyEditText" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/editprofilebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/purple700"
+            android:text="Edit Personal Details"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>
