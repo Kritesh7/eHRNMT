@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AttendanceListAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.AttendanceListModel;
 import in.co.cfcs.ehrnmt.Model.MonthModel;
 import in.co.cfcs.ehrnmt.R;
@@ -266,20 +267,27 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String AttendanceLogID = jsonObject.getString("AttendanceLogID");
-                        String AttendanceDateText = jsonObject.getString("AttendanceDateText");
-                        String InTime = jsonObject.getString("InTime");
-                        String OutTime = jsonObject.getString("OutTime");
-                        String WorkTime = jsonObject.getString("InOutDuration");
-                        String Halfday = jsonObject.getString("Halfday");
-                        String LateArrivalText = jsonObject.getString("LateArrival");
-                        String EarlyLeavingText = jsonObject.getString("EarlyLeaving");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String Name = jsonObject.getString("Name");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerAttendanceReportActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String AttendanceLogID = jsonObject.getString("AttendanceLogID");
+                            String AttendanceDateText = jsonObject.getString("AttendanceDateText");
+                            String InTime = jsonObject.getString("InTime");
+                            String OutTime = jsonObject.getString("OutTime");
+                            String WorkTime = jsonObject.getString("InOutDuration");
+                            String Halfday = jsonObject.getString("Halfday");
+                            String LateArrivalText = jsonObject.getString("LateArrival");
+                            String EarlyLeavingText = jsonObject.getString("EarlyLeaving");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String Name = jsonObject.getString("Name");
 
 
-                        list.add(new AttendanceListModel(Name,AttendanceLogID,AttendanceDateText,InTime,OutTime,WorkTime
-                                ,Halfday,LateArrivalText,EarlyLeavingText,StatusText,""));
+                            list.add(new AttendanceListModel(Name,AttendanceLogID,AttendanceDateText,InTime,OutTime,WorkTime
+                                    ,Halfday,LateArrivalText,EarlyLeavingText,StatusText,""));
+
+                        }
 
 
 
@@ -344,6 +352,44 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerAttendanceReportActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerAttendanceReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerAttendanceReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerAttendanceReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerAttendanceReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerAttendanceReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerAttendanceReportActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerAttendanceReportActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerAttendanceReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerAttendanceReportActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

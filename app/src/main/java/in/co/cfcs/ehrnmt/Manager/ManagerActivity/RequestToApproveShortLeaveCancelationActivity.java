@@ -1,6 +1,7 @@
 package in.co.cfcs.ehrnmt.Manager.ManagerActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerAdapter.ManagerRequestToApprovedShortLeaveAdapter;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerRequestToApprovedShortLeaveModel;
 import in.co.cfcs.ehrnmt.R;
@@ -142,23 +144,26 @@ public class RequestToApproveShortLeaveCancelationActivity extends AppCompatActi
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(RequestToApproveShortLeaveCancelationActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDate = jsonObject.getString("StartDateText");
+                            String TimeFrom = jsonObject.getString("TimeFrom");
+                            String TimeTo = jsonObject.getString("TimeTo");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String CommentText = jsonObject.getString("CommentText");
+                            String UserName = jsonObject.getString("UserName");
 
-                        String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDate = jsonObject.getString("StartDateText");
-                        String TimeFrom = jsonObject.getString("TimeFrom");
-                        String TimeTo = jsonObject.getString("TimeTo");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String CommentText = jsonObject.getString("CommentText");
-                        String UserName = jsonObject.getString("UserName");
 
 
-
-                        list.add(new ManagerRequestToApprovedShortLeaveModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
-                                StatusText,CommentText));
-
-
+                            list.add(new ManagerRequestToApprovedShortLeaveModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
+                                    StatusText,CommentText));
+                        }
 
                     }
 
@@ -227,5 +232,33 @@ public class RequestToApproveShortLeaveCancelationActivity extends AppCompatActi
 
     }
 
+    private void Logout() {
+
+        finishAffinity();
+        startActivity(new Intent(RequestToApproveShortLeaveCancelationActivity.this, LoginActivity.class));
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(RequestToApproveShortLeaveCancelationActivity.this,
+                "")));
+
+    }
 
 }

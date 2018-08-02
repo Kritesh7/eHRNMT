@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.LeaveMangementAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Main.NewAddLeaveMangementActivity;
 import in.co.cfcs.ehrnmt.Model.LeaveManagementModel;
 import in.co.cfcs.ehrnmt.Model.MonthModel;
@@ -312,21 +313,29 @@ public class LeaveManagementFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDateText = jsonObject.getString("StartDateText");
-                        String EndDateText = jsonObject.getString("EndDateText");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
-                        String Noofdays = jsonObject.getString("Noofdays");
-                        String IsDeleteable = jsonObject.getString("IsDeleteable");
-                        String UserName = jsonObject.getString("FullNameWithComp");
-                        String CancelStatus = jsonObject.getString("CancelStatus");
-                        String Status = jsonObject.getString("Status");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDateText = jsonObject.getString("StartDateText");
+                            String EndDateText = jsonObject.getString("EndDateText");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
+                            String Noofdays = jsonObject.getString("Noofdays");
+                            String IsDeleteable = jsonObject.getString("IsDeleteable");
+                            String UserName = jsonObject.getString("FullNameWithComp");
+                            String CancelStatus = jsonObject.getString("CancelStatus");
+                            String Status = jsonObject.getString("Status");
 
 
-                        list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
-                                LeaveApplication_Id,Noofdays,IsDeleteable,CancelStatus,Status));
+                            list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
+                                    LeaveApplication_Id,Noofdays,IsDeleteable,CancelStatus,Status));
+
+                        }
 
 
 
@@ -433,4 +442,40 @@ public class LeaveManagementFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
+
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
+    }
+
 }

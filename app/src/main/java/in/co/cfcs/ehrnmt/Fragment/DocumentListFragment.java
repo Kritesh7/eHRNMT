@@ -337,10 +337,8 @@ public class DocumentListFragment extends Fragment {
 
     private void Logout() {
 
-        Intent ik = new Intent(getActivity(), LoginActivity.class);
-        startActivity(ik);
-
-        getActivity().finish();
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getActivity(),
                 "")));

@@ -44,6 +44,7 @@ import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AttendanceLogListAdapter;
 import in.co.cfcs.ehrnmt.Main.AddHotelActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.AttendanceLogDetailsModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -215,25 +216,32 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
                     }
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerAttendanceLogDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String UserName = jsonObject.getString("UserName");
-                        String EmpID = jsonObject.getString("EmpID");
-                        String DesignationName = jsonObject.getString("DesignationName");
-                        String ZoneName = jsonObject.getString("ZoneName");
-                        String LogDateText = jsonObject.getString("LogDateText");
-                        String LogTime = jsonObject.getString("LogTime");
-                        String LocationAddress = jsonObject.getString("LocationAddress");
-                        String LocationPhoto = jsonObject.getString("FileNameText");
-                        String Remark = jsonObject.getString("Remark");
-                        String LogTypeText = jsonObject.getString("LogTypeText");
-                        String ApprovalStatusText = jsonObject.getString("ApprovalStatusText");
-                        String ApprovalDateText = jsonObject.getString("ApprovalDateText");
-                        String ApprovedBy = jsonObject.getString("ApprovedBy");
+                            String UserName = jsonObject.getString("UserName");
+                            String EmpID = jsonObject.getString("EmpID");
+                            String DesignationName = jsonObject.getString("DesignationName");
+                            String ZoneName = jsonObject.getString("ZoneName");
+                            String LogDateText = jsonObject.getString("LogDateText");
+                            String LogTime = jsonObject.getString("LogTime");
+                            String LocationAddress = jsonObject.getString("LocationAddress");
+                            String LocationPhoto = jsonObject.getString("FileNameText");
+                            String Remark = jsonObject.getString("Remark");
+                            String LogTypeText = jsonObject.getString("LogTypeText");
+                            String ApprovalStatusText = jsonObject.getString("ApprovalStatusText");
+                            String ApprovalDateText = jsonObject.getString("ApprovalDateText");
+                            String ApprovedBy = jsonObject.getString("ApprovedBy");
 
 
-                        list.add(new AttendanceLogDetailsModel(UserName, EmpID, DesignationName, LogTime, LogDateText, LogTypeText
-                                , LocationAddress, Remark, LocationPhoto, ZoneName, ApprovalStatusText, ApprovalDateText, ApprovedBy));
+                            list.add(new AttendanceLogDetailsModel(UserName, EmpID, DesignationName, LogTime, LogDateText, LogTypeText
+                                    , LocationAddress, Remark, LocationPhoto, ZoneName, ApprovalStatusText, ApprovalDateText, ApprovedBy));
 
+
+                        }
 
                     }
 
@@ -293,6 +301,44 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerAttendanceLogDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerAttendanceLogDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

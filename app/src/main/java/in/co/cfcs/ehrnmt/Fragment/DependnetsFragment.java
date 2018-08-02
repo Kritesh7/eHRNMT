@@ -33,6 +33,7 @@ import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.DependentAdapter;
 import in.co.cfcs.ehrnmt.Main.AddDependentActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.DependentModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -206,15 +207,21 @@ public class DependnetsFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String FirstName = jsonObject.getString("FirstName");
+                            String LastName = jsonObject.getString("LastName");
+                            String DOB = jsonObject.getString("DOB");
+                            String GenderName = jsonObject.getString("GenderName");
+                            String RelationshipName = jsonObject.getString("RelationshipName");
+                            String RecordID = jsonObject.getString("RecordID");
 
-                        String FirstName = jsonObject.getString("FirstName");
-                        String LastName = jsonObject.getString("LastName");
-                        String DOB = jsonObject.getString("DOB");
-                        String GenderName = jsonObject.getString("GenderName");
-                        String RelationshipName = jsonObject.getString("RelationshipName");
-                        String RecordID = jsonObject.getString("RecordID");
+                            list.add(new DependentModel(FirstName , LastName ,DOB,GenderName,RelationshipName,RecordID));
+                        }
 
-                        list.add(new DependentModel(FirstName , LastName ,DOB,GenderName,RelationshipName,RecordID));
 
                     }
 
@@ -314,5 +321,38 @@ public class DependnetsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

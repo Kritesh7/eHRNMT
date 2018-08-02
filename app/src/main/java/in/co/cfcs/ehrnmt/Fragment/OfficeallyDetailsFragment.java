@@ -33,6 +33,7 @@ import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.OfficelyAdapter;
 import in.co.cfcs.ehrnmt.Main.AddOffieceallyDetailsActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.OfficealyModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -198,21 +199,29 @@ public class OfficeallyDetailsFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String DocumentTypeName = jsonObject.getString("DocumentTypeName");
-                        String IssueDate = jsonObject.getString("IssueDate");
-                        String ExpiryDate = jsonObject.getString("ExpiryDate");
-                        String IssuePlace = jsonObject.getString("IssuePlace");
-                        String Number = jsonObject.getString("Number");
-                        String Deleteable = jsonObject.getString("Deleteable");
-                        String FileNameText = jsonObject.getString("FileNameText");
-                        String RecordID = jsonObject.getString("RecordID");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String DocumentTypeName = jsonObject.getString("DocumentTypeName");
+                            String IssueDate = jsonObject.getString("IssueDate");
+                            String ExpiryDate = jsonObject.getString("ExpiryDate");
+                            String IssuePlace = jsonObject.getString("IssuePlace");
+                            String Number = jsonObject.getString("Number");
+                            String Deleteable = jsonObject.getString("Deleteable");
+                            String FileNameText = jsonObject.getString("FileNameText");
+                            String RecordID = jsonObject.getString("RecordID");
 
 
 
-                        list.add(new OfficealyModel(DocumentTypeName,Number,IssueDate,ExpiryDate,IssuePlace,FileNameText,Deleteable,
-                                RecordID));
+                            list.add(new OfficealyModel(DocumentTypeName,Number,IssueDate,ExpiryDate,IssuePlace,FileNameText,Deleteable,
+                                    RecordID));
 
 
+
+
+                        }
 
                     }
 
@@ -314,5 +323,39 @@ public class OfficeallyDetailsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

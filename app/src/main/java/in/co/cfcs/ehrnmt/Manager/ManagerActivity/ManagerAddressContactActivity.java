@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.ContactAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.ContactModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -152,17 +153,24 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerAddressContactActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String Type = object.getString("Type");
-                        String Address = object.getString("Address");
-                        String City = object.getString("City");
-                        String State = object.getString("State");
-                        String PostCode = object.getString("PostCode");
-                        String CountryName = object.getString("CountryName");
-                        String LastUpdated = object.getString("LastUpdated");
-                        String RecordID = object.getString("RecordID");
+                            String Type = object.getString("Type");
+                            String Address = object.getString("Address");
+                            String City = object.getString("City");
+                            String State = object.getString("State");
+                            String PostCode = object.getString("PostCode");
+                            String CountryName = object.getString("CountryName");
+                            String LastUpdated = object.getString("LastUpdated");
+                            String RecordID = object.getString("RecordID");
 
-                        list.add(new ContactModel(Type , Address ,City,State,PostCode,CountryName,LastUpdated,RecordID));
+                            list.add(new ContactModel(Type , Address ,City,State,PostCode,CountryName,LastUpdated,RecordID));
+                        }
+
 
                     }
 
@@ -232,6 +240,44 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerAddressContactActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerAddressContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerAddressContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerAddressContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerAddressContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerAddressContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerAddressContactActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerAddressContactActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerAddressContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerAddressContactActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

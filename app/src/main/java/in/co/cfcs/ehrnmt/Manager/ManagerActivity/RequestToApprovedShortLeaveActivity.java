@@ -1,6 +1,7 @@
 package in.co.cfcs.ehrnmt.Manager.ManagerActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.ShortLeaveHistoryAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerAdapter.ManagerRequestToApprovedShortLeaveAdapter;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerRequestToApprovedShortLeaveModel;
 import in.co.cfcs.ehrnmt.Model.ShortLeaveHistoryModel;
@@ -147,21 +149,28 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(RequestToApprovedShortLeaveActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDate = jsonObject.getString("StartDateText");
-                        String TimeFrom = jsonObject.getString("TimeFrom");
-                        String TimeTo = jsonObject.getString("TimeTo");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String CommentText = jsonObject.getString("CommentText");
-                        String UserName = jsonObject.getString("UserName");
+                            String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDate = jsonObject.getString("StartDateText");
+                            String TimeFrom = jsonObject.getString("TimeFrom");
+                            String TimeTo = jsonObject.getString("TimeTo");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String CommentText = jsonObject.getString("CommentText");
+                            String UserName = jsonObject.getString("UserName");
 
 
-                        list.add(new ManagerRequestToApprovedShortLeaveModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
-                                StatusText,CommentText));
+                            list.add(new ManagerRequestToApprovedShortLeaveModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
+                                    StatusText,CommentText));
 
+
+                        }
 
 
                     }
@@ -229,6 +238,35 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+        finishAffinity();
+        startActivity(new Intent(RequestToApprovedShortLeaveActivity.this, LoginActivity.class));
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(RequestToApprovedShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(RequestToApprovedShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(RequestToApprovedShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(RequestToApprovedShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(RequestToApprovedShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(RequestToApprovedShortLeaveActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(RequestToApprovedShortLeaveActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(RequestToApprovedShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(RequestToApprovedShortLeaveActivity.this,
+                "")));
 
     }
 

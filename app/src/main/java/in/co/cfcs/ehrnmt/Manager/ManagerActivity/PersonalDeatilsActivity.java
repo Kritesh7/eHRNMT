@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Main.HomeActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.EmergencyContactModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -171,90 +172,99 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(PersonalDeatilsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String Title = object.getString("Title");
-                        String EmployeeName = object.getString("EmployeeName");
-                        String EmpID = object.getString("EmpID");
-                        String Email = object.getString("Email");
-                        String FatherName = object.getString("FatherName");
-                        String CompName = object.getString("CompName");
-                        String Children = object.getString("Children");
-                        String ZoneName = object.getString("ZoneName");
-                        String JoiningDate = object.getString("JoiningDate");
-                        String DepartmentName = object.getString("DepartmentName");
-                        String DesignationName = object.getString("DesignationName");
-                        String GenderName = object.getString("GenderName");
-                        String MartialStatusName = object.getString("MartialStatusName");
-                        String ReportTo = object.getString("ReportTo");
-                        String AlternateEmail = object.getString("AlternateEmail");
-                        String PAN = object.getString("PAN");
-                        String PassportName = object.getString("PassportName");
-                        String PassportNo = object.getString("PassportNo");
-                        String PreferredName = object.getString("PreferredName");
-                        String NationalityName = object.getString("NationalityName");
-                        String DOB = object.getString("DOB");
-                        String CompPhoto = object.getString("CompPhoto");
-                        String EmpPhoto = object.getString("EmpPhoto");
-                        String BloodGroupName = object.getString("BloodGroupName");
-                        String FamilyDoctorName = object.getString("FamilyDoctorName");
-                        String FamilyDoctorNo = object.getString("FamilyDoctorNo");
-                        String Allergies = object.getString("Allergies");
-                        String Illness = object.getString("Illness");
-                        String PhoneNo = object.getString("PhoneNo");
-                        String MobileNo = object.getString("MobileNo");
-                        String EmailPersonal = object.getString("EmailPersonal");
-                        String EmailCorporate = object.getString("EmailCorporate");
+                            String Title = object.getString("Title");
+                            String EmployeeName = object.getString("EmployeeName");
+                            String EmpID = object.getString("EmpID");
+                            String Email = object.getString("Email");
+                            String FatherName = object.getString("FatherName");
+                            String CompName = object.getString("CompName");
+                            String Children = object.getString("Children");
+                            String ZoneName = object.getString("ZoneName");
+                            String JoiningDate = object.getString("JoiningDate");
+                            String DepartmentName = object.getString("DepartmentName");
+                            String DesignationName = object.getString("DesignationName");
+                            String GenderName = object.getString("GenderName");
+                            String MartialStatusName = object.getString("MartialStatusName");
+                            String ReportTo = object.getString("ReportTo");
+                            String AlternateEmail = object.getString("AlternateEmail");
+                            String PAN = object.getString("PAN");
+                            String PassportName = object.getString("PassportName");
+                            String PassportNo = object.getString("PassportNo");
+                            String PreferredName = object.getString("PreferredName");
+                            String NationalityName = object.getString("NationalityName");
+                            String DOB = object.getString("DOB");
+                            String CompPhoto = object.getString("CompPhoto");
+                            String EmpPhoto = object.getString("EmpPhoto");
+                            String BloodGroupName = object.getString("BloodGroupName");
+                            String FamilyDoctorName = object.getString("FamilyDoctorName");
+                            String FamilyDoctorNo = object.getString("FamilyDoctorNo");
+                            String Allergies = object.getString("Allergies");
+                            String Illness = object.getString("Illness");
+                            String PhoneNo = object.getString("PhoneNo");
+                            String MobileNo = object.getString("MobileNo");
+                            String EmailPersonal = object.getString("EmailPersonal");
+                            String EmailCorporate = object.getString("EmailCorporate");
 
-                        if (Children.equalsIgnoreCase("0"))
-                        {
-                            noOfChildLay.setVisibility(View.GONE);
-                        }else
+                            if (Children.equalsIgnoreCase("0"))
+                            {
+                                noOfChildLay.setVisibility(View.GONE);
+                            }else
                             {
                                 noOfChildLay.setVisibility(View.VISIBLE);
                             }
 
-                        nameTxt.setText(Title + " " +EmployeeName);
-                        empIdTxt.setText(EmpID);
-                        emailtxt.setText(Email);
-                        fatherNameTxt.setText(FatherName);
-                        compNameTxt.setText(CompName);
-                        noOfChildTxt.setText(Children);
-                        zoneNameTxt.setText(ZoneName);
-                        joingDateTxt.setText(JoiningDate);
-                        departmentTxt.setText(DepartmentName);
-                        designationTxt.setText(DesignationName);
-                        genderTxt.setText(GenderName);
-                        materialStatusTxt.setText(MartialStatusName);
-                        managerNameTxt.setText(ReportTo);
-                        alternativeEmailTxt.setText(AlternateEmail);
-                        panNoTxt.setText(PAN);
-                        passportNameTxt.setText(PassportName);
-                        passportNumberTxt.setText(PassportNo);
-                        prefferdNameTxt.setText(PreferredName);
-                        nationloityTxt.setText(NationalityName);
-                        dobTxt.setText(DOB);
-                        bloodGroupTxt.setText(BloodGroupName);
-                        familyDrNameTxt.setText(FamilyDoctorName);
-                        famiilyDrNoTxt.setText(FamilyDoctorNo);
-                        allergiesTxt.setText(Allergies);
-                        seriousIllnessTxt.setText(Illness);
-                        phoneNumberTxt.setText(PhoneNo);
-                        mobileNumberTxt.setText(MobileNo);
-                        personalEmailTxt.setText(EmailPersonal);
-                        coprativeEmailTxt.setText(EmailCorporate);
+                            nameTxt.setText(Title + " " +EmployeeName);
+                            empIdTxt.setText(EmpID);
+                            emailtxt.setText(Email);
+                            fatherNameTxt.setText(FatherName);
+                            compNameTxt.setText(CompName);
+                            noOfChildTxt.setText(Children);
+                            zoneNameTxt.setText(ZoneName);
+                            joingDateTxt.setText(JoiningDate);
+                            departmentTxt.setText(DepartmentName);
+                            designationTxt.setText(DesignationName);
+                            genderTxt.setText(GenderName);
+                            materialStatusTxt.setText(MartialStatusName);
+                            managerNameTxt.setText(ReportTo);
+                            alternativeEmailTxt.setText(AlternateEmail);
+                            panNoTxt.setText(PAN);
+                            passportNameTxt.setText(PassportName);
+                            passportNumberTxt.setText(PassportNo);
+                            prefferdNameTxt.setText(PreferredName);
+                            nationloityTxt.setText(NationalityName);
+                            dobTxt.setText(DOB);
+                            bloodGroupTxt.setText(BloodGroupName);
+                            familyDrNameTxt.setText(FamilyDoctorName);
+                            famiilyDrNoTxt.setText(FamilyDoctorNo);
+                            allergiesTxt.setText(Allergies);
+                            seriousIllnessTxt.setText(Illness);
+                            phoneNumberTxt.setText(PhoneNo);
+                            mobileNumberTxt.setText(MobileNo);
+                            personalEmailTxt.setText(EmailPersonal);
+                            coprativeEmailTxt.setText(EmailCorporate);
 
-                        //set profile Image
-                        Picasso pic = Picasso.with(PersonalDeatilsActivity.this);
-                        pic.setIndicatorsEnabled(true);
-                        pic.with(PersonalDeatilsActivity.this).cancelRequest(proImg);
-                        pic.with(PersonalDeatilsActivity.this)
-                                .load(SettingConstant.DownloadUrl + EmpPhoto)
-                                .placeholder(R.drawable.prf)
-                                .error(R.drawable.prf)
-                                .networkPolicy(NetworkPolicy.NO_CACHE)
-                                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                .tag(PersonalDeatilsActivity.this)
-                                .into(proImg);
+                            //set profile Image
+                            Picasso pic = Picasso.with(PersonalDeatilsActivity.this);
+                            pic.setIndicatorsEnabled(true);
+                            pic.with(PersonalDeatilsActivity.this).cancelRequest(proImg);
+                            pic.with(PersonalDeatilsActivity.this)
+                                    .load(SettingConstant.DownloadUrl + EmpPhoto)
+                                    .placeholder(R.drawable.prf)
+                                    .error(R.drawable.prf)
+                                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                    .tag(PersonalDeatilsActivity.this)
+                                    .into(proImg);
+
+
+
+                        }
 
 
                     }
@@ -305,6 +315,44 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(PersonalDeatilsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(PersonalDeatilsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(PersonalDeatilsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(PersonalDeatilsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(PersonalDeatilsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(PersonalDeatilsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(PersonalDeatilsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(PersonalDeatilsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(PersonalDeatilsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(PersonalDeatilsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

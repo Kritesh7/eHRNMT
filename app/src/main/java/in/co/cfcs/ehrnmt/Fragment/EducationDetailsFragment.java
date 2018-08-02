@@ -33,6 +33,7 @@ import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.EducationDetailsAdapter;
 import in.co.cfcs.ehrnmt.Main.AddQualificationActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.EducationModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -233,11 +234,8 @@ public class EducationDetailsFragment extends Fragment {
                         String RecordID = object.getString("RecordID");
 
 
-
-
                         list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
                                 RecordID,Comments,StatusText,Editable,Deleteable));
-
 
 
                     }
@@ -266,6 +264,7 @@ public class EducationDetailsFragment extends Fragment {
                 } catch (JSONException e) {
                     Log.e("checking json excption" , e.getMessage());
                     e.printStackTrace();
+                    Logout();
                 }
             }
         }, new Response.ErrorListener() {
@@ -348,5 +347,39 @@ public class EducationDetailsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

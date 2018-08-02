@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.LeaveSummarryAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Main.NewAddLeaveMangementActivity;
 import in.co.cfcs.ehrnmt.Model.LeaveSummarryModel;
 import in.co.cfcs.ehrnmt.R;
@@ -175,18 +176,25 @@ public class LeaveSummarryFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String LeaveYear = jsonObject.getString("LeaveYear");
-                        String EntitledFor = jsonObject.getString("LeaveAvailable");
-                        String LeaveCarryOver = jsonObject.getString("LeaveCarryOver");
-                        String LeaveTaken = jsonObject.getString("LeaveTaken");
-                        String LeaveBalance = jsonObject.getString("LeaveBalance");
-                        String LeaveAvail = jsonObject.getString("LeaveAvail");
-                        String SPLeaveText = jsonObject.getString("SPLeaveText");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String LeaveYear = jsonObject.getString("LeaveYear");
+                            String EntitledFor = jsonObject.getString("LeaveAvailable");
+                            String LeaveCarryOver = jsonObject.getString("LeaveCarryOver");
+                            String LeaveTaken = jsonObject.getString("LeaveTaken");
+                            String LeaveBalance = jsonObject.getString("LeaveBalance");
+                            String LeaveAvail = jsonObject.getString("LeaveAvail");
+                            String SPLeaveText = jsonObject.getString("SPLeaveText");
 
-                        list.add(new LeaveSummarryModel(LeaveTypeName,LeaveYear,EntitledFor,LeaveCarryOver,LeaveTaken,
-                                LeaveBalance,LeaveAvail,SPLeaveText));
+                            list.add(new LeaveSummarryModel(LeaveTypeName,LeaveYear,EntitledFor,LeaveCarryOver,LeaveTaken,
+                                    LeaveBalance,LeaveAvail,SPLeaveText));
 
+
+                        }
 
 
                     }
@@ -280,5 +288,38 @@ public class LeaveSummarryFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

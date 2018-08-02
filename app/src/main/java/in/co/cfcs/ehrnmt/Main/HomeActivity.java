@@ -678,8 +678,6 @@ public class HomeActivity extends AppCompatActivity implements DashBoardFragment
                 transaction.commit();
                 return newFragment;
 
-
-
                /* DashBoardFragment dashboard = new DashBoardFragment();
                 return dashboard;*/
 
@@ -1447,7 +1445,6 @@ public class HomeActivity extends AppCompatActivity implements DashBoardFragment
 
                     }
                 });
-
 
                 newFragment = new AttendanceLogListFragment();
                 newFragment.setArguments(bundle);

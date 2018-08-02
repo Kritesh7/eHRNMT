@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.OfficelyAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.OfficealyModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -144,20 +145,27 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String DocumentTypeName = jsonObject.getString("DocumentTypeName");
-                        String IssueDate = jsonObject.getString("IssueDate");
-                        String ExpiryDate = jsonObject.getString("ExpiryDate");
-                        String IssuePlace = jsonObject.getString("IssuePlace");
-                        String Number = jsonObject.getString("Number");
-                        String Deleteable = jsonObject.getString("Deleteable");
-                        String FileNameText = jsonObject.getString("FileNameText");
-                        String RecordID = jsonObject.getString("RecordID");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerOfficealyDataActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String DocumentTypeName = jsonObject.getString("DocumentTypeName");
+                            String IssueDate = jsonObject.getString("IssueDate");
+                            String ExpiryDate = jsonObject.getString("ExpiryDate");
+                            String IssuePlace = jsonObject.getString("IssuePlace");
+                            String Number = jsonObject.getString("Number");
+                            String Deleteable = jsonObject.getString("Deleteable");
+                            String FileNameText = jsonObject.getString("FileNameText");
+                            String RecordID = jsonObject.getString("RecordID");
 
 
 
-                        list.add(new OfficealyModel(DocumentTypeName,Number,IssueDate,ExpiryDate,IssuePlace,FileNameText,"",
-                                RecordID));
+                            list.add(new OfficealyModel(DocumentTypeName,Number,IssueDate,ExpiryDate,IssuePlace,FileNameText,"",
+                                    RecordID));
 
+
+                        }
 
 
                     }
@@ -218,6 +226,44 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerOfficealyDataActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerOfficealyDataActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerOfficealyDataActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerOfficealyDataActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerOfficealyDataActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerOfficealyDataActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerOfficealyDataActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerOfficealyDataActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerOfficealyDataActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerOfficealyDataActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

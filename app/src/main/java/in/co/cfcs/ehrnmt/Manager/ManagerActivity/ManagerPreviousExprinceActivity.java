@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.PreviousExpreinceAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.PreviousExpreinceModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -151,27 +152,31 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        String CompName = object.getString("CompName");
-                        String Designation = object.getString("Designation");
-                        String JoiningDate = object.getString("JoiningDate");
-                        String JobPeriod = object.getString("JobPeriod");
-                        String JobDesc = object.getString("JobDesc");
-                        String editable = object.getString("editable");
-                        String Deleteable = object.getString("Deleteable");
-                        String Status = object.getString("Status");
-                        String Comments = object.getString("Comments");
-                        String RecordID = object.getString("RecordID");
-                        String RelievingDate = object.getString("RelievingDate");
-                        String JobPeriodYear = object.getString("JobPeriodYear");
-                        String JobPeriodMonth = object.getString("JobPeriodMonth");
 
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerPreviousExprinceActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
+                            String CompName = object.getString("CompName");
+                            String Designation = object.getString("Designation");
+                            String JoiningDate = object.getString("JoiningDate");
+                            String JobPeriod = object.getString("JobPeriod");
+                            String JobDesc = object.getString("JobDesc");
+                            String editable = object.getString("editable");
+                            String Deleteable = object.getString("Deleteable");
+                            String Status = object.getString("Status");
+                            String Comments = object.getString("Comments");
+                            String RecordID = object.getString("RecordID");
+                            String RelievingDate = object.getString("RelievingDate");
+                            String JobPeriodYear = object.getString("JobPeriodYear");
+                            String JobPeriodMonth = object.getString("JobPeriodMonth");
 
+                            list.add(new PreviousExpreinceModel(CompName,JoiningDate,JobDesc,JobPeriod,Designation,"0","0",
+                                    Status,Comments,RecordID,RelievingDate,JobPeriodYear,JobPeriodMonth));
 
-                        list.add(new PreviousExpreinceModel(CompName,JoiningDate,JobDesc,JobPeriod,Designation,"0","0",
-                                Status,Comments,RecordID,RelievingDate,JobPeriodYear,JobPeriodMonth));
-
-
+                        }
 
                     }
 
@@ -239,6 +244,44 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerPreviousExprinceActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerPreviousExprinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerPreviousExprinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerPreviousExprinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerPreviousExprinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerPreviousExprinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerPreviousExprinceActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerPreviousExprinceActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerPreviousExprinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerPreviousExprinceActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

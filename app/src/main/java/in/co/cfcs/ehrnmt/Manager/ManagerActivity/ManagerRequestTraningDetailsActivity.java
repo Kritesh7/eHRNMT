@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Main.ViewRequestDetailsActivity;
 import in.co.cfcs.ehrnmt.Main.ViewShortLeaveHistoryActivity;
 import in.co.cfcs.ehrnmt.Model.BookMeaPrevisionModel;
@@ -147,37 +148,44 @@ public class ManagerRequestTraningDetailsActivity extends AppCompatActivity {
                     for (int i = 0; i<jsonArray.length(); i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(ManagerRequestTraningDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String DomainName = object.getString("DomainName");
+                            String CourseName = object.getString("CourseName");
+                            String StartDate = object.getString("StartDate");
+                            String EndDate = object.getString("EndDate");
+                            String Venue = object.getString("Venue");
+                            String Duration = object.getString("Duration");
+                            String DescriptionText = object.getString("DescriptionText");
+                            String EmployeeComment = object.getString("EmployeeComment");
+                            String ProficiencyName = object.getString("ProficiencyName");
+                            String EmployeeName = object.getString("EmployeeName");
+                            String EmpID = object.getString("EmpID");
+                            String ZoneName = object.getString("ZoneName");
+                            String StatusText = object.getString("StatusText");
+                            String CommentManager = object.getString("CommentManager");
 
-                        String DomainName = object.getString("DomainName");
-                        String CourseName = object.getString("CourseName");
-                        String StartDate = object.getString("StartDate");
-                        String EndDate = object.getString("EndDate");
-                        String Venue = object.getString("Venue");
-                        String Duration = object.getString("Duration");
-                        String DescriptionText = object.getString("DescriptionText");
-                        String EmployeeComment = object.getString("EmployeeComment");
-                        String ProficiencyName = object.getString("ProficiencyName");
-                        String EmployeeName = object.getString("EmployeeName");
-                        String EmpID = object.getString("EmpID");
-                        String ZoneName = object.getString("ZoneName");
-                        String StatusText = object.getString("StatusText");
-                        String CommentManager = object.getString("CommentManager");
 
+                            domainNameTxt.setText(DomainName);
+                            empNameTxt.setText(EmployeeName);
+                            courseNameTxt.setText(CourseName);
+                            startDateTxt.setText(StartDate);
+                            endDateTxt.setText(EndDate);
+                            statusTxt.setText(StatusText);
+                            venueTxt.setText(Venue);
+                            durationTxt.setText(Duration);
+                            descTxt.setText(DescriptionText);
+                            empCommTxt.setText(EmployeeComment);
+                            profyTxt.setText(ProficiencyName);
+                            empIdTxt.setText(EmpID);
+                            zoneNameTxt.setText(ZoneName);
+                            mgrCommTxt.setText(CommentManager);
 
-                        domainNameTxt.setText(DomainName);
-                        empNameTxt.setText(EmployeeName);
-                        courseNameTxt.setText(CourseName);
-                        startDateTxt.setText(StartDate);
-                        endDateTxt.setText(EndDate);
-                        statusTxt.setText(StatusText);
-                        venueTxt.setText(Venue);
-                        durationTxt.setText(Duration);
-                        descTxt.setText(DescriptionText);
-                        empCommTxt.setText(EmployeeComment);
-                        profyTxt.setText(ProficiencyName);
-                        empIdTxt.setText(EmpID);
-                        zoneNameTxt.setText(ZoneName);
-                        mgrCommTxt.setText(CommentManager);
+                        }
+
 
                     }
 
@@ -227,6 +235,41 @@ public class ManagerRequestTraningDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerRequestTraningDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerRequestTraningDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerRequestTraningDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerRequestTraningDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerRequestTraningDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerRequestTraningDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerRequestTraningDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerRequestTraningDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerRequestTraningDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerRequestTraningDetailsActivity.this,
+                "")));
+
+
 
     }
 

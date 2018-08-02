@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.SkillAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.SkillsModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -150,18 +151,22 @@ public class ManagerSkillsActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String SkillName = jsonObject.getString("SkillName");
-                        String ProficiencyName = jsonObject.getString("ProficiencyName");
-                        String SkillSourceName = jsonObject.getString("SkillSourceName");
-                        String LastUsed = jsonObject.getString("LastUsed");
-                        String CurrentlyUsed = jsonObject.getString("CurrentlyUsed");
-                        String RecordID = jsonObject.getString("RecordID");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerSkillsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
+                            String SkillName = jsonObject.getString("SkillName");
+                            String ProficiencyName = jsonObject.getString("ProficiencyName");
+                            String SkillSourceName = jsonObject.getString("SkillSourceName");
+                            String LastUsed = jsonObject.getString("LastUsed");
+                            String CurrentlyUsed = jsonObject.getString("CurrentlyUsed");
+                            String RecordID = jsonObject.getString("RecordID");
 
+                            list.add(new SkillsModel(SkillName,ProficiencyName,SkillSourceName,LastUsed,CurrentlyUsed,RecordID));
 
-                        list.add(new SkillsModel(SkillName,ProficiencyName,SkillSourceName,LastUsed,CurrentlyUsed,RecordID));
-
-
+                        }
 
                     }
 
@@ -221,6 +226,44 @@ public class ManagerSkillsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerSkillsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerSkillsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerSkillsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerSkillsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerSkillsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerSkillsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerSkillsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerSkillsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerSkillsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerSkillsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

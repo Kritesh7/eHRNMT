@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AttendanceListAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerAdapter.ManagerTeamAverageReportAdapter;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerTeamAvearageModel;
 import in.co.cfcs.ehrnmt.Model.AttendanceListModel;
@@ -268,19 +269,25 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerTeamAvearageReportActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String EmployeeName = jsonObject.getString("EmployeeName");
+                            String EmpID = jsonObject.getString("EmpID");
+                            String AvgMonth = jsonObject.getString("AvgMonth");
+                            String AvgYear = jsonObject.getString("AvgYear");
+                            String TotalNoOfDays = jsonObject.getString("TotalNoOfDays");
+                            String TotalNoOfHours = jsonObject.getString("TotalNoOfHours");
+                            String AVGE = jsonObject.getString("AVGE");
 
-                        String EmployeeName = jsonObject.getString("EmployeeName");
-                        String EmpID = jsonObject.getString("EmpID");
-                        String AvgMonth = jsonObject.getString("AvgMonth");
-                        String AvgYear = jsonObject.getString("AvgYear");
-                        String TotalNoOfDays = jsonObject.getString("TotalNoOfDays");
-                        String TotalNoOfHours = jsonObject.getString("TotalNoOfHours");
-                        String AVGE = jsonObject.getString("AVGE");
 
 
+                            list.add(new ManagerTeamAvearageModel(EmployeeName,EmpID,AvgMonth,AvgYear,TotalNoOfDays,TotalNoOfHours
+                                    ,AVGE));
+                        }
 
-                        list.add(new ManagerTeamAvearageModel(EmployeeName,EmpID,AvgMonth,AvgYear,TotalNoOfDays,TotalNoOfHours
-                                ,AVGE));
 
 
 
@@ -346,6 +353,43 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerTeamAvearageReportActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerTeamAvearageReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerTeamAvearageReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerTeamAvearageReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerTeamAvearageReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerTeamAvearageReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerTeamAvearageReportActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerTeamAvearageReportActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerTeamAvearageReportActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerTeamAvearageReportActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

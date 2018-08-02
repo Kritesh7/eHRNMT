@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
 import in.co.cfcs.ehrnmt.Source.ConnectionDetector;
@@ -152,17 +153,21 @@ public class ManagerProceedRequestActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String LeaveCount = jsonObject.getString("LeaveCount");
-                        String ShortLeaveCount = jsonObject.getString("ShortLeaveCount");
-                        String TrainingCount = jsonObject.getString("TrainingCount");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerProceedRequestActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String LeaveCount = jsonObject.getString("LeaveCount");
+                            String ShortLeaveCount = jsonObject.getString("ShortLeaveCount");
+                            String TrainingCount = jsonObject.getString("TrainingCount");
 
 
-                        leavecountTxt.setText("("+LeaveCount+")");
-                        shortLeaveCountTxt.setText("("+ShortLeaveCount+")");
-                        tranoingCountTxt.setText("("+TrainingCount+")");
-
-
-
+                            leavecountTxt.setText("("+LeaveCount+")");
+                            shortLeaveCountTxt.setText("("+ShortLeaveCount+")");
+                            tranoingCountTxt.setText("("+TrainingCount+")");
+                        }
 
                     }
 
@@ -211,6 +216,44 @@ public class ManagerProceedRequestActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerProceedRequestActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerProceedRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerProceedRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerProceedRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerProceedRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerProceedRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerProceedRequestActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerProceedRequestActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerProceedRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerProceedRequestActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

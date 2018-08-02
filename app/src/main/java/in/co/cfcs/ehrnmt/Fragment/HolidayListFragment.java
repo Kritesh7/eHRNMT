@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 
+import org.apache.http.impl.conn.LoggingSessionOutputBuffer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,7 +166,6 @@ public class HolidayListFragment extends Fragment {
                             String Desc = jsonObject.getString("Desc");
                             String HoliDateText = jsonObject.getString("HoliDateText");
                             String HolidayType = jsonObject.getString("HolidayType");
-
                             list.add(new HolidayListModel(HolidayName,HoliDateText,HolidayType,Desc));
                         }
 

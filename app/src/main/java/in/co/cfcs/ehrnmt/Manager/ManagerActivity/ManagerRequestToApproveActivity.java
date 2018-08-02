@@ -3,6 +3,8 @@ package in.co.cfcs.ehrnmt.Manager.ManagerActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +29,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Fragment.ManagerDashBoardFragment;
+import in.co.cfcs.ehrnmt.Main.HomeActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
 import in.co.cfcs.ehrnmt.Source.ConnectionDetector;
@@ -34,7 +39,7 @@ import in.co.cfcs.ehrnmt.Source.SettingConstant;
 import in.co.cfcs.ehrnmt.Source.SharedPrefs;
 import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
-public class ManagerRequestToApproveActivity extends AppCompatActivity {
+public class ManagerRequestToApproveActivity extends AppCompatActivity{
 
     public TextView titleTxt;
     public String countUrl = SettingConstant.BaseUrl + "AppManagerRequestToApproveDashBoard";
@@ -42,6 +47,10 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
     public ConnectionDetector conn;
     public String userId = "",authCode = "";
     public LinearLayout thirdTilesLay, fourthTileLay, firstTileLat, secondTileLay, fivthLay;
+
+    public Bundle bundle;
+
+    String BackValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +83,13 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
 
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            BackValue = extras.getString("BackValue");
+
+        }
 
         titleTxt.setText("Request To Approve");
 
@@ -139,8 +155,6 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
-
-
     }
 
     @Override
@@ -176,19 +190,24 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String LeaveCount = jsonObject.getString("LeaveCount");
-                        String CancelLeaveCount = jsonObject.getString("CancelLeaveCount");
-                        String ShortLeaveCount = jsonObject.getString("ShortLeaveCount");
-                        String ShortCancelLeaveCount = jsonObject.getString("ShortCancelLeaveCount");
-                        String TrainingCount = jsonObject.getString("TrainingCount");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerRequestToApproveActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        leaveCountTxt.setText("("+LeaveCount+")");
-                        leaveCancelCpuntTxt.setText("("+CancelLeaveCount+")");
-                        shortLeaveCountTxt.setText("("+ShortLeaveCount+")");
-                        shortLeaveCancelCountTxt.setText("("+ShortCancelLeaveCount+")");
-                        traningCountTxt.setText("("+TrainingCount+")");
+                            String LeaveCount = jsonObject.getString("LeaveCount");
+                            String CancelLeaveCount = jsonObject.getString("CancelLeaveCount");
+                            String ShortLeaveCount = jsonObject.getString("ShortLeaveCount");
+                            String ShortCancelLeaveCount = jsonObject.getString("ShortCancelLeaveCount");
+                            String TrainingCount = jsonObject.getString("TrainingCount");
 
-
+                            leaveCountTxt.setText("("+LeaveCount+")");
+                            leaveCancelCpuntTxt.setText("("+CancelLeaveCount+")");
+                            shortLeaveCountTxt.setText("("+ShortLeaveCount+")");
+                            shortLeaveCancelCountTxt.setText("("+ShortCancelLeaveCount+")");
+                            traningCountTxt.setText("("+TrainingCount+")");
+                        }
 
 
                     }
@@ -233,11 +252,49 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
-        overridePendingTransition(R.anim.push_left_in,
-                R.anim.push_right_out);
+            overridePendingTransition(R.anim.push_left_in,
+                    R.anim.push_right_out);
+    }
+
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerRequestToApproveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerRequestToApproveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerRequestToApproveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerRequestToApproveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerRequestToApproveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerRequestToApproveActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerRequestToApproveActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerRequestToApproveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerRequestToApproveActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
+
 
 }

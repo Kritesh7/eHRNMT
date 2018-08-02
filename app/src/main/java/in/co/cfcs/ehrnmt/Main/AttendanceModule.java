@@ -559,10 +559,20 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                         String Lang = null;
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(0);
-                            EmployeeName = jsonObject1.getString("EmployeeName").toString();
-                            AddressName = jsonObject1.getString("AddressName").toString();
-                            Latt = jsonObject1.getString("Latt").toString();
-                            Lang = jsonObject1.getString("Lang").toString();
+
+                            if (jsonObject.has("MsgNotification")) {
+                                String MsgNotification = jsonObject.getString("MsgNotification");
+                                Toast.makeText(AttendanceModule.this,MsgNotification, Toast.LENGTH_LONG).show();
+                                Logout();
+                            }else{
+
+                                EmployeeName = jsonObject1.getString("EmployeeName").toString();
+                                AddressName = jsonObject1.getString("AddressName").toString();
+                                Latt = jsonObject1.getString("Latt").toString();
+                                Lang = jsonObject1.getString("Lang").toString();
+                            }
+
+
 
                         }
 
@@ -605,6 +615,40 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AttendanceModule.this, LoginActivity.class));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AttendanceModule.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AttendanceModule.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AttendanceModule.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AttendanceModule.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AttendanceModule.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AttendanceModule.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AttendanceModule.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AttendanceModule.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AttendanceModule.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 
@@ -1062,6 +1106,10 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                             String MsgNotification = jsonObject.getString("MsgNotification");
                             Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
                             onBackPressed();
+                        }else {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                            Logout();
                         }
                     }
                     pDialog.dismiss();
@@ -1308,6 +1356,9 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
     public void onBackPressed() {
 
         super.onBackPressed();
+        Intent i = new Intent(AttendanceModule.this,HomeActivity.class);
+        startActivity(i);
+        finish();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
 

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.EducationDetailsAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.EducationModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -147,25 +148,26 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        String QualificationName = object.getString("QualificationName");
-                        String DisciplineName = object.getString("DisciplineName");
-                        String PassingDate = object.getString("PassingDate");
-                        String Institute = object.getString("Institute");
-                        String CourseType = object.getString("CourseType");
-                        String HighestDegree = object.getString("HighestDegree");
-                        String Comments = object.getString("Comments");
-                        String StatusText = object.getString("StatusText");
-                        String Editable = object.getString("Editable");
-                        String Deleteable = object.getString("Deleteable");
-                        String RecordID = object.getString("RecordID");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerEducationDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String QualificationName = object.getString("QualificationName");
+                            String DisciplineName = object.getString("DisciplineName");
+                            String PassingDate = object.getString("PassingDate");
+                            String Institute = object.getString("Institute");
+                            String CourseType = object.getString("CourseType");
+                            String HighestDegree = object.getString("HighestDegree");
+                            String Comments = object.getString("Comments");
+                            String StatusText = object.getString("StatusText");
+                            String Editable = object.getString("Editable");
+                            String Deleteable = object.getString("Deleteable");
+                            String RecordID = object.getString("RecordID");
 
-
-
-
-                        list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
-                                RecordID,Comments,StatusText,"0","0"));
-
-
+                            list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
+                                    RecordID,Comments,StatusText,"0","0"));
+                        }
 
                     }
 
@@ -232,6 +234,44 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerEducationDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerEducationDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerEducationDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerEducationDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerEducationDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerEducationDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerEducationDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerEducationDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerEducationDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerEducationDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

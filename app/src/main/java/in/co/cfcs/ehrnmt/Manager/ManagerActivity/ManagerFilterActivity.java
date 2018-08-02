@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerEmployeeSpinnerModel;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.TeamFilterModel;
 import in.co.cfcs.ehrnmt.R;
@@ -311,10 +312,17 @@ public class ManagerFilterActivity extends AppCompatActivity {
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
 
-                        String AdminID = object.getString("AdminID");
-                        String ManagerName = object.getString("ManagerName");
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(ManagerFilterActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        teamList.add(new TeamFilterModel(AdminID,ManagerName));
+                            String AdminID = object.getString("AdminID");
+                            String ManagerName = object.getString("ManagerName");
+
+                            teamList.add(new TeamFilterModel(AdminID,ManagerName));
+                        }
 
 
                     }
@@ -382,11 +390,18 @@ public class ManagerFilterActivity extends AppCompatActivity {
                     for (int i =0; i<jsonArray.length(); i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(ManagerFilterActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String AdminID = object.getString("AdminID");
-                        String EmployeeName = object.getString("EmployeeName");
+                            String AdminID = object.getString("AdminID");
+                            String EmployeeName = object.getString("EmployeeName");
 
-                        empList.add(new ManagerEmployeeSpinnerModel(AdminID,EmployeeName));
+                            empList.add(new ManagerEmployeeSpinnerModel(AdminID,EmployeeName));
+                        }
+
 
 
                     }
@@ -449,6 +464,45 @@ public class ManagerFilterActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerFilterActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerFilterActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerFilterActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerFilterActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerFilterActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerFilterActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerFilterActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerFilterActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerFilterActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerFilterActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

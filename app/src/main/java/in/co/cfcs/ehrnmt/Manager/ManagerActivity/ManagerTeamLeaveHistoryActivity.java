@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.LeaveMangementAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.LeaveManagementModel;
 import in.co.cfcs.ehrnmt.Model.MonthModel;
 import in.co.cfcs.ehrnmt.R;
@@ -268,20 +269,29 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDateText = jsonObject.getString("StartDateText");
-                        String EndDateText = jsonObject.getString("EndDateText");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
-                        String Noofdays = jsonObject.getString("Noofdays");
-                        String UserName = jsonObject.getString("FullNameWithComp");
-                        String CancelStatus = jsonObject.getString("CancelStatus");
-                        String Status = jsonObject.getString("Status");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerTeamLeaveHistoryActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDateText = jsonObject.getString("StartDateText");
+                            String EndDateText = jsonObject.getString("EndDateText");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
+                            String Noofdays = jsonObject.getString("Noofdays");
+                            String UserName = jsonObject.getString("FullNameWithComp");
+                            String CancelStatus = jsonObject.getString("CancelStatus");
+                            String Status = jsonObject.getString("Status");
 
 
-                        list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
-                                LeaveApplication_Id,Noofdays,"0",CancelStatus,Status));
+                            list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
+                                    LeaveApplication_Id,Noofdays,"0",CancelStatus,Status));
+
+                        }
+
 
 
                     }
@@ -344,6 +354,44 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerTeamLeaveHistoryActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerTeamLeaveHistoryActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

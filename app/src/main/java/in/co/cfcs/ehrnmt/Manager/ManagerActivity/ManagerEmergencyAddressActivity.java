@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.EmergencyContactAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.EmergencyContactModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -144,27 +145,35 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                     for (int i=0 ; i<emergencyContactArray.length();i++)
                     {
                         JSONObject object = emergencyContactArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerEmergencyAddressActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String Title = object.getString("Title");
-                        String Name = object.getString("Name");
-                        String Address = object.getString("Address");
-                        String City = object.getString("City");
-                        String State = object.getString("State");
-                        String CountryName = object.getString("CountryName");
-                        String PostCode = object.getString("PostCode");
-                        String PhoneNo = object.getString("PhoneNo");
-                        String MobileNo = object.getString("MobileNo");
-                        String Email = object.getString("Email");
-                        String RelationshipName = object.getString("RelationshipName");
-                        String Type = object.getString("Type");
-                        String LastUpdate = object.getString("LastUpdate");
-                        String RecordID = object.getString("RecordID");
+                            String Title = object.getString("Title");
+                            String Name = object.getString("Name");
+                            String Address = object.getString("Address");
+                            String City = object.getString("City");
+                            String State = object.getString("State");
+                            String CountryName = object.getString("CountryName");
+                            String PostCode = object.getString("PostCode");
+                            String PhoneNo = object.getString("PhoneNo");
+                            String MobileNo = object.getString("MobileNo");
+                            String Email = object.getString("Email");
+                            String RelationshipName = object.getString("RelationshipName");
+                            String Type = object.getString("Type");
+                            String LastUpdate = object.getString("LastUpdate");
+                            String RecordID = object.getString("RecordID");
 
 
 
-                        list.add(new EmergencyContactModel(Title , Name ,Address,City,State,PostCode,CountryName,PhoneNo,MobileNo,
-                                Email,RelationshipName,LastUpdate,Type,RecordID));
+                            list.add(new EmergencyContactModel(Title , Name ,Address,City,State,PostCode,CountryName,PhoneNo,MobileNo,
+                                    Email,RelationshipName,LastUpdate,Type,RecordID));
 
+
+
+                        }
 
 
                     }
@@ -235,6 +244,44 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerEmergencyAddressActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerEmergencyAddressActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerEmergencyAddressActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerEmergencyAddressActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerEmergencyAddressActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerEmergencyAddressActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerEmergencyAddressActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerEmergencyAddressActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerEmergencyAddressActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerEmergencyAddressActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

@@ -93,6 +93,7 @@ public class ManagerDashBoardFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent ik = new Intent(getActivity(),ManagerRequestToApproveActivity.class);
+                ik.putExtra("BackValue","1");
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.MedicalAnssuredAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.MedicalAnssuranceModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -144,23 +145,28 @@ public class ManagerMedicalActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String Name = jsonObject.getString("Name");
-                        String Number = jsonObject.getString("Number");
-                        String Duration = jsonObject.getString("Duration");
-                        String AmountInsured = jsonObject.getString("AmountInsured");
-                        String PolicyTypeName = jsonObject.getString("PolicyTypeName");
-                        String PolicyBy = jsonObject.getString("PolicyBy");
-                        String RecordID = jsonObject.getString("RecordID");
-                        String InsuranceCompany = jsonObject.getString("InsuranceCompany");
-                        String StartDate = jsonObject.getString("StartDate");
-                        String EndDate = jsonObject.getString("EndDate");
-                        String FileNameText = jsonObject.getString("FileNameText");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerMedicalActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String Name = jsonObject.getString("Name");
+                            String Number = jsonObject.getString("Number");
+                            String Duration = jsonObject.getString("Duration");
+                            String AmountInsured = jsonObject.getString("AmountInsured");
+                            String PolicyTypeName = jsonObject.getString("PolicyTypeName");
+                            String PolicyBy = jsonObject.getString("PolicyBy");
+                            String RecordID = jsonObject.getString("RecordID");
+                            String InsuranceCompany = jsonObject.getString("InsuranceCompany");
+                            String StartDate = jsonObject.getString("StartDate");
+                            String EndDate = jsonObject.getString("EndDate");
+                            String FileNameText = jsonObject.getString("FileNameText");
 
 
-                        list.add(new MedicalAnssuranceModel(PolicyTypeName,Number,Duration,Name,AmountInsured,PolicyBy,RecordID,
-                                InsuranceCompany,StartDate,EndDate,FileNameText));
-
-
+                            list.add(new MedicalAnssuranceModel(PolicyTypeName,Number,Duration,Name,AmountInsured,PolicyBy,RecordID,
+                                    InsuranceCompany,StartDate,EndDate,FileNameText));
+                        }
 
                     }
 
@@ -221,6 +227,44 @@ public class ManagerMedicalActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerMedicalActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerMedicalActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerMedicalActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerMedicalActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerMedicalActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerMedicalActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerMedicalActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerMedicalActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerMedicalActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerMedicalActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

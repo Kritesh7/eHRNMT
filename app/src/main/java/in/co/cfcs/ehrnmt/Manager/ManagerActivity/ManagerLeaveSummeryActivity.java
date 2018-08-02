@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.LeaveSummarryAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.LeaveSummarryModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -153,19 +154,25 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String LeaveYear = jsonObject.getString("LeaveYear");
-                        String EntitledFor = jsonObject.getString("LeaveAvailable");
-                        String LeaveCarryOver = jsonObject.getString("LeaveCarryOver");
-                        String LeaveTaken = jsonObject.getString("LeaveTaken");
-                        String LeaveBalance = jsonObject.getString("LeaveBalance");
-                        String LeaveAvail = jsonObject.getString("LeaveAvail");
-                        String SPLeaveText = jsonObject.getString("SPLeaveText");
 
-                        list.add(new LeaveSummarryModel(LeaveTypeName,LeaveYear,EntitledFor,LeaveCarryOver,LeaveTaken,
-                                LeaveBalance,LeaveAvail,SPLeaveText));
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerLeaveSummeryActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String LeaveYear = jsonObject.getString("LeaveYear");
+                            String EntitledFor = jsonObject.getString("LeaveAvailable");
+                            String LeaveCarryOver = jsonObject.getString("LeaveCarryOver");
+                            String LeaveTaken = jsonObject.getString("LeaveTaken");
+                            String LeaveBalance = jsonObject.getString("LeaveBalance");
+                            String LeaveAvail = jsonObject.getString("LeaveAvail");
+                            String SPLeaveText = jsonObject.getString("SPLeaveText");
 
+                            list.add(new LeaveSummarryModel(LeaveTypeName,LeaveYear,EntitledFor,LeaveCarryOver,LeaveTaken,
+                                    LeaveBalance,LeaveAvail,SPLeaveText));
+                        }
 
                     }
 
@@ -228,6 +235,44 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerLeaveSummeryActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerLeaveSummeryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerLeaveSummeryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerLeaveSummeryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerLeaveSummeryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerLeaveSummeryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerLeaveSummeryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerLeaveSummeryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerLeaveSummeryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerLeaveSummeryActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

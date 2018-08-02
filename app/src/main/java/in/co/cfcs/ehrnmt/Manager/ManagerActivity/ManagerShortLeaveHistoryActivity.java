@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.ShortLeaveHistoryAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.MonthModel;
 import in.co.cfcs.ehrnmt.Model.ShortLeaveHistoryModel;
 import in.co.cfcs.ehrnmt.R;
@@ -267,21 +268,27 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDate = jsonObject.getString("StartDateText");
-                        String TimeFrom = jsonObject.getString("TimeFrom");
-                        String TimeTo = jsonObject.getString("TimeTo");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String CommentText = jsonObject.getString("CommentText");
-                      //  String IsDeleteable = jsonObject.getString("IsDeleteable");
-                        String UserName = jsonObject.getString("UserNameWithComp");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(ManagerShortLeaveHistoryActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDate = jsonObject.getString("StartDateText");
+                            String TimeFrom = jsonObject.getString("TimeFrom");
+                            String TimeTo = jsonObject.getString("TimeTo");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String CommentText = jsonObject.getString("CommentText");
+                            //  String IsDeleteable = jsonObject.getString("IsDeleteable");
+                            String UserName = jsonObject.getString("UserNameWithComp");
 
-                        list.add(new ShortLeaveHistoryModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
-                                StatusText,CommentText,"0"));
+                            list.add(new ShortLeaveHistoryModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
+                                    StatusText,CommentText,"0"));
 
 
+                        }
 
                     }
 
@@ -350,6 +357,44 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerShortLeaveHistoryActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerShortLeaveHistoryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerShortLeaveHistoryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerShortLeaveHistoryActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

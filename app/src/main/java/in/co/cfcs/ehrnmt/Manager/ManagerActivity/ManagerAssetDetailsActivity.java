@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AssestsDetailsAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.AssestDetailsModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -148,23 +149,24 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        String AssetsHolder = object.getString("AssetsHolder");
-                        String Assets = object.getString("AssetsName");
-                        String IssueDate = object.getString("IssueDate");
-                        String ExpReturnDate = object.getString("ExpReturnDate");
-                        String BrandName = object.getString("BrandName");
-                        String SerialNo = object.getString("SerialNo");
-                        String Reasion = object.getString("Reasion");
-                        String Remarks = object.getString("Remarks");
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(ManagerAssetDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String AssetsHolder = object.getString("AssetsHolder");
+                            String Assets = object.getString("AssetsName");
+                            String IssueDate = object.getString("IssueDate");
+                            String ExpReturnDate = object.getString("ExpReturnDate");
+                            String BrandName = object.getString("BrandName");
+                            String SerialNo = object.getString("SerialNo");
+                            String Reasion = object.getString("Reasion");
+                            String Remarks = object.getString("Remarks");
 
+                            list.add(new AssestDetailsModel(AssetsHolder,Assets,BrandName + " " +SerialNo ,IssueDate
+                                    ,ExpReturnDate,Reasion, Remarks));
 
-
-
-
-                        list.add(new AssestDetailsModel(AssetsHolder,Assets,BrandName + " " +SerialNo ,IssueDate
-                                ,ExpReturnDate,Reasion, Remarks));
-
-
+                        }
 
                     }
 
@@ -226,6 +228,44 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerAssetDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerAssetDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerAssetDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerAssetDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerAssetDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerAssetDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerAssetDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerAssetDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerAssetDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerAssetDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

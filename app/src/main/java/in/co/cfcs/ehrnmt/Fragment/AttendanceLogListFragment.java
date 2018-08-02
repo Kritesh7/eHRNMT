@@ -43,6 +43,7 @@ import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AttendanceLogListAdapter;
 import in.co.cfcs.ehrnmt.Main.AttendanceModule;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.AttendanceLogDetailsModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -255,25 +256,30 @@ public class AttendanceLogListFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
 
-                        String UserName = jsonObject.getString("UserName");
-                        String EmpID = jsonObject.getString("EmpID");
-                        String DesignationName = jsonObject.getString("DesignationName");
-                        String ZoneName = jsonObject.getString("ZoneName");
-                        String LogDateText = jsonObject.getString("LogDateText");
-                        String LogTime = jsonObject.getString("LogTime");
-                        String LocationAddress = jsonObject.getString("LocationAddress");
-                        String LocationPhoto = jsonObject.getString("FileNameText");
-                        String Remark = jsonObject.getString("Remark");
-                        String LogTypeText = jsonObject.getString("LogTypeText");
-                        String ApprovalStatusText = jsonObject.getString("ApprovalStatusText");
-                        String ApprovalDateText = jsonObject.getString("ApprovalDateText");
-                        String ApprovedBy = jsonObject.getString("ApprovedBy");
+                            String UserName = jsonObject.getString("UserName");
+                            String EmpID = jsonObject.getString("EmpID");
+                            String DesignationName = jsonObject.getString("DesignationName");
+                            String ZoneName = jsonObject.getString("ZoneName");
+                            String LogDateText = jsonObject.getString("LogDateText");
+                            String LogTime = jsonObject.getString("LogTime");
+                            String LocationAddress = jsonObject.getString("LocationAddress");
+                            String LocationPhoto = jsonObject.getString("FileNameText");
+                            String Remark = jsonObject.getString("Remark");
+                            String LogTypeText = jsonObject.getString("LogTypeText");
+                            String ApprovalStatusText = jsonObject.getString("ApprovalStatusText");
+                            String ApprovalDateText = jsonObject.getString("ApprovalDateText");
+                            String ApprovedBy = jsonObject.getString("ApprovedBy");
 
-                        list.add(new AttendanceLogDetailsModel(UserName,EmpID,DesignationName,LogTime,LogDateText,LogTypeText
-                                ,LocationAddress,Remark,LocationPhoto,ZoneName,ApprovalStatusText,ApprovalDateText,ApprovedBy));
+                            list.add(new AttendanceLogDetailsModel(UserName,EmpID,DesignationName,LogTime,LogDateText,LogTypeText
+                                    ,LocationAddress,Remark,LocationPhoto,ZoneName,ApprovalStatusText,ApprovalDateText,ApprovedBy));
 
-
+                        }
 
                     }
 
@@ -378,5 +384,39 @@ public class AttendanceLogListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

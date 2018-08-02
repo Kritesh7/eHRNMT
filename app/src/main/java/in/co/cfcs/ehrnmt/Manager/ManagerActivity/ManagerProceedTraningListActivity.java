@@ -1,6 +1,7 @@
 package in.co.cfcs.ehrnmt.Manager.ManagerActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerAdapter.ManagerRequestTraningAdapter;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerRequestTraningModel;
 import in.co.cfcs.ehrnmt.R;
@@ -137,22 +139,27 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        String ApplicationID = object.getString("ApplicationID");
-                        String DomainName = object.getString("DomainName");
-                        String CourseName = object.getString("CourseName");
-                        String StartDate = object.getString("StartDate");
-                        String EndDate = object.getString("EndDate");
-                        String ProficiencyName = object.getString("ProficiencyName");
-                        String EmployeeName = object.getString("EmployeeName");
-                        String StatusText = object.getString("StatusText");
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(ManagerProceedTraningListActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String ApplicationID = object.getString("ApplicationID");
+                            String DomainName = object.getString("DomainName");
+                            String CourseName = object.getString("CourseName");
+                            String StartDate = object.getString("StartDate");
+                            String EndDate = object.getString("EndDate");
+                            String ProficiencyName = object.getString("ProficiencyName");
+                            String EmployeeName = object.getString("EmployeeName");
+                            String StatusText = object.getString("StatusText");
+
+                            list.add(new ManagerRequestTraningModel(DomainName,CourseName,StartDate  ,EndDate
+                                    ,ProficiencyName,EmployeeName, ApplicationID,StatusText));
 
 
 
-
-                        list.add(new ManagerRequestTraningModel(DomainName,CourseName,StartDate  ,EndDate
-                                ,ProficiencyName,EmployeeName, ApplicationID,StatusText));
-
-
+                        }
 
                     }
 
@@ -213,6 +220,44 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerProceedTraningListActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerProceedTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerProceedTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerProceedTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerProceedTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerProceedTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerProceedTraningListActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerProceedTraningListActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerProceedTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerProceedTraningListActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

@@ -33,6 +33,7 @@ import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.SkillAdapter;
 import in.co.cfcs.ehrnmt.Main.AddNewSkilActivity;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.SkillsModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -207,16 +208,24 @@ public class SkillsFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String SkillName = jsonObject.getString("SkillName");
-                        String ProficiencyName = jsonObject.getString("ProficiencyName");
-                        String SkillSourceName = jsonObject.getString("SkillSourceName");
-                        String LastUsed = jsonObject.getString("LastUsed");
-                        String CurrentlyUsed = jsonObject.getString("CurrentlyUsed");
-                        String RecordID = jsonObject.getString("RecordID");
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String SkillName = jsonObject.getString("SkillName");
+                            String ProficiencyName = jsonObject.getString("ProficiencyName");
+                            String SkillSourceName = jsonObject.getString("SkillSourceName");
+                            String LastUsed = jsonObject.getString("LastUsed");
+                            String CurrentlyUsed = jsonObject.getString("CurrentlyUsed");
+                            String RecordID = jsonObject.getString("RecordID");
 
 
 
-                        list.add(new SkillsModel(SkillName,ProficiencyName,SkillSourceName,LastUsed,CurrentlyUsed,RecordID));
+                            list.add(new SkillsModel(SkillName,ProficiencyName,SkillSourceName,LastUsed,CurrentlyUsed,RecordID));
+                        }
+
 
 
 
@@ -319,5 +328,38 @@ public class SkillsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

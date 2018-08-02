@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
 import in.co.cfcs.ehrnmt.Source.ConnectionDetector;
@@ -123,17 +124,18 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String EmployeeWeeklyOff = jsonObject.getString("EmployeeWeeklyOff");
+
                         if (jsonObject.has("MsgNotification"))
                         {
                             String MsgNotification = jsonObject.getString("MsgNotification");
                             Toast.makeText(ManagerWeakOffActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                            Logout();
+                        }else {
 
+                            String EmployeeWeeklyOff = jsonObject.getString("EmployeeWeeklyOff");
+                            weekOfTxt.setText(EmployeeWeeklyOff);
                         }
-
-                        weekOfTxt.setText(EmployeeWeeklyOff);
-
-
+                        
                     }
 
                     pDialog.dismiss();
@@ -182,6 +184,44 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ManagerWeakOffActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerWeakOffActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerWeakOffActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerWeakOffActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerWeakOffActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerWeakOffActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerWeakOffActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerWeakOffActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerWeakOffActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerWeakOffActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

@@ -2,6 +2,7 @@ package in.co.cfcs.ehrnmt.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AttendanceListAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.AttendanceListModel;
 import in.co.cfcs.ehrnmt.Model.MonthModel;
 import in.co.cfcs.ehrnmt.R;
@@ -298,24 +300,27 @@ public class AttendaceListFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            String AttendanceLogID = jsonObject.getString("AttendanceLogID");
+                            String AttendanceDateText = jsonObject.getString("AttendanceDateText");
+                            String InTime = jsonObject.getString("InTime");
+                            String OutTime = jsonObject.getString("OutTime");
+                            String WorkTime = jsonObject.getString("InOutDuration");
+                            String Halfday = jsonObject.getString("Halfday");
+                            String LateArrivalText = jsonObject.getString("LateArrival");
+                            String EarlyLeavingText = jsonObject.getString("EarlyLeaving");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String Name = jsonObject.getString("Name");
 
-                        String AttendanceLogID = jsonObject.getString("AttendanceLogID");
-                        String AttendanceDateText = jsonObject.getString("AttendanceDateText");
-                        String InTime = jsonObject.getString("InTime");
-                        String OutTime = jsonObject.getString("OutTime");
-                        String WorkTime = jsonObject.getString("InOutDuration");
-                        String Halfday = jsonObject.getString("Halfday");
-                        String LateArrivalText = jsonObject.getString("LateArrival");
-                        String EarlyLeavingText = jsonObject.getString("EarlyLeaving");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String Name = jsonObject.getString("Name");
 
+                            list.add(new AttendanceListModel(Name,AttendanceLogID,AttendanceDateText,InTime,OutTime,WorkTime
+                                    ,Halfday,LateArrivalText,EarlyLeavingText,StatusText,""));
 
-                        list.add(new AttendanceListModel(Name,AttendanceLogID,AttendanceDateText,InTime,OutTime,WorkTime
-                                ,Halfday,LateArrivalText,EarlyLeavingText,StatusText,""));
-
-
-
+                        }
                     }
 
                     if (list.size() == 0)
@@ -421,4 +426,40 @@ public class AttendaceListFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
+
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
+    }
+
 }

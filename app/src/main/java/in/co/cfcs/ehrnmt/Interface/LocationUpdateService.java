@@ -101,12 +101,13 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     public Notification getNotification(String message) {
 
         return new NotificationCompat.Builder(getApplicationContext(), AttendanceModule.id1)
-                .setSmallIcon(R.mipmap.logo)
+                .setSmallIcon(R.drawable.ic_logo_notification)
                 .setOngoing(true)  //persistent notification!
                 .setChannelId(AttendanceModule.id1)
                 .setContentTitle("Attendance Successfully Mark")   //Title message top row.
                 .setContentText(message)  //message when looking at the notification, second row
                 .build();  //finally build and return a Notification.
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package in.co.cfcs.ehrnmt.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.BloodGroupModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -229,39 +231,45 @@ public class MedicalDetailsFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+                            BloodGroup = jsonObject.getString("BloodGroup");
+                            String FamilyDoctorName = jsonObject.getString("FamilyDoctorName");
+                            String FamilyDoctorNo = jsonObject.getString("FamilyDoctorNo");
+                            String Allergies = jsonObject.getString("Allergies");
+                            String Illness = jsonObject.getString("Illness");
 
-                        BloodGroup = jsonObject.getString("BloodGroup");
-                        String FamilyDoctorName = jsonObject.getString("FamilyDoctorName");
-                        String FamilyDoctorNo = jsonObject.getString("FamilyDoctorNo");
-                        String Allergies = jsonObject.getString("Allergies");
-                        String Illness = jsonObject.getString("Illness");
-
-                        illnessTxt.setText(Illness);
-                        allergiesTxt.setText(Allergies);
-                        familyDrNameTxt.setText(FamilyDoctorName);
-                        familyDrNumberTxt.setText(FamilyDoctorNo);
+                            illnessTxt.setText(Illness);
+                            allergiesTxt.setText(Allergies);
+                            familyDrNameTxt.setText(FamilyDoctorName);
+                            familyDrNumberTxt.setText(FamilyDoctorNo);
 
 
-
-
-                        // select by default spinner
-                        for (int k =0; k<bloodList.size(); k++)
-                        {
-                            if (bloodList.get(k).getBloodGroupId().equalsIgnoreCase(BloodGroup))
+                            // select by default spinner
+                            for (int k =0; k<bloodList.size(); k++)
                             {
-                                bloodGroupSpinner.setSelection(k);
+                                if (bloodList.get(k).getBloodGroupId().equalsIgnoreCase(BloodGroup))
+                                {
+                                    bloodGroupSpinner.setSelection(k);
+                                }
                             }
+
+                            if (FamilyDoctorName.equalsIgnoreCase(""))
+                            {
+                                editAddBtn.setText("Add Medical Details");
+                            }else {
+                                editAddBtn.setText("Edit Medical Details");
+                            }
+
+
+
+
+
+
                         }
-
-                        if (FamilyDoctorName.equalsIgnoreCase(""))
-                        {
-                            editAddBtn.setText("Add Medical Details");
-                        }else {
-                            editAddBtn.setText("Edit Medical Details");
-                        }
-
-
-
 
 
                     }
@@ -482,5 +490,38 @@ public class MedicalDetailsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+    private void Logout() {
+
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getContext(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getContext(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
+                "")));
+
+
     }
 }

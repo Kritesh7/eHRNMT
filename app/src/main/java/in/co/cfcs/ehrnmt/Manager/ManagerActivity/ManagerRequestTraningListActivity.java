@@ -1,6 +1,7 @@
 package in.co.cfcs.ehrnmt.Manager.ManagerActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.AssestsDetailsAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerAdapter.ManagerRequestTraningAdapter;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerRequestTraningModel;
 import in.co.cfcs.ehrnmt.Model.AssestDetailsModel;
@@ -138,26 +140,29 @@ public class ManagerRequestTraningListActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        String ApplicationID = object.getString("ApplicationID");
-                        String DomainName = object.getString("DomainName");
-                        String CourseName = object.getString("CourseName");
-                        String StartDate = object.getString("StartDate");
-                        String EndDate = object.getString("EndDate");
-                        String ProficiencyName = object.getString("ProficiencyName");
-                        String EmployeeName = object.getString("EmployeeName");
-                        String StatusText = object.getString("StatusText");
+                        if (object.has("MsgNotification")) {
+                            String MsgNotification = object.getString("MsgNotification");
+                            Toast.makeText(ManagerRequestTraningListActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+                            String ApplicationID = object.getString("ApplicationID");
+                            String DomainName = object.getString("DomainName");
+                            String CourseName = object.getString("CourseName");
+                            String StartDate = object.getString("StartDate");
+                            String EndDate = object.getString("EndDate");
+                            String ProficiencyName = object.getString("ProficiencyName");
+                            String EmployeeName = object.getString("EmployeeName");
+                            String StatusText = object.getString("StatusText");
 
 
+                            list.add(new ManagerRequestTraningModel(DomainName,CourseName,StartDate  ,EndDate
+                                    ,ProficiencyName,EmployeeName, ApplicationID,StatusText));
 
-
-                        list.add(new ManagerRequestTraningModel(DomainName,CourseName,StartDate  ,EndDate
-                                ,ProficiencyName,EmployeeName, ApplicationID,StatusText));
-
+                        }
 
 
                     }
-
-
 
                     if (list.size() == 0)
                     {
@@ -182,11 +187,8 @@ public class ManagerRequestTraningListActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("Login", "Error: " + error.getMessage());
                 // Log.e("checking now ",error.getMessage());
-
                 Toast.makeText(ManagerRequestTraningListActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
-
-
             }
         }){
             @Override
@@ -195,7 +197,6 @@ public class ManagerRequestTraningListActivity extends AppCompatActivity {
                 params.put("AuthCode",AuthCode);
                 params.put("AdminID",AdminID);
                 params.put("Status", Status);
-
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -209,13 +210,39 @@ public class ManagerRequestTraningListActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+    }
+
+    private void Logout() {
+
+        finishAffinity();
+        startActivity(new Intent(ManagerRequestTraningListActivity.this, LoginActivity.class));
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerRequestTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerRequestTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ManagerRequestTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ManagerRequestTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ManagerRequestTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerRequestTraningListActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerRequestTraningListActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerRequestTraningListActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerRequestTraningListActivity.this,
+                "")));
 
     }
 

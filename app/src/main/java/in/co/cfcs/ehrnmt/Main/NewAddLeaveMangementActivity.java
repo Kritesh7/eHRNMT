@@ -299,7 +299,6 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
             }
         });
 
-
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -332,6 +331,9 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         super.onBackPressed();
+        Intent i = new Intent(NewAddLeaveMangementActivity.this,HomeActivity.class);
+        startActivity(i);
+        finish();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
 
@@ -533,7 +535,6 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                             }
                         }
 
-
                     }
 
                     pDialog.dismiss();
@@ -588,9 +589,8 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     private void Logout() {
 
         loginStatus = 0;
-        Intent ik = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-        startActivity(ik);
-        finish();
+        finishAffinity();
+        startActivity(new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class));
 
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(NewAddLeaveMangementActivity.this,
@@ -620,6 +620,8 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package in.co.cfcs.ehrnmt.Manager.ManagerActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Manager.ManagerAdapter.ManagerLeaveRequestApproveAndRejectAdapter;
 import in.co.cfcs.ehrnmt.Manager.ManagerModel.ManagerLeaveRequestApproveAndRejectModel;
 import in.co.cfcs.ehrnmt.R;
@@ -138,17 +140,27 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDateText = jsonObject.getString("StartDateText");
-                        String EndDateText = jsonObject.getString("EndDateText");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
-                        String Noofdays = jsonObject.getString("Noofdays");
-                        String UserName = jsonObject.getString("UserName");
 
-                        list.add(new ManagerLeaveRequestApproveAndRejectModel(UserName,LeaveTypeName,StartDateText,EndDateText,
-                                AppliedDate,StatusText, LeaveApplication_Id,Noofdays));
+                        if (jsonObject.has("MsgNotification")) {
+                            String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(RequestToApproveLeaveCancelActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Logout();
+                        }else{
+
+
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDateText = jsonObject.getString("StartDateText");
+                            String EndDateText = jsonObject.getString("EndDateText");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
+                            String Noofdays = jsonObject.getString("Noofdays");
+                            String UserName = jsonObject.getString("UserName");
+
+                            list.add(new ManagerLeaveRequestApproveAndRejectModel(UserName,LeaveTypeName,StartDateText,EndDateText,
+                                    AppliedDate,StatusText, LeaveApplication_Id,Noofdays));
+                        }
+
 
 
                     }
@@ -209,6 +221,35 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+        finishAffinity();
+        startActivity(new Intent(RequestToApproveLeaveCancelActivity.this, LoginActivity.class));
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(RequestToApproveLeaveCancelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(RequestToApproveLeaveCancelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(RequestToApproveLeaveCancelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(RequestToApproveLeaveCancelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(RequestToApproveLeaveCancelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(RequestToApproveLeaveCancelActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(RequestToApproveLeaveCancelActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(RequestToApproveLeaveCancelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(RequestToApproveLeaveCancelActivity.this,
+                "")));
 
     }
 
