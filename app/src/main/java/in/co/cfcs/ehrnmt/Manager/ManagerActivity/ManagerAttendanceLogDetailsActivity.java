@@ -69,6 +69,10 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,10 +220,15 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
                     }
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerAttendanceLogDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
 
                             String UserName = jsonObject.getString("UserName");

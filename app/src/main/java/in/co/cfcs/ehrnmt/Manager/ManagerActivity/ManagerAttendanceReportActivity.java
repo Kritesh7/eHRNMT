@@ -69,6 +69,10 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
     public int monthString =0;
     public TextView noRecordFoundTxt;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -267,10 +271,15 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerAttendanceReportActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String AttendanceLogID = jsonObject.getString("AttendanceLogID");
                             String AttendanceDateText = jsonObject.getString("AttendanceDateText");

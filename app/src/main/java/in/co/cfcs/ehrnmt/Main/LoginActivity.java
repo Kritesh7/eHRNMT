@@ -145,7 +145,6 @@ public class LoginActivity extends AppCompatActivity {
                         if (jsonObject.has("MsgNotification")) {
                             String MsgNotification = jsonObject.getString("MsgNotification");
                             Toast.makeText(LoginActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-
                         } else {
 
                             String AdminID = jsonObject.getString("AdminID");

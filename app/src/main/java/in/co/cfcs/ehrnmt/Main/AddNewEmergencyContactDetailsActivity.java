@@ -70,6 +70,10 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
             , countryNamePassStr = "", postalCodePassStr = "",telPassStr = "",mobPassStr = "",emailPassStr = "", typePassStr = ""
             , actionMode = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -361,20 +365,16 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
-
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-
-                            Toast.makeText(AddNewEmergencyContactDetailsActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -453,89 +453,100 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
                         relationshipList.clear();
                     }
                     relationshipList.add(new RelationShipeTypeModel("Please Select Relationship",""));
-
-                    JSONArray relationshipObj = jsonObject.getJSONArray("RelationshipMaster");
-                    for (int i =0; i<relationshipObj.length(); i++)
-                    {
-                        JSONObject object = relationshipObj.getJSONObject(i);
-
-                        String RelationshipID = object.getString("RelationshipID");
-                        String RelationshipName = object.getString("RelationshipName");
-
-                        relationshipList.add(new RelationShipeTypeModel(RelationshipName,RelationshipID));
-
-                    }
-
-                    //bind Title List
-                    if (titleList.size()>0)
-                    {
-                        titleList.clear();
-                    }
-                    titleList.add("Please select Title");
-                    JSONArray TitleObj = jsonObject.getJSONArray("TitleMaster");
-                    for (int i =0; i<TitleObj.length(); i++)
-                    {
-                        JSONObject object = TitleObj.getJSONObject(i);
-
-                        String TitleName = object.getString("TitleName");
-                        titleList.add(TitleName);
-
-                    }
-
-                    //bind Country Spinner
-                    if (countryList.size()>0)
-                    {
-                        countryList.clear();
-                    }
-
-                    countryList.add(new CountryModel("","Please select Country"));
-                    JSONArray countryObj = jsonObject.getJSONArray("CountryMaster");
-                    for (int i =0; i<countryObj.length(); i++)
-                    {
-                        JSONObject object = countryObj.getJSONObject(i);
-
-                        String CountryID = object.getString("CountryID");
-                        String CountryName = object.getString("CountryName");
-                        countryList.add(new CountryModel(CountryID,CountryName));
-
-                    }
-
-                    //Edit Option
-                    for (int k =0; k<relationshipList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray relationshipObj = jsonObject.getJSONArray("RelationshipMaster");
+                        for (int i =0; i<relationshipObj.length(); i++)
                         {
-                            if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipPassNameStr))
+                            JSONObject object = relationshipObj.getJSONObject(i);
+
+                            String RelationshipID = object.getString("RelationshipID");
+                            String RelationshipName = object.getString("RelationshipName");
+
+                            relationshipList.add(new RelationShipeTypeModel(RelationshipName,RelationshipID));
+
+                        }
+
+                        //bind Title List
+                        if (titleList.size()>0)
+                        {
+                            titleList.clear();
+                        }
+                        titleList.add("Please select Title");
+                        JSONArray TitleObj = jsonObject.getJSONArray("TitleMaster");
+                        for (int i =0; i<TitleObj.length(); i++)
+                        {
+                            JSONObject object = TitleObj.getJSONObject(i);
+
+                            String TitleName = object.getString("TitleName");
+                            titleList.add(TitleName);
+
+                        }
+
+                        //bind Country Spinner
+                        if (countryList.size()>0)
+                        {
+                            countryList.clear();
+                        }
+
+                        countryList.add(new CountryModel("","Please select Country"));
+                        JSONArray countryObj = jsonObject.getJSONArray("CountryMaster");
+                        for (int i =0; i<countryObj.length(); i++)
+                        {
+                            JSONObject object = countryObj.getJSONObject(i);
+
+                            String CountryID = object.getString("CountryID");
+                            String CountryName = object.getString("CountryName");
+                            countryList.add(new CountryModel(CountryID,CountryName));
+
+                        }
+
+                        //Edit Option
+                        for (int k =0; k<relationshipList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                relationshipIdStr = relationshipList.get(k).getRelationshipId();
-                                relationShipSpinner.setSelection(k);
+                                if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipPassNameStr))
+                                {
+                                    relationshipIdStr = relationshipList.get(k).getRelationshipId();
+                                    relationShipSpinner.setSelection(k);
+                                }
+                            }
+                        }
+
+                        for (int k =0; k<titleList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
+                            {
+                                if (titleList.get(k).equalsIgnoreCase(titlePassStr))
+                                {
+                                    titleStr = titleList.get(k);
+                                    titileSpinner.setSelection(k);
+                                }
+                            }
+                        }
+
+                        for (int k =0; k<countryList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
+                            {
+                                if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNamePassStr))
+                                {
+                                    countryIdStr = countryList.get(k).getCountryId();
+                                    counterySpinner.setSelection(k);
+                                }
                             }
                         }
                     }
 
-                    for (int k =0; k<titleList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
-                        {
-                            if (titleList.get(k).equalsIgnoreCase(titlePassStr))
-                            {
-                                titleStr = titleList.get(k);
-                                titileSpinner.setSelection(k);
-                            }
-                        }
-                    }
-
-                    for (int k =0; k<countryList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
-                        {
-                            if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNamePassStr))
-                            {
-                                countryIdStr = countryList.get(k).getCountryId();
-                                counterySpinner.setSelection(k);
-                            }
-                        }
-                    }
 
                     countryAdapter.notifyDataSetChanged();
                     titleAdapter.notifyDataSetChanged();
@@ -573,6 +584,44 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddNewEmergencyContactDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddNewEmergencyContactDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

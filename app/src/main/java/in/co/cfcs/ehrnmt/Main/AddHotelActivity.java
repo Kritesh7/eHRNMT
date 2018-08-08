@@ -78,6 +78,10 @@ public class AddHotelActivity extends AppCompatActivity {
     public String hotelTypeStr = "", cityOfNameStr = "", hotelNameStr = "", checkInDateStr = "", checkInTimeStr = ""
             ,checkOutDateStr = "",reamrkStr ="", actionMode = "",bidStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -450,18 +454,18 @@ public class AddHotelActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                        }else
-                            {
-                                String MsgNotification = jsonObject.getString("MsgNotification");
-                                Toast.makeText(AddHotelActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                            }
+
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
                     }
 
 
@@ -531,29 +535,42 @@ public class AddHotelActivity extends AppCompatActivity {
                         hotelTypeList.clear();
                     }
                     hotelTypeList.add(new HotelTypeModel("Please Select Hotel Type",""));
-                    JSONArray hotelObj = jsonObject.getJSONArray("HotelType");
-                    for (int k = 0; k<hotelObj.length(); k++)
-                    {
-                        JSONObject object = hotelObj.getJSONObject(k);
 
-                        String HotelType = object.getString("HotelType");
-                        String HotelTypeID = object.getString("HotelTypeID");
-
-                        hotelTypeList.add(new HotelTypeModel(HotelType,HotelTypeID));
-                    }
-
-                    //Edit case
-                    for (int k =0; k<hotelTypeList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("Edit"))
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray hotelObj = jsonObject.getJSONArray("HotelType");
+                        for (int k = 0; k<hotelObj.length(); k++)
                         {
-                            if (hotelTypeList.get(k).getHotelTypeId().equalsIgnoreCase(hotelTypeStr))
+                            JSONObject object = hotelObj.getJSONObject(k);
+
+                            String HotelType = object.getString("HotelType");
+                            String HotelTypeID = object.getString("HotelTypeID");
+
+                            hotelTypeList.add(new HotelTypeModel(HotelType,HotelTypeID));
+                        }
+
+                        //Edit case
+                        for (int k =0; k<hotelTypeList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("Edit"))
                             {
-                                hotelTypeSpinner.setSelection(k);
-                                hotelTypeID = hotelTypeList.get(k).getHotelTypeId();
-                                //hotelNameANDCity(hotelTypeID,"");
+                                if (hotelTypeList.get(k).getHotelTypeId().equalsIgnoreCase(hotelTypeStr))
+                                {
+                                    hotelTypeSpinner.setSelection(k);
+                                    hotelTypeID = hotelTypeList.get(k).getHotelTypeId();
+                                    //hotelNameANDCity(hotelTypeID,"");
+                                }
                             }
                         }
+
                     }
 
                     hotelTypeAdapter.notifyDataSetChanged();
@@ -607,61 +624,73 @@ public class AddHotelActivity extends AppCompatActivity {
                         cityList.clear();
                     }
                     cityList.add(new CabCityModel("Please Select City",""));
-                    JSONArray cityObj = jsonObject.getJSONArray("HotelCityName");
-                    for (int i =0; i<cityObj.length(); i++)
-                    {
-                        JSONObject object = cityObj.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                        String CityName = object.getString("CityName");
-                        String CityID = object.getString("CityID");
-
-                        cityList.add(new CabCityModel(CityName,CityID));
-
-
-                    }
-
-
-                    if (hotelList.size()>0)
-                    {
-                        hotelList.clear();
-                    }
-                    hotelList.add(new HotelNameModel("Please Select Hotel",""));
-                    JSONArray hotelObj = jsonObject.getJSONArray("HotelName");
-                    for (int k = 0; k<hotelObj.length(); k++)
-                    {
-                        JSONObject object = hotelObj.getJSONObject(k);
-
-                        String HotelType = object.getString("HotelName");
-                        String HotelTypeID = object.getString("HotelID");
-
-                        hotelList.add(new HotelNameModel(HotelType,HotelTypeID));
-                    }
-
-                    //Edit case
-                    for (int k =0; k<hotelList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("Edit"))
+                        JSONArray cityObj = jsonObject.getJSONArray("HotelCityName");
+                        for (int i =0; i<cityObj.length(); i++)
                         {
-                            if (hotelList.get(k).getHotelName().equalsIgnoreCase(hotelNameStr))
+                            JSONObject object = cityObj.getJSONObject(i);
+
+                            String CityName = object.getString("CityName");
+                            String CityID = object.getString("CityID");
+
+                            cityList.add(new CabCityModel(CityName,CityID));
+
+
+                        }
+
+
+                        if (hotelList.size()>0)
+                        {
+                            hotelList.clear();
+                        }
+                        hotelList.add(new HotelNameModel("Please Select Hotel",""));
+                        JSONArray hotelObj = jsonObject.getJSONArray("HotelName");
+                        for (int k = 0; k<hotelObj.length(); k++)
+                        {
+                            JSONObject object = hotelObj.getJSONObject(k);
+
+                            String HotelType = object.getString("HotelName");
+                            String HotelTypeID = object.getString("HotelID");
+
+                            hotelList.add(new HotelNameModel(HotelType,HotelTypeID));
+                        }
+
+                        //Edit case
+                        for (int k =0; k<hotelList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("Edit"))
                             {
-                                hotelSpinner.setSelection(k);
-                                hotelId = hotelList.get(k).getHotelId();
-                                actionMode = "add";
+                                if (hotelList.get(k).getHotelName().equalsIgnoreCase(hotelNameStr))
+                                {
+                                    hotelSpinner.setSelection(k);
+                                    hotelId = hotelList.get(k).getHotelId();
+                                    actionMode = "add";
+                                }
                             }
                         }
-                    }
 
-                    //Hotel Name
+                        //Hotel Name
 
-                    for (int k =0; k<cityList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("Edit"))
+                        for (int k =0; k<cityList.size(); k++)
                         {
-                            if (cityList.get(k).getCityName().equalsIgnoreCase(cityOfNameStr))
+                            if (actionMode.equalsIgnoreCase("Edit"))
                             {
-                                cityofBookingSpinner.setSelection(k);
-                                hotelCityId = cityList.get(k).getCityId();
-                               // hotelNameANDCity(hotelCityId,"");
+                                if (cityList.get(k).getCityName().equalsIgnoreCase(cityOfNameStr))
+                                {
+                                    cityofBookingSpinner.setSelection(k);
+                                    hotelCityId = cityList.get(k).getCityId();
+                                    // hotelNameANDCity(hotelCityId,"");
+                                }
                             }
                         }
                     }
@@ -725,6 +754,44 @@ public class AddHotelActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddHotelActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddHotelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddHotelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddHotelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddHotelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddHotelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddHotelActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddHotelActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddHotelActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddHotelActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

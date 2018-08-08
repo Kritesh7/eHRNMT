@@ -42,5 +42,6 @@ public class SettingConstant {
     protected static final String CompanLogo = "CompanLogo";
     protected static final String CurrentLat = "CurrentLat";
     protected  static  final String CurrentLang ="CurrentLang";
+    protected static final String InOutStatus="InOutStatus";
 
 }

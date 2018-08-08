@@ -86,6 +86,10 @@ public class AttendanceLogListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public AttendanceLogListFragment() {
         // Required empty public constructor
     }
@@ -124,7 +128,7 @@ public class AttendanceLogListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_attendance_log_list, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
@@ -136,10 +140,10 @@ public class AttendanceLogListFragment extends Fragment {
 
         conn = new ConnectionDetector(getActivity());
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new AttendanceLogListAdapter(getActivity(),list, getActivity());
+        adapter = new AttendanceLogListAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         attendanceLogRecy.setLayoutManager(mLayoutManager);
         attendanceLogRecy.setItemAnimator(new DefaultItemAnimator());
@@ -183,15 +187,13 @@ public class AttendanceLogListFragment extends Fragment {
                                 Log.e("checking,............", sdf + " null");
                                 calTxt.setText(dayOfMonth + "-" + sdf + "-" + year);
 
-                                attendaceList(authCode,userId,dayOfMonth + "-" + sdf + "-" + year);
+                                attendaceList(authCode, userId, dayOfMonth + "-" + sdf + "-" + year);
 
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }
         });
-
-
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -211,11 +213,9 @@ public class AttendanceLogListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //List Bind
-        if (conn.getConnectivityStatus()>0)
-        {
-            attendaceList(authCode,userId,getCurrentTime());
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            attendaceList(authCode, userId, getCurrentTime());
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -234,9 +234,9 @@ public class AttendanceLogListFragment extends Fragment {
     }
 
     //Attendace List
-    public void attendaceList(final String AuthCode , final String AdminID, final String LogDate) {
+    public void attendaceList(final String AuthCode, final String AdminID, final String LogDate) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -247,20 +247,23 @@ public class AttendanceLogListFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
-                        }else{
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
 
                             String UserName = jsonObject.getString("UserName");
                             String EmpID = jsonObject.getString("EmpID");
@@ -276,19 +279,17 @@ public class AttendanceLogListFragment extends Fragment {
                             String ApprovalDateText = jsonObject.getString("ApprovalDateText");
                             String ApprovedBy = jsonObject.getString("ApprovedBy");
 
-                            list.add(new AttendanceLogDetailsModel(UserName,EmpID,DesignationName,LogTime,LogDateText,LogTypeText
-                                    ,LocationAddress,Remark,LocationPhoto,ZoneName,ApprovalStatusText,ApprovalDateText,ApprovedBy));
+                            list.add(new AttendanceLogDetailsModel(UserName, EmpID, DesignationName, LogTime, LogDateText, LogTypeText
+                                    , LocationAddress, Remark, LocationPhoto, ZoneName, ApprovalStatusText, ApprovalDateText, ApprovedBy));
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         attendanceLogRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         attendanceLogRecy.setVisibility(View.VISIBLE);
                     }
@@ -297,7 +298,7 @@ public class AttendanceLogListFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -312,16 +313,14 @@ public class AttendanceLogListFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
-                params.put("LogDate",LogDate);
-
-
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
+                params.put("LogDate", LogDate);
 
 
                 Log.e("Parms", params.toString());

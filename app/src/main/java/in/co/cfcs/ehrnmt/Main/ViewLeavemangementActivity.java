@@ -43,6 +43,10 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
     public ConnectionDetector conn;
     public String userId = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,79 +140,84 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ViewLeavemangementActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String StartDateText = jsonObject.getString("StartDateText");
+                            String EndDateText = jsonObject.getString("EndDateText");
+                            String Noofdays = jsonObject.getString("Noofdays");
+                            String AppliedDate = jsonObject.getString("AppliedDate");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String ManagerComment = jsonObject.getString("ManagerComment");
+                            String ManagerDateText = jsonObject.getString("ManagerDateText");
+                            String HRComment = jsonObject.getString("HRComment");
+                            String HRDateText = jsonObject.getString("HRDateText");
+                            String Remark = jsonObject.getString("Comments");
+                            String EmpRemark = jsonObject.getString("Remark");
+                            String ManagerRemark = jsonObject.getString("ManagerRemark");
+                            String HRRemark = jsonObject.getString("HRRemark");
+
+
+                            if (EmpRemark.equalsIgnoreCase("null") || EmpRemark.equalsIgnoreCase(""))
+                            {
+                                cancelationRemarkByEmp.setVisibility(View.GONE);
+                                text1.setVisibility(View.GONE);
+                            }else
+                            {
+                                cancelationRemarkByEmp.setVisibility(View.VISIBLE);
+                                text1.setVisibility(View.VISIBLE);
+                                cancelationRemarkByEmp.setText(EmpRemark);
+                            }
+
+
+                            if (ManagerRemark.equalsIgnoreCase("null") || ManagerRemark.equalsIgnoreCase(""))
+                            {
+                                cancelationRemarkByMng.setVisibility(View.GONE);
+                                text2.setVisibility(View.GONE);
+                            }else
+                            {
+                                cancelationRemarkByMng.setVisibility(View.VISIBLE);
+                                text2.setVisibility(View.VISIBLE);
+                                cancelationRemarkByMng.setText(ManagerRemark);
+
+                            }
+                            if (HRRemark.equalsIgnoreCase("null") || HRRemark.equalsIgnoreCase(""))
+                            {
+                                cancelationRemarkByHr.setVisibility(View.GONE);
+                                text3.setVisibility(View.GONE);
+                            }else
+                            {
+                                cancelationRemarkByHr.setVisibility(View.VISIBLE);
+                                text3.setVisibility(View.VISIBLE);
+                                cancelationRemarkByHr.setText(HRRemark);
+                            }
+
+
+
+
+                            leaveTypeTxt.setText(LeaveTypeName);
+                            startDateTxt.setText(StartDateText);
+                            endDateTxt.setText(EndDateText);
+                            numberofDaysTxt.setText(Noofdays);
+                            appliedOnTxt.setText(AppliedDate);
+                            statusTxt.setText(StatusText);
+                            commentByMangerTxt.setText(ManagerComment);
+                            managerCommentedOn.setText(ManagerDateText);
+                            commentByHrTxt.setText(HRComment);
+                            hrCommentedOnTxt.setText(HRDateText);
+                            empRemarkTxt.setText(Remark);
+
 
                         }
-
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String StartDateText = jsonObject.getString("StartDateText");
-                        String EndDateText = jsonObject.getString("EndDateText");
-                        String Noofdays = jsonObject.getString("Noofdays");
-                        String AppliedDate = jsonObject.getString("AppliedDate");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String ManagerComment = jsonObject.getString("ManagerComment");
-                        String ManagerDateText = jsonObject.getString("ManagerDateText");
-                        String HRComment = jsonObject.getString("HRComment");
-                        String HRDateText = jsonObject.getString("HRDateText");
-                        String Remark = jsonObject.getString("Comments");
-                        String EmpRemark = jsonObject.getString("Remark");
-                        String ManagerRemark = jsonObject.getString("ManagerRemark");
-                        String HRRemark = jsonObject.getString("HRRemark");
-
-
-                        if (EmpRemark.equalsIgnoreCase("null") || EmpRemark.equalsIgnoreCase(""))
-                        {
-                            cancelationRemarkByEmp.setVisibility(View.GONE);
-                            text1.setVisibility(View.GONE);
-                        }else
-                        {
-                            cancelationRemarkByEmp.setVisibility(View.VISIBLE);
-                            text1.setVisibility(View.VISIBLE);
-                            cancelationRemarkByEmp.setText(EmpRemark);
-                        }
-
-
-                        if (ManagerRemark.equalsIgnoreCase("null") || ManagerRemark.equalsIgnoreCase(""))
-                        {
-                            cancelationRemarkByMng.setVisibility(View.GONE);
-                            text2.setVisibility(View.GONE);
-                        }else
-                        {
-                            cancelationRemarkByMng.setVisibility(View.VISIBLE);
-                            text2.setVisibility(View.VISIBLE);
-                            cancelationRemarkByMng.setText(ManagerRemark);
-
-                        }
-                        if (HRRemark.equalsIgnoreCase("null") || HRRemark.equalsIgnoreCase(""))
-                        {
-                            cancelationRemarkByHr.setVisibility(View.GONE);
-                            text3.setVisibility(View.GONE);
-                        }else
-                        {
-                            cancelationRemarkByHr.setVisibility(View.VISIBLE);
-                            text3.setVisibility(View.VISIBLE);
-                            cancelationRemarkByHr.setText(HRRemark);
-                        }
-
-
-
-
-                        leaveTypeTxt.setText(LeaveTypeName);
-                        startDateTxt.setText(StartDateText);
-                        endDateTxt.setText(EndDateText);
-                        numberofDaysTxt.setText(Noofdays);
-                        appliedOnTxt.setText(AppliedDate);
-                        statusTxt.setText(StatusText);
-                        commentByMangerTxt.setText(ManagerComment);
-                        managerCommentedOn.setText(ManagerDateText);
-                        commentByHrTxt.setText(HRComment);
-                        hrCommentedOnTxt.setText(HRDateText);
-                        empRemarkTxt.setText(Remark);
-
-
                     }
 
                     pDialog.dismiss();
@@ -257,6 +266,44 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewLeavemangementActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewLeavemangementActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewLeavemangementActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewLeavemangementActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewLeavemangementActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewLeavemangementActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewLeavemangementActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewLeavemangementActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewLeavemangementActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewLeavemangementActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

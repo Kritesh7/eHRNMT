@@ -55,6 +55,10 @@ public class ManagerMedicalActivity extends AppCompatActivity {
     public String userId = "",authCode = "";
     public TextView noCust ;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,10 +149,15 @@ public class ManagerMedicalActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerMedicalActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
 
                             String Name = jsonObject.getString("Name");

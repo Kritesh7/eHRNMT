@@ -2,6 +2,7 @@ package in.co.cfcs.ehrnmt.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
 import in.co.cfcs.ehrnmt.Source.ConnectionDetector;
@@ -51,13 +53,17 @@ public class ChnagePasswordFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public EditText nameTxt,emailidTxt,oldPass,newPass,confirmPass;
+    public EditText nameTxt, emailidTxt, oldPass, newPass, confirmPass;
     public Button chngBtn;
-    public String authCodeString = "",nameTxtString = "",emailIdTxtString = "",userIdString = "";
+    public String authCodeString = "", nameTxtString = "", emailIdTxtString = "", userIdString = "";
     public ConnectionDetector conn;
     public String changePassUrl = SettingConstant.BASEURL_FOR_LOGIN + "AppUserChangePassword";
 
     private OnFragmentInteractionListener mListener;
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     public ChnagePasswordFragment() {
         // Required empty public constructor
@@ -97,16 +103,16 @@ public class ChnagePasswordFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_employ_data, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        nameTxt = (EditText)rootView.findViewById(R.id.name_txt);
+        nameTxt = (EditText) rootView.findViewById(R.id.name_txt);
         emailidTxt = (EditText) rootView.findViewById(R.id.emailid);
         oldPass = (EditText) rootView.findViewById(R.id.oldpass);
         newPass = (EditText) rootView.findViewById(R.id.newpass);
-        confirmPass = (EditText)rootView.findViewById(R.id.confirmpass);
-        chngBtn = (Button)rootView.findViewById(R.id.changepass);
+        confirmPass = (EditText) rootView.findViewById(R.id.confirmpass);
+        chngBtn = (Button) rootView.findViewById(R.id.changepass);
 
         nameTxt.setFocusable(false);
         nameTxt.setEnabled(false);
@@ -114,7 +120,7 @@ public class ChnagePasswordFragment extends Fragment {
         emailidTxt.setFocusable(false);
         emailidTxt.setEnabled(false);
 
-        authCodeString =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        authCodeString = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
         userIdString = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
         nameTxtString = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getUserName(getActivity())));
         emailIdTxtString = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getEmailId(getActivity())));
@@ -127,26 +133,20 @@ public class ChnagePasswordFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (oldPass.getText().toString().equalsIgnoreCase(""))
-                {
+                if (oldPass.getText().toString().equalsIgnoreCase("")) {
                     oldPass.setError("Please enter valid old password");
-                }else if (newPass.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (newPass.getText().toString().equalsIgnoreCase("")) {
                     newPass.setError("Please enter valid new password");
-                }
-                else if (!confirmPass.getText().toString().equalsIgnoreCase(newPass.getText().toString()))
-                {
+                } else if (!confirmPass.getText().toString().equalsIgnoreCase(newPass.getText().toString())) {
                     confirmPass.setError("New password and confirm password is not match");
-                }else
-                    {
-                        if (conn.getConnectivityStatus()>0) {
+                } else {
+                    if (conn.getConnectivityStatus() > 0) {
 
-                            changePasswordApi(userIdString, oldPass.getText().toString(), newPass.getText().toString(), authCodeString);
-                        }else
-                            {
-                                conn.showNoInternetAlret();
-                            }
+                        changePasswordApi(userIdString, oldPass.getText().toString(), newPass.getText().toString(), authCodeString);
+                    } else {
+                        conn.showNoInternetAlret();
                     }
+                }
 
             }
         });
@@ -155,9 +155,9 @@ public class ChnagePasswordFragment extends Fragment {
     }
 
 
-    public void changePasswordApi(final String UserID  , final String OldPassword, final String NewPassword ,
-                                  final String AuthCode ) {
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+    public void changePasswordApi(final String UserID, final String OldPassword, final String NewPassword,
+                                  final String AuthCode) {
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -168,16 +168,20 @@ public class ChnagePasswordFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }
 
                     }
@@ -185,7 +189,7 @@ public class ChnagePasswordFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -200,14 +204,14 @@ public class ChnagePasswordFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("AdminID", UserID);
-                params.put("OldPassword",OldPassword);
-                params.put("NewPassword",NewPassword);
-                params.put("AuthCode",AuthCode);
+                params.put("OldPassword", OldPassword);
+                params.put("NewPassword", NewPassword);
+                params.put("AuthCode", AuthCode);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -269,5 +273,37 @@ public class ChnagePasswordFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+
+    private void Logout() {
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getActivity(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getActivity(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
+                "")));
+//
+//        Intent intent = new Intent(getContext(), LoginActivity.class);
+//        startActivity(intent);
+
+
     }
 }

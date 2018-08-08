@@ -261,4 +261,19 @@ public class SharedPrefs
     }
 
 
+
+    public static String getInOutStatus(Context context)
+    {
+        SharedPreferences sp = getSetting(context);
+        return  sp.getString(SettingConstant.InOutStatus, null);
+    }
+    public static boolean setInOutStatus(Context context, String authKey)
+    {
+        SharedPreferences sp = getSetting(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(SettingConstant.InOutStatus, authKey);
+        return editor.commit();
+    }
+
+
 }

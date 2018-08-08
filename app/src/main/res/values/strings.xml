@@ -97,4 +97,10 @@
     </string>
     <string name="title_activity_manager_proceed_traning_list">ManagerProceedTraningListActivity
     </string>
+
+    <string name="youAreNotUpdatedTitle">Update Available</string>
+    <string name="youAreNotUpdatedMessage">A new version of EService Customer is available. Please update to version\s</string>
+    <string name="youAreNotUpdatedMessage1">\ now</string>
+    <string name="update1">Update</string>
+
 </resources>

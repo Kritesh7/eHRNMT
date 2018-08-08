@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +61,10 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
     public String userid = "", authCode = "", mgrId = "", type = "",MsgNotification = "", userName = "", compId = "";
     public Button subBtn ;
     public EditText commentTxt;
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,23 +285,17 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ApplyShortLeaveActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if (jsonObject.has("status"))
-                        {
-                            String status = jsonObject.getString("status");
-
-                            if (status.equalsIgnoreCase("success"))
-                            {
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else  if (LoginStatus.equalsIgnoreCase("success")) {
                                 onBackPressed();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }else if (LoginStatus.equalsIgnoreCase("popup")){
 
-                            }else if (status.equalsIgnoreCase("popup"))
-                            {
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                                         ApplyShortLeaveActivity.this);
 
@@ -340,8 +339,73 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                                 // show it
                                 alertDialog.show();
 
+
                             }
                         }
+
+//
+//                        if (jsonObject.has("MsgNotification"))
+//                        {
+//                            MsgNotification = jsonObject.getString("MsgNotification");
+//                            Toast.makeText(ApplyShortLeaveActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+//
+//                        }
+//
+//                        if (jsonObject.has("status"))
+//                        {
+//                            String status = jsonObject.getString("status");
+//
+//                            if (status.equalsIgnoreCase("success"))
+//                            {
+//                                onBackPressed();
+//
+//                            }else if (status.equalsIgnoreCase("popup"))
+//                            {
+//                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+//                                        ApplyShortLeaveActivity.this);
+//
+//                                alertDialogBuilder.setCancelable(false);
+//
+//                                // set dialog message
+//                                alertDialogBuilder
+//                                        .setTitle("Short Leave Status")
+//                                        .setMessage(MsgNotification)
+//                                        .setCancelable(false)
+//                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//
+//
+//                                                dialog.dismiss();
+//
+//                                            }
+//                                        })
+//                                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int id) {
+//
+//
+//                                                if (conn.getConnectivityStatus()>0)
+//                                                {
+//                                                    applyShortLeave(userid,type,authCode,mgrId,dateTxt.getText().toString(),fromTimeTxt.getText().toString(),
+//                                                            toTimeTxt.getText().toString(),commentTxt.getText().toString(),"1",compId,userName);
+//
+//                                                }else
+//                                                {
+//                                                    conn.showNoInternetAlret();
+//                                                }
+//
+//                                            }
+//                                        });
+//
+//
+//                                // create alert dialog
+//                                AlertDialog alertDialog = alertDialogBuilder.create();
+//
+//                                // show it
+//                                alertDialog.show();
+//
+//                            }
+//                        }
 
 
                     }
@@ -397,6 +461,44 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ApplyShortLeaveActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ApplyShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ApplyShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ApplyShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ApplyShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ApplyShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ApplyShortLeaveActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ApplyShortLeaveActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ApplyShortLeaveActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ApplyShortLeaveActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

@@ -71,6 +71,10 @@ public class PreviousExprienceFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public PreviousExprienceFragment() {
         // Required empty public constructor
     }
@@ -225,51 +229,65 @@ public class PreviousExprienceFragment extends Fragment {
                     {
                         list.clear();
                     }
-                    JSONArray jsonArray = jsonObject.getJSONArray("List");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        String CompName = object.getString("CompName");
-                        String Designation = object.getString("Designation");
-                        String JoiningDate = object.getString("JoiningDate");
-                        String JobPeriod = object.getString("JobPeriod");
-                        String JobDesc = object.getString("JobDesc");
-                        String editable = object.getString("editable");
-                        String Deleteable = object.getString("Deleteable");
-                        String Status = object.getString("Status");
-                        String Comments = object.getString("Comments");
-                        String RecordID = object.getString("RecordID");
-                        String RelievingDate = object.getString("RelievingDate");
-                        String JobPeriodYear = object.getString("JobPeriodYear");
-                        String JobPeriodMonth = object.getString("JobPeriodMonth");
+
+
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("List");
+                        for (int i=0 ; i<jsonArray.length();i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String CompName = object.getString("CompName");
+                            String Designation = object.getString("Designation");
+                            String JoiningDate = object.getString("JoiningDate");
+                            String JobPeriod = object.getString("JobPeriod");
+                            String JobDesc = object.getString("JobDesc");
+                            String editable = object.getString("editable");
+                            String Deleteable = object.getString("Deleteable");
+                            String Status = object.getString("Status");
+                            String Comments = object.getString("Comments");
+                            String RecordID = object.getString("RecordID");
+                            String RelievingDate = object.getString("RelievingDate");
+                            String JobPeriodYear = object.getString("JobPeriodYear");
+                            String JobPeriodMonth = object.getString("JobPeriodMonth");
 
 
 
 
-                        list.add(new PreviousExpreinceModel(CompName,JoiningDate,JobDesc,JobPeriod,Designation,editable,Deleteable,
-                                Status,Comments,RecordID,RelievingDate,JobPeriodYear,JobPeriodMonth));
+                            list.add(new PreviousExpreinceModel(CompName,JoiningDate,JobDesc,JobPeriod,Designation,editable,Deleteable,
+                                    Status,Comments,RecordID,RelievingDate,JobPeriodYear,JobPeriodMonth));
 
 
 
-                    }
+                        }
 
-                    JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k=0; k<statusArray.length(); k++)
-                    {
-                        JSONObject obj = statusArray.getJSONObject(k);
-                        IsAddPreviousExperience = obj.getString("IsAddPreviousExperience");
+                        JSONArray statusArray = jsonObject.getJSONArray("Status");
+                        for (int k=0; k<statusArray.length(); k++)
+                        {
+                            JSONObject obj = statusArray.getJSONObject(k);
+                            IsAddPreviousExperience = obj.getString("IsAddPreviousExperience");
 
 
-                    }
+                        }
 
-                    if (list.size() == 0)
-                    {
-                        noCust.setVisibility(View.VISIBLE);
-                        prevoisExpRecy.setVisibility(View.GONE);
-                    }else
-                    {
-                        noCust.setVisibility(View.GONE);
-                        prevoisExpRecy.setVisibility(View.VISIBLE);
+                        if (list.size() == 0)
+                        {
+                            noCust.setVisibility(View.VISIBLE);
+                            prevoisExpRecy.setVisibility(View.GONE);
+                        }else
+                        {
+                            noCust.setVisibility(View.GONE);
+                            prevoisExpRecy.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     adapter.notifyDataSetChanged();
@@ -278,7 +296,7 @@ public class PreviousExprienceFragment extends Fragment {
                 } catch (JSONException e) {
                     Log.e("checking json excption" , e.getMessage());
                     e.printStackTrace();
-                    Logout();
+
                 }
             }
         }, new Response.ErrorListener() {

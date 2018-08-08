@@ -71,6 +71,10 @@ public class ContactsDetailsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public ContactsDetailsFragment() {
         // Required empty public constructor
     }
@@ -193,39 +197,53 @@ public class ContactsDetailsFragment extends Fragment {
                         list.clear();
                     }
 
-                    JSONArray jsonArray = jsonObject.getJSONArray("AddressList");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        String Type = object.getString("Type");
-                        String Address = object.getString("Address");
-                        String City = object.getString("City");
-                        String State = object.getString("State");
-                        String PostCode = object.getString("PostCode");
-                        String CountryName = object.getString("CountryName");
-                        String LastUpdated = object.getString("LastUpdated");
-                        String RecordID = object.getString("RecordID");
-
-                        list.add(new ContactModel(Type , Address ,City,State,PostCode,CountryName,LastUpdated,RecordID));
-
-                    }
-                    
-                    JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k =0; k<statusArray.length(); k++)
-                    {
-                        JSONObject obj = statusArray.getJSONObject(k);
-                        
-                        IsAddAddressDetail = obj.getString("IsAddAddressDetail");
-                        IsVisibilityAdd = obj.getString("IsVisibilityAdd");
-
-                        if (IsVisibilityAdd.equalsIgnoreCase("3"))
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray jsonArray = jsonObject.getJSONArray("AddressList");
+                        for (int i=0 ; i<jsonArray.length();i++)
                         {
-                            fab.setVisibility(View.GONE);
-                        }else
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String Type = object.getString("Type");
+                            String Address = object.getString("Address");
+                            String City = object.getString("City");
+                            String State = object.getString("State");
+                            String PostCode = object.getString("PostCode");
+                            String CountryName = object.getString("CountryName");
+                            String LastUpdated = object.getString("LastUpdated");
+                            String RecordID = object.getString("RecordID");
+
+                            list.add(new ContactModel(Type , Address ,City,State,PostCode,CountryName,LastUpdated,RecordID));
+
+                        }
+
+                        JSONArray statusArray = jsonObject.getJSONArray("Status");
+                        for (int k =0; k<statusArray.length(); k++)
+                        {
+                            JSONObject obj = statusArray.getJSONObject(k);
+
+                            IsAddAddressDetail = obj.getString("IsAddAddressDetail");
+                            IsVisibilityAdd = obj.getString("IsVisibilityAdd");
+
+                            if (IsVisibilityAdd.equalsIgnoreCase("3"))
+                            {
+                                fab.setVisibility(View.GONE);
+                            }else
                             {
                                 fab.setVisibility(View.VISIBLE);
                             }
+                        }
+
+
                     }
+
 
                     if (list.size() == 0)
                     {
@@ -244,7 +262,7 @@ public class ContactsDetailsFragment extends Fragment {
                 } catch (JSONException e) {
                     Log.e("checking json excption" , e.getMessage());
                     e.printStackTrace();
-                    Logout();
+                   // Logout();
                 }
             }
         }, new Response.ErrorListener() {
@@ -252,7 +270,6 @@ public class ContactsDetailsFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("Login", "Error: " + error.getMessage());
                 // Log.e("checking now ",error.getMessage());
-
                 Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
 

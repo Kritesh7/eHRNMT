@@ -35,12 +35,15 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
 
-    public TextView titleTxt, leaveTypeTxt, empNameTxt,empIdTxt, timeFromTxt, timeToTxt, appliedDateTxt,noOfHoursTxt,statusTxt,
-                    empCommentTxt, managerNameTxt, managerApprovedDateTxt, managerCommentTxt, hrApprovedDateTxt, hrCommentTxt
-            ,shortLeaveDateTxt, cancelationRemarkByEmp, cancelationRemarkByMng, cancelationRemarkByHr, text1, text2, text3;
+    public TextView titleTxt, leaveTypeTxt, empNameTxt, empIdTxt, timeFromTxt, timeToTxt, appliedDateTxt, noOfHoursTxt, statusTxt,
+            empCommentTxt, managerNameTxt, managerApprovedDateTxt, managerCommentTxt, hrApprovedDateTxt, hrCommentTxt, shortLeaveDateTxt, cancelationRemarkByEmp, cancelationRemarkByMng, cancelationRemarkByHr, text1, text2, text3;
     public ConnectionDetector conn;
-    public String LeaveApplication_Id = "",authCode = "", userId = "";
+    public String LeaveApplication_Id = "", authCode = "", userId = "";
     public String viewDetailsUrl = SettingConstant.BaseUrl + "AppEmployeeShortLeaveDetail";
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +59,11 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.viewleavtoolbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -76,29 +79,28 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
         titleTxt.setText("Short Leave Details");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             LeaveApplication_Id = intent.getStringExtra("LeaveApplication_Id");
         }
 
         conn = new ConnectionDetector(ViewShortLeaveHistoryActivity.this);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewShortLeaveHistoryActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewShortLeaveHistoryActivity.this)));
         userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ViewShortLeaveHistoryActivity.this)));
 
-        leaveTypeTxt = (TextView)findViewById(R.id.short_leavetype);
-        empNameTxt = (TextView)findViewById(R.id.short_emplyname);
-        empIdTxt = (TextView)findViewById(R.id.short_emp_id);
-        timeFromTxt = (TextView)findViewById(R.id.short_timefrom);
-        timeToTxt = (TextView)findViewById(R.id.short_timeto);
-        appliedDateTxt = (TextView)findViewById(R.id.short_applieddate);
-        noOfHoursTxt = (TextView)findViewById(R.id.short_no_of_hour);
-        statusTxt = (TextView)findViewById(R.id.short_status);
-        empCommentTxt = (TextView)findViewById(R.id.short_employcomment);
-        managerNameTxt = (TextView)findViewById(R.id.short_ManagerName);
-        managerApprovedDateTxt = (TextView)findViewById(R.id.short_manager_approved_date);
-        managerCommentTxt = (TextView)findViewById(R.id.short_managercomment);
-        hrApprovedDateTxt = (TextView)findViewById(R.id.short_hrapproved_date);
-        hrCommentTxt = (TextView)findViewById(R.id.short_hr_comment);
+        leaveTypeTxt = (TextView) findViewById(R.id.short_leavetype);
+        empNameTxt = (TextView) findViewById(R.id.short_emplyname);
+        empIdTxt = (TextView) findViewById(R.id.short_emp_id);
+        timeFromTxt = (TextView) findViewById(R.id.short_timefrom);
+        timeToTxt = (TextView) findViewById(R.id.short_timeto);
+        appliedDateTxt = (TextView) findViewById(R.id.short_applieddate);
+        noOfHoursTxt = (TextView) findViewById(R.id.short_no_of_hour);
+        statusTxt = (TextView) findViewById(R.id.short_status);
+        empCommentTxt = (TextView) findViewById(R.id.short_employcomment);
+        managerNameTxt = (TextView) findViewById(R.id.short_ManagerName);
+        managerApprovedDateTxt = (TextView) findViewById(R.id.short_manager_approved_date);
+        managerCommentTxt = (TextView) findViewById(R.id.short_managercomment);
+        hrApprovedDateTxt = (TextView) findViewById(R.id.short_hrapproved_date);
+        hrCommentTxt = (TextView) findViewById(R.id.short_hr_comment);
         shortLeaveDateTxt = (TextView) findViewById(R.id.short_leavedate);
         cancelationRemarkByEmp = (TextView) findViewById(R.id.short_cancelationremarkbyname);
         cancelationRemarkByMng = (TextView) findViewById(R.id.short_cancelationremarkbymanager);
@@ -108,20 +110,18 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
         text3 = (TextView) findViewById(R.id.text3);
 
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            viewDetails(authCode,LeaveApplication_Id,userId);
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            viewDetails(authCode, LeaveApplication_Id, userId);
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //view Details Api
-    public void viewDetails(final String AuthCode , final String LeaveApplicationID, final String userId ) {
+    public void viewDetails(final String AuthCode, final String LeaveApplicationID, final String userId) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(ViewShortLeaveHistoryActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ViewShortLeaveHistoryActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -132,100 +132,98 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ViewShortLeaveHistoryActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
 
-                        }
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String FullName = jsonObject.getString("FullName");
+                            String EmpID = jsonObject.getString("EmpID");
+                            String TimeFrom = jsonObject.getString("TimeFrom");
+                            String TimeTo = jsonObject.getString("TimeTo");
+                            String AppliedDateText = jsonObject.getString("AppliedDateText");
+                            String StatusText = jsonObject.getString("StatusText");
+                            String Comment = jsonObject.getString("Comment");
+                            String TotalMinute = jsonObject.getString("TotalMinute");
+                            String FullNameManager = jsonObject.getString("FullNameManager");
+                            String ManagerDateText = jsonObject.getString("ManagerDateText");
+                            String ManagerComment = jsonObject.getString("ManagerComment");
+                            String HRDateText = jsonObject.getString("HRDateText");
+                            String HRComment = jsonObject.getString("HRComment");
+                            String leaveDate = jsonObject.getString("StartDateText");
+                            String Remark = jsonObject.getString("Remark");
+                            String ManagerRemark = jsonObject.getString("ManagerRemark");
+                            String HRRemark = jsonObject.getString("HRRemark");
 
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
-                        String FullName = jsonObject.getString("FullName");
-                        String EmpID = jsonObject.getString("EmpID");
-                        String TimeFrom = jsonObject.getString("TimeFrom");
-                        String TimeTo = jsonObject.getString("TimeTo");
-                        String AppliedDateText = jsonObject.getString("AppliedDateText");
-                        String StatusText = jsonObject.getString("StatusText");
-                        String Comment = jsonObject.getString("Comment");
-                        String TotalMinute = jsonObject.getString("TotalMinute");
-                        String FullNameManager = jsonObject.getString("FullNameManager");
-                        String ManagerDateText = jsonObject.getString("ManagerDateText");
-                        String ManagerComment = jsonObject.getString("ManagerComment");
-                        String HRDateText = jsonObject.getString("HRDateText");
-                        String HRComment = jsonObject.getString("HRComment");
-                        String leaveDate = jsonObject.getString("StartDateText");
-                        String Remark = jsonObject.getString("Remark");
-                        String ManagerRemark = jsonObject.getString("ManagerRemark");
-                        String HRRemark = jsonObject.getString("HRRemark");
+                            int min = Integer.parseInt(TotalMinute);
 
-                        int min = Integer.parseInt(TotalMinute);
+                            int hours = min / 60; //since both are ints, you get an int
+                            int minutes = min % 60;
 
-                        int hours = min / 60; //since both are ints, you get an int
-                        int minutes = min % 60;
-
-                        if (Remark.equalsIgnoreCase("null") || Remark.equalsIgnoreCase(""))
-                        {
-                            cancelationRemarkByEmp.setVisibility(View.GONE);
-                            text1.setVisibility(View.GONE);
-                        }else
-                            {
+                            if (Remark.equalsIgnoreCase("null") || Remark.equalsIgnoreCase("")) {
+                                cancelationRemarkByEmp.setVisibility(View.GONE);
+                                text1.setVisibility(View.GONE);
+                            } else {
                                 cancelationRemarkByEmp.setVisibility(View.VISIBLE);
                                 text1.setVisibility(View.VISIBLE);
                                 cancelationRemarkByEmp.setText(Remark);
                             }
 
 
-                            if (ManagerRemark.equalsIgnoreCase("null") || ManagerRemark.equalsIgnoreCase(""))
-                            {
+                            if (ManagerRemark.equalsIgnoreCase("null") || ManagerRemark.equalsIgnoreCase("")) {
                                 cancelationRemarkByMng.setVisibility(View.GONE);
                                 text2.setVisibility(View.GONE);
-                            }else
-                                {
-                                    cancelationRemarkByMng.setVisibility(View.VISIBLE);
-                                    text2.setVisibility(View.VISIBLE);
-                                    cancelationRemarkByMng.setText(ManagerRemark);
+                            } else {
+                                cancelationRemarkByMng.setVisibility(View.VISIBLE);
+                                text2.setVisibility(View.VISIBLE);
+                                cancelationRemarkByMng.setText(ManagerRemark);
 
-                                }
-                                if (HRRemark.equalsIgnoreCase("null") || HRRemark.equalsIgnoreCase(""))
-                                {
-                                    cancelationRemarkByHr.setVisibility(View.GONE);
-                                    text3.setVisibility(View.GONE);
-                                }else
-                                    {
-                                        cancelationRemarkByHr.setVisibility(View.VISIBLE);
-                                        text3.setVisibility(View.VISIBLE);
-                                        cancelationRemarkByHr.setText(HRRemark);
-                                    }
+                            }
+                            if (HRRemark.equalsIgnoreCase("null") || HRRemark.equalsIgnoreCase("")) {
+                                cancelationRemarkByHr.setVisibility(View.GONE);
+                                text3.setVisibility(View.GONE);
+                            } else {
+                                cancelationRemarkByHr.setVisibility(View.VISIBLE);
+                                text3.setVisibility(View.VISIBLE);
+                                cancelationRemarkByHr.setText(HRRemark);
+                            }
 
-                        leaveTypeTxt.setText(LeaveTypeName);
-                        empNameTxt.setText(FullName);
-                        empIdTxt.setText(EmpID);
-                        timeFromTxt.setText(TimeFrom);
-                        timeToTxt.setText(TimeTo);
-                        statusTxt.setText(StatusText);
-                        appliedDateTxt.setText(AppliedDateText);
-                        managerApprovedDateTxt.setText(ManagerDateText);
-                        hrCommentTxt.setText(HRComment);
-                        hrApprovedDateTxt.setText(HRDateText);
-                        empCommentTxt.setText(Comment);
-                        noOfHoursTxt.setText(hours + " h " + minutes + " m" );
-                        managerNameTxt.setText(FullNameManager);
-                        managerCommentTxt.setText(ManagerComment);
-                        shortLeaveDateTxt.setText(leaveDate);
+                            leaveTypeTxt.setText(LeaveTypeName);
+                            empNameTxt.setText(FullName);
+                            empIdTxt.setText(EmpID);
+                            timeFromTxt.setText(TimeFrom);
+                            timeToTxt.setText(TimeTo);
+                            statusTxt.setText(StatusText);
+                            appliedDateTxt.setText(AppliedDateText);
+                            managerApprovedDateTxt.setText(ManagerDateText);
+                            hrCommentTxt.setText(HRComment);
+                            hrApprovedDateTxt.setText(HRDateText);
+                            empCommentTxt.setText(Comment);
+                            noOfHoursTxt.setText(hours + " h " + minutes + " m");
+                            managerNameTxt.setText(FullNameManager);
+                            managerCommentTxt.setText(ManagerComment);
+                            shortLeaveDateTxt.setText(leaveDate);
 
 
+                        }
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -240,15 +238,14 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AuthCode",AuthCode);
-                params.put("LeaveApplicationID",LeaveApplicationID);
-                params.put("AdminID",userId);
-
+                params.put("AuthCode", AuthCode);
+                params.put("LeaveApplicationID", LeaveApplicationID);
+                params.put("AdminID", userId);
 
 
                 Log.e("Parms", params.toString());
@@ -272,5 +269,42 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
 
     }
 
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewShortLeaveHistoryActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewShortLeaveHistoryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewShortLeaveHistoryActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewShortLeaveHistoryActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewShortLeaveHistoryActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
+    }
 
 }

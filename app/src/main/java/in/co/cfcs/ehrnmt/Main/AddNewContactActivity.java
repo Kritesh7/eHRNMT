@@ -62,6 +62,10 @@ public class AddNewContactActivity extends AppCompatActivity {
     public String typeStr = "",authcode = "", userId = "", countryId = "", recordId = "", addressStr = "", cityStr = ""
             , state = "", countryNameStr = "", postalCodeStr = "", actionMode = "", addressTypeStr = "", stateStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -291,32 +295,42 @@ public class AddNewContactActivity extends AppCompatActivity {
                     }
 
                     countryList.add(new CountryModel("","Please select Country"));
-                    JSONArray countryObj = jsonObject.getJSONArray("CountryMaster");
-                    for (int i =0; i<countryObj.length(); i++)
-                    {
-                        JSONObject object = countryObj.getJSONObject(i);
 
-                        String CountryID = object.getString("CountryID");
-                        String CountryName = object.getString("CountryName");
-                        countryList.add(new CountryModel(CountryID,CountryName));
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                    }
-
-                    //Edit Option
-                    for (int k =0; k<countryList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                        JSONArray countryObj = jsonObject.getJSONArray("CountryMaster");
+                        for (int i =0; i<countryObj.length(); i++)
                         {
-                            if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNameStr))
+                            JSONObject object = countryObj.getJSONObject(i);
+
+                            String CountryID = object.getString("CountryID");
+                            String CountryName = object.getString("CountryName");
+                            countryList.add(new CountryModel(CountryID,CountryName));
+
+                        }
+
+                        //Edit Option
+                        for (int k =0; k<countryList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                countryId = countryList.get(k).getCountryId();
-                                countrySpinner.setSelection(k);
+                                if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNameStr))
+                                {
+                                    countryId = countryList.get(k).getCountryId();
+                                    countrySpinner.setSelection(k);
+                                }
                             }
                         }
                     }
-
-
-
 
                     countryAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
@@ -363,28 +377,19 @@ public class AddNewContactActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-
-                            Toast.makeText(AddNewContactActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")){
                             onBackPressed();
-                        }
 
-                        if (status.equalsIgnoreCase("failed"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-
-                            Toast.makeText(AddNewContactActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -440,6 +445,43 @@ public class AddNewContactActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddNewContactActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddNewContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddNewContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddNewContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddNewContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddNewContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddNewContactActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddNewContactActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddNewContactActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddNewContactActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

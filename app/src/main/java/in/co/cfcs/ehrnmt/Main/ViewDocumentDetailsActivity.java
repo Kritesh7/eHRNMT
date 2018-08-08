@@ -50,6 +50,10 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
     public Button updateDetails;
     public String stationoryUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryRequestDetail";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,26 +162,38 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
                     for (int i = 0; i < requestDetailsArray.length(); i++) {
                         JSONObject object = requestDetailsArray.getJSONObject(i);
 
-                        String EmpName = object.getString("EmpName");
-                        String AddDateText = object.getString("AddDateText");
-                        String AppBy = object.getString("ApprovedBy");
-                        String HrComment = object.getString("HrComment");
-                        String AppStatusText = object.getString("AppStatusText");
-                        IdealClosureDateText = object.getString("IdealClosureDateText");
-                        String Visibility = object.getString("Visibility");
-                        ridStr = object.getString("RID");
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            String EmpName = object.getString("EmpName");
+                            String AddDateText = object.getString("AddDateText");
+                            String AppBy = object.getString("ApprovedBy");
+                            String HrComment = object.getString("HrComment");
+                            String AppStatusText = object.getString("AppStatusText");
+                            IdealClosureDateText = object.getString("IdealClosureDateText");
+                            String Visibility = object.getString("Visibility");
+                            ridStr = object.getString("RID");
 
-                        closerDateTxt.setText(IdealClosureDateText);
-                        empNameTxt.setText(EmpName);
-                        requestByTxt.setText(AppBy);
-                        requestDateTxt.setText(AddDateText);
-                        hrCommentTxt.setText(HrComment);
-                        statusTxt.setText(AppStatusText);
+                            closerDateTxt.setText(IdealClosureDateText);
+                            empNameTxt.setText(EmpName);
+                            requestByTxt.setText(AppBy);
+                            requestDateTxt.setText(AddDateText);
+                            hrCommentTxt.setText(HrComment);
+                            statusTxt.setText(AppStatusText);
 
 
-                        if (HrComment.equalsIgnoreCase("")) {
-                            hrTxt.setVisibility(View.GONE);
-                            hrCommentTxt.setVisibility(View.GONE);
+                            if (HrComment.equalsIgnoreCase("")) {
+                                hrTxt.setVisibility(View.GONE);
+                                hrCommentTxt.setVisibility(View.GONE);
+                            }
+
                         }
 
 
@@ -268,6 +284,44 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewDocumentDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewDocumentDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewDocumentDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewDocumentDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewDocumentDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewDocumentDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewDocumentDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewDocumentDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewDocumentDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewDocumentDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

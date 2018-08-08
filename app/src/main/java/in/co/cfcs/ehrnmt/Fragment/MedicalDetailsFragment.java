@@ -73,6 +73,10 @@ public class MedicalDetailsFragment extends Fragment {
     public boolean flag = true;
     public ProgressDialog pDialog;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
     public MedicalDetailsFragment() {
         // Required empty public constructor
@@ -231,10 +235,15 @@ public class MedicalDetailsFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             BloodGroup = jsonObject.getString("BloodGroup");
                             String FamilyDoctorName = jsonObject.getString("FamilyDoctorName");
@@ -263,11 +272,6 @@ public class MedicalDetailsFragment extends Fragment {
                             }else {
                                 editAddBtn.setText("Edit Medical Details");
                             }
-
-
-
-
-
 
                         }
 
@@ -335,21 +339,33 @@ public class MedicalDetailsFragment extends Fragment {
                         bloodList.clear();
                     }
                     bloodList.add(new BloodGroupModel("","Please Select Blood Group"));
-                    JSONArray bloodGroupObj = jsonObject.getJSONArray("BloodGroupMaster");
-                    for (int i =0; i<bloodGroupObj.length(); i++)
-                    {
-                        JSONObject object = bloodGroupObj.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray bloodGroupObj = jsonObject.getJSONArray("BloodGroupMaster");
+                        for (int i =0; i<bloodGroupObj.length(); i++)
+                        {
+                            JSONObject object = bloodGroupObj.getJSONObject(i);
 
-                        String BloodGroupID = object.getString("BloodGroupID");
-                        String BloodGroupName = object.getString("BloodGroupName");
+                            String BloodGroupID = object.getString("BloodGroupID");
+                            String BloodGroupName = object.getString("BloodGroupName");
 
-                        bloodList.add(new BloodGroupModel(BloodGroupID,BloodGroupName));
+                            bloodList.add(new BloodGroupModel(BloodGroupID,BloodGroupName));
+
+                        }
+
+                        //Show all Medical Details Data
+                        getMedicalDetails(authCode,userId);
 
                     }
 
-
-                    //Show all Medical Details Data
-                    getMedicalDetails(authCode,userId);
 
 
                     adapter.notifyDataSetChanged();
@@ -397,14 +413,14 @@ public class MedicalDetailsFragment extends Fragment {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
-                           // String message =
-
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
                             getMedicalDetails(AuthCode,AdminID);
 
                             // disable all widget
@@ -418,10 +434,38 @@ public class MedicalDetailsFragment extends Fragment {
                             editAddBtn.setText("Edit Medical Details");
 
 
+                        }else {
 
-                            Toast.makeText(getActivity(), "Medical Details Update successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
+
+
+//                    if (jsonObject.has("status"))
+//                    {
+//                        String status = jsonObject.getString("status");
+//
+//                        if (status.equalsIgnoreCase("success"))
+//                        {
+//                           // String message =
+//
+//                            getMedicalDetails(AuthCode,AdminID);
+//
+//                            // disable all widget
+//                            bloodGroupSpinner.setEnabled(false);
+//                            illnessTxt.setEnabled(false);
+//                            allergiesTxt.setEnabled(false);
+//                            familyDrNumberTxt.setEnabled(false);
+//                            familyDrNameTxt.setEnabled(false);
+//
+//                            flag = true;
+//                            editAddBtn.setText("Edit Medical Details");
+//
+//
+//
+//                            Toast.makeText(getActivity(), "Medical Details Update successfully", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
 
 
                     pDialog.dismiss();

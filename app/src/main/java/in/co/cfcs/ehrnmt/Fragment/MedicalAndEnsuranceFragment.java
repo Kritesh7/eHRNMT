@@ -71,6 +71,10 @@ public class MedicalAndEnsuranceFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public MedicalAndEnsuranceFragment() {
         // Required empty public constructor
     }
@@ -212,10 +216,15 @@ public class MedicalAndEnsuranceFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
 
                             String Name = jsonObject.getString("Name");

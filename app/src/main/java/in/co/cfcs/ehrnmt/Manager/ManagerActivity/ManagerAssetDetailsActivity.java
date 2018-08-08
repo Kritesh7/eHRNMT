@@ -54,6 +54,10 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
     public ConnectionDetector conn;
     public String userId = "",authCode = "", empId = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,10 +153,15 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        if (object.has("MsgNotification")) {
-                            String MsgNotification = object.getString("MsgNotification");
-                            Toast.makeText(ManagerAssetDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (object.has("status")) {
+                            LoginStatus = object.getString("status");
+                            msgstatus = object.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String AssetsHolder = object.getString("AssetsHolder");
                             String Assets = object.getString("AssetsName");

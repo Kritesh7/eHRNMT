@@ -69,6 +69,10 @@ public class MyProfileFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public MyProfileFragment() {
         // Required empty public constructor
     }
@@ -189,10 +193,15 @@ public class MyProfileFragment extends Fragment {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        if (object.has("MsgNotification")) {
-                            String MsgNotification = object.getString("MsgNotification");
-                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (object.has("status")) {
+                            LoginStatus = object.getString("status");
+                            msgstatus = object.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String Title = object.getString("Title");
                             String EmployeeName = object.getString("EmployeeName");

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:id="@+id/container"
-xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,218 +45,399 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="5dp"
+                        android:layout_weight="1">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/leavereq"
                             android:clickable="true">
 
-
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/leave_request"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/leave_request"/>
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Apply For Leave"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Apply For Leave" />
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
+
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/attendance_lay"
                             android:clickable="true">
 
 
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/attendance"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/attendance"/>
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Mark Attendance"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mark Attendance"
+                                    android:maxLines="1"/>
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/attendence_list">
 
-
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/attendance"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/attendance"/>
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Attendence"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Attendence" />
+
+                            </LinearLayout>
+
+
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
-                            android:id="@+id/appre_layq"
+                            android:id="@+id/log_report"
                             android:clickable="true">
 
 
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/appreciation"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="5dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/log" />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Appreciation"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Log Report"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:textSize="10sp"
+                                    android:maxLines="1"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
-
-
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#e0e0e0"
+                        android:layout_marginBottom="0dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/stationary_lay"
                             android:clickable="true">
 
 
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/stat"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/stat"/>
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Stationary"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Stationary"/>
+
+                            </LinearLayout>
+
+
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/docs_lay"
                             android:clickable="true">
 
 
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/docs"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/docs"/>
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Document"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Document"/>
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/cab_lay"
                             android:clickable="true">
 
 
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/cab"/>
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Cab"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/cab"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Cab"/>
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:layout_weight="1"
                             android:id="@+id/hotel_lay"
                             android:clickable="true">
 
 
-                            <ImageView
-                                android:layout_gravity="center"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:src="@drawable/hotel"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
 
-                            <TextView
-                                android:textSize="10sp"
-                                android:textColor="@color/dahboard_textcolor"
-                                android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/hotel"/>
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Hotel"/>
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Hotel"/>
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
@@ -309,7 +490,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.3">
+            android:layout_weight="2.8">
 
             <!-- app:cardBackgroundColor="#DCEDC8"-->
 
@@ -347,7 +528,256 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.3">
+            android:layout_weight="1">
+
+            <!-- app:cardBackgroundColor="#DCEDC8"-->
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="0dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="0dp"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:orientation="vertical"
+                                android:id="@+id/holiday">
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="2.5">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/docs"
+                                        android:padding="3dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="7.5">
+
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Holiday"
+                                        android:textColor="@color/dahboard_textcolor"
+                                        android:textSize="8sp"
+                                        android:textStyle="bold"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="#e0e0e0"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:orientation="vertical"
+                                android:id="@+id/weeek_off">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="2.5">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/weekof"
+                                        android:padding="3dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="7.5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Week Off"
+                                        android:textColor="@color/dahboard_textcolor"
+                                        android:textSize="8sp"
+                                        android:maxLines="1"
+                                        android:textStyle="bold"/>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                            <View
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="#e0e0e0"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:orientation="vertical"
+                                android:id="@+id/appre_lay">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="2.5">
+
+                                    <ImageView
+                                        android:layout_gravity="center"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/appreciation"
+                                        android:padding="3dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="7.5">
+
+                                    <TextView
+                                        android:textSize="8sp"
+                                        android:textColor="@color/dahboard_textcolor"
+                                        android:gravity="center"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Appreciation"
+                                        android:textStyle="bold"/>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+                            <View
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="#e0e0e0"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:orientation="vertical"
+                                android:id="@+id/warning_lay">
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="2.5">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/warning"
+                                        android:padding="3dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="7.5">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Warning"
+                                        android:textColor="@color/dahboard_textcolor"
+                                        android:textSize="8sp"
+                                        android:textStyle="bold"/>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!-- app:cardBackgroundColor="#F0F4C3"-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.8">
 
             <!-- app:cardBackgroundColor="#DCEDC8"-->
 
@@ -385,21 +815,225 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                android:visibility="gone">
 
                 <LinearLayout
-                    android:id="@+id/appre_lay"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="2dp">
 
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/chart11"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:id="@+id/req_approve">
+
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/docs" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Holiday"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:id="@+id/holiday">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/mgrreq" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Request Approve"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:textSize="10sp"
+                                    android:maxLines="1"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#e0e0e0"
+                        android:layout_marginBottom="0dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:id="@+id/log_report">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
+
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/appreciation"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Appreciation"
+                                    />
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e0e0e0"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:id="@+id/warning_lay">
+
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="2.5">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/warning" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="7.5">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Warning"
+                                    android:textColor="@color/dahboard_textcolor"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+                    </LinearLayout>
 
 
                 </LinearLayout>

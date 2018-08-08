@@ -76,6 +76,10 @@ public class AddQualificationActivity extends AppCompatActivity {
             ,qualificationNameStr = "",disciplineNameStr = "", passinDateStr = "", instituteStr = "", courseTypeNameStr = ""
             ,highestDegreeStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -379,57 +383,69 @@ public class AddQualificationActivity extends AppCompatActivity {
                     }
                     qualificationList.add(new QualificationSpinnerModel("Please Select Qualification",""));
 
-                    JSONArray qualificationObj = jsonObject.getJSONArray("QualificationMaster");
-                    for (int i =0; i<qualificationObj.length(); i++)
-                    {
-                        JSONObject object = qualificationObj.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                        String QualificationID = object.getString("QualificationID");
-                        String QualificationName = object.getString("QualificationName");
-
-                        qualificationList.add(new QualificationSpinnerModel(QualificationName,QualificationID));
-
-                    }
-
-                    if (deciplineList.size()>0)
-                    {
-                        deciplineList.clear();
-                    }
-                    deciplineList.add(new DisciplineSpinnerModel("Please Select Discipline",""));
-
-                    JSONArray descObj = jsonObject.getJSONArray("DisciplineMaster");
-                    for (int i =0; i<descObj.length(); i++)
-                    {
-                        JSONObject object = descObj.getJSONObject(i);
-
-                        String DisciplineID = object.getString("DisciplineID");
-                        String DisciplineName = object.getString("DisciplineName");
-
-                        deciplineList.add(new DisciplineSpinnerModel(DisciplineName,DisciplineID));
-
-                    }
-
-                    //Edit Mode
-                    for (int k =0; k<qualificationList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                        JSONArray qualificationObj = jsonObject.getJSONArray("QualificationMaster");
+                        for (int i =0; i<qualificationObj.length(); i++)
                         {
-                            if (qualificationList.get(k).getQualification().equalsIgnoreCase(qualificationNameStr))
+                            JSONObject object = qualificationObj.getJSONObject(i);
+
+                            String QualificationID = object.getString("QualificationID");
+                            String QualificationName = object.getString("QualificationName");
+
+                            qualificationList.add(new QualificationSpinnerModel(QualificationName,QualificationID));
+
+                        }
+
+                        if (deciplineList.size()>0)
+                        {
+                            deciplineList.clear();
+                        }
+                        deciplineList.add(new DisciplineSpinnerModel("Please Select Discipline",""));
+
+                        JSONArray descObj = jsonObject.getJSONArray("DisciplineMaster");
+                        for (int i =0; i<descObj.length(); i++)
+                        {
+                            JSONObject object = descObj.getJSONObject(i);
+
+                            String DisciplineID = object.getString("DisciplineID");
+                            String DisciplineName = object.getString("DisciplineName");
+
+                            deciplineList.add(new DisciplineSpinnerModel(DisciplineName,DisciplineID));
+
+                        }
+
+                        //Edit Mode
+                        for (int k =0; k<qualificationList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                qualificationSpinner.setSelection(k);
-                                qualifiucationId = qualificationList.get(k).getQualificationId();
+                                if (qualificationList.get(k).getQualification().equalsIgnoreCase(qualificationNameStr))
+                                {
+                                    qualificationSpinner.setSelection(k);
+                                    qualifiucationId = qualificationList.get(k).getQualificationId();
+                                }
                             }
                         }
-                    }
 
-                    for (int k =0; k<deciplineList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                        for (int k =0; k<deciplineList.size(); k++)
                         {
-                            if (deciplineList.get(k).getDescipline().equalsIgnoreCase(disciplineNameStr))
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                deciplineSpinner.setSelection(k);
-                                deciplineID = deciplineList.get(k).getDesciplineId();
+                                if (deciplineList.get(k).getDescipline().equalsIgnoreCase(disciplineNameStr))
+                                {
+                                    deciplineSpinner.setSelection(k);
+                                    deciplineID = deciplineList.get(k).getDesciplineId();
+                                }
                             }
                         }
                     }
@@ -495,22 +511,18 @@ public class AddQualificationActivity extends AppCompatActivity {
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
-
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")){
                             onBackPressed();
-                        }else
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-
-                            Toast.makeText(AddQualificationActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -562,6 +574,44 @@ public class AddQualificationActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddQualificationActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddQualificationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddQualificationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddQualificationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddQualificationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddQualificationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddQualificationActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddQualificationActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddQualificationActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddQualificationActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

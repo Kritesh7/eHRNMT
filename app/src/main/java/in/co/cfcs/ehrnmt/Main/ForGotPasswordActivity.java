@@ -38,6 +38,10 @@ public class ForGotPasswordActivity extends AppCompatActivity {
     public String forgotUrl = SettingConstant.BASEURL_FOR_LOGIN + "AppUserForgetPassword";
     public ConnectionDetector conn;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,27 +113,24 @@ public class ForGotPasswordActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-
-                        if (jsonObject.has("status"))
-                        {
-                            String status = jsonObject.getString("status");
-                            if (status.equalsIgnoreCase("success"))
-                            {
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                            //    Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else  if (LoginStatus.equalsIgnoreCase("success")) {
                                 Intent ik = new Intent(getApplicationContext(),LoginActivity.class);
                                 startActivity(ik);
                                 overridePendingTransition(R.anim.push_left_in,
                                         R.anim.push_right_out);
                                 finish();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }else {
 
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ForGotPasswordActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-
-                        }
-
 
                     }
 
@@ -177,4 +178,5 @@ public class ForGotPasswordActivity extends AppCompatActivity {
                 R.anim.push_right_out);
         finish();
     }
+
 }

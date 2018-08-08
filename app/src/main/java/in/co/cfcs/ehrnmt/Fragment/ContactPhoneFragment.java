@@ -66,6 +66,10 @@ public class ContactPhoneFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public ContactPhoneFragment() {
         // Required empty public constructor
     }
@@ -104,15 +108,14 @@ public class ContactPhoneFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_contact_phone, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
         conn = new ConnectionDetector(getActivity());
-        userid =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-
 
 
         phoneNoTxt = (EditText) rootView.findViewById(R.id.phoneno);
@@ -125,56 +128,53 @@ public class ContactPhoneFragment extends Fragment {
         awesomeValidation.addValidation(getActivity(), R.id.email, Patterns.EMAIL_ADDRESS, R.string.email_txt);
 
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            contactDetailsList(authcode,userid);
+        if (conn.getConnectivityStatus() > 0) {
+            contactDetailsList(authcode, userid);
 
-        }else
-            {
-                conn.showNoInternetAlret();
+        } else {
+            conn.showNoInternetAlret();
+        }
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (editBtn.getText().toString().equalsIgnoreCase("Edit Contact")) {
+                    editBtn.setText("Update Contact");
+                }
+                // if (awesomeValidation.validate()) {
+                if (phoneNoTxt.getText().toString().equalsIgnoreCase("")) {
+                    phoneNoTxt.setError("Please enter mobile number");
+                } else if (emailTxt.getText().toString().equalsIgnoreCase("")) {
+                    emailTxt.setError("Please enter email id");
+                } else {
+                    if (conn.getConnectivityStatus() > 0) {
+
+                        if (editBtn.getText().toString().equalsIgnoreCase("Update Contact")) {
+
+                            addContact(userid, RecordID, phoneNoTxt.getText().toString(), altPhoneTxt.getText().toString(),
+                                    authcode, emailTxt.getText().toString(), altEmailTxt.getText().toString());
+                        } else {
+                            addContact(userid, "", phoneNoTxt.getText().toString(), altPhoneTxt.getText().toString(),
+                                    authcode, emailTxt.getText().toString(), altEmailTxt.getText().toString());
+                        }
+                    } else {
+                        conn.showNoInternetAlret();
+                    }
+                }
+                // }
+
             }
-
-       editBtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-
-               if (editBtn.getText().toString().equalsIgnoreCase("Edit Contact"))
-               {
-                   editBtn.setText("Update Contact");
-               }
-              // if (awesomeValidation.validate()) {
-                   if (phoneNoTxt.getText().toString().equalsIgnoreCase("")) {
-                       phoneNoTxt.setError("Please enter mobile number");
-                   } else if (emailTxt.getText().toString().equalsIgnoreCase("")) {
-                       emailTxt.setError("Please enter email id");
-                   } else {
-                       if (conn.getConnectivityStatus() > 0) {
-
-                           if (editBtn.getText().toString().equalsIgnoreCase("Update Contact")) {
-
-                               addContact(userid, RecordID, phoneNoTxt.getText().toString(), altPhoneTxt.getText().toString(),
-                                       authcode, emailTxt.getText().toString(), altEmailTxt.getText().toString());
-                           } else {
-                               addContact(userid, "", phoneNoTxt.getText().toString(), altPhoneTxt.getText().toString(),
-                                       authcode, emailTxt.getText().toString(), altEmailTxt.getText().toString());
-                           }
-                       } else {
-                           conn.showNoInternetAlret();
-                       }
-                  }
-              // }
-
-           }
-       });
+        });
 
 
         return rootView;
     }
 
     //Contact Number
-    public void contactDetailsList(final String AuthCode , final String AdminID) {
+    public void contactDetailsList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -185,62 +185,69 @@ public class ContactPhoneFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-
-                    JSONArray jsonArray = jsonObject.getJSONArray("EmpTelephone");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
-                        JSONObject object = jsonArray.getJSONObject(i);
-
-                        String PhoneNo = object.getString("PhoneNo");
-                        String MobileNo = object.getString("MobileNo");
-                        String EmailPersonal = object.getString("EmailPersonal");
-                        String EmailCorporate = object.getString("EmailCorporate");
-                        RecordID = object.getString("RecordID");
-
-                        //set text in edit text
-                        phoneNoTxt.setText(PhoneNo);
-                        altPhoneTxt.setText(MobileNo);
-                        emailTxt.setText(EmailPersonal);
-                        altEmailTxt.setText(EmailCorporate);
-
-
-                    }
-
-                    Log.e("checking lenth of array",jsonArray.length() + "");
-                    if (jsonArray.length() == 0)
-                    {
-                        editBtn.setText("Add Contact");
-                    }else
-                    {
-                        editBtn.setText("Edit Contact");
-                    }
-
-
-                    JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k =0; k<statusArray.length(); k++)
-                    {
-                        JSONObject obj = statusArray.getJSONObject(k);
-
-                        String IsAddAddressDetail = obj.getString("IsAddAddressDetail");
-
-                        if (!IsAddAddressDetail.equalsIgnoreCase("0"))
-                        {
-                            editBtn.setBackgroundColor(getActivity().getResources().getColor(R.color.disbale_color));
-                            editBtn.setEnabled(false);
-                            Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval.", Toast.LENGTH_SHORT).show();
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }
+                    } else {
 
+                        JSONArray jsonArray = jsonObject.getJSONArray("EmpTelephone");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+
+                            String PhoneNo = object.getString("PhoneNo");
+                            String MobileNo = object.getString("MobileNo");
+                            String EmailPersonal = object.getString("EmailPersonal");
+                            String EmailCorporate = object.getString("EmailCorporate");
+                            RecordID = object.getString("RecordID");
+
+                            //set text in edit text
+                            phoneNoTxt.setText(PhoneNo);
+                            altPhoneTxt.setText(MobileNo);
+                            emailTxt.setText(EmailPersonal);
+                            altEmailTxt.setText(EmailCorporate);
+
+
+                        }
+
+                        Log.e("checking lenth of array", jsonArray.length() + "");
+                        if (jsonArray.length() == 0) {
+                            editBtn.setText("Add Contact");
+                        } else {
+                            editBtn.setText("Edit Contact");
+                        }
+
+
+                        JSONArray statusArray = jsonObject.getJSONArray("Status");
+                        for (int k = 0; k < statusArray.length(); k++) {
+                            JSONObject obj = statusArray.getJSONObject(k);
+
+                            String IsAddAddressDetail = obj.getString("IsAddAddressDetail");
+
+                            if (!IsAddAddressDetail.equalsIgnoreCase("0")) {
+                                editBtn.setBackgroundColor(getActivity().getResources().getColor(R.color.disbale_color));
+                                editBtn.setEnabled(false);
+                                Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+
+                    }
 
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
-                    Logout();
+                    // Logout();
                 }
             }
         }, new Response.ErrorListener() {
@@ -254,13 +261,13 @@ public class ContactPhoneFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -275,10 +282,10 @@ public class ContactPhoneFragment extends Fragment {
     }
 
     //add contact
-    public void addContact(final String AdminID  , final String RecordID, final String PhoneNo, final String MobileNo,
-                           final String AuthCode, final String EmailPersonal, final String EmailCorporate)  {
+    public void addContact(final String AdminID, final String RecordID, final String PhoneNo, final String MobileNo,
+                           final String AuthCode, final String EmailPersonal, final String EmailCorporate) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -289,32 +296,48 @@ public class ContactPhoneFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
+                            contactDetailsList(AuthCode, AdminID);
+                            // Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
 
-                            Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
-                            //onBackPressed();
-                            contactDetailsList(AuthCode,AdminID);
-
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
+
+//                    if (jsonObject.has("status"))
+//                    {
+//                        String status = jsonObject.getString("status");
+//
+//                        if (jsonObject.has("MsgNotification")) {
+//                            String MsgNotification = jsonObject.getString("MsgNotification");
+//
+//                            Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
+//
+//                        }
+//
+//                        if (status.equalsIgnoreCase("success"))
+//                        {
+//                            //onBackPressed();
+//                            contactDetailsList(AuthCode,AdminID);
+//
+//                        }
+//                    }
 
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -329,17 +352,17 @@ public class ContactPhoneFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("PhoneNo",PhoneNo);
-                params.put("MobileNo",MobileNo);
-                params.put("EmailPersonal",EmailPersonal);
-                params.put("EmailCorporate",EmailCorporate);
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("PhoneNo", PhoneNo);
+                params.put("MobileNo", MobileNo);
+                params.put("EmailPersonal", EmailPersonal);
+                params.put("EmailCorporate", EmailCorporate);
 
                 Log.e("Parms", params.toString());
                 return params;

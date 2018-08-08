@@ -73,6 +73,10 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     public EditText commentTxt;
     public CheckBox firstHalfCheck, secondHalfCheck;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -366,10 +370,15 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(NewAddLeaveMangementActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String LeaveYear = jsonObject.getString("LeaveYear");
                             String LeaveYearText = jsonObject.getString("LeaveYearText");
@@ -450,10 +459,24 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String LeaveID = jsonObject.getString("LeaveID");
-                        String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            String LeaveID = jsonObject.getString("LeaveID");
+                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
 
-                        leaveTypeList.add(new LeaveTypeModel(LeaveID, LeaveTypeName));
+                            leaveTypeList.add(new LeaveTypeModel(LeaveID, LeaveTypeName));
+
+                        }
+
+
 
 
                     }
@@ -520,18 +543,17 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(NewAddLeaveMangementActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-
-                        }
-
                         if (jsonObject.has("status")) {
-                            String status = jsonObject.getString("status");
-
-                            if (status.equalsIgnoreCase("success")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else  if (LoginStatus.equalsIgnoreCase("success")){
                                 onBackPressed();
-
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
 

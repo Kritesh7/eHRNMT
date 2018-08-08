@@ -44,6 +44,10 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
     public TextView weekOfTxt;
     public String weekOfUrl = SettingConstant.BaseUrl + "AppEmployeeWeeklyOff";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,12 +128,15 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerWeakOffActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else {
 
                             String EmployeeWeeklyOff = jsonObject.getString("EmployeeWeeklyOff");

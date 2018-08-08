@@ -50,6 +50,9 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
     public Button editBtn;
     public String BookDateText = "", CityName = "", BookTime = "", SourceAdd = "", DestinationAdd = "", EmpComment = "", BIDStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,60 +163,72 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    JSONArray requestDetailsArray = jsonObject.getJSONArray("TaxiBookingMaster");
-                    for (int i = 0; i < requestDetailsArray.length(); i++) {
-                        JSONObject object = requestDetailsArray.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray requestDetailsArray = jsonObject.getJSONArray("TaxiBookingMaster");
+                        for (int i = 0; i < requestDetailsArray.length(); i++) {
+                            JSONObject object = requestDetailsArray.getJSONObject(i);
 
-                        String EmpName = object.getString("EmpName");
-                        String requestDate = object.getString("AddDateText");
-                        String approvedBy = object.getString("AppDateText");
-                        String HrComment = object.getString("HrComment");
-                        String AppStatusText = object.getString("AppStatusText");
-                        BIDStr = object.getString("BID");
-                        CityName = object.getString("CityName");
-                        BookDateText = object.getString("BookDateText");
-                        EmpComment = object.getString("EmpComment");
-                        //String BookDateText = object.getString("BookDateText");
+                            String EmpName = object.getString("EmpName");
+                            String requestDate = object.getString("AddDateText");
+                            String approvedBy = object.getString("AppDateText");
+                            String HrComment = object.getString("HrComment");
+                            String AppStatusText = object.getString("AppStatusText");
+                            BIDStr = object.getString("BID");
+                            CityName = object.getString("CityName");
+                            BookDateText = object.getString("BookDateText");
+                            EmpComment = object.getString("EmpComment");
+                            //String BookDateText = object.getString("BookDateText");
 
-                        empNameTxt.setText(EmpName);
-                        empcommTxt.setText(EmpComment);
-                        requestDateTxt.setText(requestDate);
-                        approvedByTxt.setText(approvedBy);
-                        hrcommTxt.setText(HrComment);
-                        statusTxt.setText(AppStatusText);
-                        cityNameTxt.setText(CityName);
-                        bookDateTxt.setText(BookDateText);
+                            empNameTxt.setText(EmpName);
+                            empcommTxt.setText(EmpComment);
+                            requestDateTxt.setText(requestDate);
+                            approvedByTxt.setText(approvedBy);
+                            hrcommTxt.setText(HrComment);
+                            statusTxt.setText(AppStatusText);
+                            cityNameTxt.setText(CityName);
+                            bookDateTxt.setText(BookDateText);
 
 
-                        if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null")) {
-                            hrcommTxt.setVisibility(View.GONE);
-                            hrcommentFontTxt.setVisibility(View.GONE);
+                            if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null")) {
+                                hrcommTxt.setVisibility(View.GONE);
+                                hrcommentFontTxt.setVisibility(View.GONE);
 
-                        } else if (approvedBy.equalsIgnoreCase("") || approvedBy.equalsIgnoreCase("null")) {
-                            approvedByTxt.setVisibility(View.GONE);
-                            followDateTxt.setVisibility(View.GONE);
+                            } else if (approvedBy.equalsIgnoreCase("") || approvedBy.equalsIgnoreCase("null")) {
+                                approvedByTxt.setVisibility(View.GONE);
+                                followDateTxt.setVisibility(View.GONE);
+                            }
+
+
+                        }
+
+                        JSONArray itemdetaislArray = jsonObject.getJSONArray("TaxiBookingDetail");
+                        if (list.size() > 0) {
+                            list.clear();
+                        }
+                        for (int j = 0; j < itemdetaislArray.length(); j++) {
+                            JSONObject object = itemdetaislArray.getJSONObject(j);
+
+                            BookTime = object.getString("BookTime");
+                            SourceAdd = object.getString("SourceAdd");
+                            DestinationAdd = object.getString("DestinationAdd");
+
+
+                            list.add(new CabItemModel(BookTime, SourceAdd, DestinationAdd));
+
+
                         }
 
 
                     }
-
-                    JSONArray itemdetaislArray = jsonObject.getJSONArray("TaxiBookingDetail");
-                    if (list.size() > 0) {
-                        list.clear();
-                    }
-                    for (int j = 0; j < itemdetaislArray.length(); j++) {
-                        JSONObject object = itemdetaislArray.getJSONObject(j);
-
-                        BookTime = object.getString("BookTime");
-                        SourceAdd = object.getString("SourceAdd");
-                        DestinationAdd = object.getString("DestinationAdd");
-
-
-                        list.add(new CabItemModel(BookTime, SourceAdd, DestinationAdd));
-
-
-                    }
-
 
                     adapter.notifyDataSetChanged();
                     pDialog.dismiss();
@@ -261,6 +276,44 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewCabDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewCabDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewCabDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewCabDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewCabDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewCabDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewCabDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewCabDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewCabDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewCabDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

@@ -70,6 +70,9 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
     private int mYear, mMonth, mDay, mHour, mMinute;
     public RecyclerView addStaRecy;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -382,16 +385,20 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
+
+                        }else {
+
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -459,12 +466,22 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String ItemID = jsonObject.getString("ItemID");
-                        String ItemName = jsonObject.getString("ItemName");
-                        String MaxQuantity = jsonObject.getString("MaxQuantity");
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            String ItemID = jsonObject.getString("ItemID");
+                            String ItemName = jsonObject.getString("ItemName");
+                            String MaxQuantity = jsonObject.getString("MaxQuantity");
 
-                        list.add(new AddNewStationoryRequestModel(ItemName,MaxQuantity,ItemID,"",""));
-
+                            list.add(new AddNewStationoryRequestModel(ItemName,MaxQuantity,ItemID,"",""));
+                        }
 
 
                     }
@@ -523,6 +540,45 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
     public void getAllItem(ArrayList<String> sendList) {
 
     }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddDocumentActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddDocumentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddDocumentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddDocumentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddDocumentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddDocumentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddDocumentActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddDocumentActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddDocumentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddDocumentActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
+    }
+
 
 
   /*  @Override

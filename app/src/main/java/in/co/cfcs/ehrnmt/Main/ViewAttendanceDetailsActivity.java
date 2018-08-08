@@ -50,6 +50,10 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
     public PopupWindow popupWindow;
     public String authcode = "", isRequest = "", attendaceLogId = "", userId = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,18 +210,28 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
 
 
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-
                     if (jsonObject.has("status")) {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success")) {
-
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-
-                            Toast.makeText(ViewAttendanceDetailsActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")){
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                             popupWindow.dismiss();
                         }
                     }
+//                    if (jsonObject.has("status")) {
+//                        String status = jsonObject.getString("status");
+//
+//                        if (status.equalsIgnoreCase("success")) {
+//
+//                            String MsgNotification = jsonObject.getString("MsgNotification");
+//
+//                            Toast.makeText(ViewAttendanceDetailsActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+//                            popupWindow.dismiss();
+//                        }
+//                    }
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
@@ -280,40 +294,49 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ViewAttendanceDetailsActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            String Name = jsonObject.getString("Name");
+                            String AttendanceDateText = jsonObject.getString("AttendanceDateText");
+                            String InTime = jsonObject.getString("InTime");
+                            String OutTime = jsonObject.getString("OutTime");
+                            String InOutDuration = jsonObject.getString("InOutDuration");
+                            String Halfday = jsonObject.getString("Halfday");
+                            String LateArrival = jsonObject.getString("LateArrival");
+                            String EarlyLeaving = jsonObject.getString("EarlyLeaving");
+                            String Status = jsonObject.getString("Status");
+                            String isRequest = jsonObject.getString("IsRequest");
+                            String EmpID = jsonObject.getString("EmpID");
+
+
+                            empNmaeTxt.setText(Name);
+                            inTimeDateTxt.setText(AttendanceDateText);
+                            inTimeTxt.setText(InTime);
+                            outTimeTxt.setText(OutTime);
+                            durationTxt.setText(InOutDuration);
+                            statusTxt.setText(Status);
+                            halfDayTxt.setText(Halfday);
+                            lateArivalTxt.setText(LateArrival);
+                            earlyLeavingTxt.setText(EarlyLeaving);
+                            empIdTxt.setText(EmpID);
+
+                            //hide button
+                            if (isRequest.equalsIgnoreCase("0")) {
+                                updateBtn.setVisibility(View.GONE);
+                            }
 
                         }
 
-                        String Name = jsonObject.getString("Name");
-                        String AttendanceDateText = jsonObject.getString("AttendanceDateText");
-                        String InTime = jsonObject.getString("InTime");
-                        String OutTime = jsonObject.getString("OutTime");
-                        String InOutDuration = jsonObject.getString("InOutDuration");
-                        String Halfday = jsonObject.getString("Halfday");
-                        String LateArrival = jsonObject.getString("LateArrival");
-                        String EarlyLeaving = jsonObject.getString("EarlyLeaving");
-                        String Status = jsonObject.getString("Status");
-                        String isRequest = jsonObject.getString("IsRequest");
-                        String EmpID = jsonObject.getString("EmpID");
 
-
-                        empNmaeTxt.setText(Name);
-                        inTimeDateTxt.setText(AttendanceDateText);
-                        inTimeTxt.setText(InTime);
-                        outTimeTxt.setText(OutTime);
-                        durationTxt.setText(InOutDuration);
-                        statusTxt.setText(Status);
-                        halfDayTxt.setText(Halfday);
-                        lateArivalTxt.setText(LateArrival);
-                        earlyLeavingTxt.setText(EarlyLeaving);
-                        empIdTxt.setText(EmpID);
-
-                        //hide button
-                        if (isRequest.equalsIgnoreCase("0")) {
-                            updateBtn.setVisibility(View.GONE);
-                        }
 
 
                     }
@@ -364,6 +387,44 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewAttendanceDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewAttendanceDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewAttendanceDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewAttendanceDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewAttendanceDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewAttendanceDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewAttendanceDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewAttendanceDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewAttendanceDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewAttendanceDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

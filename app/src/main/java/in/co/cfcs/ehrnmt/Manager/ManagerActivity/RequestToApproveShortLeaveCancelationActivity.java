@@ -52,6 +52,10 @@ public class RequestToApproveShortLeaveCancelationActivity extends AppCompatActi
     public ConnectionDetector conn;
     public String shortLeaveUrl = SettingConstant.BaseUrl + "AppManagerToApproveCancelShortLeaveRequestDashBoardList";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,10 +148,15 @@ public class RequestToApproveShortLeaveCancelationActivity extends AppCompatActi
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(RequestToApproveShortLeaveCancelationActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");

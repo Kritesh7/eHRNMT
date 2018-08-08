@@ -78,6 +78,10 @@ public class AddNewStationaryRequestActivity extends AppCompatActivity implement
     private int mYear, mMonth, mDay, mHour, mMinute;
     public String rIdStr = "", IdealClosureDateText = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -386,14 +390,25 @@ public class AddNewStationaryRequestActivity extends AppCompatActivity implement
                     }
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String ItemID = jsonObject.getString("ItemID");
-                        String ItemName = jsonObject.getString("ItemName");
-                        String MaxQuantity = jsonObject.getString("MaxQuantity");
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
 
-                        //  list.add(new BookMeaPrevisionModel(ItemName,ItemID,MaxQuantity,"","false","0"));
+                            String ItemID = jsonObject.getString("ItemID");
+                            String ItemName = jsonObject.getString("ItemName");
+                            String MaxQuantity = jsonObject.getString("MaxQuantity");
 
-                        list.add(new AddNewStationoryRequestModel(ItemName, MaxQuantity, ItemID, "", ""));
+                            //  list.add(new BookMeaPrevisionModel(ItemName,ItemID,MaxQuantity,"","false","0"));
 
+                            list.add(new AddNewStationoryRequestModel(ItemName, MaxQuantity, ItemID, "", ""));
+                        }
 
                     }
 
@@ -462,15 +477,19 @@ public class AddNewStationaryRequestActivity extends AppCompatActivity implement
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-
                     if (jsonObject.has("status")) {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")){
                             onBackPressed();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -520,5 +539,43 @@ public class AddNewStationaryRequestActivity extends AppCompatActivity implement
 
         secondQuant = sendList;
         Log.e("checking the size", secondQuant.size() + "");
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddNewStationaryRequestActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddNewStationaryRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddNewStationaryRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddNewStationaryRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddNewStationaryRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddNewStationaryRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddNewStationaryRequestActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddNewStationaryRequestActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddNewStationaryRequestActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddNewStationaryRequestActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
     }
 }

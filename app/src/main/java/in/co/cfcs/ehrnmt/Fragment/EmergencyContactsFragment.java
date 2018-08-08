@@ -69,6 +69,10 @@ public class EmergencyContactsFragment extends Fragment {
     public String emergencyContactUrl = SettingConstant.BaseUrl + "AppEmployeeEmergencyContactList";
     public TextView noCust;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -194,49 +198,62 @@ public class EmergencyContactsFragment extends Fragment {
                     {
                         list.clear();
                     }
-                    JSONArray emergencyContactArray = jsonObject.getJSONArray("EmergencyContactList");
-                    for (int i=0 ; i<emergencyContactArray.length();i++)
-                    {
-                        JSONObject object = emergencyContactArray.getJSONObject(i);
-
-                        String Title = object.getString("Title");
-                        String Name = object.getString("Name");
-                        String Address = object.getString("Address");
-                        String City = object.getString("City");
-                        String State = object.getString("State");
-                        String CountryName = object.getString("CountryName");
-                        String PostCode = object.getString("PostCode");
-                        String PhoneNo = object.getString("PhoneNo");
-                        String MobileNo = object.getString("MobileNo");
-                        String Email = object.getString("Email");
-                        String RelationshipName = object.getString("RelationshipName");
-                        String Type = object.getString("Type");
-                        String LastUpdate = object.getString("LastUpdate");
-                        String RecordID = object.getString("RecordID");
-
-
-
-                        list.add(new EmergencyContactModel(Title , Name ,Address,City,State,PostCode,CountryName,PhoneNo,MobileNo,
-                                Email,RelationshipName,LastUpdate,Type,RecordID));
-
-
-
-                    }
-
-                    JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k =0; k<statusArray.length(); k++)
-                    {
-                        JSONObject obj = statusArray.getJSONObject(k);
-
-                        String IsVisibilityAdd = obj.getString("IsVisibilityAdd");
-                        if (IsVisibilityAdd.equalsIgnoreCase("2"))
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray emergencyContactArray = jsonObject.getJSONArray("EmergencyContactList");
+                        for (int i=0 ; i<emergencyContactArray.length();i++)
                         {
-                            fab.setVisibility(View.GONE);
-                        }else
+                            JSONObject object = emergencyContactArray.getJSONObject(i);
+
+                            String Title = object.getString("Title");
+                            String Name = object.getString("Name");
+                            String Address = object.getString("Address");
+                            String City = object.getString("City");
+                            String State = object.getString("State");
+                            String CountryName = object.getString("CountryName");
+                            String PostCode = object.getString("PostCode");
+                            String PhoneNo = object.getString("PhoneNo");
+                            String MobileNo = object.getString("MobileNo");
+                            String Email = object.getString("Email");
+                            String RelationshipName = object.getString("RelationshipName");
+                            String Type = object.getString("Type");
+                            String LastUpdate = object.getString("LastUpdate");
+                            String RecordID = object.getString("RecordID");
+
+
+
+                            list.add(new EmergencyContactModel(Title , Name ,Address,City,State,PostCode,CountryName,PhoneNo,MobileNo,
+                                    Email,RelationshipName,LastUpdate,Type,RecordID));
+
+
+
+                        }
+
+                        JSONArray statusArray = jsonObject.getJSONArray("Status");
+                        for (int k =0; k<statusArray.length(); k++)
+                        {
+                            JSONObject obj = statusArray.getJSONObject(k);
+
+                            String IsVisibilityAdd = obj.getString("IsVisibilityAdd");
+                            if (IsVisibilityAdd.equalsIgnoreCase("2"))
+                            {
+                                fab.setVisibility(View.GONE);
+                            }else
                             {
                                 fab.setVisibility(View.VISIBLE);
                             }
+                        }
+
                     }
+
 
                     if (list.size() == 0)
                     {
@@ -255,8 +272,7 @@ public class EmergencyContactsFragment extends Fragment {
                 } catch (JSONException e) {
                     Log.e("checking json excption" , e.getMessage());
                     e.printStackTrace();
-                    Logout();
-                    Toast.makeText(getActivity(), "Invalid Login", Toast.LENGTH_SHORT).show();
+                   // Logout();
                 }
             }
         }, new Response.ErrorListener() {

@@ -58,6 +58,10 @@ public class WeekOfListFragment extends Fragment {
     public String weekOfUrl = SettingConstant.BaseUrl + "AppEmployeeWeeklyOff";
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public WeekOfListFragment() {
         // Required empty public constructor
     }
@@ -141,12 +145,15 @@ public class WeekOfListFragment extends Fragment {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
 
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
-                            Logout();
-
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else {
                             String EmployeeWeeklyOff = jsonObject.getString("EmployeeWeeklyOff");
                             weekOfTxt.setText(EmployeeWeeklyOff);

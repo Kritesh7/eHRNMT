@@ -2,6 +2,7 @@ package in.co.cfcs.ehrnmt.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.co.cfcs.ehrnmt.Adapter.HolidayListAdapter;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.Model.HolidayListModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.AppController;
@@ -63,6 +65,10 @@ public class HolidayListFragment extends Fragment {
     public String holidayListUrl = SettingConstant.BaseUrl + "AppEmployeeHolidayList";
 
     private OnFragmentInteractionListener mListener;
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     public HolidayListFragment() {
         // Required empty public constructor
@@ -157,9 +163,15 @@ public class HolidayListFragment extends Fragment {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                           Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else {
 
                             String HolidayName = jsonObject.getString("HolidayName");
@@ -259,5 +271,40 @@ public class HolidayListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
+    }
+
+    private void Logout() {
+
+        getActivity().finishAffinity();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(getActivity(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(getActivity(),
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(getActivity(),
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
+                "")));
+
+
+
+//
+//        Intent intent = new Intent(getContext(), LoginActivity.class);
+//        startActivity(intent);
+
+
     }
 }

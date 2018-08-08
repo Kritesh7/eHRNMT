@@ -64,11 +64,15 @@ public class AppreceationFragment extends Fragment {
     public RecyclerView appreceationRecy;
     public String appreceationUrl = SettingConstant.BaseUrl + "AppEmployeeAppreciation";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
 
     private OnFragmentInteractionListener mListener;
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     public AppreceationFragment() {
         // Required empty public constructor
@@ -106,16 +110,16 @@ public class AppreceationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_appreceation, container, false);
-        appreceationRecy = (RecyclerView)rootView.findViewById(R.id.appreceation_recycler);
+        appreceationRecy = (RecyclerView) rootView.findViewById(R.id.appreceation_recycler);
 
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new AppreceationAdapter(getActivity(),list, getActivity());
+        adapter = new AppreceationAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         appreceationRecy.setLayoutManager(mLayoutManager);
         appreceationRecy.setItemAnimator(new DefaultItemAnimator());
@@ -129,25 +133,23 @@ public class AppreceationFragment extends Fragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            langauageList(authCode,userId);
+            langauageList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Apprecaeation Details  list
-    public void langauageList(final String AuthCode , final String AdminID) {
+    public void langauageList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -158,40 +160,41 @@ public class AppreceationFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
-                        }else{
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
 
                             String AppreceationTitle = jsonObject.getString("AppreceationTitle");
                             String AppreceationDetail = jsonObject.getString("AppreceationDetail");
                             String AppreceationDateText = jsonObject.getString("AppreceationDateText");
                             String FileNameText = jsonObject.getString("FileNameText");
 
-                            list.add(new AppreceationModel(AppreceationTitle,AppreceationDateText,AppreceationDetail,FileNameText));
+                            list.add(new AppreceationModel(AppreceationTitle, AppreceationDateText, AppreceationDetail, FileNameText));
 
                         }
 
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         appreceationRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         appreceationRecy.setVisibility(View.VISIBLE);
                     }
@@ -200,7 +203,7 @@ public class AppreceationFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -215,12 +218,12 @@ public class AppreceationFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -316,7 +319,6 @@ public class AppreceationFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

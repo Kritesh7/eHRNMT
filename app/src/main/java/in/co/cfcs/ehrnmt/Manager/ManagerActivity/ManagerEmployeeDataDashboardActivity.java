@@ -19,6 +19,8 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
     public TextView titleTxt;
     public LinearLayout firstLay, secondLay, thirdTilesLay, fourthTileLay, fivthLay, sixthLay;
 
+
+
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

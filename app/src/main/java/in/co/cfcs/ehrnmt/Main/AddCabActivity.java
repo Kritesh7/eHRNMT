@@ -73,6 +73,10 @@ public class AddCabActivity extends AppCompatActivity {
     public ConnectionDetector conn;
     public String authCode = "", userId = "", cityId = "", cityName = "", actionMode = "", bookingDateStr = "", cityOfNameStr = "", bookingTimeStr = "", sourceAddressStr = "", destinationAddressStr = "", bookingRemarkStr = "", BidStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -468,26 +472,39 @@ public class AddCabActivity extends AppCompatActivity {
                         listOfBooking.clear();
                     }
                     listOfBooking.add(new CabCityModel("Please Select City", ""));
-                    JSONArray cityObj = jsonObject.getJSONArray("TaxiCityName");
-                    for (int i = 0; i < cityObj.length(); i++) {
-                        JSONObject object = cityObj.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                        String CityName = object.getString("CityName");
-                        String CityID = object.getString("CityID");
+                        JSONArray cityObj = jsonObject.getJSONArray("TaxiCityName");
+                        for (int i = 0; i < cityObj.length(); i++) {
+                            JSONObject object = cityObj.getJSONObject(i);
 
-                        listOfBooking.add(new CabCityModel(CityName, CityID));
+                            String CityName = object.getString("CityName");
+                            String CityID = object.getString("CityID");
+
+                            listOfBooking.add(new CabCityModel(CityName, CityID));
 
 
-                    }
+                        }
 
-                    //Edit case
-                    for (int k = 0; k < listOfBooking.size(); k++) {
-                        if (actionMode.equalsIgnoreCase("Edit")) {
-                            if (listOfBooking.get(k).getCityName().equalsIgnoreCase(cityOfNameStr)) {
-                                cityOfBookingSpinner.setSelection(k);
+                        //Edit case
+                        for (int k = 0; k < listOfBooking.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("Edit")) {
+                                if (listOfBooking.get(k).getCityName().equalsIgnoreCase(cityOfNameStr)) {
+                                    cityOfBookingSpinner.setSelection(k);
+                                }
                             }
                         }
                     }
+
                     cityAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
 
@@ -531,15 +548,20 @@ public class AddCabActivity extends AppCompatActivity {
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-
                     if (jsonObject.has("status")) {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
+
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -686,63 +708,77 @@ public class AddCabActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    JSONArray requestDetailsArray = jsonObject.getJSONArray("TaxiBookingMaster");
-                    for (int i = 0; i < requestDetailsArray.length(); i++) {
-                        JSONObject object = requestDetailsArray.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                        String EmpName = object.getString("EmpName");
-                        String requestDate = object.getString("AddDateText");
-                        String approvedBy = object.getString("AppDateText");
-                        String HrComment = object.getString("HrComment");
-                        String AppStatusText = object.getString("AppStatusText");
-                        String BIDStr = object.getString("BID");
-                        String CityName = object.getString("CityName");
-                        String BookDateText = object.getString("BookDateText");
-                        String EmpComment = object.getString("EmpComment");
+                        JSONArray requestDetailsArray = jsonObject.getJSONArray("TaxiBookingMaster");
+                        for (int i = 0; i < requestDetailsArray.length(); i++) {
+                            JSONObject object = requestDetailsArray.getJSONObject(i);
 
-                        dateTxt.setText(BookDateText);
-                        bookingRemarkTxt.setText(EmpComment);
+                            String EmpName = object.getString("EmpName");
+                            String requestDate = object.getString("AddDateText");
+                            String approvedBy = object.getString("AppDateText");
+                            String HrComment = object.getString("HrComment");
+                            String AppStatusText = object.getString("AppStatusText");
+                            String BIDStr = object.getString("BID");
+                            String CityName = object.getString("CityName");
+                            String BookDateText = object.getString("BookDateText");
+                            String EmpComment = object.getString("EmpComment");
 
-                        cityOfNameStr = CityName;
+                            dateTxt.setText(BookDateText);
+                            bookingRemarkTxt.setText(EmpComment);
+
+                            cityOfNameStr = CityName;
+
+
+                        }
+
+                        JSONArray itemdetaislArray = jsonObject.getJSONArray("TaxiBookingDetail");
+                        if (staticList.size() > 0) {
+                            staticList.clear();
+                        }
+                        for (int j = 0; j < itemdetaislArray.length(); j++) {
+                            JSONObject object = itemdetaislArray.getJSONObject(j);
+
+                            String BookTime = object.getString("BookTime");
+                            String SourceAdd = object.getString("SourceAdd");
+                            String DestinationAdd = object.getString("DestinationAdd");
+
+
+                            staticList.add(new StaticModel(BookTime, SourceAdd, DestinationAdd));
+
+
+                        }
+
+                        try {
+                            timeTxt.setText(staticList.get(0).getTime());
+                            sourceAddTxt.setText(staticList.get(0).getSource());
+                            destinationDDtXT.setText(staticList.get(0).getDestination());
+
+                            timeTxt1.setText(staticList.get(1).getTime());
+                            sourceAddTxt1.setText(staticList.get(1).getSource());
+                            destinationDDtXT1.setText(staticList.get(1).getDestination());
+
+                            timeTxt2.setText(staticList.get(2).getTime());
+                            sourceAddTxt2.setText(staticList.get(2).getSource());
+                            destinationDDtXT2.setText(staticList.get(2).getDestination());
+
+                        } catch (IndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
+
+                        personalDdlDetails();
 
 
                     }
-
-                    JSONArray itemdetaislArray = jsonObject.getJSONArray("TaxiBookingDetail");
-                    if (staticList.size() > 0) {
-                        staticList.clear();
-                    }
-                    for (int j = 0; j < itemdetaislArray.length(); j++) {
-                        JSONObject object = itemdetaislArray.getJSONObject(j);
-
-                        String BookTime = object.getString("BookTime");
-                        String SourceAdd = object.getString("SourceAdd");
-                        String DestinationAdd = object.getString("DestinationAdd");
-
-
-                        staticList.add(new StaticModel(BookTime, SourceAdd, DestinationAdd));
-
-
-                    }
-
-                    try {
-                        timeTxt.setText(staticList.get(0).getTime());
-                        sourceAddTxt.setText(staticList.get(0).getSource());
-                        destinationDDtXT.setText(staticList.get(0).getDestination());
-
-                        timeTxt1.setText(staticList.get(1).getTime());
-                        sourceAddTxt1.setText(staticList.get(1).getSource());
-                        destinationDDtXT1.setText(staticList.get(1).getDestination());
-
-                        timeTxt2.setText(staticList.get(2).getTime());
-                        sourceAddTxt2.setText(staticList.get(2).getSource());
-                        destinationDDtXT2.setText(staticList.get(2).getDestination());
-
-                    } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
-                    }
-
-                    personalDdlDetails();
 
                     pDialog.dismiss();
 
@@ -791,6 +827,43 @@ public class AddCabActivity extends AppCompatActivity {
         } else {
             getFragmentManager().popBackStack();
         }
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddCabActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddCabActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddCabActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddCabActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddCabActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddCabActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddCabActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddCabActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddCabActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddCabActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

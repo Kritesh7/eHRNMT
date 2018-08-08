@@ -54,6 +54,10 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
     public TextView noCust ;
     public String contactUrl = SettingConstant.BaseUrl + "AppEmployeeAddressList";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,10 +157,15 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
                     for (int i=0 ; i<jsonArray.length();i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerAddressContactActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
 
                             String Type = object.getString("Type");

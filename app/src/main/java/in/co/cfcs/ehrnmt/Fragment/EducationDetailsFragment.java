@@ -72,6 +72,10 @@ public class EducationDetailsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public EducationDetailsFragment() {
         // Required empty public constructor
     }
@@ -217,36 +221,49 @@ public class EducationDetailsFragment extends Fragment {
                     {
                         list.clear();
                     }
-                    JSONArray jsonArray = jsonObject.getJSONArray("List");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        String QualificationName = object.getString("QualificationName");
-                        String DisciplineName = object.getString("DisciplineName");
-                        String PassingDate = object.getString("PassingDate");
-                        String Institute = object.getString("Institute");
-                        String CourseType = object.getString("CourseType");
-                        String HighestDegree = object.getString("HighestDegree");
-                        String Comments = object.getString("Comments");
-                        String StatusText = object.getString("StatusText");
-                        String Editable = object.getString("Editable");
-                        String Deleteable = object.getString("Deleteable");
-                        String RecordID = object.getString("RecordID");
+
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray jsonArray = jsonObject.getJSONArray("List");
+                        for (int i=0 ; i<jsonArray.length();i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String QualificationName = object.getString("QualificationName");
+                            String DisciplineName = object.getString("DisciplineName");
+                            String PassingDate = object.getString("PassingDate");
+                            String Institute = object.getString("Institute");
+                            String CourseType = object.getString("CourseType");
+                            String HighestDegree = object.getString("HighestDegree");
+                            String Comments = object.getString("Comments");
+                            String StatusText = object.getString("StatusText");
+                            String Editable = object.getString("Editable");
+                            String Deleteable = object.getString("Deleteable");
+                            String RecordID = object.getString("RecordID");
 
 
-                        list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
-                                RecordID,Comments,StatusText,Editable,Deleteable));
+                            list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
+                                    RecordID,Comments,StatusText,Editable,Deleteable));
 
 
+                        }
+
+                        JSONArray statusArray = jsonObject.getJSONArray("Status");
+                        for (int j = 0; j<statusArray.length(); j++)
+                        {
+                            JSONObject obj = statusArray.getJSONObject(j);
+
+                            IsAddEducationalDetail = obj.getString("IsAddEducationalDetail");
+                        }
                     }
 
-                    JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int j = 0; j<statusArray.length(); j++)
-                    {
-                        JSONObject obj = statusArray.getJSONObject(j);
-
-                        IsAddEducationalDetail = obj.getString("IsAddEducationalDetail");
-                    }
 
                     if (list.size() == 0)
                     {
@@ -264,7 +281,7 @@ public class EducationDetailsFragment extends Fragment {
                 } catch (JSONException e) {
                     Log.e("checking json excption" , e.getMessage());
                     e.printStackTrace();
-                    Logout();
+                   // Logout();
                 }
             }
         }, new Response.ErrorListener() {

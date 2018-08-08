@@ -98,6 +98,10 @@ public class PersonalDetailsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public PersonalDetailsFragment() {
         // Required empty public constructor
     }
@@ -422,14 +426,16 @@ public class PersonalDetailsFragment extends Fragment {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
-                            Logout();
-
-                        }else
-                        {
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
 
                             String Title = jsonObject.getString("Title");
                             String FirstName = jsonObject.getString("FirstName");
@@ -612,53 +618,68 @@ public class PersonalDetailsFragment extends Fragment {
                         materialList.clear();
                     }
                     materialList.add("Please Select Material Status");
-                    JSONArray materialObj = jsonObject.getJSONArray("MartialStatus");
-                    for (int i =0; i<materialObj.length(); i++)
-                    {
-                        JSONObject object = materialObj.getJSONObject(i);
 
-                        String MartialStatusName = object.getString("MartialStatusName");
-                        materialList.add(MartialStatusName);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
+                        JSONArray materialObj = jsonObject.getJSONArray("MartialStatus");
+                        for (int i =0; i<materialObj.length(); i++)
+                        {
+                            JSONObject object = materialObj.getJSONObject(i);
+
+                            String MartialStatusName = object.getString("MartialStatusName");
+                            materialList.add(MartialStatusName);
+
+                        }
+
+                        //bind Nationality List
+                        if (nationalityList.size()>0)
+                        {
+                            nationalityList.clear();
+                        }
+                        nationalityList.add(new NationnalityModel("Please Select Nationality",""));
+                        JSONArray nationalityObj = jsonObject.getJSONArray("NationalityMaster");
+                        for (int j=0; j<nationalityObj.length(); j++)
+                        {
+                            JSONObject object = nationalityObj.getJSONObject(j);
+
+                            String NationalityName = object.getString("NationalityName");
+                            String NationalityID = object.getString("NationalityID");
+                            nationalityList.add(new NationnalityModel(NationalityName,NationalityID));
+                        }
+
+                        //bind Title Spinner Data
+                        if (titleList.size()>0)
+                        {
+                            titleList.clear();
+                        }
+                        titleList.add("Please Select Title");
+                        JSONArray titleObj = jsonObject.getJSONArray("TitleMaster");
+                        for (int k=0; k<titleObj.length(); k++)
+                        {
+                            JSONObject object = titleObj.getJSONObject(k);
+
+                            String TitleName = object.getString("TitleName");
+                            titleList.add(TitleName);
+                        }
+
+                        materialAdapter.notifyDataSetChanged();
+                        nationaolityAdapter.notifyDataSetChanged();
+                        titleAdapter.notifyDataSetChanged();
+
+
+                        personalDetails(userId,authcode);
                     }
 
-                    //bind Nationality List
-                    if (nationalityList.size()>0)
-                    {
-                        nationalityList.clear();
-                    }
-                    nationalityList.add(new NationnalityModel("Please Select Nationality",""));
-                    JSONArray nationalityObj = jsonObject.getJSONArray("NationalityMaster");
-                    for (int j=0; j<nationalityObj.length(); j++)
-                    {
-                        JSONObject object = nationalityObj.getJSONObject(j);
 
-                        String NationalityName = object.getString("NationalityName");
-                        String NationalityID = object.getString("NationalityID");
-                        nationalityList.add(new NationnalityModel(NationalityName,NationalityID));
-                    }
-
-                    //bind Title Spinner Data
-                    if (titleList.size()>0)
-                    {
-                        titleList.clear();
-                    }
-                    titleList.add("Please Select Title");
-                    JSONArray titleObj = jsonObject.getJSONArray("TitleMaster");
-                    for (int k=0; k<titleObj.length(); k++)
-                    {
-                        JSONObject object = titleObj.getJSONObject(k);
-
-                        String TitleName = object.getString("TitleName");
-                        titleList.add(TitleName);
-                    }
-
-                    materialAdapter.notifyDataSetChanged();
-                    nationaolityAdapter.notifyDataSetChanged();
-                    titleAdapter.notifyDataSetChanged();
-
-
-                    personalDetails(userId,authcode);
 
                     // pDialog.dismiss();
 
@@ -710,19 +731,13 @@ public class PersonalDetailsFragment extends Fragment {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification"))
-                        {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if (jsonObject.has("status"))
-                        {
-                            String status = jsonObject.getString("status");
-
-                            if (status.equalsIgnoreCase("success"))
-                            {
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else if (LoginStatus.equalsIgnoreCase("success")) {
                                 //change button name
                                 editBtn.setText("Edit Personal Details");
 
@@ -742,17 +757,11 @@ public class PersonalDetailsFragment extends Fragment {
 
                                 //bind Details Api
                                 personalDdlDetails();
+
+                            }else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
                             }
-
-
-
-
                         }
-
-
-
-
-
 
                     }
 

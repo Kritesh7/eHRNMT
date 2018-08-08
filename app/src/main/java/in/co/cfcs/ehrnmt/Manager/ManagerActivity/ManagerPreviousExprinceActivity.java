@@ -53,6 +53,12 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
     public String prevLangUrl = SettingConstant.BaseUrl + "AppEmployeePreviousExperienceList";
     public ConnectionDetector conn;
     public String userId = "",authCode = "" , IsAddPreviousExperience = "";
+
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,16 +154,22 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
                     {
                         list.clear();
                     }
-                    JSONArray jsonArray = jsonObject.getJSONArray("List");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
-                        JSONObject object = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerPreviousExprinceActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
                             Logout();
-                        }else{
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("List");
+                        for (int i=0 ; i<jsonArray.length();i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
 
                             String CompName = object.getString("CompName");
                             String Designation = object.getString("Designation");
@@ -175,20 +187,18 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
 
                             list.add(new PreviousExpreinceModel(CompName,JoiningDate,JobDesc,JobPeriod,Designation,"0","0",
                                     Status,Comments,RecordID,RelievingDate,JobPeriodYear,JobPeriodMonth));
+                        }
+
+                        JSONArray statusArray = jsonObject.getJSONArray("Status");
+                        for (int k=0; k<statusArray.length(); k++)
+                        {
+                            JSONObject obj = statusArray.getJSONObject(k);
+                            IsAddPreviousExperience = obj.getString("IsAddPreviousExperience");
+
 
                         }
 
                     }
-
-                    JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k=0; k<statusArray.length(); k++)
-                    {
-                        JSONObject obj = statusArray.getJSONObject(k);
-                        IsAddPreviousExperience = obj.getString("IsAddPreviousExperience");
-
-
-                    }
-
                     if (list.size() == 0)
                     {
                         noCust.setVisibility(View.VISIBLE);
@@ -198,6 +208,7 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
                         noCust.setVisibility(View.GONE);
                         prevoisExpRecy.setVisibility(View.VISIBLE);
                     }
+
 
                     adapter.notifyDataSetChanged();
                     pDialog.dismiss();

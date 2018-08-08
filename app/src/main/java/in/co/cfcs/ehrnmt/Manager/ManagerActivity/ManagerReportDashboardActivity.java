@@ -19,6 +19,8 @@ public class ManagerReportDashboardActivity extends AppCompatActivity {
     public TextView titleTxt;
     public LinearLayout firstLay, secondLay, thirdLay;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

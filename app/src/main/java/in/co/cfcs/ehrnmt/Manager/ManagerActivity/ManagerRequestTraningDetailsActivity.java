@@ -47,6 +47,10 @@ public class ManagerRequestTraningDetailsActivity extends AppCompatActivity {
     public String viewDetailsUrl = SettingConstant.BaseUrl + "AppManagerTrainingRequestDetail";
     public ConnectionDetector conn;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,10 +152,15 @@ public class ManagerRequestTraningDetailsActivity extends AppCompatActivity {
                     for (int i = 0; i<jsonArray.length(); i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        if (object.has("MsgNotification")) {
-                            String MsgNotification = object.getString("MsgNotification");
-                            Toast.makeText(ManagerRequestTraningDetailsActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (object.has("status")) {
+                            LoginStatus = object.getString("status");
+                            msgstatus = object.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String DomainName = object.getString("DomainName");
                             String CourseName = object.getString("CourseName");

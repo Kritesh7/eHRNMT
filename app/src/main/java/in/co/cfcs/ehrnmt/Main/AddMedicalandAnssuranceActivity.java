@@ -106,6 +106,10 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
     public TextView editTxt;
     public ImageView crossBtn, downloadBtn;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -674,29 +678,44 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                     }
                     policyTypeList.add(new PolicyTypeModel("Please Select Policy Type",""));
 
-                    JSONArray policyObj = jsonObject.getJSONArray("PolicyTypeMaster");
-                    for (int i =0; i<policyObj.length(); i++)
-                    {
-                        JSONObject object = policyObj.getJSONObject(i);
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                        String PolicyTypeID = object.getString("PolicyTypeID");
-                        String PolicyTypeName = object.getString("PolicyTypeName");
-
-                        policyTypeList.add(new PolicyTypeModel(PolicyTypeName,PolicyTypeID));
-
-                    }
-
-
-                    for (int k =0; k<policyTypeList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                        JSONArray policyObj = jsonObject.getJSONArray("PolicyTypeMaster");
+                        for (int i =0; i<policyObj.length(); i++)
                         {
-                            if (policyTypeList.get(k).getPolicyType().equalsIgnoreCase(policyTypeStr))
+                            JSONObject object = policyObj.getJSONObject(i);
+
+                            String PolicyTypeID = object.getString("PolicyTypeID");
+                            String PolicyTypeName = object.getString("PolicyTypeName");
+
+                            policyTypeList.add(new PolicyTypeModel(PolicyTypeName,PolicyTypeID));
+
+                        }
+
+
+                        for (int k =0; k<policyTypeList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                policyTypeSpinner.setSelection(k);
+                                if (policyTypeList.get(k).getPolicyType().equalsIgnoreCase(policyTypeStr))
+                                {
+                                    policyTypeSpinner.setSelection(k);
+                                }
                             }
                         }
+
+
                     }
+
 
                     policyTypeAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
@@ -745,20 +764,18 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")){
                             onBackPressed();
-                        }
-                    }
 
-                    if (jsonObject.has("MsgNotification"))
-                    {
-                        String MsgNotification = jsonObject.getString("MsgNotification");
-                        Toast.makeText(AddMedicalandAnssuranceActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
                     }
 
 
@@ -820,6 +837,43 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddMedicalandAnssuranceActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddMedicalandAnssuranceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddMedicalandAnssuranceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddMedicalandAnssuranceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddMedicalandAnssuranceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddMedicalandAnssuranceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddMedicalandAnssuranceActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddMedicalandAnssuranceActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddMedicalandAnssuranceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddMedicalandAnssuranceActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

@@ -39,6 +39,10 @@ public class ManagerDashBoardFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public ManagerDashBoardFragment() {
         // Required empty public constructor
     }

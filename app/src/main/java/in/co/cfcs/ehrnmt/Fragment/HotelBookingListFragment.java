@@ -71,6 +71,10 @@ public class HotelBookingListFragment extends Fragment {
     public String userId = "",authCode = "",strtext = "";
     public TextView noCust;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public HotelBookingListFragment() {
         // Required empty public constructor
     }
@@ -195,27 +199,16 @@ public class HotelBookingListFragment extends Fragment {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
 
-                        if (jsonObject.has("status"))
-                        {
-                            String status = jsonObject.getString("status");
-
-                            if (status.equalsIgnoreCase("failed"))
-                            {
-                                String MsgNotification = jsonObject.getString("MsgNotification");
-
-                                Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                pDialog.dismiss();
-
-                            }else
-                                {
-                                    String MsgNotification = jsonObject.getString("MsgNotification");
-
-                                    Toast.makeText(getActivity(), MsgNotification, Toast.LENGTH_SHORT).show();
-                                    pDialog.dismiss();
-                                }
-                        }else
-                        {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
                             String EmployeeName = jsonObject.getString("HotelName");
                             String CityName = jsonObject.getString("CityName");
                             String requestDate = jsonObject.getString("AddDateText");

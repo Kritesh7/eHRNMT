@@ -70,6 +70,10 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
     public TextView noRecordFoundTxt;
     public int cmonth,cyear,rearYear;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -268,10 +272,15 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                     {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        if (jsonObject.has("MsgNotification")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(ManagerShortLeaveHistoryActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (jsonObject.has("status")) {
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
                             String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
@@ -286,8 +295,6 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
 
                             list.add(new ShortLeaveHistoryModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
                                     StatusText,CommentText,"0"));
-
-
                         }
 
                     }

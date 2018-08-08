@@ -65,9 +65,13 @@ public class AssestDetailsFragment extends Fragment {
     public AssestsDetailsAdapter adapter;
     public ArrayList<AssestDetailsModel> list = new ArrayList<>();
     public String assestsUrl = SettingConstant.BaseUrl + "AppEmployeeAssetList";
-    public TextView noCust ;
+    public TextView noCust;
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
 
     public AssestDetailsFragment() {
         // Required empty public constructor
@@ -107,19 +111,19 @@ public class AssestDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_assest_details, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        assetsRecycler = (RecyclerView)rootView.findViewById(R.id.assets_recycler);
+        assetsRecycler = (RecyclerView) rootView.findViewById(R.id.assets_recycler);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new AssestsDetailsAdapter(getActivity(),list);
+        adapter = new AssestsDetailsAdapter(getActivity(), list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         assetsRecycler.setLayoutManager(mLayoutManager);
         assetsRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -153,21 +157,20 @@ public class AssestDetailsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            educationList(authCode,userId);
+            educationList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Assets list
-    public void educationList(final String AuthCode , final String AdminID) {
+    public void educationList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -178,20 +181,23 @@ public class AssestDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        if (object.has("MsgNotification")) {
-                            String MsgNotification = object.getString("MsgNotification");
-                            Toast.makeText(getContext(),MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
-                        }else{
+                        if (object.has("status")) {
+                            LoginStatus = object.getString("status");
+                            msgstatus = object.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
 
 
                             String AssetsHolder = object.getString("AssetsHolder");
@@ -204,13 +210,8 @@ public class AssestDetailsFragment extends Fragment {
                             String Remarks = object.getString("Remarks");
 
 
-
-
-
-                            list.add(new AssestDetailsModel(AssetsHolder,Assets,BrandName + " " +SerialNo ,IssueDate
-                                    ,ExpReturnDate,Reasion, Remarks));
-
-
+                            list.add(new AssestDetailsModel(AssetsHolder, Assets, BrandName + " " + SerialNo, IssueDate
+                                    , ExpReturnDate, Reasion, Remarks));
 
 
                         }
@@ -218,13 +219,10 @@ public class AssestDetailsFragment extends Fragment {
                     }
 
 
-
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         assetsRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         assetsRecycler.setVisibility(View.VISIBLE);
                     }
@@ -233,7 +231,7 @@ public class AssestDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -248,13 +246,13 @@ public class AssestDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -344,7 +342,6 @@ public class AssestDetailsFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

@@ -46,6 +46,10 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
     public Button editBtn;
     public LinearLayout followLay, hrCommentLay;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,45 +166,55 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
 
-                        String EmpName = object.getString("EmpName");
-                        String requestDate = object.getString("AddDateText");
-                        String approvedBy = object.getString("AppDateText");
-                        String HrComment = object.getString("HrComment");
-                        String AppStatusText = object.getString("AppStatusText");
-                        CityName = object.getString("CityName");
-                        CheckInDateText = object.getString("CheckInDateText");
-                        EmpComment = object.getString("EmpRemark");
-                        CheckOutDateText = object.getString("CheckOutDateText");
-                        CheckInTime = object.getString("CheckInTime");
-                        HotelName = object.getString("HotelName");
-                        HotelType = object.getString("HotelTypeText");
-                        BIDStr = object.getString("BID");
+                        if (object.has("status")) {
+                            LoginStatus = object.getString("status");
+                            msgstatus = object.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            String EmpName = object.getString("EmpName");
+                            String requestDate = object.getString("AddDateText");
+                            String approvedBy = object.getString("AppDateText");
+                            String HrComment = object.getString("HrComment");
+                            String AppStatusText = object.getString("AppStatusText");
+                            CityName = object.getString("CityName");
+                            CheckInDateText = object.getString("CheckInDateText");
+                            EmpComment = object.getString("EmpRemark");
+                            CheckOutDateText = object.getString("CheckOutDateText");
+                            CheckInTime = object.getString("CheckInTime");
+                            HotelName = object.getString("HotelName");
+                            HotelType = object.getString("HotelTypeText");
+                            BIDStr = object.getString("BID");
 
-                        employeNameTxt.setText(EmpName);
-                        empCommTxt.setText(EmpComment);
-                        requestDateTxt.setText(requestDate);
-                        approvalDateTxt.setText(approvedBy);
-                        hrCommTxt.setText(HrComment);
-                        statusTxt.setText(AppStatusText);
-                        cityNameTxt.setText(CityName);
-                        checkInTimeTxt.setText(CheckInTime);
-                        checkInDateTxt.setText(CheckInDateText);
-                        checkOutDateTxt.setText(CheckOutDateText);
-                        hotelNameTxt.setText(HotelName);
-                        hotelTypeTxt.setText(HotelType);
+                            employeNameTxt.setText(EmpName);
+                            empCommTxt.setText(EmpComment);
+                            requestDateTxt.setText(requestDate);
+                            approvalDateTxt.setText(approvedBy);
+                            hrCommTxt.setText(HrComment);
+                            statusTxt.setText(AppStatusText);
+                            cityNameTxt.setText(CityName);
+                            checkInTimeTxt.setText(CheckInTime);
+                            checkInDateTxt.setText(CheckInDateText);
+                            checkOutDateTxt.setText(CheckOutDateText);
+                            hotelNameTxt.setText(HotelName);
+                            hotelTypeTxt.setText(HotelType);
 
-                        if (approvedBy.equalsIgnoreCase("") || approvedBy.equalsIgnoreCase("null"))
-                        {
-                            followLay.setVisibility(View.GONE);
-                        }else
+                            if (approvedBy.equalsIgnoreCase("") || approvedBy.equalsIgnoreCase("null"))
+                            {
+                                followLay.setVisibility(View.GONE);
+                            }else
                             {
                                 followLay.setVisibility(View.VISIBLE);
                             }
 
-                        if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null"))
-                        {
-                            hrCommentLay.setVisibility(View.GONE);
-                        }else
+                            if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null"))
+                            {
+                                hrCommentLay.setVisibility(View.GONE);
+                            }else
                             {
                                 hrCommentLay.setVisibility(View.VISIBLE);
                             }
@@ -215,6 +229,10 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
                             approvalDateTxt.setVisibility(View.GONE);
                             followDateTxt.setVisibility(View.GONE);
                         }*/
+
+
+
+                        }
 
 
                     }
@@ -268,6 +286,44 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewHotelDetailActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewHotelDetailActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewHotelDetailActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewHotelDetailActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewHotelDetailActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewHotelDetailActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewHotelDetailActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewHotelDetailActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewHotelDetailActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewHotelDetailActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

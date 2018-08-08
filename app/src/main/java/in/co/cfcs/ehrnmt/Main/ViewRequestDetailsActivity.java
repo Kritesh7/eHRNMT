@@ -50,6 +50,11 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
     public String stationoryUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryRequestDetail";
     public String authCode = "", rid="", userId = "", ridStr = "",IdealClosureDateText = "";
     public Button updateDetails;
+
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,79 +162,91 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                    JSONArray requestDetailsArray = jsonObject.getJSONArray("RequestDetail");
-                    for (int i = 0; i<requestDetailsArray.length(); i++)
-                    {
-                        JSONObject object = requestDetailsArray.getJSONObject(i);
-
-                        String EmpName = object.getString("EmpName");
-                        String AddDateText = object.getString("AddDateText");
-                        String AppBy = object.getString("ApprovedBy");
-                        String HrComment = object.getString("HrComment");
-                        String AppStatusText = object.getString("AppStatusText");
-                        IdealClosureDateText = object.getString("IdealClosureDateText");
-                        String Visibility = object.getString("Visibility");
-                        ridStr = object.getString("RID");
-
-                        closerDateTxt.setText(IdealClosureDateText);
-                        empNameTxt.setText(EmpName);
-                        requestByTxt.setText(AppBy);
-                        requestDateTxt.setText(AddDateText);
-                        hrCommentTxt.setText(HrComment);
-                        statusTxt.setText(AppStatusText);
-
-
-                        if (HrComment.equalsIgnoreCase(""))
+                        JSONArray requestDetailsArray = jsonObject.getJSONArray("RequestDetail");
+                        for (int i = 0; i<requestDetailsArray.length(); i++)
                         {
-                            hrTxt.setVisibility(View.GONE);
-                            hrCommentTxt.setVisibility(View.GONE);
+                            JSONObject object = requestDetailsArray.getJSONObject(i);
+                            String EmpName = object.getString("EmpName");
+                            String AddDateText = object.getString("AddDateText");
+                            String AppBy = object.getString("ApprovedBy");
+                            String HrComment = object.getString("HrComment");
+                            String AppStatusText = object.getString("AppStatusText");
+                            IdealClosureDateText = object.getString("IdealClosureDateText");
+                            String Visibility = object.getString("Visibility");
+                            ridStr = object.getString("RID");
+
+                            closerDateTxt.setText(IdealClosureDateText);
+                            empNameTxt.setText(EmpName);
+                            requestByTxt.setText(AppBy);
+                            requestDateTxt.setText(AddDateText);
+                            hrCommentTxt.setText(HrComment);
+                            statusTxt.setText(AppStatusText);
+
+
+                            if (HrComment.equalsIgnoreCase(""))
+                            {
+                                hrTxt.setVisibility(View.GONE);
+                                hrCommentTxt.setVisibility(View.GONE);
+                            }
+
+
                         }
 
+                        JSONArray itemdetaislArray = jsonObject.getJSONArray("ItemsDetail");
+                        if (list.size()>0)
+                        {
+                            list.clear();
+                        }
+                        for (int j=0 ; j<itemdetaislArray.length();j++)
+                        {
+                            JSONObject object = itemdetaislArray.getJSONObject(j);
+
+                            String ItemName = object.getString("ItemName");
+                            String NoOfItem = object.getString("NoOfItem");
+                            //String Quantity = object.getString("Quantity");
+                            String Remark = object.getString("Remark");
+                            String ItemID = object.getString("ItemID");
+                            String chkValue = object.getString("chkValue");
+
+
+                            list.add(new BookMeaPrevisionModel(ItemName,ItemID,NoOfItem,Remark,chkValue,"0"));
+
+
+
+                        }
+
+                        JSONArray itemsBindDataArray = jsonObject.getJSONArray("ItemsBindData");
+
+                        if (itemBindList.size()>0)
+                        {
+                            itemBindList.clear();
+                        }
+                        for (int k=0 ; k<itemsBindDataArray.length(); k++)
+                        {
+                            JSONObject object = itemsBindDataArray.getJSONObject(k);
+                            String ItemID = object.getString("ItemID");
+                            String ItemName = object.getString("ItemName");
+                            String Quantity = object.getString("NoOfItem");
+                            String maxQuantity = object.getString("Quantity");
+                            String Remark = object.getString("Remark");
+                            String chkValue = object.getString("chkValue");
+
+                            itemBindList.add(new AddNewStationoryRequestModel(ItemName,maxQuantity,ItemID,Quantity,Remark));
+                        }
 
                     }
 
-                    JSONArray itemdetaislArray = jsonObject.getJSONArray("ItemsDetail");
-                    if (list.size()>0)
-                    {
-                        list.clear();
-                    }
-                    for (int j=0 ; j<itemdetaislArray.length();j++)
-                    {
-                        JSONObject object = itemdetaislArray.getJSONObject(j);
-
-                        String ItemName = object.getString("ItemName");
-                        String NoOfItem = object.getString("NoOfItem");
-                        //String Quantity = object.getString("Quantity");
-                        String Remark = object.getString("Remark");
-                        String ItemID = object.getString("ItemID");
-                        String chkValue = object.getString("chkValue");
-
-
-                        list.add(new BookMeaPrevisionModel(ItemName,ItemID,NoOfItem,Remark,chkValue,"0"));
-
-
-
-                    }
-
-                    JSONArray itemsBindDataArray = jsonObject.getJSONArray("ItemsBindData");
-
-                    if (itemBindList.size()>0)
-                    {
-                        itemBindList.clear();
-                    }
-                    for (int k=0 ; k<itemsBindDataArray.length(); k++)
-                    {
-                        JSONObject object = itemsBindDataArray.getJSONObject(k);
-                        String ItemID = object.getString("ItemID");
-                        String ItemName = object.getString("ItemName");
-                        String Quantity = object.getString("NoOfItem");
-                        String maxQuantity = object.getString("Quantity");
-                        String Remark = object.getString("Remark");
-                        String chkValue = object.getString("chkValue");
-
-                        itemBindList.add(new AddNewStationoryRequestModel(ItemName,maxQuantity,ItemID,Quantity,Remark));
-                    }
 
                     Log.e("Inner List size in edit", itemBindList.size() + "");
                     adapter.notifyDataSetChanged();
@@ -272,16 +289,51 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
     @Override
     public void onBackPressed() {
 
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(ViewRequestDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewRequestDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewRequestDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(ViewRequestDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(ViewRequestDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(ViewRequestDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewRequestDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewRequestDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewRequestDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewRequestDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

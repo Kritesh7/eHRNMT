@@ -57,6 +57,10 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
     public String readLang = "false", writeLang = "false" , spealLang = "false", langaigeId = "", actionMode = "", langageNameStr = ""
             ,readStr = "", writeStr = "", speakStr = "", recordId = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,32 +277,44 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
                     }
                     langageList.add(new LangaugaeSpinnerModel("Please Select Language",""));
 
-                    JSONArray languageObj = jsonObject.getJSONArray("LanguageMaster");
-                    for (int i =0; i<languageObj.length(); i++)
-                    {
-                        JSONObject object = languageObj.getJSONObject(i);
-
-                        String LanguageID = object.getString("LanguageID");
-                        String LanguageName = object.getString("LanguageName");
-
-                        langageList.add(new LangaugaeSpinnerModel(LanguageName,LanguageID));
-
-                    }
-
-
-
-
-                    //Edit Mode
-                    for (int k =0; k<langageList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray languageObj = jsonObject.getJSONArray("LanguageMaster");
+                        for (int i =0; i<languageObj.length(); i++)
                         {
-                            if (langageList.get(k).getLangaugeName().equalsIgnoreCase(langageNameStr))
+                            JSONObject object = languageObj.getJSONObject(i);
+
+                            String LanguageID = object.getString("LanguageID");
+                            String LanguageName = object.getString("LanguageName");
+
+                            langageList.add(new LangaugaeSpinnerModel(LanguageName,LanguageID));
+
+                        }
+
+
+
+
+                        //Edit Mode
+                        for (int k =0; k<langageList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                langageSpinner.setSelection(k);
-                                langaigeId = langageList.get(k).getLangaugeId();
+                                if (langageList.get(k).getLangaugeName().equalsIgnoreCase(langageNameStr))
+                                {
+                                    langageSpinner.setSelection(k);
+                                    langaigeId = langageList.get(k).getLangaugeId();
+                                }
                             }
                         }
+
                     }
 
 
@@ -361,17 +377,19 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")){
                             onBackPressed();
+
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
-
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
@@ -412,6 +430,43 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddNewLnaguageActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddNewLnaguageActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddNewLnaguageActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddNewLnaguageActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddNewLnaguageActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddNewLnaguageActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddNewLnaguageActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddNewLnaguageActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddNewLnaguageActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddNewLnaguageActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

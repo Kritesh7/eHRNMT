@@ -70,6 +70,10 @@ public class AttendanceFragment extends Fragment implements OnMapReadyCallback {
     public Button cancelBtn;
     public ImageView profileSelectImg;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     public AttendanceFragment() {
         // Required empty public constructor
     }
@@ -107,16 +111,16 @@ public class AttendanceFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_attendance, container, false);
 
-        locationImg = (ImageView)rootView. findViewById(R.id.locationimg);
-        locationTxt = (EditText)rootView. findViewById(R.id.locationtxt);
+        locationImg = (ImageView) rootView.findViewById(R.id.locationimg);
+        locationTxt = (EditText) rootView.findViewById(R.id.locationtxt);
         subBtn = (Button) rootView.findViewById(R.id.submitbtn);
-        profileImg = (ImageView)rootView.findViewById(R.id.procam);
+        profileImg = (ImageView) rootView.findViewById(R.id.procam);
         profileSelectImg = (ImageView) rootView.findViewById(R.id.pro_image);
-        cancelBtn = (Button)rootView.findViewById(R.id.cancelbtn);
+        cancelBtn = (Button) rootView.findViewById(R.id.cancelbtn);
 
         gpsTracker = new GPSTracker(getActivity(), getActivity());
 
-        mSupportMapFragment = (SupportMapFragment)this.getChildFragmentManager().findFragmentById(R.id.mapwhere);
+        mSupportMapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapwhere);
         mSupportMapFragment.getMapAsync(this);
 
 
@@ -164,33 +168,30 @@ public class AttendanceFragment extends Fragment implements OnMapReadyCallback {
     //uploadImage work
     private void selectImage() {
 
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add Photo!");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo"))
-                {
+                if (options[item].equals("Take Photo")) {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, 1);
-                }
-                else if (options[item].equals("Choose from Gallery"))
-                {
+                } else if (options[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     intent.setType("image/*");
                     startActivityForResult(intent, 2);
 
-                }
-                else if (options[item].equals("Cancel")) {
+                } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
             }
         });
         builder.show();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -205,8 +206,7 @@ public class AttendanceFragment extends Fragment implements OnMapReadyCallback {
 
                 //    getCustomerDetail(userId);
 
-            }
-            else if (requestCode == 2) {
+            } else if (requestCode == 2) {
 
                 Uri uri = data.getData();
 
@@ -260,8 +260,6 @@ public class AttendanceFragment extends Fragment implements OnMapReadyCallback {
                 default:
                     locationAddress = null;
             }
-
-
 
 
         }

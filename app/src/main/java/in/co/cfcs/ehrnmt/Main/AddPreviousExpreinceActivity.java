@@ -67,6 +67,10 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
             , joiningDateStr = "" , relivingDateStr = "", designationStr = "", yearStrId = "", monthIdStr = ""
             ,jobDescStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -407,20 +411,22 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                        }else
-                            {
-                                String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }else {
 
-                                Toast.makeText(AddPreviousExpreinceActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+
+                        }
                     }
+
 
                     pDialog.dismiss();
 
@@ -472,6 +478,43 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddPreviousExpreinceActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddPreviousExpreinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddPreviousExpreinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddPreviousExpreinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddPreviousExpreinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddPreviousExpreinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddPreviousExpreinceActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddPreviousExpreinceActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddPreviousExpreinceActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddPreviousExpreinceActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

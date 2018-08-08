@@ -107,6 +107,10 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
     public ImageView crossBtn;
     private static final int FILE_SELECT_CODE = 0;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -907,17 +911,29 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
                         documentTypeList.clear();
                     }
                     documentTypeList.add(new DocumentTypeModel("Please Select Policy Type", ""));
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray documentTypeObj = jsonObject.getJSONArray("DocumentTypeMaster");
+                        for (int i = 0; i < documentTypeObj.length(); i++) {
+                            JSONObject object = documentTypeObj.getJSONObject(i);
 
-                    JSONArray documentTypeObj = jsonObject.getJSONArray("DocumentTypeMaster");
-                    for (int i = 0; i < documentTypeObj.length(); i++) {
-                        JSONObject object = documentTypeObj.getJSONObject(i);
+                            String DocumentTypeID = object.getString("DocumentTypeID");
+                            String DocumentTypeName = object.getString("DocumentTypeName");
 
-                        String DocumentTypeID = object.getString("DocumentTypeID");
-                        String DocumentTypeName = object.getString("DocumentTypeName");
+                            documentTypeList.add(new DocumentTypeModel(DocumentTypeName, DocumentTypeID));
 
-                        documentTypeList.add(new DocumentTypeModel(DocumentTypeName, DocumentTypeID));
+                        }
 
                     }
+
 
 
                    /* for (int k =0; k<policyTypeList.size(); k++)
@@ -977,19 +993,17 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-
                     if (jsonObject.has("status")) {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")){
                             onBackPressed();
-
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(AddOffieceallyDetailsActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(AddOffieceallyDetailsActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -1040,6 +1054,44 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
+
+    }
+
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddOffieceallyDetailsActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddOffieceallyDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddOffieceallyDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddOffieceallyDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddOffieceallyDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddOffieceallyDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddOffieceallyDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddOffieceallyDetailsActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddOffieceallyDetailsActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddOffieceallyDetailsActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 

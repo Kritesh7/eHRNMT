@@ -83,6 +83,10 @@ public class AddNewSkilActivity extends AppCompatActivity {
             ,actionMode = "", skillNameStr = "", proficeiancyNameStr, sourceNameStr = "", useSkillStr = "", lastDateStr = ""
             , recordId = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -383,94 +387,106 @@ public class AddNewSkilActivity extends AppCompatActivity {
                         skillList.clear();
                     }
                     skillList.add(new SkillsSpinnerModel("Please Select Skills",""));
-
-                    JSONArray skillsObj = jsonObject.getJSONArray("SkillMaster");
-                    for (int i =0; i<skillsObj.length(); i++)
-                    {
-                        JSONObject object = skillsObj.getJSONObject(i);
-
-                        String SkillID = object.getString("SkillID");
-                        String SkillName = object.getString("SkillName");
-
-                        skillList.add(new SkillsSpinnerModel(SkillName,SkillID));
-
-                    }
-
-                    //bind Proficeancy
-                    if (profyList.size()>0)
-                    {
-                        profyList.clear();
-                    }
-                    profyList.add(new ProficiencySpiinerModel("Please Select Proficiency",""));
-
-                    JSONArray proficiencyObj = jsonObject.getJSONArray("ProficiencyMaste");
-                    for (int i =0; i<proficiencyObj.length(); i++)
-                    {
-                        JSONObject object = proficiencyObj.getJSONObject(i);
-
-                        String ProficiencyID = object.getString("ProficiencyID");
-                        String ProficiencyName = object.getString("ProficiencyName");
-
-                        profyList.add(new ProficiencySpiinerModel(ProficiencyName,ProficiencyID));
-
-                    }
-
-                    //bind source
-                    if (sourceList.size()>0)
-                    {
-                        sourceList.clear();
-                    }
-                    sourceList.add(new SourceSpinnerModel("Please Select Proficiency",""));
-
-                    JSONArray sourceObj = jsonObject.getJSONArray("SkillSourceMaster");
-                    for (int i =0; i<sourceObj.length(); i++)
-                    {
-                        JSONObject object = sourceObj.getJSONObject(i);
-
-                        String SkillSourceID = object.getString("SkillSourceID");
-                        String SkillSourceName = object.getString("SkillSourceName");
-
-                        sourceList.add(new SourceSpinnerModel(SkillSourceName,SkillSourceID));
-
-                    }
-
-
-                    for (int k =0; k<skillList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        JSONArray skillsObj = jsonObject.getJSONArray("SkillMaster");
+                        for (int i =0; i<skillsObj.length(); i++)
                         {
-                            if (skillList.get(k).getSkillsName().equalsIgnoreCase(skillNameStr))
-                            {
-                                skillSpinner.setSelection(k);
+                            JSONObject object = skillsObj.getJSONObject(i);
 
-                                skillId = skillList.get(k).getSkillsId();
+                            String SkillID = object.getString("SkillID");
+                            String SkillName = object.getString("SkillName");
+
+                            skillList.add(new SkillsSpinnerModel(SkillName,SkillID));
+
+                        }
+
+                        //bind Proficeancy
+                        if (profyList.size()>0)
+                        {
+                            profyList.clear();
+                        }
+                        profyList.add(new ProficiencySpiinerModel("Please Select Proficiency",""));
+
+                        JSONArray proficiencyObj = jsonObject.getJSONArray("ProficiencyMaste");
+                        for (int i =0; i<proficiencyObj.length(); i++)
+                        {
+                            JSONObject object = proficiencyObj.getJSONObject(i);
+
+                            String ProficiencyID = object.getString("ProficiencyID");
+                            String ProficiencyName = object.getString("ProficiencyName");
+
+                            profyList.add(new ProficiencySpiinerModel(ProficiencyName,ProficiencyID));
+
+                        }
+
+                        //bind source
+                        if (sourceList.size()>0)
+                        {
+                            sourceList.clear();
+                        }
+                        sourceList.add(new SourceSpinnerModel("Please Select Proficiency",""));
+
+                        JSONArray sourceObj = jsonObject.getJSONArray("SkillSourceMaster");
+                        for (int i =0; i<sourceObj.length(); i++)
+                        {
+                            JSONObject object = sourceObj.getJSONObject(i);
+
+                            String SkillSourceID = object.getString("SkillSourceID");
+                            String SkillSourceName = object.getString("SkillSourceName");
+
+                            sourceList.add(new SourceSpinnerModel(SkillSourceName,SkillSourceID));
+
+                        }
+
+
+                        for (int k =0; k<skillList.size(); k++)
+                        {
+                            if (actionMode.equalsIgnoreCase("EditMode"))
+                            {
+                                if (skillList.get(k).getSkillsName().equalsIgnoreCase(skillNameStr))
+                                {
+                                    skillSpinner.setSelection(k);
+
+                                    skillId = skillList.get(k).getSkillsId();
+                                }
                             }
                         }
-                    }
 
-                    for (int k =0; k<profyList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                        for (int k =0; k<profyList.size(); k++)
                         {
-                            if (profyList.get(k).getProficiencyName().equalsIgnoreCase(proficeiancyNameStr))
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                proficenacySpinner.setSelection(k);
+                                if (profyList.get(k).getProficiencyName().equalsIgnoreCase(proficeiancyNameStr))
+                                {
+                                    proficenacySpinner.setSelection(k);
 
-                                proficieancyId = profyList.get(k).getProficiencyId();
+                                    proficieancyId = profyList.get(k).getProficiencyId();
+                                }
                             }
                         }
-                    }
 
-                    for (int k =0; k<sourceList.size(); k++)
-                    {
-                        if (actionMode.equalsIgnoreCase("EditMode"))
+                        for (int k =0; k<sourceList.size(); k++)
                         {
-                            if (sourceList.get(k).getSourceName().equalsIgnoreCase(sourceNameStr))
+                            if (actionMode.equalsIgnoreCase("EditMode"))
                             {
-                                sourceSpinner.setSelection(k);
-                                sourceId = sourceList.get(k).getSourceId();
+                                if (sourceList.get(k).getSourceName().equalsIgnoreCase(sourceNameStr))
+                                {
+                                    sourceSpinner.setSelection(k);
+                                    sourceId = sourceList.get(k).getSourceId();
+                                }
                             }
                         }
+
+
                     }
 
                    sourceAdapter.notifyDataSetChanged();
@@ -534,16 +550,18 @@ public class AddNewSkilActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-                    if (jsonObject.has("status"))
-                    {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -610,6 +628,42 @@ public class AddNewSkilActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+    private void Logout() {
 
+
+        finishAffinity();
+        startActivity(new Intent(AddNewSkilActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddNewSkilActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddNewSkilActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddNewSkilActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddNewSkilActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddNewSkilActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddNewSkilActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddNewSkilActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddNewSkilActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddNewSkilActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
+    }
 
 }

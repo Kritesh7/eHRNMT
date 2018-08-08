@@ -161,9 +161,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
     FrameLayout camera_view;
 
-
     LatLngBounds.Builder builder;
-
 
     String msgstatus = "";
 
@@ -172,6 +170,11 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
     String EmployeeName;
     String addressName1;
 
+    String InOutStatus ="";
+
+
+    String LoginStatus;
+    String invalid = "loginfailed";
 
     private static final String TAG = AttendanceModule.class.getSimpleName();
     String MSg;
@@ -221,6 +224,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         conn = new ConnectionDetector(AttendanceModule.this);
         authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AttendanceModule.this)));
         userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AttendanceModule.this)));
+        InOutStatus = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getInOutStatus(AttendanceModule.this)));
 
 
         titleTxt.setText("Mark Attendance");
@@ -234,7 +238,6 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         rd_in = findViewById(R.id.rd_in);
         rd_out = findViewById(R.id.rd_out);
 
-
         createchannel();  //needed for the persistent notification created in service.
 
         if (conn.getConnectivityStatus() > 0) {
@@ -243,6 +246,15 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         } else {
 
             conn.showNoInternetAlret();
+        }
+
+        if(InOutStatus.compareTo("1") == 0){
+            rd_in.setVisibility(View.GONE);
+            rd_out.setChecked(true);
+
+        }else {
+            rd_in.setVisibility(View.VISIBLE);
+            rd_out.setVisibility(View.GONE);
         }
 
 
@@ -1098,20 +1110,50 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                 try {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-
                     if (jsonObject.has("status")) {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success")) {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                            onBackPressed();
-                        }else {
-                            String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
                             Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
+                           // String MsgNotification = jsonObject.getString("MsgNotification");
+                            //Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                            if(InOutStatus.compareTo("1") != 0){
+                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
+                                        "1")));
+                            }else {
+                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
+                                        "")));
+                            }
+
+                            onBackPressed();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
+//                    if (jsonObject.has("status")) {
+//                        String status = jsonObject.getString("status");
+//
+//                        if (status.equalsIgnoreCase("success")) {
+//                            String MsgNotification = jsonObject.getString("MsgNotification");
+//                            Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
+//                            if(InOutStatus.compareTo("1") != 0){
+//                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
+//                                        "1")));
+//                            }else {
+//                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
+//                                        "")));
+//                            }
+//
+//                            onBackPressed();
+//                        }else {
+//                            String MsgNotification = jsonObject.getString("MsgNotification");
+//                            Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
+//                            Logout();
+//                        }
+//                    }
                     pDialog.dismiss();
 
                 } catch (JSONException e) {

@@ -56,6 +56,10 @@ public class ManagerFilterActivity extends AppCompatActivity {
     public String authCode = "", userId = "", checkingActivity = "", empId = "" ;
     public Button showBtn, cancelBtn;
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -312,10 +316,15 @@ public class ManagerFilterActivity extends AppCompatActivity {
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
 
-                        if (object.has("MsgNotification")) {
-                            String MsgNotification = object.getString("MsgNotification");
-                            Toast.makeText(ManagerFilterActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
-                            Logout();
+                        if (object.has("status")) {
+                            LoginStatus = object.getString("status");
+                            msgstatus = object.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         }else{
 
                             String AdminID = object.getString("AdminID");
@@ -390,11 +399,16 @@ public class ManagerFilterActivity extends AppCompatActivity {
                     for (int i =0; i<jsonArray.length(); i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        if (object.has("MsgNotification")) {
-                            String MsgNotification = object.getString("MsgNotification");
-                            Toast.makeText(ManagerFilterActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                        if (object.has("status")) {
+                        LoginStatus = object.getString("status");
+                        msgstatus = object.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
                             Logout();
-                        }else{
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else{
 
                             String AdminID = object.getString("AdminID");
                             String EmployeeName = object.getString("EmployeeName");

@@ -70,6 +70,11 @@ public class AddDependentActivity extends AppCompatActivity {
     public Button addBtn;
     public String authcode = "", userId = "", genderIdString = "", relationshipidStr = "", actionMode = "", firstNameStr = "", lastNameStr = "", genderNameStr = "", relationshipNameStr = "", dobStr = "", recordIdStr = "";
 
+    String LoginStatus;
+    String invalid = "loginfailed";
+    String msgstatus;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -287,16 +292,19 @@ public class AddDependentActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     if (jsonObject.has("status")) {
-                        String status = jsonObject.getString("status");
-
-                        if (status.equalsIgnoreCase("success")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                        }
-                    }
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
 
-                    if (jsonObject.has("MsgNotification")) {
-                        String MsgNotification = jsonObject.getString("MsgNotification");
-                        Toast.makeText(AddDependentActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+
+                        }
                     }
 
 
@@ -367,26 +375,38 @@ public class AddDependentActivity extends AppCompatActivity {
                         relationshipList.clear();
                     }
                     relationshipList.add(new RelationShipeTypeModel("Please Select Relationship", ""));
+                    if (jsonObject.has("status")) {
+                        LoginStatus = jsonObject.getString("status");
+                        msgstatus = jsonObject.getString("MsgNotification");
+                        if (LoginStatus.equals(invalid)) {
+                            Logout();
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        }
+                    }else {
 
-                    JSONArray relationshipObj = jsonObject.getJSONArray("RelationshipMaster");
-                    for (int i = 0; i < relationshipObj.length(); i++) {
-                        JSONObject object = relationshipObj.getJSONObject(i);
+                        JSONArray relationshipObj = jsonObject.getJSONArray("RelationshipMaster");
+                        for (int i = 0; i < relationshipObj.length(); i++) {
+                            JSONObject object = relationshipObj.getJSONObject(i);
 
-                        String RelationshipID = object.getString("RelationshipID");
-                        String RelationshipName = object.getString("RelationshipName");
+                            String RelationshipID = object.getString("RelationshipID");
+                            String RelationshipName = object.getString("RelationshipName");
 
-                        relationshipList.add(new RelationShipeTypeModel(RelationshipName, RelationshipID));
+                            relationshipList.add(new RelationShipeTypeModel(RelationshipName, RelationshipID));
 
-                    }
+                        }
 
-                    for (int k = 0; k < relationshipList.size(); k++) {
-                        if (actionMode.equalsIgnoreCase("EditMode")) {
-                            if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipNameStr)) {
-                                relationshipidStr = relationshipList.get(k).getRelationshipId();
-                                relationshipSpinner.setSelection(k);
+                        for (int k = 0; k < relationshipList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipNameStr)) {
+                                    relationshipidStr = relationshipList.get(k).getRelationshipId();
+                                    relationshipSpinner.setSelection(k);
+                                }
                             }
                         }
                     }
+
 
                     relationShipAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
@@ -422,6 +442,43 @@ public class AddDependentActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
+
+    }
+    private void Logout() {
+
+
+        finishAffinity();
+        startActivity(new Intent(AddDependentActivity.this, LoginActivity.class));
+
+//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
+//        startActivity(ik);
+
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddDependentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddDependentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAuthCode(AddDependentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmailId(AddDependentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setUserName(AddDependentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddDependentActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddDependentActivity.this,
+                "")));
+
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddDependentActivity.this,
+                "")));
+        UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddDependentActivity.this,
+                "")));
+
+//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        finish();
+
 
     }
 
