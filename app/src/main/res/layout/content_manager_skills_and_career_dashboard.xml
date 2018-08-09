@@ -47,7 +47,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/edu"/>
+                        app:srcCompat="@drawable/ic_edu"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -84,7 +84,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/exp"/>
+                        app:srcCompat="@drawable/ic_exp"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -131,7 +131,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/lang"/>
+                        app:srcCompat="@drawable/ic_lang"/>
 
                     <TextView
                         android:textSize="16sp"

@@ -47,7 +47,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrleavereq"/>
+                        app:srcCompat="@drawable/ic_mgrleavereq"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -93,7 +93,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrcleave"/>
+                        app:srcCompat="@drawable/ic_mgrcleave"/>
 
                     <TextView
                         android:textSize="16sp"

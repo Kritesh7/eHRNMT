@@ -283,7 +283,7 @@
                     android:textColor="@color/dahboard_textcolor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/download"/>
+                    app:srcCompat="@drawable/ic_download"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -309,7 +309,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:src="@drawable/editbtn"
+                app:srcCompat="@drawable/ic_editbtn"
                 />
 
 
@@ -319,7 +319,7 @@
             android:layout_width="0dp"
             android:layout_weight=".5"
             android:layout_height="wrap_content"
-            android:src="@drawable/delbtn"
+            app:srcCompat="@drawable/ic_delbtn"
             />
 
         </LinearLayout>

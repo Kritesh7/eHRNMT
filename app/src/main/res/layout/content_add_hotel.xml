@@ -138,7 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
-                android:src="@drawable/cal" />
+                app:srcCompat="@drawable/ic_cal" />
 
         </LinearLayout>
             <LinearLayout
@@ -216,7 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
-                android:src="@drawable/cal" />
+                app:srcCompat="@drawable/ic_cal" />
 
         </LinearLayout>
 

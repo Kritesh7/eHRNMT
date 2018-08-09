@@ -56,14 +56,14 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddCabActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,timeBtn,timeTxt,timeBtn1,timeTxt1,timeBtn2,timeTxt2;
     public Spinner cityOfBookingSpinner;
     public ArrayList<CabCityModel> listOfBooking = new ArrayList<>();
     public ArrayList<StaticModel> staticList = new ArrayList<>();
     public Button addBtn;
-    public ImageView dateBtn, timeBtn, dateBtn1, timeBtn1, dateBtn2, timeBtn2;
-    public EditText dateTxt, timeTxt, dateTxt1, timeTxt1, dateTxt2, timeTxt2, sourceAddTxt, destinationDDtXT, bookingRemarkTxt,
-            sourceAddTxt1, destinationDDtXT1, sourceAddTxt2, destinationDDtXT2;
+    public ImageView   dateBtn1, dateBtn2;
+    public EditText dateTxt, dateTxt1, dateTxt2, sourceAddTxt, destinationDDtXT, bookingRemarkTxt,
+            sourceAddTxt1, destinationDDtXT1, sourceAddTxt2, destinationDDtXT2,dateBtn;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public String ddlBindTxt = SettingConstant.BaseUrl + "AppddlBookMeAProvision";
@@ -127,14 +127,14 @@ public class AddCabActivity extends AppCompatActivity {
 
         cityOfBookingSpinner = (Spinner) findViewById(R.id.cityofbokkinglist);
         addBtn = (Button) findViewById(R.id.newrequestbtn);
-        dateBtn = (ImageView) findViewById(R.id.cab_date);
-        timeBtn = (ImageView) findViewById(R.id.cab_time);
-        timeBtn1 = (ImageView) findViewById(R.id.cab_time1);
-        timeBtn2 = (ImageView) findViewById(R.id.cab_time2);
+        dateBtn = (EditText) findViewById(R.id.cab_booking_date);
+        timeBtn = (TextView) findViewById(R.id.cab_bokkint_time);
+        timeBtn1 = (TextView) findViewById(R.id.cab_bokkint_time1);
+        timeBtn2 = (TextView) findViewById(R.id.cab_bokkint_time2);
         dateTxt = (EditText) findViewById(R.id.cab_booking_date);
-        timeTxt = (EditText) findViewById(R.id.cab_bokkint_time);
-        timeTxt1 = (EditText) findViewById(R.id.cab_bokkint_time1);
-        timeTxt2 = (EditText) findViewById(R.id.cab_bokkint_time2);
+        timeTxt = (TextView) findViewById(R.id.cab_bokkint_time);
+        timeTxt1 = (TextView) findViewById(R.id.cab_bokkint_time1);
+        timeTxt2 = (TextView) findViewById(R.id.cab_bokkint_time2);
         sourceAddTxt = (EditText) findViewById(R.id.cab_source_add);
         destinationDDtXT = (EditText) findViewById(R.id.cab_destination_add);
         bookingRemarkTxt = (EditText) findViewById(R.id.cab_booking_remark);

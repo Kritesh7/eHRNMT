@@ -78,7 +78,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrprocc"/>
+                        app:srcCompat="@drawable/ic_mgrprocc"/>
 
                     <TextView
                         android:textSize="18sp"
@@ -124,7 +124,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrleave"/>
+                        app:srcCompat="@drawable/ic_mgrleave"/>
 
                     <TextView
                         android:textSize="18sp"
@@ -161,7 +161,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrrepo"/>
+                        app:srcCompat="@drawable/ic_mgrrepo"/>
 
                     <TextView
                         android:textSize="18sp"
@@ -208,7 +208,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrempdata"/>
+                        app:srcCompat="@drawable/ic_mgrempdata"/>
 
                     <TextView
                         android:textSize="18sp"
@@ -245,7 +245,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrass"/>
+                        app:srcCompat="@drawable/ic_mgrass"/>
 
                     <TextView
                         android:textSize="18sp"

@@ -197,7 +197,7 @@ public class DashBoardFragment extends Fragment {
         hotelLay = (LinearLayout)rootView.findViewById(R.id.hotel_lay);
         appreceationLay = (LinearLayout)rootView.findViewById(R.id.appre_lay);
         warningLay = (LinearLayout)rootView.findViewById(R.id.warning_lay);
-        req_approve = (LinearLayout)rootView.findViewById(R.id.req_approve);
+       // req_approve = (LinearLayout)rootView.findViewById(R.id.req_approve);
         holiday = (LinearLayout)rootView.findViewById(R.id.holiday);
         log_report = (LinearLayout)rootView.findViewById(R.id.log_report);
 
@@ -378,14 +378,14 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        req_approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ik = new Intent(getActivity(),ManagerRequestToApproveActivity.class);
-                startActivity(ik);
-                getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-            }
-        });
+//        req_approve.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent ik = new Intent(getActivity(),ManagerRequestToApproveActivity.class);
+//                startActivity(ik);
+//                getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
+//            }
+//        });
 
         holiday.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -238,7 +238,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="4.5"
                 android:layout_height="wrap_content"
-                android:src="@drawable/download"
+                app:srcCompat="@drawable/ic_download"
                 />
 
         </LinearLayout>
@@ -266,7 +266,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:src="@drawable/download"
+                app:srcCompat="@drawable/ic_download"
                 />
 
 
@@ -276,7 +276,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:src="@drawable/delbtn"
+                app:srcCompat="@drawable/ic_delbtn"
                 />
 
         </LinearLayout>

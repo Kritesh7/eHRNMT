@@ -275,5 +275,18 @@ public class SharedPrefs
         return editor.commit();
     }
 
+    public static String getInOutStatusDate(Context context)
+    {
+        SharedPreferences sp = getSetting(context);
+        return  sp.getString(SettingConstant.InOutStatusDate, null);
+    }
+    public static boolean setInOutStatusDate(Context context, String authKey)
+    {
+        SharedPreferences sp = getSetting(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(SettingConstant.InOutStatusDate, authKey);
+        return editor.commit();
+    }
+
 
 }

@@ -57,7 +57,7 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     public Spinner leaveTypeSpinner, leaveYearSpinner;
     public ArrayList<LeaveTypeModel> leaveTypeList = new ArrayList<>();
     public ArrayList<LeaveYearTypeModel> leaveYearList = new ArrayList<>();
-    public ImageView startCal, endCal;
+    public EditText startCal, endCal;
     public int month, year, day;
     public EditText startTxt, endTxt;
     public TextView titleTxt;
@@ -113,8 +113,8 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
         leaveTypeSpinner = (Spinner) findViewById(R.id.leavetypespinner);
         leaveYearSpinner = (Spinner) findViewById(R.id.leaveyearspinner);
 
-        startCal = (ImageView) findViewById(R.id.cal);
-        endCal = (ImageView) findViewById(R.id.end_cal);
+        startCal = (EditText) findViewById(R.id.startdate);
+        endCal = (EditText) findViewById(R.id.enddate);
         startTxt = (EditText) findViewById(R.id.startdate);
         endTxt = (EditText) findViewById(R.id.enddate);
         applyBtn = (Button) findViewById(R.id.applyleave);
@@ -335,9 +335,6 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         super.onBackPressed();
-        Intent i = new Intent(NewAddLeaveMangementActivity.this,HomeActivity.class);
-        startActivity(i);
-        finish();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
 

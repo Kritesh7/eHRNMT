@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dashboard"
-            android:icon="@drawable/dashboard_icon"
+            android:icon="@drawable/ic_dashboard_icon"
             android:title="DashBoard" />
 
         <item
             android:id="@+id/nav_mger"
-            android:icon="@drawable/mgric"
+            android:icon="@drawable/ic_mgric"
             android:title="Manager" />
 
         <item
             android:id="@+id/nav_log_attendance"
             android:title="Attendance Log List"
-            android:icon="@drawable/attlist"
+            android:icon="@drawable/ic_attlist"
             />
 
         <item
@@ -32,7 +32,7 @@
         <item
             android:id="@+id/nav_Asset_details"
             android:title="Assets Detail"
-            android:icon="@drawable/assets_details_new"/>
+            android:icon="@drawable/ic_assets_details_new"/>
 
         <item
             android:title="Leave Management"
@@ -42,7 +42,7 @@
                 <item
                     android:id="@+id/nav_leavesummary"
                     android:title="Leave Summary"
-                    android:icon="@drawable/leavesum"/>
+                    android:icon="@drawable/ic_leavesum"/>
 
                 <item
                     android:id="@+id/nav_leavemanagment"
@@ -61,7 +61,7 @@
 
                 <item
                     android:id="@+id/nav_holidayList"
-                    android:icon="@drawable/holidaylist"
+                    android:icon="@drawable/ic_holidaylist"
                     android:title="Holiday List" />
 
             </menu>
@@ -91,7 +91,7 @@
 
                 <item
                     android:id="@+id/nav_hotel_booking_list"
-                    android:icon="@drawable/hotel_booking_icon"
+                    android:icon="@drawable/ic_hotel_booking_icon"
                     android:title="Hotel Booking List" />
 
             </menu>
@@ -117,7 +117,7 @@
 
                 <item
                     android:id="@+id/nav_medical_detials"
-                    android:icon="@drawable/medical_details_new"
+                    android:icon="@drawable/ic_medical_details_new"
                     android:title="Medical Data" />
 
                 <item
@@ -127,27 +127,27 @@
 
                 <item
                     android:id="@+id/nav_contact_details"
-                    android:icon="@drawable/addressbook"
+                    android:icon="@drawable/ic_addressbook"
                     android:title="Address" />
 
                 <item
                     android:id="@+id/nav_emergency_contact_details"
-                    android:icon="@drawable/emgcon"
+                    android:icon="@drawable/ic_emgcon"
                     android:title="Emergency Address" />
 
                 <item
                     android:id="@+id/nav_contact_phone"
-                    android:icon="@drawable/contact_details"
+                    android:icon="@drawable/ic_contact_details"
                     android:title="Contact Phone" />
 
                 <item
                     android:id="@+id/nav_dependents"
-                    android:icon="@drawable/dependent"
+                    android:icon="@drawable/ic_dependent"
                     android:title="Dependents" />
 
                 <item
                     android:id="@+id/nav_medical_and_anssurence"
-                    android:icon="@drawable/medical_assurance"
+                    android:icon="@drawable/ic_medical_assurance"
                     android:title="Medical And Insurance" />
 
 
@@ -164,7 +164,7 @@
             <menu>
                 <item
                     android:id="@+id/nav_education_details"
-                    android:icon="@drawable/education_details"
+                    android:icon="@drawable/ic_education_details"
                     android:title="Education Details" />
                 <item
                     android:id="@+id/nav_previous_expreince"
@@ -172,7 +172,7 @@
                     android:title="Previous Experience" />
                 <item
                     android:id="@+id/nav_languages"
-                    android:icon="@drawable/languages"
+                    android:icon="@drawable/ic_languages"
                     android:title="Languages" />
 
                 <item
@@ -199,11 +199,11 @@
                     />
                 <item
                     android:id="@+id/nav_change_password"
-                    android:icon="@drawable/chngpass"
+                    android:icon="@drawable/ic_chngpass"
                     android:title="Change Password" />
                 <item
                     android:id="@+id/nav_logout"
-                    android:icon="@drawable/logout"
+                    android:icon="@drawable/ic_logout"
                     android:title="Logout" />
 
             </menu>

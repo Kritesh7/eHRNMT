@@ -90,7 +90,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/log"/>
+                        app:srcCompat="@drawable/ic_log"/>
 
                     <TextView
                         android:textStyle="bold"

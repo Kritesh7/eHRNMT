@@ -129,7 +129,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrhistory"/>
+                        app:srcCompat="@drawable/ic_mgrhistory"/>
 
                     <TextView
                         android:textSize="18sp"

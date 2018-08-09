@@ -168,13 +168,10 @@
                     android:textColor="@color/dahboard_textcolor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/download"/>
+                    app:srcCompat="@drawable/ic_download"/>
 
             </LinearLayout>
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 

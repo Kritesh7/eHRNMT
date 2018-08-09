@@ -342,7 +342,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:src="@drawable/editbtn"
+                app:srcCompat="@drawable/ic_editbtn"
                 />
 
 
@@ -352,7 +352,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:src="@drawable/delbtn"
+                app:srcCompat="@drawable/ic_delbtn"
                 />
 
         </LinearLayout>

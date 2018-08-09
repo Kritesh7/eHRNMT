@@ -47,7 +47,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrprs"/>
+                        app:srcCompat="@drawable/ic_mgrprs"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -84,7 +84,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrdoc"/>
+                        app:srcCompat="@drawable/ic_mgrdoc"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -131,7 +131,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrhlt"/>
+                        app:srcCompat="@drawable/ic_mgrhlt"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -168,7 +168,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgradd"/>
+                        app:srcCompat="@drawable/ic_mgradd"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -217,7 +217,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgremg"/>
+                        app:srcCompat="@drawable/ic_mgremg"/>
 
                     <TextView
                         android:textSize="16sp"
@@ -253,7 +253,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/care"/>
+                        app:srcCompat="@drawable/ic_care"/>
 
                     <TextView
                         android:textSize="16sp"

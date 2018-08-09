@@ -22,8 +22,7 @@
         app:menu="@menu/navigation_menu"
         app:itemTextColor="@color/status_color"
         app:headerLayout="@layout/headerlayout"
-        android:theme="@style/NavigationDrawerStyle"
-        >
+        android:theme="@style/NavigationDrawerStyle">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

@@ -3,10 +3,12 @@ package in.co.cfcs.ehrnmt.Main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,17 +40,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -91,6 +98,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -171,10 +179,25 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
     String addressName1;
 
     String InOutStatus ="";
+    String InOutStatusDate="";
 
 
     String LoginStatus;
     String invalid = "loginfailed";
+
+    android.app.AlertDialog dialog;
+
+    TimePickerDialog timePickerDialog;
+
+    Calendar c;
+
+    String AttDateTimePresentTime ="";
+
+    String AttDateTimeMissed ="";
+
+    String TypeAuto ="1";
+
+    String TypeManula = "2";
 
     private static final String TAG = AttendanceModule.class.getSimpleName();
     String MSg;
@@ -206,6 +229,8 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         setSupportActionBar(toolbar);
         titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
+        c = Calendar.getInstance();
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         if (getSupportActionBar() != null) {
@@ -225,6 +250,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AttendanceModule.this)));
         userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AttendanceModule.this)));
         InOutStatus = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getInOutStatus(AttendanceModule.this)));
+        InOutStatusDate = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getInOutStatusDate(AttendanceModule.this)));
 
 
         titleTxt.setText("Mark Attendance");
@@ -251,6 +277,10 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         if(InOutStatus.compareTo("1") == 0){
             rd_in.setVisibility(View.GONE);
             rd_out.setChecked(true);
+            if(InOutStatusDate.compareToIgnoreCase(getCurrentTime())!=0){
+             //   Toast.makeText(AttendanceModule.this,"Popup Show",Toast.LENGTH_LONG).show();
+                ShowPopupAttendanceMiss();
+            }
 
         }else {
             rd_in.setVisibility(View.VISIBLE);
@@ -277,6 +307,13 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
         // create GoogleApiClient
         createGoogleApi();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        String dateforrow = dateFormat.format(c.getTime());
+        Date date1 = new Date();
+        String stringDate = DateFormat.getDateInstance().format(date1);
+        AttDateTimePresentTime = stringDate + " " + dateforrow;
+
 
         //current Time incresing
         CountDownTimer newtimer = new CountDownTimer(1000000000, 1000) {
@@ -410,73 +447,224 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onClick(View view) {
 
-                mCamera.takePicture(null, null, jpegCallback);
+                if(rd_out.isChecked() && InOutStatus.compareToIgnoreCase("1") == 0){
+                    ShowPopupAttendanceMiss();
+                }else {
 
-                pDialog = new ProgressDialog(AttendanceModule.this, R.style.AppCompatAlertDialogStyle);
-                pDialog.setTitle("Mark Attendance");
-                pDialog.setMessage("Please Wait...");
-                pDialog.show();
+                    mCamera.takePicture(null, null, jpegCallback);
+                    pDialog = new ProgressDialog(AttendanceModule.this, R.style.AppCompatAlertDialogStyle);
+                    pDialog.setTitle("Mark Attendance");
+                    pDialog.setMessage("Please Wait...");
+                    pDialog.show();
 
-                boolean isMock = MockLocationDetector.isLocationFromMockProvider(AttendanceModule.this, lastLocation);
+                    boolean isMock = MockLocationDetector.isLocationFromMockProvider(AttendanceModule.this, lastLocation);
+                    boolean mockLocationAppsPresent = MockLocationDetector.checkForAllowMockLocationsApps(AttendanceModule.this);
+                    boolean isAllowMockLocationsON = MockLocationDetector.isAllowMockLocationsOn(AttendanceModule.this);
+                    new Handler().postDelayed(new Runnable() {
 
-                boolean mockLocationAppsPresent = MockLocationDetector.checkForAllowMockLocationsApps(AttendanceModule.this);
+                        @Override
+                        public void run() {
+                            // This method will be executed once the timer is over
+                            // Start your app main activity
+                            if (imageBase64.equalsIgnoreCase("")) {
+                                Toast.makeText(AttendanceModule.this, "Please Click the pic properely", Toast.LENGTH_SHORT).show();
+                            } else if (addTxt.getText().toString().equalsIgnoreCase("")) {
+                                addTxt.setError("Please get address");
+                                pDialog.dismiss();
+                            } else if (isMock) {
+                                Toast.makeText(AttendanceModule.this, "Mock Location On", Toast.LENGTH_LONG).show();
+                                pDialog.dismiss();
+                            } else if (gpsTracker.getLongitude() == 0 || gpsTracker.getLongitude() == 0) {
+                                Toast.makeText(AttendanceModule.this, "Please get location", Toast.LENGTH_SHORT).show();
+                            } else {
 
-                boolean isAllowMockLocationsON = MockLocationDetector.isAllowMockLocationsOn(AttendanceModule.this);
+                                if (rd_in.isChecked()) {
 
-                new Handler().postDelayed(new Runnable() {
+                                    if (conn.getConnectivityStatus() > 0) {
 
+                                        TrackService();
 
-                    @Override
-                    public void run() {
-                        // This method will be executed once the timer is over
-                        // Start your app main activity
-                        if (imageBase64.equalsIgnoreCase("")) {
-                            Toast.makeText(AttendanceModule.this, "Please Click the pic properely", Toast.LENGTH_SHORT).show();
-                        } else if (addTxt.getText().toString().equalsIgnoreCase("")) {
-                            addTxt.setError("Please get address");
-                            pDialog.dismiss();
-                        } else if (isMock) {
-                            Toast.makeText(AttendanceModule.this, "Mock Location On", Toast.LENGTH_LONG).show();
-                            pDialog.dismiss();
-                        } else if (gpsTracker.getLongitude() == 0 || gpsTracker.getLongitude() == 0) {
-                            Toast.makeText(AttendanceModule.this, "Please get location", Toast.LENGTH_SHORT).show();
-                        } else {
+                                        attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
+                                                remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg",AttDateTimePresentTime,TypeAuto);
+                                        Toast.makeText(AttendanceModule.this,AttDateTimePresentTime,Toast.LENGTH_LONG).show();
+                                    } else {
 
-                            if (rd_in.isChecked()) {
+                                        conn.showNoInternetAlret();
+                                    }
 
-                                if (conn.getConnectivityStatus() > 0) {
+                                } else if (rd_out.isChecked()) {
 
-                                    TrackService();
+                                    if (conn.getConnectivityStatus() > 0) {
 
-                                    attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
-                                            remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg");
-                                } else {
+                                        StopTrackService();
 
-                                    conn.showNoInternetAlret();
+                                            attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
+                                                    remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg",AttDateTimePresentTime,TypeAuto);
+
+                                    } else {
+
+                                        conn.showNoInternetAlret();
+                                    }
                                 }
 
-                            } else if (rd_out.isChecked()) {
 
-                                if (conn.getConnectivityStatus() > 0) {
-
-                                    StopTrackService();
-
-                                    attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
-                                            remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg");
-                                } else {
-
-                                    conn.showNoInternetAlret();
-                                }
                             }
-
-
                         }
-                    }
-                }, 3000);
+                    }, 3000);
+                }
             }
         });
     }
 
+
+    Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
+        public void onPictureTaken(byte[] data, Camera camera) {
+            FileOutputStream outStream = null;
+            Bitmap bm = null;
+
+            if (data != null) {
+                int screenWidth = getResources().getDisplayMetrics().widthPixels;
+                int screenHeight = getResources().getDisplayMetrics().heightPixels;
+                bm = BitmapFactory.decodeByteArray(data, 0, (data != null) ? data.length : 0);
+
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    // Notice that width and height are reversed
+                    Bitmap scaled = Bitmap.createScaledBitmap(bm, screenHeight, screenWidth, true);
+                    int w = scaled.getWidth();
+                    int h = scaled.getHeight();
+                    // Setting post rotate to 90
+                    Matrix mtx = new Matrix();
+
+                    int CameraEyeValue = setPhotoOrientation(AttendanceModule.this, checkCameraFront(AttendanceModule.this) == true ? 1 : 0); // CameraID = 1 : front 0:back
+                    if (checkCameraFront(AttendanceModule.this)) { // As Front camera is Mirrored so Fliping the Orientation
+                        if (CameraEyeValue == 270) {
+                            mtx.postRotate(90);
+                        } else if (CameraEyeValue == 90) {
+                            mtx.postRotate(270);
+                        }
+                    } else {
+                        mtx.postRotate(CameraEyeValue); // CameraEyeValue is default to Display Rotation
+                    }
+
+                    bm = Bitmap.createBitmap(scaled, 0, 0, w, h, mtx, true);
+                } else {// LANDSCAPE MODE
+                    //No need to reverse width and height
+                    Bitmap scaled = Bitmap.createScaledBitmap(bm, screenWidth, screenHeight, true);
+                    bm = scaled;
+                }
+            }
+
+
+            imageBase64 = getEncoded64ImageStringFromBitmap(bm);
+
+            // profileImg.setImageBitmap(bm);
+
+            camera.startPreview();
+        }
+    };
+
+    private void ShowPopupAttendanceMiss() {
+
+        // Launch Time Picker Dialog
+        timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Dialog,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                        int hour = hourOfDay;
+                        int minutes = minute;
+
+                        String timeSet = "";
+                        if (hour > 12) {
+                            hour -= 12;
+                            timeSet = "PM";
+                        } else if (hour == 0) {
+                            hour += 12;
+                            timeSet = "AM";
+                        } else if (hour == 12) {
+                            timeSet = "PM";
+                        } else {
+                            timeSet = "AM";
+                        }
+
+                        String min = "";
+                        if (minutes < 10)
+                            min = "0" + minutes;
+                        else
+                            min = String.valueOf(minutes);
+
+                        // Append in a StringBuilder
+                        String aTime = new StringBuilder().append(hour).append(':')
+                                .append(min).append(" ").append(timeSet).toString();
+
+                        AttDateTimeMissed = InOutStatusDate + " " + aTime;
+
+                        mCamera.takePicture(null, null, jpegCallback);
+                        pDialog = new ProgressDialog(AttendanceModule.this, R.style.AppCompatAlertDialogStyle);
+                        pDialog.setTitle("Mark Attendance");
+                        pDialog.setMessage("Please Wait...");
+                        pDialog.show();
+
+                        boolean isMock = MockLocationDetector.isLocationFromMockProvider(AttendanceModule.this, lastLocation);
+                        boolean mockLocationAppsPresent = MockLocationDetector.checkForAllowMockLocationsApps(AttendanceModule.this);
+                        boolean isAllowMockLocationsON = MockLocationDetector.isAllowMockLocationsOn(AttendanceModule.this);
+                        new Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // This method will be executed once the timer is over
+                                // Start your app main activity
+                                if (imageBase64.equalsIgnoreCase("")) {
+                                    Toast.makeText(AttendanceModule.this, "Please Click the pic properely", Toast.LENGTH_SHORT).show();
+                                } else if (addTxt.getText().toString().equalsIgnoreCase("")) {
+                                    addTxt.setError("Please get address");
+                                    pDialog.dismiss();
+                                } else if (isMock) {
+                                    Toast.makeText(AttendanceModule.this, "Mock Location On", Toast.LENGTH_LONG).show();
+                                    pDialog.dismiss();
+                                } else if (gpsTracker.getLongitude() == 0 || gpsTracker.getLongitude() == 0) {
+                                    Toast.makeText(AttendanceModule.this, "Please get location", Toast.LENGTH_SHORT).show();
+                                } else {
+
+                                if (rd_out.isChecked()) {
+
+                                        if (conn.getConnectivityStatus() > 0) {
+
+                                            StopTrackService();
+
+                                            attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
+                                                    remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg",AttDateTimeMissed,TypeManula);
+
+                                            rd_out.setVisibility(View.GONE);
+                                            rd_in.setVisibility(View.VISIBLE);
+                                            rd_in.setChecked(true);
+                                            UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
+                                                    "")));
+                                            UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatusDate(AttendanceModule.this,
+                                                    "")));
+
+                                        } else {
+
+                                            conn.showNoInternetAlret();
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }, 3000);
+
+
+                    }
+                }, 0, 0, false);
+
+        timePickerDialog.setTitle(InOutStatusDate +"  "+ "Forget your attendance please submit");
+        timePickerDialog.show();
+        timePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
+       // timePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+        timePickerDialog.setCanceledOnTouchOutside(false);
+    }
 
     /*
      * for API 26+ create notification channels
@@ -584,15 +772,11 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                                 Lang = jsonObject1.getString("Lang").toString();
                             }
 
-
-
                         }
 
                         geofencingcheckdata(EmployeeName, AddressName, Latt, Lang);
 
                     }
-
-
                     // pDialog.dismiss();
 
                 } catch (JSONException e) {
@@ -1100,7 +1284,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
     //add Attendnace Request
     public void attendaceDetails(final String AdminID, final String Lang, final String Lat, final String LocationAddress,
-                                 final String Remark, final String FileJson, final String AuthCode, final String FileExtension) {
+                                 final String Remark, final String FileJson, final String AuthCode, final String FileExtension,final String Attdatetime,final String Type) {
 
         StringRequest historyInquiry = new StringRequest(
                 Request.Method.POST, addUrl, new Response.Listener<String>() {
@@ -1122,6 +1306,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                             if(InOutStatus.compareTo("1") != 0){
                                 UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
                                         "1")));
+                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatusDate(AttendanceModule.this,getCurrentTime())));
                             }else {
                                 UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
                                         "")));
@@ -1185,6 +1370,8 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                 params.put("Remark", Remark);
                 params.put("FileExtension", FileExtension);
                 params.put("FileJson", FileJson);
+                params.put("AttDateTime", Attdatetime);
+                params.put("Type", Type);
 
 
                 Log.e("Parms", params.toString());
@@ -1398,11 +1585,9 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
     public void onBackPressed() {
 
         super.onBackPressed();
-        Intent i = new Intent(AttendanceModule.this,HomeActivity.class);
-        startActivity(i);
-        finish();
-        overridePendingTransition(R.anim.push_left_in,
-                R.anim.push_right_out);
+
+            overridePendingTransition(R.anim.push_left_in,
+                    R.anim.push_right_out);
 
     }
 }

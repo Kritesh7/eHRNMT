@@ -43,5 +43,6 @@ public class SettingConstant {
     protected static final String CurrentLat = "CurrentLat";
     protected  static  final String CurrentLang ="CurrentLang";
     protected static final String InOutStatus="InOutStatus";
+    protected static final String InOutStatusDate ="InOutStatusDate";
 
 }

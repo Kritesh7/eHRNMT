@@ -154,7 +154,7 @@
                         android:layout_gravity="center"
                         android:layout_weight=".2"
                         android:padding="5dp"
-                        android:src="@drawable/gps" />
+                        app:srcCompat="@drawable/ic_gps"/>
 
 
 
