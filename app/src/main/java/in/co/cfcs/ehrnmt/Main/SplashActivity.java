@@ -276,7 +276,7 @@ public class SplashActivity extends AppCompatActivity {
                 VolleyLog.d("Login", "Error: " + error.getMessage());
                 // Log.e("checking now ",error.getMessage());
 
-                Toast.makeText(SplashActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SplashActivity.this, "Server Not Connected", Toast.LENGTH_SHORT).show();
                 // pDialog.dismiss();
 
 
@@ -431,7 +431,7 @@ public class SplashActivity extends AppCompatActivity {
                 VolleyLog.d("Login", "Error: " + error.getMessage());
                 // Log.e("checking now ",error.getMessage());
 
-                Toast.makeText(SplashActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SplashActivity.this, "Server Not Connected", Toast.LENGTH_SHORT).show();
                 //   pDialog.dismiss();
             }
         }) {

@@ -52,12 +52,11 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddPreviousExpreinceActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,joiningDateBtn,joiningDateTxt,releavinfDateBtn,releavingDateTxt;
     public Spinner yearSpinner, monthSpinner;
     public ArrayList<YearModel> yearList = new ArrayList<>();
     public ArrayList<MonthModel> monthList = new ArrayList<>();
-    public ImageView joiningDateBtn, releavinfDateBtn;
-    public EditText joiningDateTxt, releavingDateTxt, compNameTxt, designationTxt, jobDesTxt;
+    public EditText   compNameTxt, designationTxt, jobDesTxt;
     public Button addBtn;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -127,10 +126,10 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
 
         yearSpinner = (Spinner)findViewById(R.id.yearspinner);
         monthSpinner = (Spinner)findViewById(R.id.monthspinner);
-        joiningDateBtn = (ImageView) findViewById(R.id.joiningDateCalBtn);
-        joiningDateTxt = (EditText) findViewById(R.id.joinongdatetxt);
-        releavinfDateBtn = (ImageView) findViewById(R.id.relaevingDateCalBtn);
-        releavingDateTxt = (EditText) findViewById(R.id.releavingdatetxt);
+        joiningDateBtn = (TextView) findViewById(R.id.joinongdatetxt);
+        joiningDateTxt = (TextView) findViewById(R.id.joinongdatetxt);
+        releavinfDateBtn = (TextView) findViewById(R.id.releavingdatetxt);
+        releavingDateTxt = (TextView) findViewById(R.id.releavingdatetxt);
         compNameTxt = (EditText) findViewById(R.id.compName);
         designationTxt = (EditText) findViewById(R.id.designation);
         jobDesTxt = (EditText) findViewById(R.id.jobdesc);

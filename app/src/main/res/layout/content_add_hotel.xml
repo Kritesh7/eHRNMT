@@ -46,15 +46,38 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/hoteltypespinner"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:background="@drawable/spinner_background"
+                android:orientation="horizontal">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/hoteltypespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow" />
+
+            </RelativeLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,13 +93,36 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/cityofbookingspinner"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:background="@drawable/spinner_background"
+                android:orientation="horizontal">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/cityofbookingspinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -94,13 +140,35 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/hotelspinner"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:background="@drawable/spinner_background"
+                android:orientation="horizontal">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/hotelspinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -110,35 +178,23 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight=".8"
-                android:layout_height="wrap_content"
-                android:textColorHint="#0D47A1"
-                app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
 
-                <EditText
-                android:enabled="false"
-                    android:textColor="@drawable/disable_edit_feild"
+            <TextView
                 android:id="@+id/hotel_checkindatetxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/linebelowedittext"
-                android:hint="Check In Date"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textSize="14dp"
-                android:theme="@style/MyEditText" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/hotel_checkindateBtn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".1"
-                app:srcCompat="@drawable/ic_cal" />
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:textColor="@color/purple700"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="14sp"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_cal"
+                android:editable="false"
+                android:hint="Check In Date"
+                android:padding="10dp"
+                android:layout_marginLeft="2dp"/>
 
         </LinearLayout>
             <LinearLayout
@@ -147,36 +203,23 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_weight=".8"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="#0D47A1"
-                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
-
-
-                <EditText
-                    android:textColor="@drawable/disable_edit_feild"
-                    android:enabled="false"
+                <TextView
                     android:id="@+id/hotel_checkintimetxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/linebelowedittext"
-                    android:hint="Check In Time"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:textSize="14dp"
-                    android:theme="@style/MyEditText" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/hotel_checkinTimeBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".1"
-                    android:src="@drawable/stopwatch" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/stopwatch"
+                    android:editable="false"
+                    android:hint="Check In Time"
+                    android:padding="10dp"
+                    android:textColor="@color/purple700"
+                    android:textColorHint="@color/dark_gray"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -187,61 +230,43 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight=".8"
-                android:layout_height="wrap_content"
-                android:textColorHint="#0D47A1"
-                app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
 
-
-            <EditText
-                android:textColor="@drawable/disable_edit_feild"
-                android:enabled="false"
+            <TextView
                 android:id="@+id/hotel_checkoutdatetxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/linebelowedittext"
-                android:hint="Check Out Date"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textSize="14dp"
-                android:theme="@style/MyEditText" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/hotel_checkoutdateBtn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".1"
-                app:srcCompat="@drawable/ic_cal" />
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:textColor="@color/purple700"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="14sp"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_cal"
+                android:editable="false"
+                android:hint="Check In Date"
+                android:padding="10dp"
+                android:layout_marginLeft="2dp"/>
 
         </LinearLayout>
 
 
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="#0D47A1"
-            app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
 
             <EditText
                 android:id="@+id/hotel_emp_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/linebelowedittext"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/spinner_background"
+                android:drawablePadding="10dp"
                 android:hint="Remark"
                 android:inputType="textMultiLine"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textSize="14dp"
-                android:theme="@style/MyEditText" />
-        </android.support.design.widget.TextInputLayout>
+                android:padding="10dp"
+                android:textColor="@color/purple700"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"/>
 
 
 

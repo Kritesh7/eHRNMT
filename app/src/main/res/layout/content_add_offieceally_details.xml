@@ -43,127 +43,132 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/documenttypespinner"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:background="@drawable/spinner_background"
+                android:orientation="horizontal">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/documenttypespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="#0D47A1"
-            app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
-                android:hint="Number"
-                android:inputType="textCapCharacters"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
-        </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/number"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/spinner_background"
+                        android:drawablePadding="10dp"
+                        android:hint="Number"
+                        android:padding="10dp"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/issuedatetxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight=".8"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
-                android:hint="Issues Date"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
 
-            <ImageView
-                android:id="@+id/issuesdatebtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                app:srcCompat="@drawable/ic_cal" />
+                </LinearLayout>
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/expirydatetxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight=".8"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
-                android:hint="Expiry Date"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
 
-            <ImageView
-                android:id="@+id/expirydatebtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                app:srcCompat="@drawable/ic_cal" />
+                    <TextView
+                        android:id="@+id/issuedatetxt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp"
+                        android:background="@drawable/spinner_background"
+                        android:clickable="true"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/ic_cal"
+                        android:editable="false"
+                        android:hint="Issues Date"
+                        android:padding="10dp"
+                        android:layout_marginLeft="2dp"/>
 
-        </LinearLayout>
+                </LinearLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="#0D47A1"
-            app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
 
-            <EditText
-                android:id="@+id/issueplace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
-                android:hint="Place of issue"
-                android:inputType="text"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
-        </android.support.design.widget.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/expirydatetxt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp"
+                        android:background="@drawable/spinner_background"
+                        android:clickable="true"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/ic_cal"
+                        android:editable="false"
+                        android:hint="Expiry Date"
+                        android:padding="10dp"
+                        android:layout_marginLeft="2dp"/>
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/issueplace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/spinner_background"
+                    android:drawablePadding="10dp"
+                    android:hint="Place of issue"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textColor="@color/purple700"
+                    android:textColorHint="@color/dark_gray"
+                    android:textSize="14sp"
+                    android:layout_marginTop="10dp"/>
 
         <Button
             android:id="@+id/uploaddocsbtn"

@@ -207,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Log.e("checking now ",error.getMessage());
 
-            //    Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Server Not Connected Retry", Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
 
             }

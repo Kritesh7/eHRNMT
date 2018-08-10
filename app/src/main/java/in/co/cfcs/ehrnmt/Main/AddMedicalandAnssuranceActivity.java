@@ -76,15 +76,14 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,startDateTxt,startDateBtn,endDateBtn,endDateTxt;
     public Spinner policyTypeSpinner;
     public String personalDdlDetailsUrl = SettingConstant.BaseUrl + "AppddlEmployeePersonalData";
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeeMedicalPolicyInsUpdt";
     public ArrayList<PolicyTypeModel> policyTypeList = new ArrayList<>();
     public ArrayAdapter<PolicyTypeModel> policyTypeAdapter;
     public ConnectionDetector conn;
-    public ImageView startDateBtn, endDateBtn;
-    public EditText startDateTxt, endDateTxt, policyNumberTxt, policyNameTxt, policyDurationTxt, policyByTxt, insuranceCompTxt,
+    public EditText   policyNumberTxt, policyNameTxt, policyDurationTxt, policyByTxt, insuranceCompTxt,
                     amountInsuredTxt;
     public Button addBtn, uploadBtn;
     public StringTokenizer tokens;
@@ -168,10 +167,10 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
         //   policyCompanySpinner = (Spinner)findViewById(R.id.policycompanynamespinner);
         policyTypeSpinner = (Spinner)findViewById(R.id.policytypespinner);
-        startDateBtn = (ImageView) findViewById(R.id.policy_startdate);
-        endDateBtn = (ImageView) findViewById(R.id.policy_enddate);
-        startDateTxt = (EditText) findViewById(R.id.startdatetxt);
-        endDateTxt = (EditText) findViewById(R.id.enddatetxt);
+        startDateBtn = (TextView) findViewById(R.id.startdatetxt);
+        endDateBtn = (TextView) findViewById(R.id.enddatetxt);
+        startDateTxt = (TextView) findViewById(R.id.startdatetxt);
+        endDateTxt = (TextView) findViewById(R.id.enddatetxt);
         policyNameTxt = (EditText) findViewById(R.id.policy_name);
         policyNumberTxt = (EditText) findViewById(R.id.policy_number);
         policyDurationTxt = (EditText) findViewById(R.id.policy_duration);
@@ -214,8 +213,6 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
             imageBase64 = "";
             imageExtenstion = "";
-
-
 
             downloadBtn.setVisibility(View.VISIBLE);
             editTxt.setVisibility(View.GONE);

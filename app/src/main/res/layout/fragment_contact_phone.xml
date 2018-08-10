@@ -22,111 +22,148 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <android.support.design.widget.TextInputLayout
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:nextFocusLeft="@id/autotext"
-                    android:nextFocusUp="@id/autotext"
-                    android:textColorHint="#0D47A1"
-                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+                    android:orientation="horizontal">
+
 
                     <EditText
                         android:maxLength="10"
+                        android:inputType="phone"
                         android:id="@+id/phoneno"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/linebelowedittext"
-                        android:backgroundTint="@color/purple700"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/spinner_background"
+                        android:drawablePadding="10dp"
                         android:hint="Phone Number"
-                        android:inputType="phone"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/purple500"
-                        android:textColorHint="@color/purple700"
-                        android:textSize="16dp"
-                        android:theme="@style/MyEditText" />
-                </android.support.design.widget.TextInputLayout>
+                        android:padding="10dp"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp" />
 
-                <android.support.design.widget.TextInputLayout
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alternate Phone Number"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:nextFocusLeft="@id/autotext"
-                    android:nextFocusUp="@id/autotext"
-                    android:textColorHint="#0D47A1"
-                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+                    android:orientation="horizontal">
+
 
                     <EditText
                         android:maxLength="10"
-                        android:id="@+id/altphoneno"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/linebelowedittext"
-                        android:backgroundTint="@color/purple700"
-                        android:hint="Alternate Phone Number"
                         android:inputType="phone"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/purple500"
-                        android:textColorHint="@color/purple700"
-                        android:textSize="16dp"
-                        android:theme="@style/MyEditText" />
-                </android.support.design.widget.TextInputLayout>
+                        android:id="@+id/altphoneno"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/spinner_background"
+                        android:drawablePadding="10dp"
+                        android:hint="Alternate Phone Number"
+                        android:padding="10dp"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp" />
 
-                <android.support.design.widget.TextInputLayout
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:nextFocusLeft="@id/autotext"
-                    android:nextFocusUp="@id/autotext"
-                    android:textColorHint="#0D47A1"
-                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+                    android:orientation="horizontal">
+
 
                     <EditText
                         android:id="@+id/email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/linebelowedittext"
-                        android:backgroundTint="@color/purple700"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/spinner_background"
+                        android:drawablePadding="10dp"
                         android:hint="Email"
-                        android:inputType="textEmailAddress"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/purple500"
-                        android:textColorHint="@color/purple700"
-                        android:textSize="16dp"
-                        android:theme="@style/MyEditText" />
-                </android.support.design.widget.TextInputLayout>
+                        android:padding="10dp"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp" />
 
-                <android.support.design.widget.TextInputLayout
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alternate Email"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:nextFocusLeft="@id/autotext"
-                    android:nextFocusUp="@id/autotext"
-                    android:textColorHint="#0D47A1"
-                    app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
+                    android:orientation="horizontal">
+
 
                     <EditText
                         android:id="@+id/altemail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/linebelowedittext"
-                        android:backgroundTint="@color/purple700"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/spinner_background"
+                        android:drawablePadding="10dp"
                         android:hint="Alternate Email"
-                        android:inputType="textEmailAddress"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/purple500"
-                        android:textColorHint="@color/purple700"
-                        android:textSize="16dp"
-                        android:theme="@style/MyEditText" />
-                </android.support.design.widget.TextInputLayout>
+                        android:padding="10dp"
+                        android:textColor="@color/purple700"
+                        android:textColorHint="@color/dark_gray"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </ScrollView>

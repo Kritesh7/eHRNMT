@@ -79,7 +79,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddOffieceallyDetailsActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,issueDateTxt,issueDateBtn,expiryDateBtn,expiryDateTxt;
     public Spinner documentTypeSpinner;
     public ArrayList<DocumentTypeModel> documentTypeList = new ArrayList<>();
     public Button uploadBtn;
@@ -93,8 +93,7 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
 
     };
-    public ImageView issueDateBtn, expiryDateBtn;
-    public EditText issueDateTxt, expiryDateTxt, noTxt, issuesOfPlaceTxt;
+    public EditText   noTxt, issuesOfPlaceTxt;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public String personalDdlDetailsUrl = SettingConstant.BaseUrl + "AppddlEmployeePersonalData";
@@ -154,10 +153,10 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
 
         documentTypeSpinner = (Spinner) findViewById(R.id.documenttypespinner);
         uploadBtn = (Button) findViewById(R.id.uploaddocsbtn);
-        issueDateBtn = (ImageView) findViewById(R.id.issuesdatebtn);
-        expiryDateBtn = (ImageView) findViewById(R.id.expirydatebtn);
-        issueDateTxt = (EditText) findViewById(R.id.issuedatetxt);
-        expiryDateTxt = (EditText) findViewById(R.id.expirydatetxt);
+        issueDateBtn = (TextView) findViewById(R.id.issuedatetxt);
+        expiryDateBtn = (TextView) findViewById(R.id.expirydatetxt);
+        issueDateTxt = (TextView) findViewById(R.id.issuedatetxt);
+        expiryDateTxt = (TextView) findViewById(R.id.expirydatetxt);
         noTxt = (EditText) findViewById(R.id.number);
         issuesOfPlaceTxt = (EditText) findViewById(R.id.issueplace);
         addBtn = (Button) findViewById(R.id.newrequestbtn);

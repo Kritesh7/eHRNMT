@@ -57,7 +57,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddHotelActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,checkInDateBtn,checkInDateTxt,checkinTimeTxt,checkInTimeBtn,checkOutDateBtn,checkOutDateTxt;
     public Spinner hotelTypeSpinner, cityofBookingSpinner,hotelSpinner;
     public ArrayList<CabCityModel> cityList = new ArrayList<>();
     public ArrayList<HotelTypeModel> hotelTypeList = new ArrayList<>();
@@ -70,8 +70,7 @@ public class AddHotelActivity extends AppCompatActivity {
     public ArrayAdapter<HotelNameModel> hotelAdapter;
     public ConnectionDetector conn;
     public String hotelTypeID = "", hotelCityId = "", authcode = "", userId = "", hotelId = "";
-    public ImageView checkInDateBtn, checkOutDateBtn, checkInTimeBtn;
-    public EditText checkinTimeTxt, checkOutDateTxt, checkInDateTxt, remarkTxt;
+    public EditText  remarkTxt;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public Button addBtn;
@@ -140,12 +139,12 @@ public class AddHotelActivity extends AppCompatActivity {
         hotelTypeSpinner = (Spinner)findViewById(R.id.hoteltypespinner);
         cityofBookingSpinner = (Spinner)findViewById(R.id.cityofbookingspinner);
         hotelSpinner = (Spinner)findViewById(R.id.hotelspinner);
-        checkInDateBtn = (ImageView) findViewById(R.id.hotel_checkindateBtn);
-        checkInTimeBtn = (ImageView) findViewById(R.id.hotel_checkinTimeBtn);
-        checkOutDateBtn = (ImageView) findViewById(R.id.hotel_checkoutdateBtn);
-        checkInDateTxt = (EditText) findViewById(R.id.hotel_checkindatetxt);
-        checkinTimeTxt = (EditText) findViewById(R.id.hotel_checkintimetxt);
-        checkOutDateTxt = (EditText) findViewById(R.id.hotel_checkoutdatetxt);
+        checkInDateBtn = (TextView) findViewById(R.id.hotel_checkindatetxt);
+        checkInTimeBtn = (TextView) findViewById(R.id.hotel_checkintimetxt);
+        checkOutDateBtn = (TextView) findViewById(R.id.hotel_checkoutdatetxt);
+        checkInDateTxt = (TextView) findViewById(R.id.hotel_checkindatetxt);
+        checkinTimeTxt = (TextView) findViewById(R.id.hotel_checkintimetxt);
+        checkOutDateTxt = (TextView) findViewById(R.id.hotel_checkoutdatetxt);
         remarkTxt = (EditText) findViewById(R.id.hotel_emp_remark);
         addBtn = (Button) findViewById(R.id.newrequestbtn);
 

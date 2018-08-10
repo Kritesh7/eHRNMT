@@ -29,83 +29,105 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColorHint="#0D47A1"
-            app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
 
-            <EditText
-                android:id="@+id/firstnametxt"
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:textColor="@color/purple700"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
-                android:hint="First Name"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
-        </android.support.design.widget.TextInputLayout>
+                android:orientation="horizontal">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="#0D47A1"
-            app:hintTextAppearance="@style/TextAppearenceWith.App.TextInputLayout">
 
-            <EditText
-                android:id="@+id/lastnametxt"
+                <EditText
+                    android:id="@+id/firstnametxt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/spinner_background"
+                    android:drawablePadding="10dp"
+                    android:hint="First Name"
+                    android:padding="10dp"
+                    android:textColor="@color/purple700"
+                    android:textColorHint="@color/dark_gray"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:textColor="@color/purple700"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
-                android:hint="Last Name"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
-        </android.support.design.widget.TextInputLayout>
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/lastnametxt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/spinner_background"
+                    android:drawablePadding="10dp"
+                    android:hint="Last Name"
+                    android:padding="10dp"
+                    android:textColor="@color/purple700"
+                    android:textColorHint="@color/dark_gray"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D.O.B"
+                android:textColor="@color/purple700"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <EditText
+            <TextView
                 android:id="@+id/dobtxt"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight=".8"
-                android:background="@drawable/linebelowedittext"
-                android:backgroundTint="@color/purple700"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:textColor="@color/purple700"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="14sp"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_cal"
+                android:editable="false"
                 android:hint="D.O.B"
-                android:inputType="textPersonName"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/purple500"
-                android:textColorHint="@color/purple700"
-                android:textSize="16dp"
-                android:theme="@style/MyEditText" />
-
-            <ImageView
-                android:id="@+id/dobbtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                app:srcCompat="@drawable/ic_cal" />
+                android:padding="10dp"
+                android:layout_marginLeft="2dp"/>
 
         </LinearLayout>
 
@@ -163,13 +185,36 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/relationshipespinner"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:background="@drawable/spinner_background"
+                android:orientation="horizontal">
 
-            </Spinner>
+                <Spinner
+                    android:id="@+id/relationshipespinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

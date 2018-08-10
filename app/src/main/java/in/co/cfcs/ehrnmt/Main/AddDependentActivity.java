@@ -54,15 +54,15 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddDependentActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,dobBtn,dobTxt;
     public Spinner relationshipSpinner;
     public ArrayList<RelationShipeTypeModel> relationshipList = new ArrayList<>();
     public ArrayAdapter<RelationShipeTypeModel> relationShipAdapter;
     public String personalDdlDetailsUrl = SettingConstant.BaseUrl + "AppddlEmployeePersonalData";
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeeDependentInsUpdt";
     public ConnectionDetector conn;
-    public ImageView dobBtn;
-    public EditText dobTxt, firstNameTxt, lastNameTxt;
+
+    public EditText  firstNameTxt, lastNameTxt;
     public RadioGroup genderRadioGroup;
     public RadioButton maleBtn, femailBtn;
     private int yy, mm, dd;
@@ -126,8 +126,8 @@ public class AddDependentActivity extends AppCompatActivity {
 
 
         relationshipSpinner = (Spinner) findViewById(R.id.relationshipespinner);
-        dobBtn = (ImageView) findViewById(R.id.dobbtn);
-        dobTxt = (EditText) findViewById(R.id.dobtxt);
+        dobBtn = (TextView) findViewById(R.id.dobtxt);
+        dobTxt = (TextView) findViewById(R.id.dobtxt);
         firstNameTxt = (EditText) findViewById(R.id.firstnametxt);
         lastNameTxt = (EditText) findViewById(R.id.lastnametxt);
         genderRadioGroup = (RadioGroup) findViewById(R.id.genderradiogroup);

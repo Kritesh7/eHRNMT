@@ -41,14 +41,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/purple700"/>
 
-            <!--<Spinner-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:id="@+id/leaveyearspinner"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@color/colorAccent">-->
 
-            <!--</Spinner>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -142,27 +135,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--<EditText-->
-                <!--android:textColor="@color/purple700"-->
-                <!--android:textColorHint="@color/dark_gray"-->
-                <!--android:background="@drawable/linebelowedittext"-->
-                <!--android:enabled="false"-->
-                <!--android:textSize="14sp"-->
-                <!--android:id="@+id/startdate"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="4"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:hint="Start Date"/>-->
 
-            <!--<ImageView-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:id="@+id/cal"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--app:srcCompat="@drawable/ic_cal"/>-->
-
-            <EditText
+            <TextView
                 android:id="@+id/startdate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -180,7 +154,7 @@
                 android:layout_marginRight="2dp"/>
 
 
-            <EditText
+            <TextView
                 android:id="@+id/enddate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

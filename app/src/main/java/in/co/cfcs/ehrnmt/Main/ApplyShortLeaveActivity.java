@@ -50,9 +50,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ApplyShortLeaveActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
-    public ImageView dateBtn, toTimeBtn, fromTimeBtn;
-    public EditText dateTxt, toTimeTxt, fromTimeTxt;
+    public TextView titleTxt,fromTimeTxt,fromTimeBtn,toTimeTxt,toTimeBtn,dateTxt,dateBtn;
     private int hh, m;
     private int yy, mm, dd;
     private int year, month, day, mHour, mMinute;
@@ -108,12 +106,12 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
         userName = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getUserName(ApplyShortLeaveActivity.this)));
         compId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getCompanyId(ApplyShortLeaveActivity.this)));
 
-        dateTxt = (EditText)findViewById(R.id.dateleavetxt);
-        toTimeTxt = (EditText)findViewById(R.id.datetotxt);
-        fromTimeTxt = (EditText)findViewById(R.id.datefromtxt);
-        dateBtn = (ImageView) findViewById(R.id.dateleave);
-        toTimeBtn = (ImageView) findViewById(R.id.dateto);
-        fromTimeBtn = (ImageView) findViewById(R.id.datefrom);
+        dateTxt = (TextView)findViewById(R.id.dateleavetxt);
+        toTimeTxt = (TextView)findViewById(R.id.datetotxt);
+        fromTimeTxt = (TextView)findViewById(R.id.datefromtxt);
+        dateBtn = (TextView) findViewById(R.id.dateleavetxt);
+        toTimeBtn = (TextView) findViewById(R.id.datetotxt);
+        fromTimeBtn = (TextView) findViewById(R.id.datefromtxt);
         subBtn = (Button) findViewById(R.id.applyshortbtn);
         commentTxt = (EditText) findViewById(R.id.shortleave_comment);
 
@@ -168,12 +166,9 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-
-
                                 hh = hourOfDay;
                                 m = minute;
                                 // ro = checking + hourOfDay  + minute;
-
 
                                 toTimeTxt.setText(String.format("%02d:%02d", hourOfDay, minute));
                             }

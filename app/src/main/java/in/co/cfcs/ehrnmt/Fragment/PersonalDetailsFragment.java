@@ -74,14 +74,13 @@ public class PersonalDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public  TextView dobTxt,dobImg,joiningdateTxt,joingDateImg;
     public Button editBtn;
-    public EditText nameTxt, fathernameTxt, dobTxt,designatiinTxt,childernTxt, emailTxt, joiningdateTxt, emplId, reporttoTxt,
+    public EditText nameTxt, fathernameTxt, designatiinTxt,childernTxt, emailTxt,  emplId, reporttoTxt,
                     prefrednameTxt, passportNameTxt, alternativeTxt, panNoTxt,passportnumberTxt,firstNameTxt,middleNameTxt;
     public Spinner materialStatusSpinner, natinalitySpinner, zoneSpinner,departmentSpinner,titleSpinner;
     public RadioGroup genderGroup;
     public RadioButton mailBtn, femailBtn;
-    public ImageView dobImg, joingDateImg;
     public String userId = "", authcode = "",userTypeString = "";
 
     public ArrayList<String> materialList = new ArrayList<>();
@@ -148,13 +147,13 @@ public class PersonalDetailsFragment extends Fragment {
         firstNameTxt = (EditText)rootView.findViewById(R.id.firstname);
         middleNameTxt = (EditText)rootView.findViewById(R.id.middlename);
         fathernameTxt = (EditText)rootView.findViewById(R.id.fathername);
-        dobTxt = (EditText)rootView.findViewById(R.id.dob);
-        dobImg = (ImageView)rootView.findViewById(R.id.dobimg);
+        dobTxt = (TextView)rootView.findViewById(R.id.dob);
+        dobImg = (TextView)rootView.findViewById(R.id.dob);
         designatiinTxt = (EditText)rootView.findViewById(R.id.designation);
         childernTxt = (EditText)rootView.findViewById(R.id.childern);
         emailTxt = (EditText)rootView.findViewById(R.id.email);
-        joiningdateTxt = (EditText)rootView.findViewById(R.id.joiningdate);
-        joingDateImg = (ImageView)rootView.findViewById(R.id.joingimg);
+        joiningdateTxt = (TextView)rootView.findViewById(R.id.joiningdate);
+        joingDateImg = (TextView)rootView.findViewById(R.id.joiningdate);
         emplId = (EditText)rootView.findViewById(R.id.employeid);
         reporttoTxt = (EditText)rootView.findViewById(R.id.reportto);
         prefrednameTxt = (EditText)rootView.findViewById(R.id.prefredname);

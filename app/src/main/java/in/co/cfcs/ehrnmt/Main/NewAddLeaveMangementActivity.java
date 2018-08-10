@@ -57,10 +57,8 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     public Spinner leaveTypeSpinner, leaveYearSpinner;
     public ArrayList<LeaveTypeModel> leaveTypeList = new ArrayList<>();
     public ArrayList<LeaveYearTypeModel> leaveYearList = new ArrayList<>();
-    public EditText startCal, endCal;
     public int month, year, day;
-    public EditText startTxt, endTxt;
-    public TextView titleTxt;
+    public TextView titleTxt,startCal, endCal,startTxt, endTxt;
     public String leaveYearUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveYearList";
     public String leaveTypeUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveTypeList";
     public ArrayAdapter<LeaveYearTypeModel> leaveYearAdapter;
@@ -109,14 +107,12 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
         });
 
         titleTxt.setText("Apply For Leave");
-
         leaveTypeSpinner = (Spinner) findViewById(R.id.leavetypespinner);
         leaveYearSpinner = (Spinner) findViewById(R.id.leaveyearspinner);
-
-        startCal = (EditText) findViewById(R.id.startdate);
-        endCal = (EditText) findViewById(R.id.enddate);
-        startTxt = (EditText) findViewById(R.id.startdate);
-        endTxt = (EditText) findViewById(R.id.enddate);
+        startCal = (TextView) findViewById(R.id.startdate);
+        endCal = (TextView) findViewById(R.id.enddate);
+        startTxt = (TextView) findViewById(R.id.startdate);
+        endTxt = (TextView) findViewById(R.id.enddate);
         applyBtn = (Button) findViewById(R.id.applyleave);
         firstHalfCheck = (CheckBox) findViewById(R.id.firsthalfcheck);
         secondHalfCheck = (CheckBox) findViewById(R.id.secondhalfcheck);

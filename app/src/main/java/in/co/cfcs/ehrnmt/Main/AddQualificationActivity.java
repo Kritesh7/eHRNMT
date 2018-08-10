@@ -55,7 +55,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddQualificationActivity extends AppCompatActivity {
 
-    public TextView titleTxt;
+    public TextView titleTxt,passDateTxt,passDateBtn;
     public Spinner qualificationSpinner, courseTypeSpinner,deciplineSpinner;
     public ArrayList<QualificationSpinnerModel> qualificationList = new ArrayList<>();
     public ArrayList<String> courseTypeList = new ArrayList<>();
@@ -68,8 +68,7 @@ public class AddQualificationActivity extends AppCompatActivity {
     public String authcode = "", userId = "";
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    public ImageView passDateBtn;
-    public EditText passDateTxt,instituteTxt;
+    public EditText instituteTxt;
     public CheckBox highestDegreeCheck;
     public Button addBtn;
     public String courseType = "", deciplineID = "", qualifiucationId = "", highestDegreeTxt = "false", recordId = "", actionMode = ""
@@ -141,8 +140,8 @@ public class AddQualificationActivity extends AppCompatActivity {
         qualificationSpinner = (Spinner)findViewById(R.id.qualificationspinner);
         courseTypeSpinner = (Spinner)findViewById(R.id.coursetypespinner);
         deciplineSpinner = (Spinner)findViewById(R.id.deciplinespinner);
-        passDateBtn = (ImageView) findViewById(R.id.passdateCalBtn);
-        passDateTxt = (EditText) findViewById(R.id.passdateTxt);
+        passDateBtn = (TextView) findViewById(R.id.passdateTxt);
+        passDateTxt = (TextView) findViewById(R.id.passdateTxt);
         instituteTxt = (EditText) findViewById(R.id.institutetxt);
         highestDegreeCheck = (CheckBox) findViewById(R.id.checkHighest);
         addBtn = (Button) findViewById(R.id.newrequestbtn);
