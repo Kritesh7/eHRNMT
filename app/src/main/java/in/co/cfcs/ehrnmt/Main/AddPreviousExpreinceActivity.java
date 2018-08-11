@@ -23,9 +23,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
@@ -440,7 +446,29 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
                 VolleyLog.d("Login", "Error: " + error.getMessage());
                 // Log.e("checking now ",error.getMessage());
 
-                Toast.makeText(AddPreviousExpreinceActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getBaseContext(),
+                            "Time Out Server Not Respond",
+                            Toast.LENGTH_LONG).show();
+                } else if (error instanceof AuthFailureError) {
+                    //TODO
+                } else if (error instanceof ServerError) {
+                    //TODO
+
+                    Toast.makeText(getBaseContext(),
+                            "Server Error",
+                            Toast.LENGTH_LONG).show();
+                } else if (error instanceof NetworkError) {
+                    //TODO
+                    Toast.makeText(getBaseContext(),
+                            "Network Error",
+                            Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    //TODO
+                    Toast.makeText(getBaseContext(),
+                            "Parse Error",
+                            Toast.LENGTH_LONG).show();
+                }
                 pDialog.dismiss();
 
             }

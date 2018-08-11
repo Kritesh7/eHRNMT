@@ -12,9 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
@@ -174,7 +180,29 @@ public class WeekOfListFragment extends Fragment {
                 VolleyLog.d("Login", "Error: " + error.getMessage());
                 // Log.e("checking now ",error.getMessage());
 
-                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getActivity(),
+                            "Time Out Server Not Respond",
+                            Toast.LENGTH_LONG).show();
+                } else if (error instanceof AuthFailureError) {
+                    //TODO
+                } else if (error instanceof ServerError) {
+                    //TODO
+
+                    Toast.makeText(getActivity(),
+                            "Server Error",
+                            Toast.LENGTH_LONG).show();
+                } else if (error instanceof NetworkError) {
+                    //TODO
+                    Toast.makeText(getActivity(),
+                            "Network Error",
+                            Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    //TODO
+                    Toast.makeText(getActivity(),
+                            "Parse Error",
+                            Toast.LENGTH_LONG).show();
+                }
                 pDialog.dismiss();
 
 
@@ -254,10 +282,7 @@ public class WeekOfListFragment extends Fragment {
 
         getActivity().finishAffinity();
         startActivity(new Intent(getContext(), LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
+        
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
                 "")));
