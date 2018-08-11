@@ -360,6 +360,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
                                            final String PhoneNo, final String MobileNo, final String Email)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewEmergencyContactDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -463,6 +464,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewEmergencyContactDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -260,6 +260,7 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
                                     final String Month, final String year) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerTeamLeaveHistoryActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

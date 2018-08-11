@@ -404,6 +404,7 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
                                             final String Desc , final String AuthCode)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddPreviousExpreinceActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

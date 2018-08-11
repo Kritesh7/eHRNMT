@@ -349,6 +349,7 @@ public class MedicalDetailsFragment extends Fragment {
 
 
         pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -451,6 +452,7 @@ public class MedicalDetailsFragment extends Fragment {
                                  , final String AuthCode)  {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

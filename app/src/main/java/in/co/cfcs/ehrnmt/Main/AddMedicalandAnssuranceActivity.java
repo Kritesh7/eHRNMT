@@ -662,6 +662,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddMedicalandAnssuranceActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -777,6 +778,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                                          final String AmountInsured, final String ImgJson, final String ImageExtension  )  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddMedicalandAnssuranceActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -103,6 +103,7 @@ public class ForGotPasswordActivity extends AppCompatActivity {
     public void forgotAPI(final String userName) {
 
         final ProgressDialog pDialog = new ProgressDialog(ForGotPasswordActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

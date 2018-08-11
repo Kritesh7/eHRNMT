@@ -149,6 +149,7 @@ public class HolidayListFragment extends Fragment {
     public void holidayList(final String AuthCode , final String AdminID, final String Year) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

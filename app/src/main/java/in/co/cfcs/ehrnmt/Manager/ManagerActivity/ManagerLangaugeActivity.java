@@ -137,6 +137,7 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
     public void langauageList(final String AuthCode , final String AdminID, final String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerLangaugeActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

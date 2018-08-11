@@ -152,6 +152,7 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
     public void viewStationryDetails(final String AuthCode, final String RID, final String ItemCatID, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(ViewDocumentDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

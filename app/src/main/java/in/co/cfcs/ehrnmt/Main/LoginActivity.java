@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(LoginActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

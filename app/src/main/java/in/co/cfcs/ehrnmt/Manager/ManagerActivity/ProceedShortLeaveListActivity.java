@@ -127,6 +127,7 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
     public void shortLeaveHistoryList(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ProceedShortLeaveListActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -184,6 +184,7 @@ public class TaxiListFragment extends Fragment {
     public void cabListData(final String AuthCode , final String AdminID, final String AppStatus) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

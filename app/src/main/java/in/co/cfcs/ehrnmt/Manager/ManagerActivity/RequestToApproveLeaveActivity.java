@@ -138,6 +138,7 @@ public class RequestToApproveLeaveActivity extends AppCompatActivity {
     public void requestToApproveLeave(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(RequestToApproveLeaveActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

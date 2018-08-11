@@ -899,6 +899,7 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddOffieceallyDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -1009,6 +1010,7 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
                                  final String Document) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddOffieceallyDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

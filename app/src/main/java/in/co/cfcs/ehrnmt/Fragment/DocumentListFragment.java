@@ -203,6 +203,7 @@ public class DocumentListFragment extends Fragment {
     public void documentListData(final String AuthCode , final String AdminID, final String AppStatus, final String ItemCatID) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

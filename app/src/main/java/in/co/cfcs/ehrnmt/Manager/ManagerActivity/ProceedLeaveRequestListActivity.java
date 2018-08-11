@@ -136,6 +136,7 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
     public void leaveManagementData(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ProceedLeaveRequestListActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

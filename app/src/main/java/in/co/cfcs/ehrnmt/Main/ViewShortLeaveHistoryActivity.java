@@ -128,6 +128,7 @@ public class ViewShortLeaveHistoryActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(ViewShortLeaveHistoryActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

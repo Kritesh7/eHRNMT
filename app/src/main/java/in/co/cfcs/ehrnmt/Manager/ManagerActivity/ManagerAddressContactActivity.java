@@ -143,6 +143,7 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
     public void contactDetailsList(final String AuthCode , final String AdminID, final String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerAddressContactActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

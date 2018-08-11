@@ -626,7 +626,7 @@ public class PersonalDetailsFragment extends Fragment {
     //bind all spiiner data
     public void personalDdlDetails() {
 
-
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -764,6 +764,7 @@ public class PersonalDetailsFragment extends Fragment {
                                     final String LastName, final String UserType, final String AuthCode) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

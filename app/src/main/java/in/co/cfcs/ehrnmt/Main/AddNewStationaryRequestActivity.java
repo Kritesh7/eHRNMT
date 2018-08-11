@@ -379,6 +379,7 @@ public class AddNewStationaryRequestActivity extends AppCompatActivity implement
     public void stationryData(final String AuthCode, final String ItemCatID, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewStationaryRequestActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -494,6 +495,7 @@ public class AddNewStationaryRequestActivity extends AppCompatActivity implement
                                  final String AuthCode, final JSONObject mainArray) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewStationaryRequestActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -157,6 +157,7 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
     public void viewStationryDetails(final String AuthCode , final String RID, final String ItemCatID, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(ViewRequestDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

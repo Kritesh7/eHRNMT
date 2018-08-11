@@ -143,6 +143,7 @@ public class ManagerSkillsActivity extends AppCompatActivity {
     public void skillsList(final String AuthCode , final String AdminID, final  String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerSkillsActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

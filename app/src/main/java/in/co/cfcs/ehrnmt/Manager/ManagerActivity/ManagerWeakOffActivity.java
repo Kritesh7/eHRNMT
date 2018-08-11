@@ -118,6 +118,7 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerWeakOffActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

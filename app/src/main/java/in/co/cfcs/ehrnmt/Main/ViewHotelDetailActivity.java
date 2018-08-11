@@ -156,6 +156,7 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
     public void viewHotelDetails(final String AuthCode , final String BID, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(ViewHotelDetailActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

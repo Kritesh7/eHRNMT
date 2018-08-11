@@ -369,6 +369,7 @@ public class AddQualificationActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddQualificationActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -527,6 +528,7 @@ public class AddQualificationActivity extends AppCompatActivity {
                                     final String HighestDegree, final String AuthCode)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddQualificationActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

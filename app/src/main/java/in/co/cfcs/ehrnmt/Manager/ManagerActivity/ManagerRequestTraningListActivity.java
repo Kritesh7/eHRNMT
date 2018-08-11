@@ -131,6 +131,7 @@ public class ManagerRequestTraningListActivity extends AppCompatActivity {
     public void traningRequestData(final String AuthCode , final String AdminID, final String Status) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerRequestTraningListActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -447,6 +447,7 @@ public class AddHotelActivity extends AppCompatActivity {
                                 final String AuthCode, final String EmpRemark)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddHotelActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -545,6 +546,7 @@ public class AddHotelActivity extends AppCompatActivity {
     public void personalDdlDetails() {
 
         final ProgressDialog pDialog = new ProgressDialog(AddHotelActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -655,6 +657,7 @@ public class AddHotelActivity extends AppCompatActivity {
     public void hotelNameANDCity(final String HotelType, final String HotelCityID ) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddHotelActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

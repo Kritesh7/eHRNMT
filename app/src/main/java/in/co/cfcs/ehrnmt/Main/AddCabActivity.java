@@ -461,6 +461,7 @@ public class AddCabActivity extends AppCompatActivity {
     public void personalDdlDetails() {
 
         final ProgressDialog pDialog = new ProgressDialog(AddCabActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -565,6 +566,7 @@ public class AddCabActivity extends AppCompatActivity {
                               final String BookDate, final String EmpComment, final String AuthCode, final JSONObject mainArray) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddCabActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -746,6 +748,7 @@ public class AddCabActivity extends AppCompatActivity {
     public void viewCabDetails(final String AuthCode, final String BID, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddCabActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

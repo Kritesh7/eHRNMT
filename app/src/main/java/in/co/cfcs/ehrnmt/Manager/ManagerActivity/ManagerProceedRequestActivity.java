@@ -147,6 +147,7 @@ public class ManagerProceedRequestActivity extends AppCompatActivity {
     public void getCount(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerProceedRequestActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -258,6 +258,7 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                                       final String Month, final String year) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerShortLeaveHistoryActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

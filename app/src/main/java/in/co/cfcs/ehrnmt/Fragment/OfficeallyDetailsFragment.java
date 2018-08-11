@@ -190,6 +190,7 @@ public class OfficeallyDetailsFragment extends Fragment {
     public void officeallyDocsList(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

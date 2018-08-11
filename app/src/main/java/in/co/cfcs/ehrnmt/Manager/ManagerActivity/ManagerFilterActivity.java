@@ -301,6 +301,7 @@ public class ManagerFilterActivity extends AppCompatActivity {
     public void teamData(final String AuthCode, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerFilterActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -407,6 +408,7 @@ public class ManagerFilterActivity extends AppCompatActivity {
     public void employeeData(final String AuthCode, final String userId, final String ManagerID, final int postion) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerFilterActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

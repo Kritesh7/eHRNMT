@@ -209,6 +209,7 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
     public void attendaceList(final String AuthCode, final String AdminID, final String EmployeeID, final String LogDate) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerAttendanceLogDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

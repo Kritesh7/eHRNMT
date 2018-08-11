@@ -164,6 +164,7 @@ public class ChnagePasswordFragment extends Fragment {
     public void changePasswordApi(final String UserID, final String OldPassword, final String NewPassword,
                                   final String AuthCode) {
         final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

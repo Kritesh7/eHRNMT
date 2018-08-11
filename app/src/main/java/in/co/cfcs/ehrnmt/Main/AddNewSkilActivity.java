@@ -375,6 +375,7 @@ public class AddNewSkilActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewSkilActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -566,6 +567,7 @@ public class AddNewSkilActivity extends AppCompatActivity {
                                  final String SourceID, final String LastUsed , final String AuthCode, final String CurrentlyUsed)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewSkilActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

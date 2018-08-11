@@ -243,6 +243,7 @@ public class AttendanceLogListFragment extends Fragment {
     public void attendaceList(final String AuthCode, final String AdminID, final String LogDate) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

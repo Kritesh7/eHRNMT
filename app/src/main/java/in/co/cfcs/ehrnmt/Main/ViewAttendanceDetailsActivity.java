@@ -203,6 +203,7 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(ViewAttendanceDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -307,6 +308,7 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(ViewAttendanceDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

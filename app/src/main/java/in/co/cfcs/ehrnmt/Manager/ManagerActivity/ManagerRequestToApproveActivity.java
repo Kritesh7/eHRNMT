@@ -184,6 +184,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
     public void getCount(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerRequestToApproveActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

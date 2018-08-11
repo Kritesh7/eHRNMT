@@ -281,6 +281,7 @@ public class AddNewContactActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewContactActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -393,6 +394,7 @@ public class AddNewContactActivity extends AppCompatActivity {
                                   final String City, final String State, final String CountryID, final String PostCode)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewContactActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

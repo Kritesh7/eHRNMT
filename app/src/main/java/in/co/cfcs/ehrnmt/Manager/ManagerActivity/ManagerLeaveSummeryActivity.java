@@ -146,6 +146,7 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
     public void leaveSummeryData(final String AuthCode , final String AdminID, final String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerLeaveSummeryActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

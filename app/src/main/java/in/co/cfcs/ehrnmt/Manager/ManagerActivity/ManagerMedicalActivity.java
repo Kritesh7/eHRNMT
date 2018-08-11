@@ -136,6 +136,7 @@ public class ManagerMedicalActivity extends AppCompatActivity {
     public void medicalAndAnssuranceList(final String AuthCode , final String AdminID, final String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerMedicalActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

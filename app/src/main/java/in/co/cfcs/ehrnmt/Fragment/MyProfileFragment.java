@@ -183,6 +183,7 @@ public class MyProfileFragment extends Fragment {
     public void personalInfoData(final String AuthCode , final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

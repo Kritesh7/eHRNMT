@@ -348,6 +348,7 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(NewAddLeaveMangementActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -459,6 +460,7 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(NewAddLeaveMangementActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

@@ -304,6 +304,7 @@ public class LeaveManagementFragment extends Fragment {
     public void leaveManagementData(final String AuthCode , final String AdminID, final String Month, final String year) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

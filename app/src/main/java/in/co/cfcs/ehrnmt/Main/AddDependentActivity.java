@@ -285,6 +285,7 @@ public class AddDependentActivity extends AppCompatActivity {
                                  final String AuthCode, final String DOB, final String GenderID, final String RelationshipID) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddDependentActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -386,6 +387,7 @@ public class AddDependentActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddDependentActivity.this, R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

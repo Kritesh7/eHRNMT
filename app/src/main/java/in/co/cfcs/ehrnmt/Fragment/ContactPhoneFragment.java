@@ -181,6 +181,7 @@ public class ContactPhoneFragment extends Fragment {
     public void contactDetailsList(final String AuthCode, final String AdminID) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -314,6 +315,7 @@ public class ContactPhoneFragment extends Fragment {
                            final String AuthCode, final String EmailPersonal, final String EmailCorporate) {
 
         final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

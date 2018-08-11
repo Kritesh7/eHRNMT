@@ -264,6 +264,7 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewLnaguageActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -393,6 +394,7 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
                                  final String Read, final String Speak , final String AuthCode)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddNewLnaguageActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

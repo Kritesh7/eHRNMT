@@ -379,6 +379,7 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                                  final String AuthCode, final JSONObject mainArray)  {
 
         final ProgressDialog pDialog = new ProgressDialog(AddDocumentActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -475,6 +476,7 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
     public void documentData(final String AuthCode , final String ItemCatID, final String userId) {
 
         final ProgressDialog pDialog = new ProgressDialog(AddDocumentActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

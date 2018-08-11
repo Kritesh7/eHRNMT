@@ -135,6 +135,7 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
     public void emergencyContactDetailsList(final String AuthCode , final String AdminID, final String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerEmergencyAddressActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

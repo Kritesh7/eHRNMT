@@ -130,6 +130,7 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
 
 
         final ProgressDialog pDialog = new ProgressDialog(ViewLeavemangementActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

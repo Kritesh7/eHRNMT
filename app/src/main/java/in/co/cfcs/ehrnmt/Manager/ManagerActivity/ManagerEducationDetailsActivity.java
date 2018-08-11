@@ -139,6 +139,7 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
     public void educationList(final String AuthCode , final String AdminID, final String EmployeeID) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerEducationDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

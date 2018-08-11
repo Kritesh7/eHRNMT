@@ -140,6 +140,7 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
     public void assetsDetails(final String AuthCode , final String AdminID, final String empId) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerAssetDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

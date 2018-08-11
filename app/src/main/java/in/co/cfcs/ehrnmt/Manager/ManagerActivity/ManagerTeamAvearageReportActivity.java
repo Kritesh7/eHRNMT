@@ -261,6 +261,7 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
     public void teamAvearageList(final String AuthCode , final String AdminID,final String EmployeeID,  final String Month, final String year) {
 
         final ProgressDialog pDialog = new ProgressDialog(ManagerTeamAvearageReportActivity.this,R.style.AppCompatAlertDialogStyle);
+        pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
 

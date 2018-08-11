@@ -511,10 +511,6 @@ public class DashBoardFragment extends Fragment {
         PieEntryLable = new ArrayList<>();
         pievalue = new ArrayList<>();
 
-
-
-
-
         StringRequest historyInquiry = new StringRequest(
                 Request.Method.POST, attendanceSummeryUrl, new Response.Listener<String>() {
             @Override
@@ -852,7 +848,7 @@ public class DashBoardFragment extends Fragment {
         set1.setColors(barColourGroup);
         set2 = new BarDataSet(entriesGroup2, "Taken");
         set2.setColor(Color.RED);
-        set3 = new BarDataSet(entriesGroup3, "Month Avail");
+        set3 = new BarDataSet(entriesGroup3, "Available");
         set3.setColor(Color.GREEN);
         BarData data = new BarData(set1, set2, set3);
         data.setValueFormatter(new LargeValueFormatter());

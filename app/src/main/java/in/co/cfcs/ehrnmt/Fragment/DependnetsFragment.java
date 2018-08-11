@@ -237,7 +237,6 @@ public class DependnetsFragment extends Fragment {
                             list.add(new DependentModel(FirstName , LastName ,DOB,GenderName,RelationshipName,RecordID));
                         }
 
-
                     }
 
                     if (list.size() == 0)
