@@ -44,8 +44,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
  * Created by Admin on 18-09-2017.
  */
 
-public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHolder>
-{
+public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<CabListModel> list = new ArrayList<>();
@@ -70,8 +69,8 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         CabListModel model = list.get(position);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
 
         holder.empNameTxt.setText(model.getEmployName());
@@ -88,51 +87,46 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
 
                 Intent i = new Intent(context, AddCabActivity.class);
                 i.putExtra("Mode", "Edit");
-                i.putExtra("BID",model.getBID());
+                i.putExtra("BID", model.getBID());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
 
-      holder.delBtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
+        holder.delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-              showSettingsAlert(position,authCode,model.getBID(),userId);
-          }
-      });
+                showSettingsAlert(position, authCode, model.getBID(), userId);
+            }
+        });
 
-      if (model.getFollowUpDate().equalsIgnoreCase("null"))
-      {
-          holder.hotelFollowLay.setVisibility(View.GONE);
-          holder.view.setVisibility(View.GONE);
-      }else
-          {
-              holder.hotelFollowLay.setVisibility(View.VISIBLE);
-              holder.view.setVisibility(View.VISIBLE);
-          }
+        if (model.getFollowUpDate().equalsIgnoreCase("null")) {
+            holder.hotelFollowLay.setVisibility(View.GONE);
+            holder.view.setVisibility(View.GONE);
+        } else {
+            holder.hotelFollowLay.setVisibility(View.VISIBLE);
+            holder.view.setVisibility(View.VISIBLE);
+        }
 
         holder.mainLayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent i = new Intent(context, ViewCabDetailsActivity.class);
-                i.putExtra("Bid",model.getBID());
+                i.putExtra("Bid", model.getBID());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
 
-      if (model.getStatus().equalsIgnoreCase("In Process"))
-      {
-          holder.statusTxt.setTextColor(context.getResources().getColor(R.color.orange_color));
-      }else if (model.getStatus().equalsIgnoreCase("Approved"))
-      {
-          holder.statusTxt.setTextColor(context.getResources().getColor(R.color.green_color));
-      }else if (model.getStatus().equalsIgnoreCase("Rejected"))
-      {
-          holder.statusTxt.setTextColor(context.getResources().getColor(R.color.red_color));
-      }
+        if (model.getStatus().equalsIgnoreCase("In Process")) {
+            holder.statusTxt.setTextColor(context.getResources().getColor(R.color.orange_color));
+        } else if (model.getStatus().equalsIgnoreCase("Approved")) {
+            holder.statusTxt.setTextColor(context.getResources().getColor(R.color.green_color));
+        } else if (model.getStatus().equalsIgnoreCase("Rejected")) {
+            holder.statusTxt.setTextColor(context.getResources().getColor(R.color.red_color));
+        }
     }
 
     @Override
@@ -141,27 +135,27 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView empNameTxt,zoneNameTxt,cityNameTXT,requestDateTxt, bookingDateTxt,followupDateTxt,statusTxt;
-        public LinearLayout hotelFollowLay, btnLay,mainLayView;
-        public ImageView mainLay, delBtn ;
+        public TextView empNameTxt, zoneNameTxt, cityNameTXT, requestDateTxt, bookingDateTxt, followupDateTxt, statusTxt;
+        public LinearLayout hotelFollowLay, btnLay, mainLayView;
+        public ImageView mainLay, delBtn;
         public View view, view2;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            empNameTxt = (TextView)itemView.findViewById(R.id.cab_employename);
-            zoneNameTxt = (TextView)itemView.findViewById(R.id.cab_zonename);
-            cityNameTXT = (TextView)itemView.findViewById(R.id.city);
-            requestDateTxt = (TextView)itemView.findViewById(R.id.cab_requestdate);
-            bookingDateTxt = (TextView)itemView.findViewById(R.id.bookingdate);
-            followupDateTxt = (TextView)itemView.findViewById(R.id.cab_followupdate);
-            statusTxt = (TextView)itemView.findViewById(R.id.cab_status);
-            delBtn = (ImageView)itemView.findViewById(R.id.delbtn);
-            mainLay = (ImageView)itemView.findViewById(R.id.cab_main_lay);
-            hotelFollowLay = (LinearLayout)itemView.findViewById(R.id.hotel_follow_lay);
-            btnLay = (LinearLayout)itemView.findViewById(R.id.btnlay);
-            mainLayView = (LinearLayout)itemView.findViewById(R.id.mainlay);
-            view2 = (View)itemView.findViewById(R.id.view2);
+            empNameTxt = (TextView) itemView.findViewById(R.id.cab_employename);
+            zoneNameTxt = (TextView) itemView.findViewById(R.id.cab_zonename);
+            cityNameTXT = (TextView) itemView.findViewById(R.id.city);
+            requestDateTxt = (TextView) itemView.findViewById(R.id.cab_requestdate);
+            bookingDateTxt = (TextView) itemView.findViewById(R.id.bookingdate);
+            followupDateTxt = (TextView) itemView.findViewById(R.id.cab_followupdate);
+            statusTxt = (TextView) itemView.findViewById(R.id.cab_status);
+            delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
+            mainLay = (ImageView) itemView.findViewById(R.id.cab_main_lay);
+            hotelFollowLay = (LinearLayout) itemView.findViewById(R.id.hotel_follow_lay);
+            btnLay = (LinearLayout) itemView.findViewById(R.id.btnlay);
+            mainLayView = (LinearLayout) itemView.findViewById(R.id.mainlay);
+            view2 = (View) itemView.findViewById(R.id.view2);
             view = (View) itemView.findViewById(R.id.view);
         }
     }
@@ -189,7 +183,7 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                deleteMethod(authcode,recordId,userid,postion);
+                deleteMethod(authcode, recordId, userid, postion);
             }
         });
 
@@ -206,9 +200,9 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
 
 
     //delete the Details
-    public void deleteMethod(final String AuthCode , final String BID, final String userId, final int postion) {
+    public void deleteMethod(final String AuthCode, final String BID, final String userId, final int postion) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -219,14 +213,12 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
                             remove(postion);
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
                         }
@@ -236,7 +228,7 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -251,13 +243,13 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("BID",BID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("BID", BID);
+                params.put("AdminID", userId);
 
                 Log.e("Parms", params.toString());
                 return params;

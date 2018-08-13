@@ -57,7 +57,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
 
-    public  TextView titleTxt,noRecordFoundTxt;
+    public TextView titleTxt, noRecordFoundTxt;
     public RecyclerView leaveMangementRecy;
     public LeaveMangementAdapter adapter;
     public String leaveListUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveList";
@@ -70,9 +70,9 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
     public ArrayAdapter<MonthModel> monthAdapter;
     public ArrayAdapter<String> yearAdapter;
     public ImageView serchBtn;
-    public String  yearString ="", empId = "";
+    public String yearString = "", empId = "";
     public int monthString;
-    public int cmonth,cyear,rearYear;
+    public int cmonth, cyear, rearYear;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -94,11 +94,11 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -114,24 +114,23 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
         titleTxt.setText("Leave History");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
 
-        leaveMangementRecy = (RecyclerView)findViewById(R.id.leave_management_recycler);
-        monthSpinner = (Spinner)findViewById(R.id.monthspinner);
-        yearSpinner = (Spinner)findViewById(R.id.yearspinner);
-        serchBtn = (ImageView)findViewById(R.id.serchresult);
-        noRecordFoundTxt = (TextView)findViewById(R.id.norecordfound);
+        leaveMangementRecy = (RecyclerView) findViewById(R.id.leave_management_recycler);
+        monthSpinner = (Spinner) findViewById(R.id.monthspinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearspinner);
+        serchBtn = (ImageView) findViewById(R.id.serchresult);
+        noRecordFoundTxt = (TextView) findViewById(R.id.norecordfound);
 
         conn = new ConnectionDetector(ManagerTeamLeaveHistoryActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerTeamLeaveHistoryActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerTeamLeaveHistoryActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerTeamLeaveHistoryActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerTeamLeaveHistoryActivity.this)));
 
-        adapter = new LeaveMangementAdapter(ManagerTeamLeaveHistoryActivity.this,list,ManagerTeamLeaveHistoryActivity.this);
+        adapter = new LeaveMangementAdapter(ManagerTeamLeaveHistoryActivity.this, list, ManagerTeamLeaveHistoryActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerTeamLeaveHistoryActivity.this);
         leaveMangementRecy.setLayoutManager(mLayoutManager);
         leaveMangementRecy.setItemAnimator(new DefaultItemAnimator());
@@ -140,33 +139,32 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
         leaveMangementRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         //current month and year
-        Calendar c= Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
         cmonth = c.get(Calendar.MONTH);//this is april so you will receive  3 instead of 4.
-        rearYear = cyear-2;
+        rearYear = cyear - 2;
 
         Log.e("current Year", rearYear + "");
         Log.e("current Month", cmonth + "");
 
         //Month spinner work
-        if (monthList.size()>0)
-        {
+        if (monthList.size() > 0) {
             monthList.clear();
         }
 
-        monthList.add(new MonthModel(0,"All"));
-        monthList.add(new MonthModel(1,"Jan"));
-        monthList.add(new MonthModel(2,"Feb"));
-        monthList.add(new MonthModel(3,"Mar"));
-        monthList.add(new MonthModel(4,"Apr"));
-        monthList.add(new MonthModel(5,"May"));
-        monthList.add(new MonthModel(6,"Jun"));
-        monthList.add(new MonthModel(7,"July"));
-        monthList.add(new MonthModel(8,"Aug"));
-        monthList.add(new MonthModel(9,"Sep"));
-        monthList.add(new MonthModel(10,"Oct"));
-        monthList.add(new MonthModel(11,"Nov"));
-        monthList.add(new MonthModel(12,"Dec"));
+        monthList.add(new MonthModel(0, "All"));
+        monthList.add(new MonthModel(1, "Jan"));
+        monthList.add(new MonthModel(2, "Feb"));
+        monthList.add(new MonthModel(3, "Mar"));
+        monthList.add(new MonthModel(4, "Apr"));
+        monthList.add(new MonthModel(5, "May"));
+        monthList.add(new MonthModel(6, "Jun"));
+        monthList.add(new MonthModel(7, "July"));
+        monthList.add(new MonthModel(8, "Aug"));
+        monthList.add(new MonthModel(9, "Sep"));
+        monthList.add(new MonthModel(10, "Oct"));
+        monthList.add(new MonthModel(11, "Nov"));
+        monthList.add(new MonthModel(12, "Dec"));
 
         monthSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -176,23 +174,20 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
         monthSpinner.setAdapter(monthAdapter);
 
         //select the current Month First Time
-        for (int i=0; i<monthList.size(); i++)
-        {
-            if (cmonth+1 == monthList.get(i).getMonthId())
-            {
+        for (int i = 0; i < monthList.size(); i++) {
+            if (cmonth + 1 == monthList.get(i).getMonthId()) {
                 monthSpinner.setSelection(i);
             }
         }
 
         //year Spinner Work
-        if (yearList.size()>0)
-        {
+        if (yearList.size() > 0) {
             yearList.clear();
         }
 
-        yearList.add(cyear+ "");
-        yearList.add(cyear-1 + "");
-        yearList.add(cyear-2 + "");
+        yearList.add(cyear + "");
+        yearList.add(cyear - 1 + "");
+        yearList.add(cyear - 2 + "");
 
         yearSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -200,7 +195,6 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
                 yearList);
         yearAdapter.setDropDownViewResource(R.layout.customizespinner);
         yearSpinner.setAdapter(yearAdapter);
-
 
 
         //selected spinner Data then call API
@@ -236,30 +230,27 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                leaveManagementData(authCode, userId, empId,monthString + "", yearString);
+                leaveManagementData(authCode, userId, empId, monthString + "", yearString);
 
 
             }
         });
 
 
-
         //set List
-        if (conn.getConnectivityStatus()>0)
-        {
-            leaveManagementData(authCode, userId, empId,cmonth+1 +"", cyear + "");
-        }else
-            {
+        if (conn.getConnectivityStatus() > 0) {
+            leaveManagementData(authCode, userId, empId, cmonth + 1 + "", cyear + "");
+        } else {
 
-            }
+        }
 
 
     }
 
-    public void leaveManagementData(final String AuthCode , final String AdminID, final String EmployeeID,
+    public void leaveManagementData(final String AuthCode, final String AdminID, final String EmployeeID,
                                     final String Month, final String year) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerTeamLeaveHistoryActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerTeamLeaveHistoryActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -271,25 +262,23 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDateText = jsonObject.getString("StartDateText");
@@ -303,21 +292,18 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
                             String Status = jsonObject.getString("Status");
 
 
-                            list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
-                                    LeaveApplication_Id,Noofdays,"0",CancelStatus,Status));
+                            list.add(new LeaveManagementModel(UserName, LeaveTypeName, StartDateText, EndDateText, AppliedDate, StatusText,
+                                    LeaveApplication_Id, Noofdays, "0", CancelStatus, Status));
 
                         }
 
 
-
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         leaveMangementRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         leaveMangementRecy.setVisibility(View.VISIBLE);
                     }
@@ -326,7 +312,7 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -363,15 +349,15 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
-                params.put("Month",Month);
-                params.put("Year",year);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
+                params.put("Month", Month);
+                params.put("Year", year);
 
 
                 Log.e("Parms", params.toString());
@@ -401,10 +387,6 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerTeamLeaveHistoryActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerTeamLeaveHistoryActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerTeamLeaveHistoryActivity.this,
@@ -425,11 +407,6 @@ public class ManagerTeamLeaveHistoryActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerTeamLeaveHistoryActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

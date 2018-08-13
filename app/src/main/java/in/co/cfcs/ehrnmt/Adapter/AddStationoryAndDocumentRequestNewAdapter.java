@@ -16,9 +16,7 @@ import in.co.cfcs.ehrnmt.Model.AddNewStationoryRequestModel;
 import in.co.cfcs.ehrnmt.R;
 
 
-
-public class AddStationoryAndDocumentRequestNewAdapter extends RecyclerView.Adapter<AddStationoryAndDocumentRequestNewAdapter.ViewHolder>
-{
+public class AddStationoryAndDocumentRequestNewAdapter extends RecyclerView.Adapter<AddStationoryAndDocumentRequestNewAdapter.ViewHolder> {
     public Context context;
     public ArrayList<AddNewStationoryRequestModel> list = new ArrayList<>();
 
@@ -45,12 +43,11 @@ public class AddStationoryAndDocumentRequestNewAdapter extends RecyclerView.Adap
         holder.quantityTxt.setText(model.getQuantity());
         holder.remarkTxt.setText(model.getRemark());
 
-        int count = position+1;
+        int count = position + 1;
 
-        holder.numberTxt.setText("("+ count +") ");
+        holder.numberTxt.setText("(" + count + ") ");
 
-        if (model.getQuantity().equalsIgnoreCase("0"))
-        {
+        if (model.getQuantity().equalsIgnoreCase("0")) {
             holder.quantityTxt.setText("");
         }
 
@@ -77,8 +74,7 @@ public class AddStationoryAndDocumentRequestNewAdapter extends RecyclerView.Adap
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
-                }else
-                {
+                } else {
                     // list.remove(position);
                 }
             }
@@ -139,16 +135,15 @@ public class AddStationoryAndDocumentRequestNewAdapter extends RecyclerView.Adap
         public ViewHolder(View itemView) {
             super(itemView);
 
-            nameTxt = (TextView)itemView.findViewById(R.id.itemname);
+            nameTxt = (TextView) itemView.findViewById(R.id.itemname);
             numberTxt = (TextView) itemView.findViewById(R.id.number);
-            quantityTxt = (EditText)itemView.findViewById(R.id.edit_quantity);
-            remarkTxt = (EditText)itemView.findViewById(R.id.remark);
+            quantityTxt = (EditText) itemView.findViewById(R.id.edit_quantity);
+            remarkTxt = (EditText) itemView.findViewById(R.id.remark);
 
         }
     }
 
-    public ArrayList<AddNewStationoryRequestModel> getListData()
-    {
+    public ArrayList<AddNewStationoryRequestModel> getListData() {
         return list;
     }
 

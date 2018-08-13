@@ -19,8 +19,7 @@ import in.co.cfcs.ehrnmt.R;
  * Created by Admin on 21-09-2017.
  */
 
-public class LeaveSummarryAdapter extends RecyclerView.Adapter<LeaveSummarryAdapter.ViewHolder>
-{
+public class LeaveSummarryAdapter extends RecyclerView.Adapter<LeaveSummarryAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<LeaveSummarryModel> list = new ArrayList<>();
@@ -52,15 +51,13 @@ public class LeaveSummarryAdapter extends RecyclerView.Adapter<LeaveSummarryAdap
         holder.avlBalnce.setText(model.getLeaveAvail());
         holder.specialtxt.setText(model.getSPLeaveText());
 
-        if (model.getSPLeaveText().equalsIgnoreCase("") || model.getSPLeaveText().equalsIgnoreCase("null"))
-        {
+        if (model.getSPLeaveText().equalsIgnoreCase("") || model.getSPLeaveText().equalsIgnoreCase("null")) {
             holder.specialTxtLay.setVisibility(View.GONE);
             holder.view.setVisibility(View.GONE);
-        }else
-            {
-                holder.specialTxtLay.setVisibility(View.VISIBLE);
-                holder.view.setVisibility(View.VISIBLE);
-            }
+        } else {
+            holder.specialTxtLay.setVisibility(View.VISIBLE);
+            holder.view.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -69,7 +66,7 @@ public class LeaveSummarryAdapter extends RecyclerView.Adapter<LeaveSummarryAdap
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView leaveTypeTxt,leaveyearTxt,entitlementTxt,carryoverTxt, approvedTxt,balanceTxt, avlBalnce, specialtxt;
+        public TextView leaveTypeTxt, leaveyearTxt, entitlementTxt, carryoverTxt, approvedTxt, balanceTxt, avlBalnce, specialtxt;
         public View view;
         public CardView mainLay;
         public LinearLayout specialTxtLay;
@@ -77,19 +74,16 @@ public class LeaveSummarryAdapter extends RecyclerView.Adapter<LeaveSummarryAdap
         public ViewHolder(View itemView) {
             super(itemView);
 
-            leaveTypeTxt = (TextView)itemView.findViewById(R.id.summrry_leave_type);
-            leaveyearTxt = (TextView)itemView.findViewById(R.id.leaveyear);
-            entitlementTxt = (TextView)itemView.findViewById(R.id.entitlement);
-            carryoverTxt = (TextView)itemView.findViewById(R.id.carryover);
-            approvedTxt = (TextView)itemView.findViewById(R.id.summrry_approved);
+            leaveTypeTxt = (TextView) itemView.findViewById(R.id.summrry_leave_type);
+            leaveyearTxt = (TextView) itemView.findViewById(R.id.leaveyear);
+            entitlementTxt = (TextView) itemView.findViewById(R.id.entitlement);
+            carryoverTxt = (TextView) itemView.findViewById(R.id.carryover);
+            approvedTxt = (TextView) itemView.findViewById(R.id.summrry_approved);
             avlBalnce = (TextView) itemView.findViewById(R.id.avl_balance);
             specialtxt = (TextView) itemView.findViewById(R.id.specialtxt);
             specialTxtLay = (LinearLayout) itemView.findViewById(R.id.specialtxtlay);
             view = (View) itemView.findViewById(R.id.lview);
-            balanceTxt = (TextView)itemView.findViewById(R.id.balance);
-
-
-
+            balanceTxt = (TextView) itemView.findViewById(R.id.balance);
 
 
         }

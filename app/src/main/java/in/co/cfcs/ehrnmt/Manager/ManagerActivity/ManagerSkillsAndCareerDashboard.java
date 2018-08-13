@@ -17,7 +17,7 @@ import in.co.cfcs.ehrnmt.R;
 public class ManagerSkillsAndCareerDashboard extends AppCompatActivity {
 
     public TextView titleTxt;
-    public LinearLayout fourthLay,thirdLay, secondLay, firstLay;
+    public LinearLayout fourthLay, thirdLay, secondLay, firstLay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,11 @@ public class ManagerSkillsAndCareerDashboard extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -62,8 +62,8 @@ public class ManagerSkillsAndCareerDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Skills Details");
+                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Skills Details");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -73,8 +73,8 @@ public class ManagerSkillsAndCareerDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Language Details");
+                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Language Details");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
@@ -85,8 +85,8 @@ public class ManagerSkillsAndCareerDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Previous Experience Details");
+                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Previous Experience Details");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -96,22 +96,15 @@ public class ManagerSkillsAndCareerDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Education Details");
+                Intent ik = new Intent(ManagerSkillsAndCareerDashboard.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Education Details");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
 
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
+
     @Override
     public void onBackPressed() {
 

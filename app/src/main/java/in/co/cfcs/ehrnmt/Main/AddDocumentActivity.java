@@ -67,9 +67,9 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
     public String documentUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryItemDetail";
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryRequestInsUpdt";
     public ConnectionDetector conn;
-    public String authCode = "",modeString = "",editList = "";
+    public String authCode = "", modeString = "", editList = "";
     public Button addBtn;
-    public String rIdStr = "", IdealClosureDateText = "",userId = "";
+    public String rIdStr = "", IdealClosureDateText = "", userId = "";
     public LinearLayout closerDateBtn;
     public TextView closerDateTxt;
     private int yy, mm, dd;
@@ -94,11 +94,11 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.document_tollbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -114,19 +114,17 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
         titleTxt.setText("Add New Document Request");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             modeString = intent.getStringExtra("Mode");
             rIdStr = intent.getStringExtra("Rid");
             IdealClosureDateText = intent.getStringExtra("IdealClosureDateText");
-            myList = (ArrayList<AddNewStationoryRequestModel>)getIntent().getSerializableExtra("mylist");
+            myList = (ArrayList<AddNewStationoryRequestModel>) getIntent().getSerializableExtra("mylist");
 
         }
 
         conn = new ConnectionDetector(AddDocumentActivity.this);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddDocumentActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddDocumentActivity.this)));
-
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddDocumentActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddDocumentActivity.this)));
 
 
         addStaRecy = (RecyclerView) findViewById(R.id.stationory_recycler);
@@ -223,16 +221,13 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
         });
 
 
-
-
-        if (modeString.equalsIgnoreCase("Edit"))
-        {
+        if (modeString.equalsIgnoreCase("Edit")) {
             closerDateTxt.setText(IdealClosureDateText);
             titleTxt.setText("Update Document Request");
             addBtn.setText("Update Document Request");
 
             adapter = new AddStationoryAndDocumentRequestNewAdapter(AddDocumentActivity.this, myList);
-        }else {
+        } else {
             adapter = new AddStationoryAndDocumentRequestNewAdapter(AddDocumentActivity.this, list);
         }
 
@@ -246,12 +241,11 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
         // prepareInsDetails();
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            documentData(authCode,"2",userId);
+            documentData(authCode, "2", userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -261,25 +255,22 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
             public void onClick(View view) {
 
 
-                Log.e("checking the my list"," checking list size is: " + adapter.getListData().size() );
+                Log.e("checking the my list", " checking list size is: " + adapter.getListData().size());
 
-                if (innerlist.size()>0)
-                {
+                if (innerlist.size() > 0) {
                     innerlist.clear();
                 }
 
-                for (int i=0; i<list.size(); i++)
-                {
+                for (int i = 0; i < list.size(); i++) {
 
                     adapter.getListData().get(i).getQuantity();
 
-                    if (!adapter.getListData().get(i).getQuantity().equalsIgnoreCase(""))
-                    {
+                    if (!adapter.getListData().get(i).getQuantity().equalsIgnoreCase("")) {
 
-                        Log.e("checking the item id",adapter.getListData().get(i).getItemId());
-                        Log.e("checking the item name",adapter.getListData().get(i).getItemName() );
-                        Log.e("checking the remark",adapter.getListData().get(i).getRemark() );
-                        Log.e("checking the quantity",adapter.getListData().get(i).getQuantity() );
+                        Log.e("checking the item id", adapter.getListData().get(i).getItemId());
+                        Log.e("checking the item name", adapter.getListData().get(i).getItemName());
+                        Log.e("checking the remark", adapter.getListData().get(i).getRemark());
+                        Log.e("checking the quantity", adapter.getListData().get(i).getQuantity());
 
                         innerlist.add(new getQuantAndRemarkModel(adapter.getListData().get(i).getItemName(),
                                 adapter.getListData().get(i).getQuantity(), adapter.getListData().get(i).getRemark(),
@@ -287,7 +278,6 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
                     }
                 }
-
 
 
                 //old function
@@ -316,7 +306,7 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                 try {
 
 
-                    for (int i =0; i<innerlist.size(); i++) {
+                    for (int i = 0; i < innerlist.size(); i++) {
 
                         JSONObject filterJson = new JSONObject();
                         filterJson.put("ItemID", innerlist.get(i).getItemId());
@@ -327,41 +317,35 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                         mainArray.put(filterJson);
                     }
 
-                    object.put("members",mainArray);
+                    object.put("members", mainArray);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
 
-
-
-                Log.e("checking the json is",mainArray.toString());
+                Log.e("checking the json is", mainArray.toString());
 
                 //Validation condtion and add data
-                if (closerDateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                if (closerDateTxt.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(AddDocumentActivity.this, "Please select closer date", Toast.LENGTH_SHORT).show();
 
-                }else if (innerlist.size() == 0)
-                {
+                } else if (innerlist.size() == 0) {
                     Toast.makeText(AddDocumentActivity.this, "At least one item required", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
 
-                    if (conn.getConnectivityStatus()>0) {
+                    if (conn.getConnectivityStatus() > 0) {
 
                         if (modeString.equalsIgnoreCase("Edit")) {
 
                             addStaionoryItem(userId, rIdStr, "2", closerDateTxt.getText().toString(), authCode, object);
 
-                        }else
-                        {
+                        } else {
                             addStaionoryItem(userId, "", "2", closerDateTxt.getText().toString(), authCode, object);
 
                         }
-                    }else
-                    {
+                    } else {
                         conn.showNoInternetAlret();
                     }
                 }
@@ -371,14 +355,13 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
         });
 
 
-
     }
 
     //add new staionry Data
-    public void addStaionoryItem(final String AdminID  , final String RID, final String ItemCatID, final String IdealCosureDate,
-                                 final String AuthCode, final JSONObject mainArray)  {
+    public void addStaionoryItem(final String AdminID, final String RID, final String ItemCatID, final String IdealCosureDate,
+                                 final String AuthCode, final JSONObject mainArray) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddDocumentActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddDocumentActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -390,27 +373,27 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
 
-                        }else {
+                        } else {
 
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -447,16 +430,16 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("RID",RID);
-                params.put("ItemCatID",ItemCatID);
-                params.put("IdealCosureDate",IdealCosureDate);
-                params.put("ItemDetailJson",mainArray.toString());
-                params.put("AuthCode",AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("RID", RID);
+                params.put("ItemCatID", ItemCatID);
+                params.put("IdealCosureDate", IdealCosureDate);
+                params.put("ItemDetailJson", mainArray.toString());
+                params.put("AuthCode", AuthCode);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -471,11 +454,10 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
     }
 
 
-
     //Document Item Data
-    public void documentData(final String AuthCode , final String ItemCatID, final String userId) {
+    public void documentData(final String AuthCode, final String ItemCatID, final String userId) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddDocumentActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddDocumentActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -487,30 +469,28 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
                             String ItemID = jsonObject.getString("ItemID");
                             String ItemName = jsonObject.getString("ItemName");
                             String MaxQuantity = jsonObject.getString("MaxQuantity");
 
-                            list.add(new AddNewStationoryRequestModel(ItemName,MaxQuantity,ItemID,"",""));
+                            list.add(new AddNewStationoryRequestModel(ItemName, MaxQuantity, ItemID, "", ""));
                         }
 
 
@@ -520,7 +500,7 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -557,13 +537,13 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("ItemCatID",ItemCatID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("ItemCatID", ItemCatID);
+                params.put("AdminID", userId);
 
 
                 Log.e("Parms", params.toString());

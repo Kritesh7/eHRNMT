@@ -73,8 +73,8 @@ public class OfficeallyDetailsFragment extends Fragment {
     public FloatingActionButton fab;
     public String officealyDocsUrl = SettingConstant.BaseUrl + "AppEmployeeOfficeDocumentList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -119,20 +119,20 @@ public class OfficeallyDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_officeally_details, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        officelyRecycler = (RecyclerView)rootView.findViewById(R.id.officely_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        officelyRecycler = (RecyclerView) rootView.findViewById(R.id.officely_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new OfficelyAdapter(getActivity(),list,getActivity(), "FirstOne");
+        adapter = new OfficelyAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         officelyRecycler.setLayoutManager(mLayoutManager);
         officelyRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -140,7 +140,7 @@ public class OfficeallyDetailsFragment extends Fragment {
 
         officelyRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-       // prepareInsDetails();
+        // prepareInsDetails();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,41 +155,40 @@ public class OfficeallyDetailsFragment extends Fragment {
         return rootView;
     }
 
-  /*  private void prepareInsDetails() {
+    /*  private void prepareInsDetails() {
 
-        OfficealyModel model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
-        list.add(model);
-        model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
-        list.add(model);
-        model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
-        list.add(model);
-        model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
-        list.add(model);
-        model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
-        list.add(model);
+          OfficealyModel model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
+          list.add(model);
+          model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
+          list.add(model);
+          model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
+          list.add(model);
+          model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
+          list.add(model);
+          model = new OfficealyModel("Education Document","4","03-09-2017","02-01-2017","Agra");
+          list.add(model);
 
 
-        adapter.notifyDataSetChanged();
+          adapter.notifyDataSetChanged();
 
-    }*/
+      }*/
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            officeallyDocsList(authCode,userId);
+            officeallyDocsList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Officeally docs List Api
-    public void officeallyDocsList(final String AuthCode , final String AdminID) {
+    public void officeallyDocsList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -201,25 +200,23 @@ public class OfficeallyDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String DocumentTypeName = jsonObject.getString("DocumentTypeName");
                             String IssueDate = jsonObject.getString("IssueDate");
                             String ExpiryDate = jsonObject.getString("ExpiryDate");
@@ -230,23 +227,18 @@ public class OfficeallyDetailsFragment extends Fragment {
                             String RecordID = jsonObject.getString("RecordID");
 
 
-
-                            list.add(new OfficealyModel(DocumentTypeName,Number,IssueDate,ExpiryDate,IssuePlace,FileNameText,Deleteable,
+                            list.add(new OfficealyModel(DocumentTypeName, Number, IssueDate, ExpiryDate, IssuePlace, FileNameText, Deleteable,
                                     RecordID));
-
-
 
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         officelyRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         officelyRecycler.setVisibility(View.VISIBLE);
                     }
@@ -256,7 +248,7 @@ public class OfficeallyDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -293,13 +285,13 @@ public class OfficeallyDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;

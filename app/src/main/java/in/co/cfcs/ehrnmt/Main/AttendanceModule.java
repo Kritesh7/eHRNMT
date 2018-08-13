@@ -123,7 +123,6 @@ import in.co.cfcs.ehrnmt.Source.SharedPrefs;
 import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 
-
 public class AttendanceModule extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
@@ -184,8 +183,8 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
     String EmployeeName;
     String addressName1;
 
-    String InOutStatus ="";
-    String InOutStatusDate="";
+    String InOutStatus = "";
+    String InOutStatusDate = "";
 
 
     String LoginStatus;
@@ -197,11 +196,11 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
     Calendar c;
 
-    String AttDateTimePresentTime ="";
+    String AttDateTimePresentTime = "";
 
-    String AttDateTimeMissed ="";
+    String AttDateTimeMissed = "";
 
-    String TypeAuto ="1";
+    String TypeAuto = "1";
 
     String TypeManula = "2";
 
@@ -280,15 +279,15 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
             conn.showNoInternetAlret();
         }
 
-        if(InOutStatus.compareTo("1") == 0){
+        if (InOutStatus.compareTo("1") == 0) {
             rd_in.setVisibility(View.GONE);
             rd_out.setChecked(true);
-            if(InOutStatusDate.compareToIgnoreCase(getCurrentTime())!=0){
-             //   Toast.makeText(AttendanceModule.this,"Popup Show",Toast.LENGTH_LONG).show();
+            if (InOutStatusDate.compareToIgnoreCase(getCurrentTime()) != 0) {
+                //   Toast.makeText(AttendanceModule.this,"Popup Show",Toast.LENGTH_LONG).show();
                 ShowPopupAttendanceMiss();
             }
 
-        }else {
+        } else {
             rd_in.setVisibility(View.VISIBLE);
             rd_out.setVisibility(View.GONE);
         }
@@ -453,9 +452,9 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onClick(View view) {
 
-                if(rd_out.isChecked() && InOutStatus.compareToIgnoreCase("1") == 0){
+                if (rd_out.isChecked() && InOutStatus.compareToIgnoreCase("1") == 0) {
                     ShowPopupAttendanceMiss();
-                }else {
+                } else {
 
                     mCamera.takePicture(null, null, jpegCallback);
                     pDialog = new ProgressDialog(AttendanceModule.this, R.style.AppCompatAlertDialogStyle);
@@ -491,8 +490,8 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                                         TrackService();
 
                                         attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
-                                                remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg",AttDateTimePresentTime,TypeAuto);
-                                        Toast.makeText(AttendanceModule.this,AttDateTimePresentTime,Toast.LENGTH_LONG).show();
+                                                remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg", AttDateTimePresentTime, TypeAuto);
+                                        Toast.makeText(AttendanceModule.this, AttDateTimePresentTime, Toast.LENGTH_LONG).show();
                                     } else {
 
                                         conn.showNoInternetAlret();
@@ -504,8 +503,8 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
                                         StopTrackService();
 
-                                            attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
-                                                    remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg",AttDateTimePresentTime,TypeAuto);
+                                        attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
+                                                remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg", AttDateTimePresentTime, TypeAuto);
 
                                     } else {
 
@@ -633,14 +632,14 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                                     Toast.makeText(AttendanceModule.this, "Please get location", Toast.LENGTH_SHORT).show();
                                 } else {
 
-                                if (rd_out.isChecked()) {
+                                    if (rd_out.isChecked()) {
 
                                         if (conn.getConnectivityStatus() > 0) {
 
                                             StopTrackService();
 
                                             attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
-                                                    remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg",AttDateTimeMissed,TypeManula);
+                                                    remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg", AttDateTimeMissed, TypeManula);
 
                                             rd_out.setVisibility(View.GONE);
                                             rd_in.setVisibility(View.VISIBLE);
@@ -665,10 +664,10 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                     }
                 }, 0, 0, false);
 
-        timePickerDialog.setTitle(InOutStatusDate +"  "+ "Forget your attendance please submit");
+        timePickerDialog.setTitle(InOutStatusDate + "  " + "Forget your attendance please submit");
         timePickerDialog.show();
         timePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
-       // timePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+        // timePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
         timePickerDialog.setCanceledOnTouchOutside(false);
     }
 
@@ -768,9 +767,9 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
                             if (jsonObject.has("MsgNotification")) {
                                 String MsgNotification = jsonObject.getString("MsgNotification");
-                                Toast.makeText(AttendanceModule.this,MsgNotification, Toast.LENGTH_LONG).show();
+                                Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_LONG).show();
                                 Logout();
-                            }else{
+                            } else {
 
                                 EmployeeName = jsonObject1.getString("EmployeeName").toString();
                                 AddressName = jsonObject1.getString("AddressName").toString();
@@ -1312,7 +1311,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
     //add Attendnace Request
     public void attendaceDetails(final String AdminID, final String Lang, final String Lat, final String LocationAddress,
-                                 final String Remark, final String FileJson, final String AuthCode, final String FileExtension,final String Attdatetime,final String Type) {
+                                 final String Remark, final String FileJson, final String AuthCode, final String FileExtension, final String Attdatetime, final String Type) {
 
         StringRequest historyInquiry = new StringRequest(
                 Request.Method.POST, addUrl, new Response.Listener<String>() {
@@ -1327,23 +1326,23 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
-                           // String MsgNotification = jsonObject.getString("MsgNotification");
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
+                            // String MsgNotification = jsonObject.getString("MsgNotification");
                             //Toast.makeText(AttendanceModule.this, MsgNotification, Toast.LENGTH_SHORT).show();
-                            if(InOutStatus.compareTo("1") != 0){
+                            if (InOutStatus.compareTo("1") != 0) {
                                 UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
                                         "1")));
-                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatusDate(AttendanceModule.this,getCurrentTime())));
-                            }else {
+                                UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatusDate(AttendanceModule.this, getCurrentTime())));
+                            } else {
                                 UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setInOutStatus(AttendanceModule.this,
                                         "")));
                             }
 
                             onBackPressed();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 //                    if (jsonObject.has("status")) {
@@ -1636,8 +1635,8 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
         super.onBackPressed();
 
-            overridePendingTransition(R.anim.push_left_in,
-                    R.anim.push_right_out);
+        overridePendingTransition(R.anim.push_left_in,
+                R.anim.push_right_out);
 
     }
 }

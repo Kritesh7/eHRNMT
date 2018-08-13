@@ -65,8 +65,7 @@ public class AddNewContactActivity extends AppCompatActivity {
     public Button addBtn;
     public TextView emgTxt;
     public LinearLayout innerLay;
-    public String typeStr = "",authcode = "", userId = "", countryId = "", recordId = "", addressStr = "", cityStr = ""
-            , state = "", countryNameStr = "", postalCodeStr = "", actionMode = "", addressTypeStr = "", stateStr = "";
+    public String typeStr = "", authcode = "", userId = "", countryId = "", recordId = "", addressStr = "", cityStr = "", state = "", countryNameStr = "", postalCodeStr = "", actionMode = "", addressTypeStr = "", stateStr = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -87,11 +86,11 @@ public class AddNewContactActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.contacttollbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -108,8 +107,7 @@ public class AddNewContactActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             recordId = intent.getStringExtra("RecordId");
             actionMode = intent.getStringExtra("Mode");
             addressStr = intent.getStringExtra("Address");
@@ -122,8 +120,8 @@ public class AddNewContactActivity extends AppCompatActivity {
         }
 
         conn = new ConnectionDetector(AddNewContactActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddNewContactActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddNewContactActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddNewContactActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddNewContactActivity.this)));
 
         countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         radioGroup = (RadioGroup) findViewById(R.id.contact_radiogroup);
@@ -138,8 +136,7 @@ public class AddNewContactActivity extends AppCompatActivity {
         emgTxt = (TextView) findViewById(R.id.emgtxt);
         innerLay = (LinearLayout) findViewById(R.id.radiobtnlay);
 
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
             addressTxt.setText(addressStr);
             cityTxt.setText(cityStr);
             stateTxt.setText(stateStr);
@@ -149,21 +146,17 @@ public class AddNewContactActivity extends AppCompatActivity {
             emgTxt.setVisibility(View.VISIBLE);
 
 
-
-            if (addressTypeStr.equalsIgnoreCase("1"))
-            {
+            if (addressTypeStr.equalsIgnoreCase("1")) {
                 typeStr = "1";
                 parmanentBtn.setChecked(true);
                 emgTxt.setText("Permanent Address");
 
-            }else if (addressTypeStr.equalsIgnoreCase("2"))
-            {
+            } else if (addressTypeStr.equalsIgnoreCase("2")) {
                 typeStr = "2";
                 currentBtn.setChecked(true);
                 emgTxt.setText("Current Address");
 
-            }else if (addressTypeStr.equalsIgnoreCase("3"))
-            {
+            } else if (addressTypeStr.equalsIgnoreCase("3")) {
                 typeStr = "3";
                 corspondentBtn.setChecked(true);
                 emgTxt.setText("Correspond Address");
@@ -173,10 +166,7 @@ public class AddNewContactActivity extends AppCompatActivity {
             titleTxt.setText("Update Contact  Details");
 
 
-
-
         }
-
 
 
         // country Spinner
@@ -187,12 +177,10 @@ public class AddNewContactActivity extends AppCompatActivity {
         countrySpinner.setAdapter(countryAdapter);
 
         //bind Data in spinner
-        if (conn.getConnectivityStatus()>0)
-        {
+        if (conn.getConnectivityStatus() > 0) {
             personalDdlDetails();
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -201,16 +189,13 @@ public class AddNewContactActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-                if (i == R.id.parmanent_radiobtn)
-                {
+                if (i == R.id.parmanent_radiobtn) {
                     typeStr = "1";
 
-                }else if (i == R.id.current_radiobtn)
-                {
+                } else if (i == R.id.current_radiobtn) {
                     typeStr = "2";
 
-                }else if (i == R.id.corspond_radiobtn)
-                {
+                } else if (i == R.id.corspond_radiobtn) {
                     typeStr = "3";
                 }
             }
@@ -234,32 +219,26 @@ public class AddNewContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (typeStr.equalsIgnoreCase(""))
-                {
+                if (typeStr.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewContactActivity.this, "Please select address type", Toast.LENGTH_SHORT).show();
-                }else  if (addressTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (addressTxt.getText().toString().equalsIgnoreCase("")) {
                     addressTxt.setError("Please enter address");
                     addressTxt.requestFocus();
-                }else if (cityTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (cityTxt.getText().toString().equalsIgnoreCase("")) {
                     cityTxt.setError("Please enter city");
                     cityTxt.requestFocus();
-                }else if (stateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (stateTxt.getText().toString().equalsIgnoreCase("")) {
                     stateTxt.setError("Please enter state");
                     stateTxt.requestFocus();
 
-                }else if (countryId.equalsIgnoreCase(""))
-                {
+                } else if (countryId.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewContactActivity.this, "Please enter Country", Toast.LENGTH_SHORT).show();
 
-                }else if (postalCodeTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (postalCodeTxt.getText().toString().equalsIgnoreCase("")) {
                     postalCodeTxt.setError("Please enter postal Code");
                     postalCodeTxt.requestFocus();
 
-                }else {
+                } else {
 
                     if (conn.getConnectivityStatus() > 0) {
 
@@ -280,7 +259,7 @@ public class AddNewContactActivity extends AppCompatActivity {
     public void personalDdlDetails() {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(AddNewContactActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddNewContactActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -292,46 +271,41 @@ public class AddNewContactActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
 
                     //bind Country Spinner
-                    if (countryList.size()>0)
-                    {
+                    if (countryList.size() > 0) {
                         countryList.clear();
                     }
 
-                    countryList.add(new CountryModel("","Please select Country"));
+                    countryList.add(new CountryModel("", "Please select Country"));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray countryObj = jsonObject.getJSONArray("CountryMaster");
-                        for (int i =0; i<countryObj.length(); i++)
-                        {
+                        for (int i = 0; i < countryObj.length(); i++) {
                             JSONObject object = countryObj.getJSONObject(i);
 
                             String CountryID = object.getString("CountryID");
                             String CountryName = object.getString("CountryName");
-                            countryList.add(new CountryModel(CountryID,CountryName));
+                            countryList.add(new CountryModel(CountryID, CountryName));
 
                         }
 
                         //Edit Option
-                        for (int k =0; k<countryList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNameStr))
-                                {
+                        for (int k = 0; k < countryList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNameStr)) {
                                     countryId = countryList.get(k).getCountryId();
                                     countrySpinner.setSelection(k);
                                 }
@@ -344,7 +318,7 @@ public class AddNewContactActivity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -390,10 +364,10 @@ public class AddNewContactActivity extends AppCompatActivity {
     }
 
     // add contact Details
-    public void addContactDetails(final String AdminID  , final String RecordID, final String Type, final String AuthCode, final String Address,
-                                  final String City, final String State, final String CountryID, final String PostCode)  {
+    public void addContactDetails(final String AdminID, final String RecordID, final String Type, final String AuthCode, final String Address,
+                                  final String City, final String State, final String CountryID, final String PostCode) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddNewContactActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddNewContactActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -405,26 +379,26 @@ public class AddNewContactActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else if (LoginStatus.equalsIgnoreCase("success")){
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
 
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -461,20 +435,19 @@ public class AddNewContactActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("Type",Type);
-                params.put("Address",Address);
-                params.put("City",City);
-                params.put("State",State);
-                params.put("CountryID",CountryID);
-                params.put("PostCode",PostCode);
-
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("Type", Type);
+                params.put("Address", Address);
+                params.put("City", City);
+                params.put("State", State);
+                params.put("CountryID", CountryID);
+                params.put("PostCode", PostCode);
 
 
                 Log.e("Parms", params.toString());
@@ -490,7 +463,6 @@ public class AddNewContactActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
 
@@ -499,6 +471,7 @@ public class AddNewContactActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+
     private void Logout() {
 
 

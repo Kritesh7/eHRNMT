@@ -20,7 +20,6 @@ public class ManagerReportDashboardActivity extends AppCompatActivity {
     public LinearLayout firstLay, secondLay, thirdLay;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +35,11 @@ public class ManagerReportDashboardActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -64,8 +63,8 @@ public class ManagerReportDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerReportDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Attendance Report");
+                Intent ik = new Intent(ManagerReportDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Attendance Report");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -76,8 +75,8 @@ public class ManagerReportDashboardActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent ik = new Intent(ManagerReportDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Team Average Report");
+                Intent ik = new Intent(ManagerReportDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Team Average Report");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -87,8 +86,8 @@ public class ManagerReportDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerReportDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Attendance Basic Log");
+                Intent ik = new Intent(ManagerReportDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Attendance Basic Log");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 

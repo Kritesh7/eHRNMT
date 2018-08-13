@@ -55,10 +55,10 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
     public EducationDetailsAdapter adapter;
     public ArrayList<EducationModel> list = new ArrayList<>();
     public RecyclerView educationRecycler;
-    public TextView noCust ;
+    public TextView noCust;
     public String educationUrl = SettingConstant.BaseUrl + "AppEmployeeEducationList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "", IsAddEducationalDetail = "";
+    public String userId = "", authCode = "", IsAddEducationalDetail = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -80,11 +80,11 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -98,23 +98,22 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Education Details");
 
-        educationRecycler = (RecyclerView)findViewById(R.id.education_recycler);
-        noCust = (TextView)findViewById(R.id.no_record_txt);
+        educationRecycler = (RecyclerView) findViewById(R.id.education_recycler);
+        noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerEducationDetailsActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerEducationDetailsActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerEducationDetailsActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerEducationDetailsActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerEducationDetailsActivity.this)));
 
 
-        adapter = new EducationDetailsAdapter(ManagerEducationDetailsActivity.this,list,
-                ManagerEducationDetailsActivity.this,"SecondOne");
+        adapter = new EducationDetailsAdapter(ManagerEducationDetailsActivity.this, list,
+                ManagerEducationDetailsActivity.this, "SecondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerEducationDetailsActivity.this);
         educationRecycler.setLayoutManager(mLayoutManager);
         educationRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -122,23 +121,21 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
 
         educationRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            educationList(authCode,userId,empId);
+            educationList(authCode, userId, empId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
-
 
 
     }
 
     //Skills list
-    public void educationList(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void educationList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerEducationDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerEducationDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -150,26 +147,24 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
                     JSONArray jsonArray = jsonObject.getJSONArray("List");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String QualificationName = object.getString("QualificationName");
                             String DisciplineName = object.getString("DisciplineName");
                             String PassingDate = object.getString("PassingDate");
@@ -182,26 +177,23 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
                             String Deleteable = object.getString("Deleteable");
                             String RecordID = object.getString("RecordID");
 
-                            list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
-                                    RecordID,Comments,StatusText,"0","0"));
+                            list.add(new EducationModel(QualificationName, DisciplineName, PassingDate, Institute, CourseType, HighestDegree,
+                                    RecordID, Comments, StatusText, "0", "0"));
                         }
 
                     }
 
                     JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int j = 0; j<statusArray.length(); j++)
-                    {
+                    for (int j = 0; j < statusArray.length(); j++) {
                         JSONObject obj = statusArray.getJSONObject(j);
 
                         IsAddEducationalDetail = obj.getString("IsAddEducationalDetail");
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         educationRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         educationRecycler.setVisibility(View.VISIBLE);
                     }
@@ -210,7 +202,7 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -247,13 +239,13 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;

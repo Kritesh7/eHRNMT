@@ -70,10 +70,10 @@ public class PreviousExprienceFragment extends Fragment {
     public ArrayList<PreviousExpreinceModel> list = new ArrayList<>();
     public RecyclerView prevoisExpRecy;
     public FloatingActionButton fab;
-    public TextView noCust ;
+    public TextView noCust;
     public String prevLangUrl = SettingConstant.BaseUrl + "AppEmployeePreviousExperienceList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "" , IsAddPreviousExperience = "";
+    public String userId = "", authCode = "", IsAddPreviousExperience = "";
 
     private OnFragmentInteractionListener mListener;
 
@@ -120,21 +120,21 @@ public class PreviousExprienceFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_previous_exprience, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        prevoisExpRecy = (RecyclerView)rootView.findViewById(R.id.previous_expreince_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        prevoisExpRecy = (RecyclerView) rootView.findViewById(R.id.previous_expreince_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new PreviousExpreinceAdapter(getActivity(),list,getActivity(),"FirstOne");
+        adapter = new PreviousExpreinceAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         prevoisExpRecy.setLayoutManager(mLayoutManager);
         prevoisExpRecy.setItemAnimator(new DefaultItemAnimator());
@@ -148,25 +148,23 @@ public class PreviousExprienceFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (IsAddPreviousExperience.equalsIgnoreCase("1"))
-                {
+                if (IsAddPreviousExperience.equalsIgnoreCase("1")) {
                     // fab.setVisibility(View.GONE);
                     //fab.setEnabled(false);
                     Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval.", Toast.LENGTH_SHORT).show();
-                }else
-                {
+                } else {
                     // fab.setVisibility(View.VISIBLE);
 
                     Intent i = new Intent(getActivity(), AddPreviousExpreinceActivity.class);
                     i.putExtra("ActionMode", "AddMode");
                     i.putExtra("RecordId", "");
                     i.putExtra("CompanyName", "");
-                    i.putExtra("JoiningDate","");
-                    i.putExtra("RelivingDate","");
-                    i.putExtra("Designation","");
-                    i.putExtra("JobYearId","");
-                    i.putExtra("JobMonthId","");
-                    i.putExtra("JobDescription","");
+                    i.putExtra("JoiningDate", "");
+                    i.putExtra("RelivingDate", "");
+                    i.putExtra("Designation", "");
+                    i.putExtra("JobYearId", "");
+                    i.putExtra("JobMonthId", "");
+                    i.putExtra("JobDescription", "");
                     startActivity(i);
                     getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
                 }
@@ -203,21 +201,20 @@ public class PreviousExprienceFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            previousExpList(authCode,userId);
+            previousExpList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Skills list
-    public void previousExpList(final String AuthCode , final String AdminID) {
+    public void previousExpList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -229,11 +226,10 @@ public class PreviousExprienceFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
 
@@ -243,15 +239,14 @@ public class PreviousExprienceFragment extends Fragment {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray jsonArray = jsonObject.getJSONArray("List");
-                        for (int i=0 ; i<jsonArray.length();i++)
-                        {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
                             String CompName = object.getString("CompName");
                             String Designation = object.getString("Designation");
@@ -268,30 +263,24 @@ public class PreviousExprienceFragment extends Fragment {
                             String JobPeriodMonth = object.getString("JobPeriodMonth");
 
 
-
-
-                            list.add(new PreviousExpreinceModel(CompName,JoiningDate,JobDesc,JobPeriod,Designation,editable,Deleteable,
-                                    Status,Comments,RecordID,RelievingDate,JobPeriodYear,JobPeriodMonth));
-
+                            list.add(new PreviousExpreinceModel(CompName, JoiningDate, JobDesc, JobPeriod, Designation, editable, Deleteable,
+                                    Status, Comments, RecordID, RelievingDate, JobPeriodYear, JobPeriodMonth));
 
 
                         }
 
                         JSONArray statusArray = jsonObject.getJSONArray("Status");
-                        for (int k=0; k<statusArray.length(); k++)
-                        {
+                        for (int k = 0; k < statusArray.length(); k++) {
                             JSONObject obj = statusArray.getJSONObject(k);
                             IsAddPreviousExperience = obj.getString("IsAddPreviousExperience");
 
 
                         }
 
-                        if (list.size() == 0)
-                        {
+                        if (list.size() == 0) {
                             noCust.setVisibility(View.VISIBLE);
                             prevoisExpRecy.setVisibility(View.GONE);
-                        }else
-                        {
+                        } else {
                             noCust.setVisibility(View.GONE);
                             prevoisExpRecy.setVisibility(View.VISIBLE);
                         }
@@ -301,7 +290,7 @@ public class PreviousExprienceFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
 
                 }
@@ -339,13 +328,13 @@ public class PreviousExprienceFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -384,6 +373,7 @@ public class PreviousExprienceFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
     private void Logout() {
 
 

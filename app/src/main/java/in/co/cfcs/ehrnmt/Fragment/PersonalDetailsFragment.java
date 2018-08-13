@@ -80,14 +80,14 @@ public class PersonalDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public  TextView dobTxt,dobImg,joiningdateTxt,joingDateImg;
+    public TextView dobTxt, dobImg, joiningdateTxt, joingDateImg;
     public Button editBtn;
-    public EditText nameTxt, fathernameTxt, designatiinTxt,childernTxt, emailTxt,  emplId, reporttoTxt,
-                    prefrednameTxt, passportNameTxt, alternativeTxt, panNoTxt,passportnumberTxt,firstNameTxt,middleNameTxt;
-    public Spinner materialStatusSpinner, natinalitySpinner, zoneSpinner,departmentSpinner,titleSpinner;
+    public EditText nameTxt, fathernameTxt, designatiinTxt, childernTxt, emailTxt, emplId, reporttoTxt,
+            prefrednameTxt, passportNameTxt, alternativeTxt, panNoTxt, passportnumberTxt, firstNameTxt, middleNameTxt;
+    public Spinner materialStatusSpinner, natinalitySpinner, zoneSpinner, departmentSpinner, titleSpinner;
     public RadioGroup genderGroup;
     public RadioButton mailBtn, femailBtn;
-    public String userId = "", authcode = "",userTypeString = "";
+    public String userId = "", authcode = "", userTypeString = "";
 
     public ArrayList<String> materialList = new ArrayList<>();
     public ArrayList<NationnalityModel> nationalityList = new ArrayList<>();
@@ -97,9 +97,9 @@ public class PersonalDetailsFragment extends Fragment {
     public ProgressDialog pDialog;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    public ArrayAdapter<String> materialAdapter,titleAdapter;
+    public ArrayAdapter<String> materialAdapter, titleAdapter;
     public ArrayAdapter<NationnalityModel> nationaolityAdapter;
-    public String GenderName = "",MartialStatusName = "", selectedItemForNationality = "", genderId = "", materialStatusId = "";
+    public String GenderName = "", MartialStatusName = "", selectedItemForNationality = "", genderId = "", materialStatusId = "";
 
     private OnFragmentInteractionListener mListener;
 
@@ -145,43 +145,43 @@ public class PersonalDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_personal_details, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        nameTxt = (EditText)rootView.findViewById(R.id.name);
-        firstNameTxt = (EditText)rootView.findViewById(R.id.firstname);
-        middleNameTxt = (EditText)rootView.findViewById(R.id.middlename);
-        fathernameTxt = (EditText)rootView.findViewById(R.id.fathername);
-        dobTxt = (TextView)rootView.findViewById(R.id.dob);
-        dobImg = (TextView)rootView.findViewById(R.id.dob);
-        designatiinTxt = (EditText)rootView.findViewById(R.id.designation);
-        childernTxt = (EditText)rootView.findViewById(R.id.childern);
-        emailTxt = (EditText)rootView.findViewById(R.id.email);
-        joiningdateTxt = (TextView)rootView.findViewById(R.id.joiningdate);
-        joingDateImg = (TextView)rootView.findViewById(R.id.joiningdate);
-        emplId = (EditText)rootView.findViewById(R.id.employeid);
-        reporttoTxt = (EditText)rootView.findViewById(R.id.reportto);
-        prefrednameTxt = (EditText)rootView.findViewById(R.id.prefredname);
-        passportNameTxt = (EditText)rootView.findViewById(R.id.passportname);
-        passportnumberTxt = (EditText)rootView.findViewById(R.id.passportnumber);
-        alternativeTxt = (EditText)rootView.findViewById(R.id.alternativeemail);
-        panNoTxt = (EditText)rootView.findViewById(R.id.panno);
-        genderGroup = (RadioGroup)rootView.findViewById(R.id.genderradiogroup);
-        mailBtn = (RadioButton)rootView.findViewById(R.id.mailradiobtn);
-        femailBtn = (RadioButton)rootView.findViewById(R.id.femailradiobtn);
-        materialStatusSpinner = (Spinner)rootView.findViewById(R.id.materialstatus);
-        natinalitySpinner = (Spinner)rootView.findViewById(R.id.nationalityspinner);
-        departmentSpinner = (Spinner)rootView.findViewById(R.id.departmentspinner);
-        zoneSpinner = (Spinner)rootView.findViewById(R.id.zonespinner);
-        titleSpinner = (Spinner)rootView.findViewById(R.id.titilespinner);
-        editBtn = (Button)rootView.findViewById(R.id.editprofilebtn);
+        nameTxt = (EditText) rootView.findViewById(R.id.name);
+        firstNameTxt = (EditText) rootView.findViewById(R.id.firstname);
+        middleNameTxt = (EditText) rootView.findViewById(R.id.middlename);
+        fathernameTxt = (EditText) rootView.findViewById(R.id.fathername);
+        dobTxt = (TextView) rootView.findViewById(R.id.dob);
+        dobImg = (TextView) rootView.findViewById(R.id.dob);
+        designatiinTxt = (EditText) rootView.findViewById(R.id.designation);
+        childernTxt = (EditText) rootView.findViewById(R.id.childern);
+        emailTxt = (EditText) rootView.findViewById(R.id.email);
+        joiningdateTxt = (TextView) rootView.findViewById(R.id.joiningdate);
+        joingDateImg = (TextView) rootView.findViewById(R.id.joiningdate);
+        emplId = (EditText) rootView.findViewById(R.id.employeid);
+        reporttoTxt = (EditText) rootView.findViewById(R.id.reportto);
+        prefrednameTxt = (EditText) rootView.findViewById(R.id.prefredname);
+        passportNameTxt = (EditText) rootView.findViewById(R.id.passportname);
+        passportnumberTxt = (EditText) rootView.findViewById(R.id.passportnumber);
+        alternativeTxt = (EditText) rootView.findViewById(R.id.alternativeemail);
+        panNoTxt = (EditText) rootView.findViewById(R.id.panno);
+        genderGroup = (RadioGroup) rootView.findViewById(R.id.genderradiogroup);
+        mailBtn = (RadioButton) rootView.findViewById(R.id.mailradiobtn);
+        femailBtn = (RadioButton) rootView.findViewById(R.id.femailradiobtn);
+        materialStatusSpinner = (Spinner) rootView.findViewById(R.id.materialstatus);
+        natinalitySpinner = (Spinner) rootView.findViewById(R.id.nationalityspinner);
+        departmentSpinner = (Spinner) rootView.findViewById(R.id.departmentspinner);
+        zoneSpinner = (Spinner) rootView.findViewById(R.id.zonespinner);
+        titleSpinner = (Spinner) rootView.findViewById(R.id.titilespinner);
+        editBtn = (Button) rootView.findViewById(R.id.editprofilebtn);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
         userTypeString = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getUserType(getActivity())));
 
-        pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
 
 
         //material Spinner
@@ -211,8 +211,7 @@ public class PersonalDetailsFragment extends Fragment {
 
 
         //zone sPINNER
-        if (zoneList.size()>0)
-        {
+        if (zoneList.size() > 0) {
             zoneList.clear();
         }
         zoneList.add("Please Select Zone");
@@ -229,8 +228,7 @@ public class PersonalDetailsFragment extends Fragment {
         zoneSpinner.setAdapter(zoneAdapter);
 
         //Department Spinner
-        if (departmentList.size()>0)
-        {
+        if (departmentList.size() > 0) {
             departmentList.clear();
         }
         departmentList.add("Please Select Department");
@@ -252,7 +250,7 @@ public class PersonalDetailsFragment extends Fragment {
             public void onClick(View view) {
 
 
-                InputMethodManager inputManager = (InputMethodManager)getActivity().
+                InputMethodManager inputManager = (InputMethodManager) getActivity().
                         getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
@@ -307,8 +305,6 @@ public class PersonalDetailsFragment extends Fragment {
         });
 
 
-
-
         //disable all widget
         firstNameTxt.setEnabled(false);
         middleNameTxt.setEnabled(false);
@@ -317,9 +313,9 @@ public class PersonalDetailsFragment extends Fragment {
         dobImg.setEnabled(false);
         dobTxt.setEnabled(false);
         designatiinTxt.setEnabled(false);
-       // mailBtn.setEnabled(false);
+        // mailBtn.setEnabled(false);
         genderGroup.setEnabled(false);
-       // femailBtn.setEnabled(false);
+        // femailBtn.setEnabled(false);
         materialStatusSpinner.setEnabled(false);
         childernTxt.setEnabled(false);
         emailTxt.setEnabled(false);
@@ -341,8 +337,7 @@ public class PersonalDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (editBtn.getText().toString().equalsIgnoreCase("Edit Personal Details"))
-                {
+                if (editBtn.getText().toString().equalsIgnoreCase("Edit Personal Details")) {
 
                     editBtn.setText("Save Personal Detail");
 
@@ -360,48 +355,40 @@ public class PersonalDetailsFragment extends Fragment {
                     panNoTxt.setEnabled(true);
                     natinalitySpinner.setEnabled(true);
 
-                     mailBtn.setEnabled(false);
-                   // genderGroup.setEnabled(false);
-                     femailBtn.setEnabled(false);
-                }else
-                    {
+                    mailBtn.setEnabled(false);
+                    // genderGroup.setEnabled(false);
+                    femailBtn.setEnabled(false);
+                } else {
 
-                        editPersonalDetails(userId,dobTxt.getText().toString(),"",genderId,materialStatusId,
-                                childernTxt.getText().toString(),selectedItemForNationality,alternativeTxt.getText().toString(),
-                                prefrednameTxt.getText().toString(),passportNameTxt.getText().toString(),passportnumberTxt.getText().toString(),
-                                panNoTxt.getText().toString(),titleSpinner.getSelectedItem().toString(),firstNameTxt.getText().toString(),
-                                middleNameTxt.getText().toString(),nameTxt.getText().toString(),userTypeString,authcode);
+                    editPersonalDetails(userId, dobTxt.getText().toString(), "", genderId, materialStatusId,
+                            childernTxt.getText().toString(), selectedItemForNationality, alternativeTxt.getText().toString(),
+                            prefrednameTxt.getText().toString(), passportNameTxt.getText().toString(), passportnumberTxt.getText().toString(),
+                            panNoTxt.getText().toString(), titleSpinner.getSelectedItem().toString(), firstNameTxt.getText().toString(),
+                            middleNameTxt.getText().toString(), nameTxt.getText().toString(), userTypeString, authcode);
 
-                    }
+                }
 
-              //  customeDialoge();
+                //  customeDialoge();
             }
         });
-
-
-
-
 
 
         //bind Details Api
         personalDdlDetails();
 
 
-
-
         return rootView;
     }
 
     //custome dialoge
-    public void customeDialoge()
-    {
+    public void customeDialoge() {
         final Dialog openDialog = new Dialog(getActivity());
         openDialog.setContentView(R.layout.custome_diloge);
         openDialog.setTitle("Custom Dialog Box");
-        TextView dialogTextContent = (TextView)openDialog.findViewById(R.id.dialog_text);
-     //   ImageView dialogImage = (ImageView)openDialog.findViewById(R.id.dialog_image);
-        Button dialogCloseButton = (Button)openDialog.findViewById(R.id.dialog_button);
-        dialogCloseButton.setOnClickListener(new View.OnClickListener(){
+        TextView dialogTextContent = (TextView) openDialog.findViewById(R.id.dialog_text);
+        //   ImageView dialogImage = (ImageView)openDialog.findViewById(R.id.dialog_image);
+        Button dialogCloseButton = (Button) openDialog.findViewById(R.id.dialog_button);
+        dialogCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -412,7 +399,7 @@ public class PersonalDetailsFragment extends Fragment {
     }
 
 
-    public void personalDetails(final String AdminID  , final String AuthCode) {
+    public void personalDetails(final String AdminID, final String AuthCode) {
 
        /* final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
@@ -425,10 +412,9 @@ public class PersonalDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
                         if (jsonObject.has("status")) {
@@ -436,11 +422,11 @@ public class PersonalDetailsFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
 
                             String Title = jsonObject.getString("Title");
                             String FirstName = jsonObject.getString("FirstName");
@@ -483,91 +469,75 @@ public class PersonalDetailsFragment extends Fragment {
                             passportnumberTxt.setText(PassportNo);
                             alternativeTxt.setText(AlternateEmail);
                             panNoTxt.setText(PAN);
-                            
+
                             //edit button visibility check
-                            if (EditVisibility.equalsIgnoreCase("1"))
-                            {
+                            if (EditVisibility.equalsIgnoreCase("1")) {
                                 editBtn.setVisibility(View.VISIBLE);
-                            }else
-                                {
-                                    editBtn.setText("Previous request Pending");
-                                    editBtn.setBackgroundColor(getActivity().getResources().getColor(R.color.disbale_color));
-                                    editBtn.setEnabled(false);
-                                   // editBtn.setVisibility(View.GONE);
-                                    //Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval", Toast.LENGTH_SHORT).show();
-                                }
+                            } else {
+                                editBtn.setText("Previous request Pending");
+                                editBtn.setBackgroundColor(getActivity().getResources().getColor(R.color.disbale_color));
+                                editBtn.setEnabled(false);
+                                // editBtn.setVisibility(View.GONE);
+                                //Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval", Toast.LENGTH_SHORT).show();
+                            }
 
                             //material selected Spinner
-                            for (int j = 0; j<materialList.size(); j++)
-                            {
-                                if (materialList.get(j).equalsIgnoreCase(MartialStatusName))
-                                {
+                            for (int j = 0; j < materialList.size(); j++) {
+                                if (materialList.get(j).equalsIgnoreCase(MartialStatusName)) {
                                     materialStatusSpinner.setSelection(j);
 
-                                    if (MartialStatusName.equalsIgnoreCase("Single"))
-                                    {
+                                    if (MartialStatusName.equalsIgnoreCase("Single")) {
                                         materialStatusId = "1";
-                                    }else
-                                        {
-                                            materialStatusId = "2";
-                                        }
+                                    } else {
+                                        materialStatusId = "2";
+                                    }
                                 }
                             }
 
                             //nationality selected Spiiner
-                            for (int k=0; k<nationalityList.size(); k++)
-                            {
-                                if (nationalityList.get(k).getNameNationlaity().equalsIgnoreCase(NationalityName))
-                                {
+                            for (int k = 0; k < nationalityList.size(); k++) {
+                                if (nationalityList.get(k).getNameNationlaity().equalsIgnoreCase(NationalityName)) {
                                     natinalitySpinner.setSelection(k);
                                 }
                             }
 
                             //Zone selected Spinner
-                            for (int l=0; l<zoneList.size(); l++)
-                            {
-                                if (zoneList.get(l).equalsIgnoreCase(ZoneName))
-                                {
+                            for (int l = 0; l < zoneList.size(); l++) {
+                                if (zoneList.get(l).equalsIgnoreCase(ZoneName)) {
                                     zoneSpinner.setSelection(l);
                                 }
                             }
 
                             //Department Selected Spinner
-                            for (int m = 0; m<departmentList.size(); m++)
-                            {
-                                if (departmentList.get(m).equalsIgnoreCase(DepartmentName))
-                                {
+                            for (int m = 0; m < departmentList.size(); m++) {
+                                if (departmentList.get(m).equalsIgnoreCase(DepartmentName)) {
                                     departmentSpinner.setSelection(m);
                                 }
                             }
 
                             //title Spinner
-                            for (int n =0; n<titleList.size(); n++)
-                            {
-                                if (titleList.get(n).equalsIgnoreCase(Title))
-                                {
+                            for (int n = 0; n < titleList.size(); n++) {
+                                if (titleList.get(n).equalsIgnoreCase(Title)) {
                                     titleSpinner.setSelection(n);
                                 }
                             }
 
                             //gender selected
-                            if (GenderName.equalsIgnoreCase("Male"))
-                            {
+                            if (GenderName.equalsIgnoreCase("Male")) {
                                 mailBtn.setChecked(true);
                                 genderId = "1";
-                            }else
-                                {
-                                    femailBtn.setChecked(true);
-                                    genderId = "2";
+                            } else {
+                                femailBtn.setChecked(true);
+                                genderId = "2";
 
-                                }
+                            }
                         }
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -604,12 +574,12 @@ public class PersonalDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("AdminID", AdminID);
-                params.put("AuthCode",AuthCode);
+                params.put("AuthCode", AuthCode);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -637,11 +607,10 @@ public class PersonalDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     //bind material List
-                    if (materialList.size()>0)
-                    {
+                    if (materialList.size() > 0) {
                         materialList.clear();
                     }
                     materialList.add("Please Select Material Status");
@@ -651,15 +620,14 @@ public class PersonalDetailsFragment extends Fragment {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray materialObj = jsonObject.getJSONArray("MartialStatus");
-                        for (int i =0; i<materialObj.length(); i++)
-                        {
+                        for (int i = 0; i < materialObj.length(); i++) {
                             JSONObject object = materialObj.getJSONObject(i);
 
                             String MartialStatusName = object.getString("MartialStatusName");
@@ -668,30 +636,26 @@ public class PersonalDetailsFragment extends Fragment {
                         }
 
                         //bind Nationality List
-                        if (nationalityList.size()>0)
-                        {
+                        if (nationalityList.size() > 0) {
                             nationalityList.clear();
                         }
-                        nationalityList.add(new NationnalityModel("Please Select Nationality",""));
+                        nationalityList.add(new NationnalityModel("Please Select Nationality", ""));
                         JSONArray nationalityObj = jsonObject.getJSONArray("NationalityMaster");
-                        for (int j=0; j<nationalityObj.length(); j++)
-                        {
+                        for (int j = 0; j < nationalityObj.length(); j++) {
                             JSONObject object = nationalityObj.getJSONObject(j);
 
                             String NationalityName = object.getString("NationalityName");
                             String NationalityID = object.getString("NationalityID");
-                            nationalityList.add(new NationnalityModel(NationalityName,NationalityID));
+                            nationalityList.add(new NationnalityModel(NationalityName, NationalityID));
                         }
 
                         //bind Title Spinner Data
-                        if (titleList.size()>0)
-                        {
+                        if (titleList.size() > 0) {
                             titleList.clear();
                         }
                         titleList.add("Please Select Title");
                         JSONArray titleObj = jsonObject.getJSONArray("TitleMaster");
-                        for (int k=0; k<titleObj.length(); k++)
-                        {
+                        for (int k = 0; k < titleObj.length(); k++) {
                             JSONObject object = titleObj.getJSONObject(k);
 
                             String TitleName = object.getString("TitleName");
@@ -703,15 +667,14 @@ public class PersonalDetailsFragment extends Fragment {
                         titleAdapter.notifyDataSetChanged();
 
 
-                        personalDetails(userId,authcode);
+                        personalDetails(userId, authcode);
                     }
-
 
 
                     // pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -757,13 +720,13 @@ public class PersonalDetailsFragment extends Fragment {
     }
 
     //Edit all details
-    public void editPersonalDetails(final String AdminID  , final String DOB, final String MarrigeDate ,
-                                    final String Gender , final String MartialStatus, final String Children, final String Nationality,
+    public void editPersonalDetails(final String AdminID, final String DOB, final String MarrigeDate,
+                                    final String Gender, final String MartialStatus, final String Children, final String Nationality,
                                     final String Email, final String PreferredName, final String PassportName, final String PassportNo,
                                     final String PAN, final String Title, final String FirstName, final String MiddleName,
                                     final String LastName, final String UserType, final String AuthCode) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -775,10 +738,9 @@ public class PersonalDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -786,7 +748,7 @@ public class PersonalDetailsFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else if (LoginStatus.equalsIgnoreCase("success")) {
                                 //change button name
                                 editBtn.setText("Edit Personal Details");
@@ -808,8 +770,8 @@ public class PersonalDetailsFragment extends Fragment {
                                 //bind Details Api
                                 personalDdlDetails();
 
-                            }else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -818,7 +780,7 @@ public class PersonalDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -855,28 +817,28 @@ public class PersonalDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("AdminID", AdminID);
-                params.put("DOB",DOB);
-                params.put("MarrigeDate",MarrigeDate);
-                params.put("Gender",Gender);
-                params.put("MartialStatus",MartialStatus);
-                params.put("Children",Children);
-                params.put("Nationality",Nationality);
-                params.put("Email",Email);
-                params.put("PreferredName",PreferredName);
-                params.put("PassportName",PassportName);
-                params.put("PassportNo",PassportNo);
-                params.put("PAN",PAN);
-                params.put("Title",Title);
-                params.put("FirstName",FirstName);
-                params.put("MiddleName",MiddleName);
-                params.put("LastName",LastName);
-                params.put("UserType",UserType);
-                params.put("AuthCode",AuthCode);
+                params.put("DOB", DOB);
+                params.put("MarrigeDate", MarrigeDate);
+                params.put("Gender", Gender);
+                params.put("MartialStatus", MartialStatus);
+                params.put("Children", Children);
+                params.put("Nationality", Nationality);
+                params.put("Email", Email);
+                params.put("PreferredName", PreferredName);
+                params.put("PassportName", PassportName);
+                params.put("PassportNo", PassportNo);
+                params.put("PAN", PAN);
+                params.put("Title", Title);
+                params.put("FirstName", FirstName);
+                params.put("MiddleName", MiddleName);
+                params.put("LastName", LastName);
+                params.put("UserType", UserType);
+                params.put("AuthCode", AuthCode);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -889,39 +851,40 @@ public class PersonalDetailsFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
-   /* // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    /* // TODO: Rename method, update argument and hook method into UI event
+     public void onButtonPressed(Uri uri) {
+         if (mListener != null) {
+             mListener.onFragmentInteraction(uri);
+         }
+     }
+
+     @Override
+     public void onAttach(Context context) {
+         super.onAttach(context);
+         if (context instanceof OnFragmentInteractionListener) {
+             mListener = (OnFragmentInteractionListener) context;
+         } else {
+             throw new RuntimeException(context.toString()
+                     + " must implement OnFragmentInteractionListener");
+         }
+     }
+
+     @Override
+     public void onDetach() {
+         super.onDetach();
+         mListener = null;
+     }
+ */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
         }
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-*/
-   @Override
-   public void onAttach(Activity activity) {
-       super.onAttach(activity);
-       try {
-           mListener = (OnFragmentInteractionListener) activity;
-       } catch (ClassCastException e) {
-           throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
-       }
-   }
 
 
     /**

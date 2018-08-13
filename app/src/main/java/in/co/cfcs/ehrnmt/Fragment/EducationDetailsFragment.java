@@ -71,10 +71,10 @@ public class EducationDetailsFragment extends Fragment {
     public ArrayList<EducationModel> list = new ArrayList<>();
     public RecyclerView educationRecycler;
     public FloatingActionButton fab;
-    public TextView noCust ;
+    public TextView noCust;
     public String educationUrl = SettingConstant.BaseUrl + "AppEmployeeEducationList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "", IsAddEducationalDetail = "";
+    public String userId = "", authCode = "", IsAddEducationalDetail = "";
 
     private OnFragmentInteractionListener mListener;
 
@@ -122,20 +122,20 @@ public class EducationDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_edication_details, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        educationRecycler = (RecyclerView)rootView.findViewById(R.id.education_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        educationRecycler = (RecyclerView) rootView.findViewById(R.id.education_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new EducationDetailsAdapter(getActivity(),list, getActivity(),"FirstOne");
+        adapter = new EducationDetailsAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         educationRecycler.setLayoutManager(mLayoutManager);
         educationRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -149,22 +149,21 @@ public class EducationDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (IsAddEducationalDetail.equalsIgnoreCase("1"))
-                {
+                if (IsAddEducationalDetail.equalsIgnoreCase("1")) {
                     // fab.setVisibility(View.GONE);
                     //fab.setEnabled(false);
                     Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval.", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
 
                     Intent i = new Intent(getActivity(), AddQualificationActivity.class);
-                    i.putExtra("RecordId","");
-                    i.putExtra("Mode","AddMode");
-                    i.putExtra("QualificationName","");
-                    i.putExtra("DeciplineName","");
-                    i.putExtra("PassingDate","");
-                    i.putExtra("Institute","");
-                    i.putExtra("CourseTypeName","");
-                    i.putExtra("HighestDegree","");
+                    i.putExtra("RecordId", "");
+                    i.putExtra("Mode", "AddMode");
+                    i.putExtra("QualificationName", "");
+                    i.putExtra("DeciplineName", "");
+                    i.putExtra("PassingDate", "");
+                    i.putExtra("Institute", "");
+                    i.putExtra("CourseTypeName", "");
+                    i.putExtra("HighestDegree", "");
                     startActivity(i);
                     getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
@@ -196,21 +195,20 @@ public class EducationDetailsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            educationList(authCode,userId);
+            educationList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Skills list
-    public void educationList(final String AuthCode , final String AdminID) {
+    public void educationList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -222,10 +220,9 @@ public class EducationDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
 
@@ -234,14 +231,13 @@ public class EducationDetailsFragment extends Fragment {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray jsonArray = jsonObject.getJSONArray("List");
-                        for (int i=0 ; i<jsonArray.length();i++)
-                        {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
                             String QualificationName = object.getString("QualificationName");
                             String DisciplineName = object.getString("DisciplineName");
@@ -256,15 +252,14 @@ public class EducationDetailsFragment extends Fragment {
                             String RecordID = object.getString("RecordID");
 
 
-                            list.add(new EducationModel(QualificationName,DisciplineName,PassingDate,Institute,CourseType,HighestDegree,
-                                    RecordID,Comments,StatusText,Editable,Deleteable));
+                            list.add(new EducationModel(QualificationName, DisciplineName, PassingDate, Institute, CourseType, HighestDegree,
+                                    RecordID, Comments, StatusText, Editable, Deleteable));
 
 
                         }
 
                         JSONArray statusArray = jsonObject.getJSONArray("Status");
-                        for (int j = 0; j<statusArray.length(); j++)
-                        {
+                        for (int j = 0; j < statusArray.length(); j++) {
                             JSONObject obj = statusArray.getJSONObject(j);
 
                             IsAddEducationalDetail = obj.getString("IsAddEducationalDetail");
@@ -272,12 +267,10 @@ public class EducationDetailsFragment extends Fragment {
                     }
 
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         educationRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         educationRecycler.setVisibility(View.VISIBLE);
                     }
@@ -286,9 +279,9 @@ public class EducationDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
-                   // Logout();
+                    // Logout();
                 }
             }
         }, new Response.ErrorListener() {
@@ -324,13 +317,13 @@ public class EducationDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -345,39 +338,39 @@ public class EducationDetailsFragment extends Fragment {
     }
 
 
-   /* // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    /* // TODO: Rename method, update argument and hook method into UI event
+     public void onButtonPressed(Uri uri) {
+         if (mListener != null) {
+             mListener.onFragmentInteraction(uri);
+         }
+     }
+
+     @Override
+     public void onAttach(Context context) {
+         super.onAttach(context);
+         if (context instanceof OnFragmentInteractionListener) {
+             mListener = (OnFragmentInteractionListener) context;
+         } else {
+             throw new RuntimeException(context.toString()
+                     + " must implement OnFragmentInteractionListener");
+         }
+     }
+
+     @Override
+     public void onDetach() {
+         super.onDetach();
+         mListener = null;
+     }
+ */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
         }
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-*/
-   @Override
-   public void onAttach(Activity activity) {
-       super.onAttach(activity);
-       try {
-           mListener = (OnFragmentInteractionListener) activity;
-       } catch (ClassCastException e) {
-           throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
-       }
-   }
 
 
     /**

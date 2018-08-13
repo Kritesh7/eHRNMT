@@ -85,9 +85,7 @@ public class AddNewSkilActivity extends AppCompatActivity {
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public Button addBtn;
-    public String authcode = "", userId = "", skillId = "", proficieancyId = "", sourceId = "", checkUsed = "true"
-            ,actionMode = "", skillNameStr = "", proficeiancyNameStr, sourceNameStr = "", useSkillStr = "", lastDateStr = ""
-            , recordId = "";
+    public String authcode = "", userId = "", skillId = "", proficieancyId = "", sourceId = "", checkUsed = "true", actionMode = "", skillNameStr = "", proficeiancyNameStr, sourceNameStr = "", useSkillStr = "", lastDateStr = "", recordId = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -108,11 +106,11 @@ public class AddNewSkilActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.newskilltollbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -128,8 +126,7 @@ public class AddNewSkilActivity extends AppCompatActivity {
         titleTxt.setText("Add New Skill");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             actionMode = intent.getStringExtra("ActionMode");
             skillNameStr = intent.getStringExtra("SkillName");
             recordId = intent.getStringExtra("RecordId");
@@ -141,27 +138,25 @@ public class AddNewSkilActivity extends AppCompatActivity {
         }
 
         conn = new ConnectionDetector(AddNewSkilActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddNewSkilActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddNewSkilActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddNewSkilActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddNewSkilActivity.this)));
 
 
-        skillSpinner = (Spinner)findViewById(R.id.skillspinner);
-        proficenacySpinner = (Spinner)findViewById(R.id.proficenacySpinner);
-        sourceSpinner = (Spinner)findViewById(R.id.sourceSpinner);
+        skillSpinner = (Spinner) findViewById(R.id.skillspinner);
+        proficenacySpinner = (Spinner) findViewById(R.id.proficenacySpinner);
+        sourceSpinner = (Spinner) findViewById(R.id.sourceSpinner);
         radioGroup = (RadioGroup) findViewById(R.id.skillsusedradiogroup);
-        lastUsedBtn = (RadioButton)findViewById(R.id.lastused);
-        currentUsedBtn = (RadioButton)findViewById(R.id.currentused);
-        lastUsedLay = (LinearLayout)findViewById(R.id.lastusedlay);
-        mainLay = (LinearLayout)findViewById(R.id.mainlay);
+        lastUsedBtn = (RadioButton) findViewById(R.id.lastused);
+        currentUsedBtn = (RadioButton) findViewById(R.id.currentused);
+        lastUsedLay = (LinearLayout) findViewById(R.id.lastusedlay);
+        mainLay = (LinearLayout) findViewById(R.id.mainlay);
         lastUsedCalBtn = (ImageView) findViewById(R.id.lastusedbtn);
         lastUsedTxt = (EditText) findViewById(R.id.lastusedtxt);
         addBtn = (Button) findViewById(R.id.newrequestbtn);
 
 
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
-            if (useSkillStr.equalsIgnoreCase("true"))
-            {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
+            if (useSkillStr.equalsIgnoreCase("true")) {
                 currentUsedBtn.setChecked(true);
                 checkUsed = "true";
 
@@ -169,22 +164,20 @@ public class AddNewSkilActivity extends AppCompatActivity {
                 lastUsedLay.setVisibility(View.GONE);
 
 
-            }else
-                {
-                    lastUsedBtn.setChecked(true);
-                    checkUsed = "false";
+            } else {
+                lastUsedBtn.setChecked(true);
+                checkUsed = "false";
 
-                    TransitionManager.beginDelayedTransition(mainLay);
-                    lastUsedLay.setVisibility(View.VISIBLE);
+                TransitionManager.beginDelayedTransition(mainLay);
+                lastUsedLay.setVisibility(View.VISIBLE);
 
-                }
+            }
 
-                lastUsedTxt.setText(lastDateStr);
+            lastUsedTxt.setText(lastDateStr);
 
             addBtn.setText("Update Skill");
             titleTxt.setText("Update Skill");
-        }else
-        {
+        } else {
             currentUsedBtn.setChecked(true);
         }
 
@@ -213,22 +206,18 @@ public class AddNewSkilActivity extends AppCompatActivity {
         sourceSpinner.setAdapter(sourceAdapter);
 
 
-
         //Radio Group Work
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
 
-                if (i == R.id.lastused)
-                {
+                if (i == R.id.lastused) {
                     TransitionManager.beginDelayedTransition(mainLay);
                     lastUsedLay.setVisibility(View.VISIBLE);
 
                     checkUsed = "false";
 
-                }
-                else if (i == R.id.currentused)
-                {
+                } else if (i == R.id.currentused) {
                     TransitionManager.beginDelayedTransition(mainLay);
                     lastUsedLay.setVisibility(View.GONE);
 
@@ -284,13 +273,11 @@ public class AddNewSkilActivity extends AppCompatActivity {
         });
 
         // spinner Bind
-        if (conn.getConnectivityStatus()>0)
-        {
-            personalDdlDetails(userId,authcode);
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        if (conn.getConnectivityStatus() > 0) {
+            personalDdlDetails(userId, authcode);
+        } else {
+            conn.showNoInternetAlret();
+        }
 
 
         //get skill Id
@@ -339,16 +326,13 @@ public class AddNewSkilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (skillId.equalsIgnoreCase(""))
-                {
+                if (skillId.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewSkilActivity.this, "Please select skills", Toast.LENGTH_SHORT).show();
-                }else if (proficieancyId.equalsIgnoreCase(""))
-                {
+                } else if (proficieancyId.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewSkilActivity.this, "Please select proficiency", Toast.LENGTH_SHORT).show();
-                }else if (sourceId.equalsIgnoreCase(""))
-                {
+                } else if (sourceId.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewSkilActivity.this, "Please select source", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
 
                     if (conn.getConnectivityStatus() > 0) {
 
@@ -371,10 +355,10 @@ public class AddNewSkilActivity extends AppCompatActivity {
     }
 
     //bind all spiiner data
-    public void personalDdlDetails(final String AdminID, final String AuthCode ) {
+    public void personalDdlDetails(final String AdminID, final String AuthCode) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(AddNewSkilActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddNewSkilActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -386,81 +370,72 @@ public class AddNewSkilActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     //bind Skills List
-                    if (skillList.size()>0)
-                    {
+                    if (skillList.size() > 0) {
                         skillList.clear();
                     }
-                    skillList.add(new SkillsSpinnerModel("Please Select Skills",""));
+                    skillList.add(new SkillsSpinnerModel("Please Select Skills", ""));
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray skillsObj = jsonObject.getJSONArray("SkillMaster");
-                        for (int i =0; i<skillsObj.length(); i++)
-                        {
+                        for (int i = 0; i < skillsObj.length(); i++) {
                             JSONObject object = skillsObj.getJSONObject(i);
 
                             String SkillID = object.getString("SkillID");
                             String SkillName = object.getString("SkillName");
 
-                            skillList.add(new SkillsSpinnerModel(SkillName,SkillID));
+                            skillList.add(new SkillsSpinnerModel(SkillName, SkillID));
 
                         }
 
                         //bind Proficeancy
-                        if (profyList.size()>0)
-                        {
+                        if (profyList.size() > 0) {
                             profyList.clear();
                         }
-                        profyList.add(new ProficiencySpiinerModel("Please Select Proficiency",""));
+                        profyList.add(new ProficiencySpiinerModel("Please Select Proficiency", ""));
 
                         JSONArray proficiencyObj = jsonObject.getJSONArray("ProficiencyMaste");
-                        for (int i =0; i<proficiencyObj.length(); i++)
-                        {
+                        for (int i = 0; i < proficiencyObj.length(); i++) {
                             JSONObject object = proficiencyObj.getJSONObject(i);
 
                             String ProficiencyID = object.getString("ProficiencyID");
                             String ProficiencyName = object.getString("ProficiencyName");
 
-                            profyList.add(new ProficiencySpiinerModel(ProficiencyName,ProficiencyID));
+                            profyList.add(new ProficiencySpiinerModel(ProficiencyName, ProficiencyID));
 
                         }
 
                         //bind source
-                        if (sourceList.size()>0)
-                        {
+                        if (sourceList.size() > 0) {
                             sourceList.clear();
                         }
-                        sourceList.add(new SourceSpinnerModel("Please Select Proficiency",""));
+                        sourceList.add(new SourceSpinnerModel("Please Select Proficiency", ""));
 
                         JSONArray sourceObj = jsonObject.getJSONArray("SkillSourceMaster");
-                        for (int i =0; i<sourceObj.length(); i++)
-                        {
+                        for (int i = 0; i < sourceObj.length(); i++) {
                             JSONObject object = sourceObj.getJSONObject(i);
 
                             String SkillSourceID = object.getString("SkillSourceID");
                             String SkillSourceName = object.getString("SkillSourceName");
 
-                            sourceList.add(new SourceSpinnerModel(SkillSourceName,SkillSourceID));
+                            sourceList.add(new SourceSpinnerModel(SkillSourceName, SkillSourceID));
 
                         }
 
 
-                        for (int k =0; k<skillList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (skillList.get(k).getSkillsName().equalsIgnoreCase(skillNameStr))
-                                {
+                        for (int k = 0; k < skillList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (skillList.get(k).getSkillsName().equalsIgnoreCase(skillNameStr)) {
                                     skillSpinner.setSelection(k);
 
                                     skillId = skillList.get(k).getSkillsId();
@@ -468,12 +443,9 @@ public class AddNewSkilActivity extends AppCompatActivity {
                             }
                         }
 
-                        for (int k =0; k<profyList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (profyList.get(k).getProficiencyName().equalsIgnoreCase(proficeiancyNameStr))
-                                {
+                        for (int k = 0; k < profyList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (profyList.get(k).getProficiencyName().equalsIgnoreCase(proficeiancyNameStr)) {
                                     proficenacySpinner.setSelection(k);
 
                                     proficieancyId = profyList.get(k).getProficiencyId();
@@ -481,12 +453,9 @@ public class AddNewSkilActivity extends AppCompatActivity {
                             }
                         }
 
-                        for (int k =0; k<sourceList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (sourceList.get(k).getSourceName().equalsIgnoreCase(sourceNameStr))
-                                {
+                        for (int k = 0; k < sourceList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (sourceList.get(k).getSourceName().equalsIgnoreCase(sourceNameStr)) {
                                     sourceSpinner.setSelection(k);
                                     sourceId = sourceList.get(k).getSourceId();
                                 }
@@ -496,14 +465,14 @@ public class AddNewSkilActivity extends AppCompatActivity {
 
                     }
 
-                   sourceAdapter.notifyDataSetChanged();
-                   profyAdapter.notifyDataSetChanged();
+                    sourceAdapter.notifyDataSetChanged();
+                    profyAdapter.notifyDataSetChanged();
                     skillAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
 
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -540,14 +509,13 @@ public class AddNewSkilActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
 
 
                 Log.e("Parms", params.toString());
@@ -563,10 +531,10 @@ public class AddNewSkilActivity extends AppCompatActivity {
     }
 
     //Add skill
-    public void addSkillsDetails(final String AdminID  , final String RecordID, final String SkillID, final String ProficiencyID,
-                                 final String SourceID, final String LastUsed , final String AuthCode, final String CurrentlyUsed)  {
+    public void addSkillsDetails(final String AdminID, final String RecordID, final String SkillID, final String ProficiencyID,
+                                 final String SourceID, final String LastUsed, final String AuthCode, final String CurrentlyUsed) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddNewSkilActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddNewSkilActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -578,25 +546,25 @@ public class AddNewSkilActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -633,19 +601,19 @@ public class AddNewSkilActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("SkillID",SkillID);
-                params.put("ProficiencyID",ProficiencyID);
-                params.put("SourceID",SourceID);
-                params.put("LastUsed",LastUsed);
-                params.put("CurrentlyUsed",CurrentlyUsed);
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("SkillID", SkillID);
+                params.put("ProficiencyID", ProficiencyID);
+                params.put("SourceID", SourceID);
+                params.put("LastUsed", LastUsed);
+                params.put("CurrentlyUsed", CurrentlyUsed);
 
 
                 Log.e("Parms", params.toString());
@@ -680,6 +648,7 @@ public class AddNewSkilActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+
     private void Logout() {
 
 

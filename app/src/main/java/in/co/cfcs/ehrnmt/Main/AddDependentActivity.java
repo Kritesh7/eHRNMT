@@ -60,7 +60,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddDependentActivity extends AppCompatActivity {
 
-    public TextView titleTxt,dobBtn,dobTxt;
+    public TextView titleTxt, dobBtn, dobTxt;
     public Spinner relationshipSpinner;
     public ArrayList<RelationShipeTypeModel> relationshipList = new ArrayList<>();
     public ArrayAdapter<RelationShipeTypeModel> relationShipAdapter;
@@ -68,7 +68,7 @@ public class AddDependentActivity extends AppCompatActivity {
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeeDependentInsUpdt";
     public ConnectionDetector conn;
 
-    public EditText  firstNameTxt, lastNameTxt;
+    public EditText firstNameTxt, lastNameTxt;
     public RadioGroup genderRadioGroup;
     public RadioButton maleBtn, femailBtn;
     private int yy, mm, dd;
@@ -303,12 +303,12 @@ public class AddDependentActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
                             Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
 
-                        }else {
+                        } else {
                             Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
 
                         }
@@ -410,11 +410,11 @@ public class AddDependentActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray relationshipObj = jsonObject.getJSONArray("RelationshipMaster");
                         for (int i = 0; i < relationshipObj.length(); i++) {
@@ -496,6 +496,7 @@ public class AddDependentActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+
     private void Logout() {
 
 

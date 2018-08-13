@@ -72,8 +72,8 @@ public class LanguagesFragment extends Fragment {
     public FloatingActionButton fab;
     public String langaugeUrl = SettingConstant.BaseUrl + "AppEmployeeLanguageList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     private OnFragmentInteractionListener mListener;
 
@@ -119,20 +119,20 @@ public class LanguagesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_languages, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        langauageRecy = (RecyclerView)rootView.findViewById(R.id.lanagauage_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        langauageRecy = (RecyclerView) rootView.findViewById(R.id.lanagauage_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new LangaugeAdapter(getActivity(),list, getActivity(),"FirstOne");
+        adapter = new LangaugeAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         langauageRecy.setLayoutManager(mLayoutManager);
         langauageRecy.setItemAnimator(new DefaultItemAnimator());
@@ -140,7 +140,7 @@ public class LanguagesFragment extends Fragment {
 
         langauageRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-       // prepareInsDetails();
+        // prepareInsDetails();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,9 +150,9 @@ public class LanguagesFragment extends Fragment {
                 i.putExtra("ActionMode", "AddMode");
                 i.putExtra("RecordId", "");
                 i.putExtra("LangageName", "");
-                i.putExtra("Read","");
-                i.putExtra("Write","");
-                i.putExtra("Speak","");
+                i.putExtra("Read", "");
+                i.putExtra("Write", "");
+                i.putExtra("Speak", "");
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -182,21 +182,20 @@ public class LanguagesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            langauageList(authCode,userId);
+            langauageList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Skills list
-    public void langauageList(final String AuthCode , final String AdminID) {
+    public void langauageList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -208,51 +207,47 @@ public class LanguagesFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String LanguageName = jsonObject.getString("LanguageName");
                             String Read = jsonObject.getString("Read");
                             String Write = jsonObject.getString("Write");
                             String Speak = jsonObject.getString("Speak");
                             String RecordID = jsonObject.getString("RecordID");
-                            list.add(new LanguageModel(LanguageName,Read,Write,Speak,RecordID));
+                            list.add(new LanguageModel(LanguageName, Read, Write, Speak, RecordID));
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         langauageRecy.setVisibility(View.GONE);
-                    }else
-                        {
-                            noCust.setVisibility(View.GONE);
-                            langauageRecy.setVisibility(View.VISIBLE);
-                        }
+                    } else {
+                        noCust.setVisibility(View.GONE);
+                        langauageRecy.setVisibility(View.VISIBLE);
+                    }
 
                     adapter.notifyDataSetChanged();
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -289,13 +284,13 @@ public class LanguagesFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;

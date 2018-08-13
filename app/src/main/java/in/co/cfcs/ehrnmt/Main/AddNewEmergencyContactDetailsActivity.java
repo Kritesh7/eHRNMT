@@ -57,12 +57,12 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
     public TextView titleTxt;
     public RadioGroup emergencyGroup;
     public RadioButton primoryBtn, secondaryBtn;
-    public Spinner relationShipSpinner,titileSpinner, counterySpinner;
+    public Spinner relationShipSpinner, titileSpinner, counterySpinner;
     public EditText nameTxt, addTxt, cityTxt, stateTxt, postalCodeTxt, telNoTxt, mobileNoTxt, emailTxt;
     public String personalDdlDetailsUrl = SettingConstant.BaseUrl + "AppddlEmployeePersonalData";
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeeEmergencyContactInsUpdt";
-    public ArrayAdapter<RelationShipeTypeModel> relationshipAdapter ;
-    public ArrayAdapter<CountryModel> countryAdapter ;
+    public ArrayAdapter<RelationShipeTypeModel> relationshipAdapter;
+    public ArrayAdapter<CountryModel> countryAdapter;
     public ArrayList<RelationShipeTypeModel> relationshipList = new ArrayList<>();
     public ArrayList<String> titleList = new ArrayList<>();
     public ArrayList<CountryModel> countryList = new ArrayList<>();
@@ -71,10 +71,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
     public LinearLayout radioBtnLay;
     public Button addBtn;
     public TextView emgTxt;
-    public String authcode = "", userId = "", type = "0", titleStr = "", relationshipIdStr = "", countryIdStr = "",recordIdStr = ""
-            , titlePassStr = "",namePassStr = "",relationshipPassNameStr = "",addressPassStr = "", cityPassStr = "",statePassStr =""
-            , countryNamePassStr = "", postalCodePassStr = "",telPassStr = "",mobPassStr = "",emailPassStr = "", typePassStr = ""
-            , actionMode = "";
+    public String authcode = "", userId = "", type = "0", titleStr = "", relationshipIdStr = "", countryIdStr = "", recordIdStr = "", titlePassStr = "", namePassStr = "", relationshipPassNameStr = "", addressPassStr = "", cityPassStr = "", statePassStr = "", countryNamePassStr = "", postalCodePassStr = "", telPassStr = "", mobPassStr = "", emailPassStr = "", typePassStr = "", actionMode = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -95,11 +92,11 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.emergencytoolbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -115,10 +112,10 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
         titleTxt.setText("Add New Emergency Contact");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             recordIdStr = intent.getStringExtra("RecordId");
-            titlePassStr = intent.getStringExtra("Title");;
+            titlePassStr = intent.getStringExtra("Title");
+            ;
             namePassStr = intent.getStringExtra("Name");
             relationshipPassNameStr = intent.getStringExtra("RelationshipName");
             actionMode = intent.getStringExtra("Mode");
@@ -135,20 +132,18 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
         }
 
 
-
-
         conn = new ConnectionDetector(AddNewEmergencyContactDetailsActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddNewEmergencyContactDetailsActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddNewEmergencyContactDetailsActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddNewEmergencyContactDetailsActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddNewEmergencyContactDetailsActivity.this)));
 
 
-        primoryBtn = (RadioButton)findViewById(R.id.primory_radiobtn);
-        secondaryBtn = (RadioButton)findViewById(R.id.secondary_radiobtn);
+        primoryBtn = (RadioButton) findViewById(R.id.primory_radiobtn);
+        secondaryBtn = (RadioButton) findViewById(R.id.secondary_radiobtn);
 
-        emergencyGroup = (RadioGroup)findViewById(R.id.emergency_radiogroup);
+        emergencyGroup = (RadioGroup) findViewById(R.id.emergency_radiogroup);
 
-        relationShipSpinner = (Spinner)findViewById(R.id.relationshipspinner);
-        titileSpinner = (Spinner)findViewById(R.id.titilespinner);
+        relationShipSpinner = (Spinner) findViewById(R.id.relationshipspinner);
+        titileSpinner = (Spinner) findViewById(R.id.titilespinner);
         counterySpinner = (Spinner) findViewById(R.id.counterySpiiner);
         nameTxt = (EditText) findViewById(R.id.emergency_contact_name);
         addTxt = (EditText) findViewById(R.id.emg_add);
@@ -164,8 +159,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
 
         //check action mode
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
             addBtn.setText("Update Emergency Contact");
             titleTxt.setText("Update Emergency Contact");
             nameTxt.setText(namePassStr);
@@ -178,13 +172,11 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
             emailTxt.setText(emailPassStr);
 
             //check radio button
-            if (typePassStr.equalsIgnoreCase("0"))
-            {
+            if (typePassStr.equalsIgnoreCase("0")) {
                 primoryBtn.setChecked(true);
                 type = "0";
                 emgTxt.setText("Primary Contact");
-            }else
-            {
+            } else {
                 secondaryBtn.setChecked(true);
                 type = "1";
 
@@ -193,15 +185,13 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
             radioBtnLay.setVisibility(View.GONE);
             emgTxt.setVisibility(View.VISIBLE);
-        }else
-        {
+        } else {
             primoryBtn.setChecked(true);
             type = "0";
 
             radioBtnLay.setVisibility(View.VISIBLE);
             emgTxt.setVisibility(View.GONE);
         }
-
 
 
         //change spinner arrow color
@@ -212,7 +202,6 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
                 relationshipList);
         relationshipAdapter.setDropDownViewResource(R.layout.customizespinner);
         relationShipSpinner.setAdapter(relationshipAdapter);
-
 
 
         //Title Spinner
@@ -232,19 +221,15 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
         counterySpinner.setAdapter(countryAdapter);
 
 
-
         emergencyGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
 
-                if (checkedId == R.id.primory_radiobtn)
-                {
+                if (checkedId == R.id.primory_radiobtn) {
 
                     type = "0";
-                }
-                else if (checkedId == R.id.secondary_radiobtn)
-                {
+                } else if (checkedId == R.id.secondary_radiobtn) {
 
                     type = "1";
                 }
@@ -298,36 +283,28 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (titleStr.equalsIgnoreCase("Please select Title"))
-                {
+                if (titleStr.equalsIgnoreCase("Please select Title")) {
                     Toast.makeText(AddNewEmergencyContactDetailsActivity.this, "Please select name title", Toast.LENGTH_SHORT).show();
-                }else if (nameTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (nameTxt.getText().toString().equalsIgnoreCase("")) {
                     nameTxt.setError("Please enter name");
                     nameTxt.requestFocus();
-                }else if (relationshipIdStr.equalsIgnoreCase(""))
-                {
+                } else if (relationshipIdStr.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewEmergencyContactDetailsActivity.this, "Please select Relationship", Toast.LENGTH_SHORT).show();
-                }else if (addTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (addTxt.getText().toString().equalsIgnoreCase("")) {
                     addTxt.setError("Please enter address");
                     addTxt.requestFocus();
-                }else if (cityTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (cityTxt.getText().toString().equalsIgnoreCase("")) {
                     cityTxt.setError("Please enter city");
                     cityTxt.requestFocus();
-                }else if (stateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (stateTxt.getText().toString().equalsIgnoreCase("")) {
                     stateTxt.setError("Please enter state");
                     stateTxt.requestFocus();
-                }else if (countryIdStr.equalsIgnoreCase(""))
-                {
+                } else if (countryIdStr.equalsIgnoreCase("")) {
                     Toast.makeText(AddNewEmergencyContactDetailsActivity.this, "Please select country", Toast.LENGTH_SHORT).show();
-                }else if (postalCodeTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (postalCodeTxt.getText().toString().equalsIgnoreCase("")) {
                     postalCodeTxt.setError("Please enter postal code");
                     postalCodeTxt.requestFocus();
-                }else {
+                } else {
                     if (conn.getConnectivityStatus() > 0) {
                         addEmergencyContactDetails(userId, recordIdStr, type, titleStr, authcode, nameTxt.getText().toString(), relationshipIdStr,
                                 addTxt.getText().toString(), cityTxt.getText().toString(), stateTxt.getText().toString(), countryIdStr, postalCodeTxt.getText().toString(),
@@ -340,26 +317,23 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
         });
 
         //bind Data in spinner
-        if (conn.getConnectivityStatus()>0)
-        {
+        if (conn.getConnectivityStatus() > 0) {
             personalDdlDetails();
 
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
-
+        } else {
+            conn.showNoInternetAlret();
+        }
 
 
     }
 
     //add emergency contact
-    public void addEmergencyContactDetails(final String AdminID  , final String RecordID, final String Type, final String Title,
+    public void addEmergencyContactDetails(final String AdminID, final String RecordID, final String Type, final String Title,
                                            final String AuthCode, final String Name, final String RelationshipID, final String Address,
                                            final String City, final String State, final String CountryID, final String PostCode,
-                                           final String PhoneNo, final String MobileNo, final String Email)  {
+                                           final String PhoneNo, final String MobileNo, final String Email) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddNewEmergencyContactDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddNewEmergencyContactDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -371,17 +345,17 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -389,7 +363,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -426,25 +400,25 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("Type",Type);
-                params.put("Title",Title);
-                params.put("Name",Name);
-                params.put("RelationshipID",RelationshipID);
-                params.put("Address",Address);
-                params.put("City",City);
-                params.put("State",State);
-                params.put("CountryID",CountryID);
-                params.put("PostCode",PostCode);
-                params.put("PhoneNo",PhoneNo);
-                params.put("MobileNo",MobileNo);
-                params.put("Email",Email);
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("Type", Type);
+                params.put("Title", Title);
+                params.put("Name", Name);
+                params.put("RelationshipID", RelationshipID);
+                params.put("Address", Address);
+                params.put("City", City);
+                params.put("State", State);
+                params.put("CountryID", CountryID);
+                params.put("PostCode", PostCode);
+                params.put("PhoneNo", PhoneNo);
+                params.put("MobileNo", MobileNo);
+                params.put("Email", Email);
 
 
                 Log.e("Parms", params.toString());
@@ -463,7 +437,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
     public void personalDdlDetails() {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(AddNewEmergencyContactDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddNewEmergencyContactDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -475,45 +449,41 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     //bind Relation  List
-                    if (relationshipList.size()>0)
-                    {
+                    if (relationshipList.size() > 0) {
                         relationshipList.clear();
                     }
-                    relationshipList.add(new RelationShipeTypeModel("Please Select Relationship",""));
+                    relationshipList.add(new RelationShipeTypeModel("Please Select Relationship", ""));
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray relationshipObj = jsonObject.getJSONArray("RelationshipMaster");
-                        for (int i =0; i<relationshipObj.length(); i++)
-                        {
+                        for (int i = 0; i < relationshipObj.length(); i++) {
                             JSONObject object = relationshipObj.getJSONObject(i);
 
                             String RelationshipID = object.getString("RelationshipID");
                             String RelationshipName = object.getString("RelationshipName");
 
-                            relationshipList.add(new RelationShipeTypeModel(RelationshipName,RelationshipID));
+                            relationshipList.add(new RelationShipeTypeModel(RelationshipName, RelationshipID));
 
                         }
 
                         //bind Title List
-                        if (titleList.size()>0)
-                        {
+                        if (titleList.size() > 0) {
                             titleList.clear();
                         }
                         titleList.add("Please select Title");
                         JSONArray TitleObj = jsonObject.getJSONArray("TitleMaster");
-                        for (int i =0; i<TitleObj.length(); i++)
-                        {
+                        for (int i = 0; i < TitleObj.length(); i++) {
                             JSONObject object = TitleObj.getJSONObject(i);
 
                             String TitleName = object.getString("TitleName");
@@ -522,54 +492,43 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
                         }
 
                         //bind Country Spinner
-                        if (countryList.size()>0)
-                        {
+                        if (countryList.size() > 0) {
                             countryList.clear();
                         }
 
-                        countryList.add(new CountryModel("","Please select Country"));
+                        countryList.add(new CountryModel("", "Please select Country"));
                         JSONArray countryObj = jsonObject.getJSONArray("CountryMaster");
-                        for (int i =0; i<countryObj.length(); i++)
-                        {
+                        for (int i = 0; i < countryObj.length(); i++) {
                             JSONObject object = countryObj.getJSONObject(i);
 
                             String CountryID = object.getString("CountryID");
                             String CountryName = object.getString("CountryName");
-                            countryList.add(new CountryModel(CountryID,CountryName));
+                            countryList.add(new CountryModel(CountryID, CountryName));
 
                         }
 
                         //Edit Option
-                        for (int k =0; k<relationshipList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipPassNameStr))
-                                {
+                        for (int k = 0; k < relationshipList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipPassNameStr)) {
                                     relationshipIdStr = relationshipList.get(k).getRelationshipId();
                                     relationShipSpinner.setSelection(k);
                                 }
                             }
                         }
 
-                        for (int k =0; k<titleList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (titleList.get(k).equalsIgnoreCase(titlePassStr))
-                                {
+                        for (int k = 0; k < titleList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (titleList.get(k).equalsIgnoreCase(titlePassStr)) {
                                     titleStr = titleList.get(k);
                                     titileSpinner.setSelection(k);
                                 }
                             }
                         }
 
-                        for (int k =0; k<countryList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNamePassStr))
-                                {
+                        for (int k = 0; k < countryList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (countryList.get(k).getCountryName().equalsIgnoreCase(countryNamePassStr)) {
                                     countryIdStr = countryList.get(k).getCountryId();
                                     counterySpinner.setSelection(k);
                                 }
@@ -585,7 +544,7 @@ public class AddNewEmergencyContactDetailsActivity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }

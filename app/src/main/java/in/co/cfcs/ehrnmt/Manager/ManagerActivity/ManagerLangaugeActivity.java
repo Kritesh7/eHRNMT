@@ -58,8 +58,8 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
     public FloatingActionButton fab;
     public String langaugeUrl = SettingConstant.BaseUrl + "AppEmployeeLanguageList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -80,11 +80,11 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -98,22 +98,21 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Language Details");
 
-        langauageRecy = (RecyclerView)findViewById(R.id.lanagauage_recycler);
+        langauageRecy = (RecyclerView) findViewById(R.id.lanagauage_recycler);
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerLangaugeActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerLangaugeActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerLangaugeActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerLangaugeActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerLangaugeActivity.this)));
 
 
-        adapter = new LangaugeAdapter(ManagerLangaugeActivity.this,list, ManagerLangaugeActivity.this,"SecondOne");
+        adapter = new LangaugeAdapter(ManagerLangaugeActivity.this, list, ManagerLangaugeActivity.this, "SecondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerLangaugeActivity.this);
         langauageRecy.setLayoutManager(mLayoutManager);
         langauageRecy.setItemAnimator(new DefaultItemAnimator());
@@ -121,12 +120,11 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
 
         langauageRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            langauageList(authCode,userId,empId);
+            langauageList(authCode, userId, empId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -134,9 +132,9 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
     }
 
     //Skills list
-    public void langauageList(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void langauageList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerLangaugeActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerLangaugeActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -148,43 +146,39 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
-                        LoginStatus = jsonObject.getString("status");
-                        msgstatus = jsonObject.getString("MsgNotification");
-                        if (LoginStatus.equals(invalid)) {
-                            Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            LoginStatus = jsonObject.getString("status");
+                            msgstatus = jsonObject.getString("MsgNotification");
+                            if (LoginStatus.equals(invalid)) {
+                                Logout();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            }
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        }
-                    }else{
                             String LanguageName = jsonObject.getString("LanguageName");
                             String Read = jsonObject.getString("Read");
                             String Write = jsonObject.getString("Write");
                             String Speak = jsonObject.getString("Speak");
                             String RecordID = jsonObject.getString("RecordID");
 
-                            list.add(new LanguageModel(LanguageName,Read,Write,Speak,RecordID));
+                            list.add(new LanguageModel(LanguageName, Read, Write, Speak, RecordID));
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         langauageRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         langauageRecy.setVisibility(View.VISIBLE);
                     }
@@ -193,7 +187,7 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -230,13 +224,13 @@ public class ManagerLangaugeActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;

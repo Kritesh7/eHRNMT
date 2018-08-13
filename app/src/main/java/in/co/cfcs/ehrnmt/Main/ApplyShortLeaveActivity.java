@@ -56,14 +56,14 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ApplyShortLeaveActivity extends AppCompatActivity {
 
-    public TextView titleTxt,fromTimeTxt,fromTimeBtn,toTimeTxt,toTimeBtn,dateTxt,dateBtn;
+    public TextView titleTxt, fromTimeTxt, fromTimeBtn, toTimeTxt, toTimeBtn, dateTxt, dateBtn;
     private int hh, m;
     private int yy, mm, dd;
     private int year, month, day, mHour, mMinute;
     public String applyUrl = SettingConstant.BaseUrl + "AppEmployeeShortLeaveApply";
     public ConnectionDetector conn;
-    public String userid = "", authCode = "", mgrId = "", type = "",MsgNotification = "", userName = "", compId = "";
-    public Button subBtn ;
+    public String userid = "", authCode = "", mgrId = "", type = "", MsgNotification = "", userName = "", compId = "";
+    public Button subBtn;
     public EditText commentTxt;
 
     String LoginStatus;
@@ -84,11 +84,11 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.applyshortleavetollbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -105,16 +105,16 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
 
         conn = new ConnectionDetector(ApplyShortLeaveActivity.this);
 
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ApplyShortLeaveActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ApplyShortLeaveActivity.this)));
         userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ApplyShortLeaveActivity.this)));
         mgrId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getMgrDir(ApplyShortLeaveActivity.this)));
         type = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getUserType(ApplyShortLeaveActivity.this)));
         userName = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getUserName(ApplyShortLeaveActivity.this)));
         compId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getCompanyId(ApplyShortLeaveActivity.this)));
 
-        dateTxt = (TextView)findViewById(R.id.dateleavetxt);
-        toTimeTxt = (TextView)findViewById(R.id.datetotxt);
-        fromTimeTxt = (TextView)findViewById(R.id.datefromtxt);
+        dateTxt = (TextView) findViewById(R.id.dateleavetxt);
+        toTimeTxt = (TextView) findViewById(R.id.datetotxt);
+        fromTimeTxt = (TextView) findViewById(R.id.datefromtxt);
         dateBtn = (TextView) findViewById(R.id.dateleavetxt);
         toTimeBtn = (TextView) findViewById(R.id.datetotxt);
         fromTimeBtn = (TextView) findViewById(R.id.datefromtxt);
@@ -221,32 +221,24 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (toTimeTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                if (toTimeTxt.getText().toString().equalsIgnoreCase("")) {
                     toTimeTxt.setError("Please enter valid Time");
-                }else if (fromTimeTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (fromTimeTxt.getText().toString().equalsIgnoreCase("")) {
                     fromTimeTxt.setError("please Enter Valid Time");
-                }else if (dateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (dateTxt.getText().toString().equalsIgnoreCase("")) {
                     dateTxt.setError("Please enter valid date");
-                }else
-                    {
+                } else {
 
-                        if (conn.getConnectivityStatus()>0)
-                        {
-                            applyShortLeave(userid,type,authCode,mgrId,dateTxt.getText().toString(),fromTimeTxt.getText().toString(),
-                                    toTimeTxt.getText().toString(),commentTxt.getText().toString(),"0", compId,userName);
+                    if (conn.getConnectivityStatus() > 0) {
+                        applyShortLeave(userid, type, authCode, mgrId, dateTxt.getText().toString(), fromTimeTxt.getText().toString(),
+                                toTimeTxt.getText().toString(), commentTxt.getText().toString(), "0", compId, userName);
 
-                        }else
-                        {
-                            conn.showNoInternetAlret();
-                        }
+                    } else {
+                        conn.showNoInternetAlret();
                     }
+                }
             }
         });
-
-
 
 
     }
@@ -264,12 +256,12 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
     }
 
     //Apply Short Leave
-    public void applyShortLeave(final String AdminID  , final String Type, final String AuthCode ,
-                                final String MgrID , final String StartDate, final String TimeFrom, final String TimeTo,
+    public void applyShortLeave(final String AdminID, final String Type, final String AuthCode,
+                                final String MgrID, final String StartDate, final String TimeFrom, final String TimeTo,
                                 final String Comment, final String PopUpCount, final String CompID, final String username) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(ApplyShortLeaveActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ApplyShortLeaveActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -281,10 +273,9 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Apply Short Leave", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -292,11 +283,11 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                            } else  if (LoginStatus.equalsIgnoreCase("success")) {
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else if (LoginStatus.equalsIgnoreCase("success")) {
                                 onBackPressed();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                            }else if (LoginStatus.equalsIgnoreCase("popup")){
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else if (LoginStatus.equalsIgnoreCase("popup")) {
 
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                                         ApplyShortLeaveActivity.this);
@@ -317,17 +308,15 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
 
                                             }
                                         })
-                                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
 
 
-                                                if (conn.getConnectivityStatus()>0)
-                                                {
-                                                    applyShortLeave(userid,type,authCode,mgrId,dateTxt.getText().toString(),fromTimeTxt.getText().toString(),
-                                                            toTimeTxt.getText().toString(),commentTxt.getText().toString(),"1",compId,userName);
+                                                if (conn.getConnectivityStatus() > 0) {
+                                                    applyShortLeave(userid, type, authCode, mgrId, dateTxt.getText().toString(), fromTimeTxt.getText().toString(),
+                                                            toTimeTxt.getText().toString(), commentTxt.getText().toString(), "1", compId, userName);
 
-                                                }else
-                                                {
+                                                } else {
                                                     conn.showNoInternetAlret();
                                                 }
 
@@ -415,7 +404,7 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -452,21 +441,21 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("AdminID", AdminID);
-                params.put("Type",Type);
-                params.put("MgrID",MgrID);
-                params.put("StartDate",StartDate);
-                params.put("TimeFrom",TimeFrom);
-                params.put("TimeTo",TimeTo);
-                params.put("Comment",Comment);
-                params.put("AuthCode",AuthCode);
-                params.put("PopUpCount",PopUpCount);
-                params.put("CompID",CompID);
-                params.put("UserName",username);
+                params.put("Type", Type);
+                params.put("MgrID", MgrID);
+                params.put("StartDate", StartDate);
+                params.put("TimeFrom", TimeFrom);
+                params.put("TimeTo", TimeTo);
+                params.put("Comment", Comment);
+                params.put("AuthCode", AuthCode);
+                params.put("PopUpCount", PopUpCount);
+                params.put("CompID", CompID);
+                params.put("UserName", username);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -479,6 +468,7 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
+
     @Override
     public void onBackPressed() {
 

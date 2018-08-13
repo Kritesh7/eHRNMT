@@ -47,7 +47,7 @@ public class CabItemsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-       ViewHolder holder = null;
+        ViewHolder holder = null;
 
         if (view == null) {
 
@@ -60,18 +60,15 @@ public class CabItemsAdapter extends BaseAdapter {
             holder.bookingTimeTxt = (TextView) view.findViewById(R.id.booktime);
 
             view.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        int pos = i+1;
-        holder.sNoTxt.setText("("+pos + ")");
+        int pos = i + 1;
+        holder.sNoTxt.setText("(" + pos + ")");
         holder.sourceAddTxt.setText(list.get(i).getSourceAdd());
         holder.destAddTxt.setText(list.get(i).getDestinationAdd());
         holder.bookingTimeTxt.setText(list.get(i).getBookTime());
-
-
 
 
         return view;

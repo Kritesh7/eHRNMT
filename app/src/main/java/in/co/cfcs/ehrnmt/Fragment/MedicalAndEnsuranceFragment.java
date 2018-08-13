@@ -72,8 +72,8 @@ public class MedicalAndEnsuranceFragment extends Fragment {
     public FloatingActionButton fab;
     public String policyUrl = SettingConstant.BaseUrl + "AppEmployeeMedicalPolicy";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     private OnFragmentInteractionListener mListener;
 
@@ -119,21 +119,21 @@ public class MedicalAndEnsuranceFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_medical_and_ensurance, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        medicalAnssuredRecy = (RecyclerView)rootView.findViewById(R.id.medical_anssured_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        medicalAnssuredRecy = (RecyclerView) rootView.findViewById(R.id.medical_anssured_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new MedicalAnssuredAdapter(getActivity(),list, getActivity(),"FirstOne");
+        adapter = new MedicalAnssuredAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         medicalAnssuredRecy.setLayoutManager(mLayoutManager);
         medicalAnssuredRecy.setItemAnimator(new DefaultItemAnimator());
@@ -148,18 +148,18 @@ public class MedicalAndEnsuranceFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent i = new Intent(getActivity(), AddMedicalandAnssuranceActivity.class);
-                i.putExtra("RecordId","");
-                i.putExtra("Mode","AddMode");
-                i.putExtra("PolicyType","");
-                i.putExtra("PolicyName","");
-                i.putExtra("PolicyNumber","");
-                i.putExtra("PolicyDuration","");
-                i.putExtra("PolicyBy","");
-                i.putExtra("InsuranceCompany","");
-                i.putExtra("AmountInsured","");
-                i.putExtra("StartDate","");
+                i.putExtra("RecordId", "");
+                i.putExtra("Mode", "AddMode");
+                i.putExtra("PolicyType", "");
+                i.putExtra("PolicyName", "");
+                i.putExtra("PolicyNumber", "");
+                i.putExtra("PolicyDuration", "");
+                i.putExtra("PolicyBy", "");
+                i.putExtra("InsuranceCompany", "");
+                i.putExtra("AmountInsured", "");
+                i.putExtra("StartDate", "");
                 i.putExtra("EndDate", "");
-                i.putExtra("File","");
+                i.putExtra("File", "");
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -169,16 +169,14 @@ public class MedicalAndEnsuranceFragment extends Fragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            medicalAndAnssuranceList(authCode,userId);
+            medicalAndAnssuranceList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
@@ -200,9 +198,9 @@ public class MedicalAndEnsuranceFragment extends Fragment {
     }*/
 
     // Medical and Anssurance data
-    public void medicalAndAnssuranceList(final String AuthCode , final String AdminID) {
+    public void medicalAndAnssuranceList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -214,25 +212,23 @@ public class MedicalAndEnsuranceFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String Name = jsonObject.getString("Name");
                             String Number = jsonObject.getString("Number");
@@ -247,21 +243,18 @@ public class MedicalAndEnsuranceFragment extends Fragment {
                             String FileNameText = jsonObject.getString("FileNameText");
 
 
-                            list.add(new MedicalAnssuranceModel(PolicyTypeName,Number,Duration,Name,AmountInsured,PolicyBy,RecordID,
-                                    InsuranceCompany,StartDate,EndDate,FileNameText));
+                            list.add(new MedicalAnssuranceModel(PolicyTypeName, Number, Duration, Name, AmountInsured, PolicyBy, RecordID,
+                                    InsuranceCompany, StartDate, EndDate, FileNameText));
 
                         }
 
 
-
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         medicalAnssuredRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         medicalAnssuredRecy.setVisibility(View.VISIBLE);
                     }
@@ -271,7 +264,7 @@ public class MedicalAndEnsuranceFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -308,13 +301,13 @@ public class MedicalAndEnsuranceFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
 
                 Log.e("Parms", params.toString());

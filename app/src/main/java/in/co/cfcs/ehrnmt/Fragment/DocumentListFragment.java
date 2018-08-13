@@ -71,13 +71,13 @@ public class DocumentListFragment extends Fragment {
     public RecyclerView documentRecycler;
     public DocumentListAdapter adapter;
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
     public ArrayList<DocumentListModel> list = new ArrayList<>();
     public String documentListUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryRequestList";
     public FloatingActionButton fab;
     private OnFragmentInteractionListener mListener;
     public ArrayList<BookMeaPrevisionModel> itemBindList = new ArrayList<>();
-    public TextView noCust ;
+    public TextView noCust;
     public String strtext = "";
 
     String LoginStatus;
@@ -125,21 +125,21 @@ public class DocumentListFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             strtext = bundle.getString("Count");
-        }else {
+        } else {
             strtext = getArguments().getString("Count");
         }
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
         mListener.onFragmentInteraction(strtext);
 
-        documentRecycler = (RecyclerView)rootView.findViewById(R.id.document_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        documentRecycler = (RecyclerView) rootView.findViewById(R.id.document_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new DocumentListAdapter(getActivity(),list,getActivity());
+        adapter = new DocumentListAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         documentRecycler.setLayoutManager(mLayoutManager);
         documentRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -166,12 +166,11 @@ public class DocumentListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            documentListData(authCode,userId,"0","2");
+            documentListData(authCode, userId, "0", "2");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
@@ -200,9 +199,9 @@ public class DocumentListFragment extends Fragment {
     }*/
 
     //Document List Data
-    public void documentListData(final String AuthCode , final String AdminID, final String AppStatus, final String ItemCatID) {
+    public void documentListData(final String AuthCode, final String AdminID, final String AppStatus, final String ItemCatID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -214,14 +213,12 @@ public class DocumentListFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -229,11 +226,11 @@ public class DocumentListFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String EmployeeName = jsonObject.getString("EmployeeName");
                             String ZoneName = jsonObject.getString("ZoneName");
@@ -246,18 +243,16 @@ public class DocumentListFragment extends Fragment {
                             String ItemCatID = jsonObject.getString("ItemCatID");
                             String AppStatus = jsonObject.getString("AppStatus");
 
-                            list.add(new DocumentListModel(EmployeeName,ZoneName,Quantity,requestDate,IdealClosureDateText
-                                    ,followDate,AppStatusText,RID,ItemCatID,AppStatus));
+                            list.add(new DocumentListModel(EmployeeName, ZoneName, Quantity, requestDate, IdealClosureDateText
+                                    , followDate, AppStatusText, RID, ItemCatID, AppStatus));
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         documentRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         documentRecycler.setVisibility(View.VISIBLE);
                     }
@@ -266,7 +261,7 @@ public class DocumentListFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -303,14 +298,14 @@ public class DocumentListFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
-                params.put("AppStatus",AppStatus);
-                params.put("ItemCatID",ItemCatID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("AppStatus", AppStatus);
+                params.put("ItemCatID", ItemCatID);
 
 
                 Log.e("Parms", params.toString());
@@ -398,7 +393,6 @@ public class DocumentListFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

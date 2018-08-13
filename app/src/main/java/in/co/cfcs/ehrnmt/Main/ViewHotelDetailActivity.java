@@ -43,11 +43,10 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ViewHotelDetailActivity extends AppCompatActivity {
 
-    public TextView titleTxt,employeNameTxt,hotelNameTxt,cityNameTxt,statusTxt,requestDateTxt,approvalDateTxt,hrCommTxt,empCommTxt,
-                    checkInDateTxt,checkInTimeTxt, checkOutDateTxt, hotelTypeTxt;
+    public TextView titleTxt, employeNameTxt, hotelNameTxt, cityNameTxt, statusTxt, requestDateTxt, approvalDateTxt, hrCommTxt, empCommTxt,
+            checkInDateTxt, checkInTimeTxt, checkOutDateTxt, hotelTypeTxt;
     public String hotelDetailsUrl = SettingConstant.BaseUrl + "AppEmployeeHotelBookingDetail";
-    public String bidString = "",authcode = "", userId = "",HotelType = "",CityName = "",HotelName = "",CheckInDateText = ""
-            ,CheckInTime = "",CheckOutDateText = "",EmpComment = "",BIDStr = "";
+    public String bidString = "", authcode = "", userId = "", HotelType = "", CityName = "", HotelName = "", CheckInDateText = "", CheckInTime = "", CheckOutDateText = "", EmpComment = "", BIDStr = "";
     public ConnectionDetector conn;
     public Button editBtn;
     public LinearLayout followLay, hrCommentLay;
@@ -71,11 +70,11 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.viewhoteltoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -91,13 +90,12 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
         titleTxt.setText("Hotel Details");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             bidString = intent.getStringExtra("BID");
         }
 
         conn = new ConnectionDetector(ViewHotelDetailActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewHotelDetailActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewHotelDetailActivity.this)));
         userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ViewHotelDetailActivity.this)));
 
         employeNameTxt = (TextView) findViewById(R.id.hotel_empname);
@@ -117,45 +115,43 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
         hrCommentLay = (LinearLayout) findViewById(R.id.hrcommentLay);
 
 
-       editBtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-               Intent i = new Intent(ViewHotelDetailActivity.this, AddHotelActivity.class);
-               i.putExtra("Mode", "Edit");
-               i.putExtra("Hotel type",HotelType);
-               i.putExtra("Booking City",CityName);
-               i.putExtra("Guest House",HotelName);
-               i.putExtra("Check In Date",CheckInDateText);
-               i.putExtra("Check In Time",CheckInTime);
-               i.putExtra("Check Out Time",CheckOutDateText);
-               i.putExtra("Remark",EmpComment);
-               i.putExtra("BID",BIDStr);
+                Intent i = new Intent(ViewHotelDetailActivity.this, AddHotelActivity.class);
+                i.putExtra("Mode", "Edit");
+                i.putExtra("Hotel type", HotelType);
+                i.putExtra("Booking City", CityName);
+                i.putExtra("Guest House", HotelName);
+                i.putExtra("Check In Date", CheckInDateText);
+                i.putExtra("Check In Time", CheckInTime);
+                i.putExtra("Check Out Time", CheckOutDateText);
+                i.putExtra("Remark", EmpComment);
+                i.putExtra("BID", BIDStr);
 
-               startActivity(i);
-               overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-           }
-       });
+                startActivity(i);
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
+            }
+        });
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0)
-        {
-            viewHotelDetails(authcode,bidString, userId);
+        if (conn.getConnectivityStatus() > 0) {
+            viewHotelDetails(authcode, bidString, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //View Hotel Details
-    public void viewHotelDetails(final String AuthCode , final String BID, final String userId) {
+    public void viewHotelDetails(final String AuthCode, final String BID, final String userId) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ViewHotelDetailActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ViewHotelDetailActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -167,10 +163,9 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i = 0; i<jsonArray.length(); i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
                         if (object.has("status")) {
@@ -178,11 +173,11 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
                             msgstatus = object.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
                             String EmpName = object.getString("EmpName");
                             String requestDate = object.getString("AddDateText");
                             String approvedBy = object.getString("AppDateText");
@@ -210,19 +205,15 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
                             hotelNameTxt.setText(HotelName);
                             hotelTypeTxt.setText(HotelType);
 
-                            if (approvedBy.equalsIgnoreCase("") || approvedBy.equalsIgnoreCase("null"))
-                            {
+                            if (approvedBy.equalsIgnoreCase("") || approvedBy.equalsIgnoreCase("null")) {
                                 followLay.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 followLay.setVisibility(View.VISIBLE);
                             }
 
-                            if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null"))
-                            {
+                            if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null")) {
                                 hrCommentLay.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 hrCommentLay.setVisibility(View.VISIBLE);
                             }
 
@@ -238,7 +229,6 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
                         }*/
 
 
-
                         }
 
 
@@ -248,7 +238,7 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -285,13 +275,13 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("BID",BID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("BID", BID);
+                params.put("AdminID", userId);
 
 
                 Log.e("Parms", params.toString());
@@ -305,8 +295,6 @@ public class ViewHotelDetailActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
-
-
 
 
     @Override

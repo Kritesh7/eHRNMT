@@ -50,7 +50,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ManagerLeaveSummeryActivity extends AppCompatActivity {
 
-    public TextView titleTxt,noCust;
+    public TextView titleTxt, noCust;
     public String empId = "";
 
     public LeaveSummarryAdapter adapter;
@@ -81,11 +81,11 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -99,8 +99,7 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
@@ -108,13 +107,13 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
 
         conn = new ConnectionDetector(ManagerLeaveSummeryActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerLeaveSummeryActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerLeaveSummeryActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerLeaveSummeryActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerLeaveSummeryActivity.this)));
 
-        leaveSummrryRecy =(RecyclerView)findViewById(R.id.leave_summerry_recycler);
+        leaveSummrryRecy = (RecyclerView) findViewById(R.id.leave_summerry_recycler);
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
-        adapter = new LeaveSummarryAdapter(ManagerLeaveSummeryActivity.this,list);
+        adapter = new LeaveSummarryAdapter(ManagerLeaveSummeryActivity.this, list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerLeaveSummeryActivity.this);
         leaveSummrryRecy.setLayoutManager(mLayoutManager);
         leaveSummrryRecy.setItemAnimator(new DefaultItemAnimator());
@@ -124,12 +123,11 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
 
 
         //set data
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
             leaveSummeryData(authCode, userId, empId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -143,9 +141,9 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
     }*/
 
     //Leave Summery List
-    public void leaveSummeryData(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void leaveSummeryData(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerLeaveSummeryActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerLeaveSummeryActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -157,14 +155,12 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -172,11 +168,11 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String LeaveYear = jsonObject.getString("LeaveYear");
@@ -187,19 +183,17 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
                             String LeaveAvail = jsonObject.getString("LeaveAvail");
                             String SPLeaveText = jsonObject.getString("SPLeaveText");
 
-                            list.add(new LeaveSummarryModel(LeaveTypeName,LeaveYear,EntitledFor,LeaveCarryOver,LeaveTaken,
-                                    LeaveBalance,LeaveAvail,SPLeaveText));
+                            list.add(new LeaveSummarryModel(LeaveTypeName, LeaveYear, EntitledFor, LeaveCarryOver, LeaveTaken,
+                                    LeaveBalance, LeaveAvail, SPLeaveText));
                         }
 
                     }
 
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         leaveSummrryRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         leaveSummrryRecy.setVisibility(View.VISIBLE);
                     }
@@ -209,7 +203,7 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -246,13 +240,13 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
 
                 Log.e("Parms", params.toString());

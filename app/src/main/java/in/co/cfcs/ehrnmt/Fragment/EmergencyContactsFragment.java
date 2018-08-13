@@ -80,7 +80,6 @@ public class EmergencyContactsFragment extends Fragment {
     String msgstatus;
 
 
-
     private OnFragmentInteractionListener mListener;
 
     public EmergencyContactsFragment() {
@@ -122,19 +121,19 @@ public class EmergencyContactsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_emergency_contacts, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
         emergencyContactRecyler = (RecyclerView) rootView.findViewById(R.id.emergency_contact_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new EmergencyContactAdapter(getActivity(),list,getActivity(),"FirstOne");
+        adapter = new EmergencyContactAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         emergencyContactRecyler.setLayoutManager(mLayoutManager);
         emergencyContactRecyler.setItemAnimator(new DefaultItemAnimator());
@@ -148,20 +147,20 @@ public class EmergencyContactsFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent i = new Intent(getActivity(), AddNewEmergencyContactDetailsActivity.class);
-                i.putExtra("RecordId","0");
-                i.putExtra("Mode","AddMode");
-                i.putExtra("Title","");
-                i.putExtra("Name","");
-                i.putExtra("Type","");
-                i.putExtra("RelationshipName","");
-                i.putExtra("Address","");
-                i.putExtra("City","");
+                i.putExtra("RecordId", "0");
+                i.putExtra("Mode", "AddMode");
+                i.putExtra("Title", "");
+                i.putExtra("Name", "");
+                i.putExtra("Type", "");
+                i.putExtra("RelationshipName", "");
+                i.putExtra("Address", "");
+                i.putExtra("City", "");
                 i.putExtra("State", "");
                 i.putExtra("PostalCode", "");
-                i.putExtra("CountryName","");
-                i.putExtra("TelephoneNumber","");
-                i.putExtra("MobileNumber","");
-                i.putExtra("Email","");
+                i.putExtra("CountryName", "");
+                i.putExtra("TelephoneNumber", "");
+                i.putExtra("MobileNumber", "");
+                i.putExtra("Email", "");
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -173,21 +172,20 @@ public class EmergencyContactsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            emergencyContactDetailsList(authCode,userId);
+            emergencyContactDetailsList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     // dependent List
-    public void emergencyContactDetailsList(final String AuthCode , final String AdminID) {
+    public void emergencyContactDetailsList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -199,10 +197,9 @@ public class EmergencyContactsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
                     if (jsonObject.has("status")) {
@@ -210,14 +207,13 @@ public class EmergencyContactsFragment extends Fragment {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray emergencyContactArray = jsonObject.getJSONArray("EmergencyContactList");
-                        for (int i=0 ; i<emergencyContactArray.length();i++)
-                        {
+                        for (int i = 0; i < emergencyContactArray.length(); i++) {
                             JSONObject object = emergencyContactArray.getJSONObject(i);
 
                             String Title = object.getString("Title");
@@ -236,25 +232,20 @@ public class EmergencyContactsFragment extends Fragment {
                             String RecordID = object.getString("RecordID");
 
 
-
-                            list.add(new EmergencyContactModel(Title , Name ,Address,City,State,PostCode,CountryName,PhoneNo,MobileNo,
-                                    Email,RelationshipName,LastUpdate,Type,RecordID));
-
+                            list.add(new EmergencyContactModel(Title, Name, Address, City, State, PostCode, CountryName, PhoneNo, MobileNo,
+                                    Email, RelationshipName, LastUpdate, Type, RecordID));
 
 
                         }
 
                         JSONArray statusArray = jsonObject.getJSONArray("Status");
-                        for (int k =0; k<statusArray.length(); k++)
-                        {
+                        for (int k = 0; k < statusArray.length(); k++) {
                             JSONObject obj = statusArray.getJSONObject(k);
 
                             String IsVisibilityAdd = obj.getString("IsVisibilityAdd");
-                            if (IsVisibilityAdd.equalsIgnoreCase("2"))
-                            {
+                            if (IsVisibilityAdd.equalsIgnoreCase("2")) {
                                 fab.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 fab.setVisibility(View.VISIBLE);
                             }
                         }
@@ -262,12 +253,10 @@ public class EmergencyContactsFragment extends Fragment {
                     }
 
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         emergencyContactRecyler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         emergencyContactRecyler.setVisibility(View.VISIBLE);
                     }
@@ -277,9 +266,9 @@ public class EmergencyContactsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
-                   // Logout();
+                    // Logout();
                 }
             }
         }, new Response.ErrorListener() {
@@ -315,13 +304,13 @@ public class EmergencyContactsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;

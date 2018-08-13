@@ -70,8 +70,8 @@ public class ContactsDetailsFragment extends Fragment {
     public ContactAdapter adapter;
     public ArrayList<ContactModel> list = new ArrayList<>();
     public ConnectionDetector conn;
-    public String userId = "",authCode = "", IsAddAddressDetail = "", IsVisibilityAdd = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "", IsAddAddressDetail = "", IsVisibilityAdd = "";
+    public TextView noCust;
     public String contactUrl = SettingConstant.BaseUrl + "AppEmployeeAddressList";
     public FloatingActionButton fab;
 
@@ -119,26 +119,25 @@ public class ContactsDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_contacts_details, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
         contactRecyler = (RecyclerView) rootView.findViewById(R.id.contact_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new ContactAdapter(list,getActivity(), getActivity(),"FirstOne");
+        adapter = new ContactAdapter(list, getActivity(), getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         contactRecyler.setLayoutManager(mLayoutManager);
         contactRecyler.setItemAnimator(new DefaultItemAnimator());
         contactRecyler.setAdapter(adapter);
 
         contactRecyler.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -149,20 +148,19 @@ public class ContactsDetailsFragment extends Fragment {
 
                     Toast.makeText(getActivity(), "Your Previous request waiting for Hr approval.", Toast.LENGTH_SHORT).show();
 
-                }else
-                    {
-                        Intent i = new Intent(getActivity(), AddNewContactActivity.class);
-                        i.putExtra("RecordId","");
-                        i.putExtra("Mode","AddMode");
-                        i.putExtra("AddressType","");
-                        i.putExtra("Address","");
-                        i.putExtra("City","");
-                        i.putExtra("State", "");
-                        i.putExtra("PostalCode", "");
-                        i.putExtra("CountryName","");
-                        startActivity(i);
-                        getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-                    }
+                } else {
+                    Intent i = new Intent(getActivity(), AddNewContactActivity.class);
+                    i.putExtra("RecordId", "");
+                    i.putExtra("Mode", "AddMode");
+                    i.putExtra("AddressType", "");
+                    i.putExtra("Address", "");
+                    i.putExtra("City", "");
+                    i.putExtra("State", "");
+                    i.putExtra("PostalCode", "");
+                    i.putExtra("CountryName", "");
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
+                }
             }
         });
         return rootView;
@@ -171,21 +169,20 @@ public class ContactsDetailsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            contactDetailsList(authCode,userId);
+            contactDetailsList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     // dependent List
-    public void contactDetailsList(final String AuthCode , final String AdminID) {
+    public void contactDetailsList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -197,10 +194,9 @@ public class ContactsDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
 
@@ -209,14 +205,13 @@ public class ContactsDetailsFragment extends Fragment {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray jsonArray = jsonObject.getJSONArray("AddressList");
-                        for (int i=0 ; i<jsonArray.length();i++)
-                        {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
                             String Type = object.getString("Type");
                             String Address = object.getString("Address");
@@ -227,23 +222,20 @@ public class ContactsDetailsFragment extends Fragment {
                             String LastUpdated = object.getString("LastUpdated");
                             String RecordID = object.getString("RecordID");
 
-                            list.add(new ContactModel(Type , Address ,City,State,PostCode,CountryName,LastUpdated,RecordID));
+                            list.add(new ContactModel(Type, Address, City, State, PostCode, CountryName, LastUpdated, RecordID));
 
                         }
 
                         JSONArray statusArray = jsonObject.getJSONArray("Status");
-                        for (int k =0; k<statusArray.length(); k++)
-                        {
+                        for (int k = 0; k < statusArray.length(); k++) {
                             JSONObject obj = statusArray.getJSONObject(k);
 
                             IsAddAddressDetail = obj.getString("IsAddAddressDetail");
                             IsVisibilityAdd = obj.getString("IsVisibilityAdd");
 
-                            if (IsVisibilityAdd.equalsIgnoreCase("3"))
-                            {
+                            if (IsVisibilityAdd.equalsIgnoreCase("3")) {
                                 fab.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 fab.setVisibility(View.VISIBLE);
                             }
                         }
@@ -252,12 +244,10 @@ public class ContactsDetailsFragment extends Fragment {
                     }
 
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         contactRecyler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         contactRecyler.setVisibility(View.VISIBLE);
                     }
@@ -267,9 +257,9 @@ public class ContactsDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
-                   // Logout();
+                    // Logout();
                 }
             }
         }, new Response.ErrorListener() {
@@ -304,13 +294,13 @@ public class ContactsDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;

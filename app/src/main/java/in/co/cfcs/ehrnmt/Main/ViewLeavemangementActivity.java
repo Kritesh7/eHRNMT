@@ -42,9 +42,9 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 public class ViewLeavemangementActivity extends AppCompatActivity {
 
     public TextView titleTxt;
-    public String LeaveApplication_Id = "",authCode = "";
-    public TextView leaveTypeTxt, startDateTxt,endDateTxt,numberofDaysTxt, appliedOnTxt, statusTxt,commentByMangerTxt, managerCommentedOn,
-                    commentByHrTxt, hrCommentedOnTxt, empRemarkTxt, cancelationRemarkByEmp, cancelationRemarkByMng, cancelationRemarkByHr, text1, text2, text3;
+    public String LeaveApplication_Id = "", authCode = "";
+    public TextView leaveTypeTxt, startDateTxt, endDateTxt, numberofDaysTxt, appliedOnTxt, statusTxt, commentByMangerTxt, managerCommentedOn,
+            commentByHrTxt, hrCommentedOnTxt, empRemarkTxt, cancelationRemarkByEmp, cancelationRemarkByMng, cancelationRemarkByHr, text1, text2, text3;
     public String viewDetailsUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveDetail";
     public ConnectionDetector conn;
     public String userId = "";
@@ -67,11 +67,11 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.viewleavtoolbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -87,26 +87,25 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
         titleTxt.setText("Leave Details");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             LeaveApplication_Id = intent.getStringExtra("LeaveApplication_Id");
         }
 
 
         conn = new ConnectionDetector(ViewLeavemangementActivity.this);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewLeavemangementActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewLeavemangementActivity.this)));
         userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ViewLeavemangementActivity.this)));
         //find id
-        leaveTypeTxt = (TextView)findViewById(R.id.leavetype);
-        startDateTxt = (TextView)findViewById(R.id.startdate);
-        endDateTxt = (TextView)findViewById(R.id.enddate);
-        numberofDaysTxt = (TextView)findViewById(R.id.numberofdays);
-        appliedOnTxt = (TextView)findViewById(R.id.appliedon);
-        statusTxt = (TextView)findViewById(R.id.status);
-        commentByMangerTxt = (TextView)findViewById(R.id.commentbymanger);
-        managerCommentedOn = (TextView)findViewById(R.id.managercommentedon);
-        commentByHrTxt = (TextView)findViewById(R.id.commentedbyhr);
-        hrCommentedOnTxt = (TextView)findViewById(R.id.hrcommentedon);
+        leaveTypeTxt = (TextView) findViewById(R.id.leavetype);
+        startDateTxt = (TextView) findViewById(R.id.startdate);
+        endDateTxt = (TextView) findViewById(R.id.enddate);
+        numberofDaysTxt = (TextView) findViewById(R.id.numberofdays);
+        appliedOnTxt = (TextView) findViewById(R.id.appliedon);
+        statusTxt = (TextView) findViewById(R.id.status);
+        commentByMangerTxt = (TextView) findViewById(R.id.commentbymanger);
+        managerCommentedOn = (TextView) findViewById(R.id.managercommentedon);
+        commentByHrTxt = (TextView) findViewById(R.id.commentedbyhr);
+        hrCommentedOnTxt = (TextView) findViewById(R.id.hrcommentedon);
         empRemarkTxt = (TextView) findViewById(R.id.empremark);
         cancelationRemarkByEmp = (TextView) findViewById(R.id.short_cancelationremarkbyname);
         cancelationRemarkByMng = (TextView) findViewById(R.id.short_cancelationremarkbymanager);
@@ -115,21 +114,18 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
         text2 = (TextView) findViewById(R.id.text2);
         text3 = (TextView) findViewById(R.id.text3);
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            viewDetails(authCode,LeaveApplication_Id, userId);
+        if (conn.getConnectivityStatus() > 0) {
+            viewDetails(authCode, LeaveApplication_Id, userId);
+        } else {
+            conn.showNoInternetAlret();
         }
-        else
-            {
-                conn.showNoInternetAlret();
-            }
     }
 
     //view Details Api
-    public void viewDetails(final String AuthCode , final String LeaveApplicationID, final String userId ) {
+    public void viewDetails(final String AuthCode, final String LeaveApplicationID, final String userId) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(ViewLeavemangementActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ViewLeavemangementActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -141,10 +137,9 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         // String status = jsonObject.getString("status");
                         if (jsonObject.has("status")) {
@@ -152,11 +147,11 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDateText = jsonObject.getString("StartDateText");
@@ -174,41 +169,33 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
                             String HRRemark = jsonObject.getString("HRRemark");
 
 
-                            if (EmpRemark.equalsIgnoreCase("null") || EmpRemark.equalsIgnoreCase(""))
-                            {
+                            if (EmpRemark.equalsIgnoreCase("null") || EmpRemark.equalsIgnoreCase("")) {
                                 cancelationRemarkByEmp.setVisibility(View.GONE);
                                 text1.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 cancelationRemarkByEmp.setVisibility(View.VISIBLE);
                                 text1.setVisibility(View.VISIBLE);
                                 cancelationRemarkByEmp.setText(EmpRemark);
                             }
 
 
-                            if (ManagerRemark.equalsIgnoreCase("null") || ManagerRemark.equalsIgnoreCase(""))
-                            {
+                            if (ManagerRemark.equalsIgnoreCase("null") || ManagerRemark.equalsIgnoreCase("")) {
                                 cancelationRemarkByMng.setVisibility(View.GONE);
                                 text2.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 cancelationRemarkByMng.setVisibility(View.VISIBLE);
                                 text2.setVisibility(View.VISIBLE);
                                 cancelationRemarkByMng.setText(ManagerRemark);
 
                             }
-                            if (HRRemark.equalsIgnoreCase("null") || HRRemark.equalsIgnoreCase(""))
-                            {
+                            if (HRRemark.equalsIgnoreCase("null") || HRRemark.equalsIgnoreCase("")) {
                                 cancelationRemarkByHr.setVisibility(View.GONE);
                                 text3.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 cancelationRemarkByHr.setVisibility(View.VISIBLE);
                                 text3.setVisibility(View.VISIBLE);
                                 cancelationRemarkByHr.setText(HRRemark);
                             }
-
-
 
 
                             leaveTypeTxt.setText(LeaveTypeName);
@@ -230,7 +217,7 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -267,14 +254,14 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AuthCode",AuthCode);
-                params.put("LeaveApplicationID",LeaveApplicationID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("LeaveApplicationID", LeaveApplicationID);
+                params.put("AdminID", userId);
 
 
                 Log.e("Parms", params.toString());

@@ -18,8 +18,7 @@ import in.co.cfcs.ehrnmt.R;
  * Created by Admin on 10-10-2017.
  */
 
-public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.ViewHolder>
-{
+public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.ViewHolder> {
     public Context context;
     public ArrayList<HolidayListModel> list = new ArrayList<>();
 
@@ -53,19 +52,19 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView holidayNameTxt,holidayDateTxt,holidayTypeTxt,descriptionTxt;
+        public TextView holidayNameTxt, holidayDateTxt, holidayTypeTxt, descriptionTxt;
 
         public LinearLayout mainLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            holidayNameTxt = (TextView)itemView.findViewById(R.id.holidayname);
-            holidayDateTxt = (TextView)itemView.findViewById(R.id.holidaydate);
-            holidayTypeTxt = (TextView)itemView.findViewById(R.id.holidaytype);
-            descriptionTxt = (TextView)itemView.findViewById(R.id.description);
+            holidayNameTxt = (TextView) itemView.findViewById(R.id.holidayname);
+            holidayDateTxt = (TextView) itemView.findViewById(R.id.holidaydate);
+            holidayTypeTxt = (TextView) itemView.findViewById(R.id.holidaytype);
+            descriptionTxt = (TextView) itemView.findViewById(R.id.description);
 
-            mainLay = (LinearLayout)itemView.findViewById(R.id.leave_management_main_lay);
+            mainLay = (LinearLayout) itemView.findViewById(R.id.leave_management_main_lay);
 
         }
     }

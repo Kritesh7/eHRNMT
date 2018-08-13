@@ -58,8 +58,8 @@ public class ManagerMedicalActivity extends AppCompatActivity {
     public FloatingActionButton fab;
     public String policyUrl = SettingConstant.BaseUrl + "AppEmployeeMedicalPolicy";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -79,11 +79,11 @@ public class ManagerMedicalActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -97,23 +97,22 @@ public class ManagerMedicalActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Medical And Insurance");
 
-        medicalAnssuredRecy = (RecyclerView)findViewById(R.id.medical_anssured_recycler);
+        medicalAnssuredRecy = (RecyclerView) findViewById(R.id.medical_anssured_recycler);
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
 
         conn = new ConnectionDetector(ManagerMedicalActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerMedicalActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerMedicalActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerMedicalActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerMedicalActivity.this)));
 
 
-        adapter = new MedicalAnssuredAdapter(ManagerMedicalActivity.this,list, ManagerMedicalActivity.this, "SecondOne");
+        adapter = new MedicalAnssuredAdapter(ManagerMedicalActivity.this, list, ManagerMedicalActivity.this, "SecondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerMedicalActivity.this);
         medicalAnssuredRecy.setLayoutManager(mLayoutManager);
         medicalAnssuredRecy.setItemAnimator(new DefaultItemAnimator());
@@ -122,20 +121,17 @@ public class ManagerMedicalActivity extends AppCompatActivity {
         medicalAnssuredRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
 
-
-     if (conn.getConnectivityStatus()>0)
-     {
-         medicalAndAnssuranceList(authCode,userId,empId);
-     }else
-         {
-             conn.showNoInternetAlret();
-         }
+        if (conn.getConnectivityStatus() > 0) {
+            medicalAndAnssuranceList(authCode, userId, empId);
+        } else {
+            conn.showNoInternetAlret();
+        }
     }
 
     // Medical and Anssurance data
-    public void medicalAndAnssuranceList(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void medicalAndAnssuranceList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerMedicalActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerMedicalActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -147,25 +143,23 @@ public class ManagerMedicalActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String Name = jsonObject.getString("Name");
                             String Number = jsonObject.getString("Number");
@@ -180,18 +174,16 @@ public class ManagerMedicalActivity extends AppCompatActivity {
                             String FileNameText = jsonObject.getString("FileNameText");
 
 
-                            list.add(new MedicalAnssuranceModel(PolicyTypeName,Number,Duration,Name,AmountInsured,PolicyBy,RecordID,
-                                    InsuranceCompany,StartDate,EndDate,FileNameText));
+                            list.add(new MedicalAnssuranceModel(PolicyTypeName, Number, Duration, Name, AmountInsured, PolicyBy, RecordID,
+                                    InsuranceCompany, StartDate, EndDate, FileNameText));
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         medicalAnssuredRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         medicalAnssuredRecy.setVisibility(View.VISIBLE);
                     }
@@ -201,7 +193,7 @@ public class ManagerMedicalActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -238,13 +230,13 @@ public class ManagerMedicalActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
 
                 Log.e("Parms", params.toString());

@@ -50,7 +50,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ProceedLeaveRequestListActivity extends AppCompatActivity {
 
-    public TextView titleTxt,noRecordFoundTxt;
+    public TextView titleTxt, noRecordFoundTxt;
     public RecyclerView proceedRecy;
     public LeaveMangementAdapter adapter;
     public String leaveListUrl = SettingConstant.BaseUrl + "AppManagerProceededLeaveRequestDashBoardList";
@@ -78,11 +78,11 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -100,11 +100,11 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
         proceedRecy = (RecyclerView) findViewById(R.id.proceed_leave_recycler);
         noRecordFoundTxt = (TextView) findViewById(R.id.norecordfound);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ProceedLeaveRequestListActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ProceedLeaveRequestListActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ProceedLeaveRequestListActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ProceedLeaveRequestListActivity.this)));
         conn = new ConnectionDetector(ProceedLeaveRequestListActivity.this);
 
-        adapter = new LeaveMangementAdapter(ProceedLeaveRequestListActivity.this,list,ProceedLeaveRequestListActivity.this);
+        adapter = new LeaveMangementAdapter(ProceedLeaveRequestListActivity.this, list, ProceedLeaveRequestListActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ProceedLeaveRequestListActivity.this);
         proceedRecy.setLayoutManager(mLayoutManager);
         proceedRecy.setItemAnimator(new DefaultItemAnimator());
@@ -115,27 +115,24 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
         // show list
 
 
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0)
-        {
-            leaveManagementData(authCode,userId);
+        if (conn.getConnectivityStatus() > 0) {
+            leaveManagementData(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
     }
 
     //get List of leave Request
-    public void leaveManagementData(final String AuthCode , final String AdminID) {
+    public void leaveManagementData(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ProceedLeaveRequestListActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ProceedLeaveRequestListActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -147,25 +144,23 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDateText = jsonObject.getString("StartDateText");
@@ -179,19 +174,17 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
                             String Status = jsonObject.getString("Status");
 
 
-                            list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
-                                    LeaveApplication_Id,Noofdays,"0",CancelStatus,Status));
+                            list.add(new LeaveManagementModel(UserName, LeaveTypeName, StartDateText, EndDateText, AppliedDate, StatusText,
+                                    LeaveApplication_Id, Noofdays, "0", CancelStatus, Status));
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         proceedRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         proceedRecy.setVisibility(View.VISIBLE);
                     }
@@ -200,7 +193,7 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -237,12 +230,12 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
 
                 Log.e("Parms", params.toString());

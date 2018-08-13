@@ -18,8 +18,7 @@ import in.co.cfcs.ehrnmt.R;
  * Created by Admin on 18-09-2017.
  */
 
-public class AssestsDetailsAdapter extends RecyclerView.Adapter<AssestsDetailsAdapter.ViewHolder>
-{
+public class AssestsDetailsAdapter extends RecyclerView.Adapter<AssestsDetailsAdapter.ViewHolder> {
     public Context context;
     public ArrayList<AssestDetailsModel> list = new ArrayList<>();
 
@@ -64,22 +63,22 @@ public class AssestsDetailsAdapter extends RecyclerView.Adapter<AssestsDetailsAd
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView assestsNameTxt,brandNameTxt,issuesDateTxt,estimatedReturnDateTxt, issuesReasonsTxt, remarkTxt, holderNameTxt;
+        public TextView assestsNameTxt, brandNameTxt, issuesDateTxt, estimatedReturnDateTxt, issuesReasonsTxt, remarkTxt, holderNameTxt;
 
         public CardView mainLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            assestsNameTxt = (TextView)itemView.findViewById(R.id.assesname);
-            brandNameTxt = (TextView)itemView.findViewById(R.id.brandname);
-            issuesDateTxt = (TextView)itemView.findViewById(R.id.issuesdate);
-            estimatedReturnDateTxt = (TextView)itemView.findViewById(R.id.estimated_return_date);
-            issuesReasonsTxt = (TextView)itemView.findViewById(R.id.issuesreasons);
-            remarkTxt = (TextView)itemView.findViewById(R.id.remark);
-            holderNameTxt = (TextView)itemView.findViewById(R.id.username);
+            assestsNameTxt = (TextView) itemView.findViewById(R.id.assesname);
+            brandNameTxt = (TextView) itemView.findViewById(R.id.brandname);
+            issuesDateTxt = (TextView) itemView.findViewById(R.id.issuesdate);
+            estimatedReturnDateTxt = (TextView) itemView.findViewById(R.id.estimated_return_date);
+            issuesReasonsTxt = (TextView) itemView.findViewById(R.id.issuesreasons);
+            remarkTxt = (TextView) itemView.findViewById(R.id.remark);
+            holderNameTxt = (TextView) itemView.findViewById(R.id.username);
 
-            mainLay = (CardView)itemView.findViewById(R.id.assets_main_lay);
+            mainLay = (CardView) itemView.findViewById(R.id.assets_main_lay);
         }
     }
 }

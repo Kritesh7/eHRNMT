@@ -62,10 +62,7 @@ public class MyProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TextView titleTxt, nameTxt, fatherNameTxt, dobTxt, genderTxt, prefferdNameTxt, materialStatusTxt, noOfChildTxt, nationloityTxt
-            , emailtxt, alternativeEmailTxt, panNoTxt, passportNameTxt, passportNumberTxt, mobileNumberTxt, phoneNumberTxt, personalEmailTxt
-            , coprativeEmailTxt, empIdTxt, compNameTxt, zoneNameTxt, designationTxt, departmentTxt, joingDateTxt, managerNameTxt
-            , bloodGroupTxt, allergiesTxt, seriousIllnessTxt, familyDrNameTxt, famiilyDrNoTxt;
+    public TextView titleTxt, nameTxt, fatherNameTxt, dobTxt, genderTxt, prefferdNameTxt, materialStatusTxt, noOfChildTxt, nationloityTxt, emailtxt, alternativeEmailTxt, panNoTxt, passportNameTxt, passportNumberTxt, mobileNumberTxt, phoneNumberTxt, personalEmailTxt, coprativeEmailTxt, empIdTxt, compNameTxt, zoneNameTxt, designationTxt, departmentTxt, joingDateTxt, managerNameTxt, bloodGroupTxt, allergiesTxt, seriousIllnessTxt, familyDrNameTxt, famiilyDrNoTxt;
     public LinearLayout noOfChildLay;
     public String empId = "";
     public ConnectionDetector conn;
@@ -117,16 +114,16 @@ public class MyProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
         conn = new ConnectionDetector(getActivity());
-        userid =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        nameTxt = (TextView)rootView. findViewById(R.id.proname);
+        nameTxt = (TextView) rootView.findViewById(R.id.proname);
         fatherNameTxt = (TextView) rootView.findViewById(R.id.profathername);
         dobTxt = (TextView) rootView.findViewById(R.id.prodob);
         genderTxt = (TextView) rootView.findViewById(R.id.progender);
@@ -168,11 +165,9 @@ public class MyProfileFragment extends Fragment {
             }
         });*/
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            personalInfoData(authcode,userid);
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            personalInfoData(authcode, userid);
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -180,9 +175,9 @@ public class MyProfileFragment extends Fragment {
     }
 
     //Personal Information Data bind
-    public void personalInfoData(final String AuthCode , final String AdminID) {
+    public void personalInfoData(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -194,22 +189,21 @@ public class MyProfileFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         if (object.has("status")) {
                             LoginStatus = object.getString("status");
                             msgstatus = object.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String Title = object.getString("Title");
                             String EmployeeName = object.getString("EmployeeName");
                             String EmpID = object.getString("EmpID");
@@ -243,15 +237,13 @@ public class MyProfileFragment extends Fragment {
                             String EmailPersonal = object.getString("EmailPersonal");
                             String EmailCorporate = object.getString("EmailCorporate");
 
-                            if (Children.equalsIgnoreCase("0"))
-                            {
+                            if (Children.equalsIgnoreCase("0")) {
                                 noOfChildLay.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 noOfChildLay.setVisibility(View.VISIBLE);
                             }
 
-                            nameTxt.setText(Title + " " +EmployeeName);
+                            nameTxt.setText(Title + " " + EmployeeName);
                             empIdTxt.setText(EmpID);
                             emailtxt.setText(Email);
                             fatherNameTxt.setText(FatherName);
@@ -300,11 +292,10 @@ public class MyProfileFragment extends Fragment {
                     }
 
 
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -341,13 +332,13 @@ public class MyProfileFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -410,6 +401,7 @@ public class MyProfileFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
     private void Logout() {
 
 

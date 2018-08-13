@@ -48,7 +48,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ProceedShortLeaveListActivity extends AppCompatActivity {
 
-    public TextView titleTxt,noRecordFoundTxt;
+    public TextView titleTxt, noRecordFoundTxt;
     public RecyclerView proceedShortRecycler;
     public ShortLeaveHistoryAdapter adapter;
     public ArrayList<ShortLeaveHistoryModel> list = new ArrayList<>();
@@ -76,11 +76,11 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -100,10 +100,10 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
 
         conn = new ConnectionDetector(ProceedShortLeaveListActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ProceedShortLeaveListActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ProceedShortLeaveListActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ProceedShortLeaveListActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ProceedShortLeaveListActivity.this)));
 
-        adapter = new ShortLeaveHistoryAdapter(ProceedShortLeaveListActivity.this,list,ProceedShortLeaveListActivity.this);
+        adapter = new ShortLeaveHistoryAdapter(ProceedShortLeaveListActivity.this, list, ProceedShortLeaveListActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ProceedShortLeaveListActivity.this);
         proceedShortRecycler.setLayoutManager(mLayoutManager);
         proceedShortRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -112,21 +112,19 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
         proceedShortRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            shortLeaveHistoryList(authCode,userId);
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        if (conn.getConnectivityStatus() > 0) {
+            shortLeaveHistoryList(authCode, userId);
+        } else {
+            conn.showNoInternetAlret();
+        }
 
 
     }
 
     //Short Leave History List
-    public void shortLeaveHistoryList(final String AuthCode , final String AdminID) {
+    public void shortLeaveHistoryList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ProceedShortLeaveListActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ProceedShortLeaveListActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -138,25 +136,23 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDate = jsonObject.getString("StartDateText");
@@ -168,18 +164,16 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
                             String UserName = jsonObject.getString("UserName");
 
 
-                            list.add(new ShortLeaveHistoryModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
-                                    StatusText,CommentText,"0"));
+                            list.add(new ShortLeaveHistoryModel(UserName, LeaveApplication_Id, LeaveTypeName, StartDate, TimeFrom, TimeTo, AppliedDate,
+                                    StatusText, CommentText, "0"));
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         proceedShortRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         proceedShortRecycler.setVisibility(View.VISIBLE);
                     }
@@ -189,12 +183,11 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
 
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
 
-                }catch (StringIndexOutOfBoundsException ex)
-                {
-                    Toast.makeText(ProceedShortLeaveListActivity.this,"Error in request processing", Toast.LENGTH_SHORT).show();
+                } catch (StringIndexOutOfBoundsException ex) {
+                    Toast.makeText(ProceedShortLeaveListActivity.this, "Error in request processing", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     //  Log.e("checking exception", ex.getMessage());
                 }
@@ -232,12 +225,12 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
 
                 Log.e("Parms", params.toString());

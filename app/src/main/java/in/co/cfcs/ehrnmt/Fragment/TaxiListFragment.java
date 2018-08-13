@@ -72,7 +72,7 @@ public class TaxiListFragment extends Fragment {
     public FloatingActionButton fab;
     public String cabListUrl = SettingConstant.BaseUrl + "AppEmployeeTaxiBookingRequestList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "", strtext = "";
+    public String userId = "", authCode = "", strtext = "";
     public TextView noCust;
 
 
@@ -123,33 +123,32 @@ public class TaxiListFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             strtext = bundle.getString("Count");
-        }else {
+        } else {
             strtext = getArguments().getString("Count");
         }
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        cabrecycler = (RecyclerView)rootView.findViewById(R.id.cab_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        cabrecycler = (RecyclerView) rootView.findViewById(R.id.cab_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new CabListAdapter(getActivity(),list,getActivity());
+        adapter = new CabListAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         cabrecycler.setLayoutManager(mLayoutManager);
         cabrecycler.setItemAnimator(new DefaultItemAnimator());
         cabrecycler.setAdapter(adapter);
 
 
-
         cabrecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-     //   prepareInsDetails();
+        //   prepareInsDetails();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +156,7 @@ public class TaxiListFragment extends Fragment {
 
                 Intent i = new Intent(getActivity(), AddCabActivity.class);
                 i.putExtra("Mode", "Add");
-                i.putExtra("BID","");
+                i.putExtra("BID", "");
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -170,20 +169,19 @@ public class TaxiListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            cabListData(authCode,userId,"0");
+            cabListData(authCode, userId, "0");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //cab List
-    public void cabListData(final String AuthCode , final String AdminID, final String AppStatus) {
+    public void cabListData(final String AuthCode, final String AdminID, final String AppStatus) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -195,14 +193,12 @@ public class TaxiListFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -210,11 +206,11 @@ public class TaxiListFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String EmployeeName = jsonObject.getString("EmployeeName");
                             String ZoneName = jsonObject.getString("ZoneName");
@@ -228,8 +224,8 @@ public class TaxiListFragment extends Fragment {
                             // String AppStatus = jsonObject.getString("AppStatus");
 
 
-                            list.add(new CabListModel(EmployeeName,ZoneName,CityName,requestDate,BookDateText
-                                    ,AppStatusText,followDate,BID,Visibility,""));
+                            list.add(new CabListModel(EmployeeName, ZoneName, CityName, requestDate, BookDateText
+                                    , AppStatusText, followDate, BID, Visibility, ""));
 
 
                         }
@@ -237,12 +233,10 @@ public class TaxiListFragment extends Fragment {
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         cabrecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         cabrecycler.setVisibility(View.VISIBLE);
                     }
@@ -251,7 +245,7 @@ public class TaxiListFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -288,13 +282,13 @@ public class TaxiListFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
-                params.put("AppStatus",AppStatus);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("AppStatus", AppStatus);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -342,7 +336,6 @@ public class TaxiListFragment extends Fragment {
     }
 
 
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -383,7 +376,6 @@ public class TaxiListFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

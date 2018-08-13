@@ -33,8 +33,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  * Created by Admin on 18-11-2017.
  */
 
-public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLogListAdapter.ViewHolder>
-{
+public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLogListAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<AttendanceLogDetailsModel> list = new ArrayList<>();
@@ -58,7 +57,7 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         AttendanceLogDetailsModel model = list.get(position);
-        holder.nameTxt.setText(model.getName() +"("+model.getEmpId()+")");
+        holder.nameTxt.setText(model.getName() + "(" + model.getEmpId() + ")");
         holder.designationTxt.setText(model.getDesignation());
         holder.punchDateTxt.setText(model.getPunchDate());
         holder.punchTimeTxt.setText(model.getPunchTime());
@@ -71,62 +70,52 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
         holder.approvalBy.setText(model.getApprovalBy());
 
         if (model.getApprovalDate().equalsIgnoreCase("") ||
-                model.getApprovalDate().equalsIgnoreCase("null"))
-        {
+                model.getApprovalDate().equalsIgnoreCase("null")) {
             holder.approvaldatelay1.setVisibility(View.GONE);
             holder.approvaldateview1.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             holder.approvaldatelay1.setVisibility(View.VISIBLE);
             holder.approvaldateview1.setVisibility(View.VISIBLE);
         }
         if (model.getApprovalBy().equalsIgnoreCase("") ||
-                model.getApprovalBy().equalsIgnoreCase("null"))
-        {
+                model.getApprovalBy().equalsIgnoreCase("null")) {
             holder.approvalbylay1.setVisibility(View.GONE);
             holder.approvalbyview1.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             holder.approvalbylay1.setVisibility(View.VISIBLE);
             holder.approvalbyview1.setVisibility(View.VISIBLE);
         }
 
-        if (model.getPunchType().equalsIgnoreCase("Machine"))
-        {
+        if (model.getPunchType().equalsIgnoreCase("Machine")) {
             holder.punchLocationLay.setVisibility(View.GONE);
             holder.reamrkLay.setVisibility(View.GONE);
             holder.remarkView.setVisibility(View.GONE);
             holder.locationView.setVisibility(View.GONE);
 
-        }else
-            {
-                holder.punchLocationLay.setVisibility(View.VISIBLE);
+        } else {
+            holder.punchLocationLay.setVisibility(View.VISIBLE);
               /*  holder.remark.setVisibility(View.VISIBLE);
                 holder.remarkView.setVisibility(View.VISIBLE);*/
-                holder.locationView.setVisibility(View.VISIBLE);
+            holder.locationView.setVisibility(View.VISIBLE);
 
-                if (model.getRemark().equalsIgnoreCase("") || model.getRemark().equalsIgnoreCase("null"))
-                {
-                    holder.reamrkLay.setVisibility(View.GONE);
-                    holder.remarkView.setVisibility(View.GONE);
-                }else
-                    {
-                        holder.reamrkLay.setVisibility(View.VISIBLE);
-                        holder.remarkView.setVisibility(View.VISIBLE);
-                    }
-
-                if (model.getPunchLocation().equalsIgnoreCase("") ||
-                        model.getPunchLocation().equalsIgnoreCase("null"))
-                {
-                    holder.punchLocationLay.setVisibility(View.GONE);
-                    holder.locationView.setVisibility(View.GONE);
-                }else
-                    {
-                        holder.punchLocationLay.setVisibility(View.VISIBLE);
-                        holder.locationView.setVisibility(View.VISIBLE);
-                    }
-
+            if (model.getRemark().equalsIgnoreCase("") || model.getRemark().equalsIgnoreCase("null")) {
+                holder.reamrkLay.setVisibility(View.GONE);
+                holder.remarkView.setVisibility(View.GONE);
+            } else {
+                holder.reamrkLay.setVisibility(View.VISIBLE);
+                holder.remarkView.setVisibility(View.VISIBLE);
             }
+
+            if (model.getPunchLocation().equalsIgnoreCase("") ||
+                    model.getPunchLocation().equalsIgnoreCase("null")) {
+                holder.punchLocationLay.setVisibility(View.GONE);
+                holder.locationView.setVisibility(View.GONE);
+            } else {
+                holder.punchLocationLay.setVisibility(View.VISIBLE);
+                holder.locationView.setVisibility(View.VISIBLE);
+            }
+
+        }
 
         Log.e("check image Url", SettingConstant.DownloadUrl + model.getProfilePic());
         //set profile Image
@@ -150,7 +139,7 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
                 Display display = activity.getWindowManager().getDefaultDisplay();
                 int width = display.getWidth();
                 int height = display.getHeight();
-                loadPhoto(holder.proImg,width,height);
+                loadPhoto(holder.proImg, width, height);
             }
         });
 
@@ -163,38 +152,38 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTxt,designationTxt,punchTimeTxt,punchDateTxt,punchTypeTxt,punchLocationTxt,remark, zoneTxt,approvalStatusTxt,approvalDateText,approvalBy;
-        public View locationView, remarkView,approvaldateview1,approvalbyview1;
-        public LinearLayout punchLocationLay, reamrkLay,approvaldatelay1,approvalbylay1;
+        public TextView nameTxt, designationTxt, punchTimeTxt, punchDateTxt, punchTypeTxt, punchLocationTxt, remark, zoneTxt, approvalStatusTxt, approvalDateText, approvalBy;
+        public View locationView, remarkView, approvaldateview1, approvalbyview1;
+        public LinearLayout punchLocationLay, reamrkLay, approvaldatelay1, approvalbylay1;
         public de.hdodenhof.circleimageview.CircleImageView proImg;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            designationTxt = (TextView)itemView.findViewById(R.id.designation);
-            punchTimeTxt = (TextView)itemView.findViewById(R.id.punchtime);
-            punchDateTxt = (TextView)itemView.findViewById(R.id.punchdate);
-            punchTypeTxt = (TextView)itemView.findViewById(R.id.punchtype);
-            punchLocationTxt = (TextView)itemView.findViewById(R.id.punchlocation);
-            remark = (TextView)itemView.findViewById(R.id.remark);
+            designationTxt = (TextView) itemView.findViewById(R.id.designation);
+            punchTimeTxt = (TextView) itemView.findViewById(R.id.punchtime);
+            punchDateTxt = (TextView) itemView.findViewById(R.id.punchdate);
+            punchTypeTxt = (TextView) itemView.findViewById(R.id.punchtype);
+            punchLocationTxt = (TextView) itemView.findViewById(R.id.punchlocation);
+            remark = (TextView) itemView.findViewById(R.id.remark);
             nameTxt = (TextView) itemView.findViewById(R.id.name);
-            remarkView = (View) itemView.findViewById(R.id.remarkview) ;
-            locationView = (View) itemView.findViewById(R.id.locationview) ;
+            remarkView = (View) itemView.findViewById(R.id.remarkview);
+            locationView = (View) itemView.findViewById(R.id.locationview);
             zoneTxt = (TextView) itemView.findViewById(R.id.zonename);
             proImg = (de.hdodenhof.circleimageview.CircleImageView) itemView.findViewById(R.id.pro_image);
 
 
-            punchLocationLay = (LinearLayout)itemView.findViewById(R.id.punchlocationlay);
-            reamrkLay = (LinearLayout)itemView.findViewById(R.id.reameklay);
+            punchLocationLay = (LinearLayout) itemView.findViewById(R.id.punchlocationlay);
+            reamrkLay = (LinearLayout) itemView.findViewById(R.id.reameklay);
 
-            approvalbylay1 = (LinearLayout)itemView.findViewById(R.id.approvalbylay);
-            approvalbyview1 = (View) itemView.findViewById(R.id.approvalbyview) ;
-            approvaldatelay1 = (LinearLayout)itemView.findViewById(R.id.approvaldatelay);
-            approvaldateview1 = (View) itemView.findViewById(R.id.approvaldateview) ;
+            approvalbylay1 = (LinearLayout) itemView.findViewById(R.id.approvalbylay);
+            approvalbyview1 = (View) itemView.findViewById(R.id.approvalbyview);
+            approvaldatelay1 = (LinearLayout) itemView.findViewById(R.id.approvaldatelay);
+            approvaldateview1 = (View) itemView.findViewById(R.id.approvaldateview);
 
-            approvalStatusTxt = (TextView)itemView.findViewById(R.id.approvalstatus);
-            approvalDateText = (TextView)itemView.findViewById(R.id.approvaldate);
-            approvalBy = (TextView)itemView.findViewById(R.id.approvalby);
+            approvalStatusTxt = (TextView) itemView.findViewById(R.id.approvalstatus);
+            approvalDateText = (TextView) itemView.findViewById(R.id.approvaldate);
+            approvalBy = (TextView) itemView.findViewById(R.id.approvalby);
 
         }
     }
@@ -207,7 +196,7 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
         //dialog.setContentView(R.layout.custom_fullimage_dialog);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.custom_fullimage_dialoge,
-                (ViewGroup)activity.findViewById(R.id.layout_root));
+                (ViewGroup) activity.findViewById(R.id.layout_root));
         ImageView image = (ImageView) layout.findViewById(R.id.fullimage);
         ImageView croosImg = (ImageView) layout.findViewById(R.id.imgClose);
 

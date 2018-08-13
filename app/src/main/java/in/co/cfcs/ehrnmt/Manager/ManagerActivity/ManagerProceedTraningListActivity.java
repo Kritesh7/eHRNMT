@@ -50,7 +50,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ManagerProceedTraningListActivity extends AppCompatActivity {
 
-    public TextView titleTxt,noCust;
+    public TextView titleTxt, noCust;
     public ManagerRequestTraningAdapter adapter;
     public ArrayList<ManagerRequestTraningModel> list = new ArrayList<>();
     public RecyclerView traningRecy;
@@ -77,11 +77,11 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -100,12 +100,12 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerProceedTraningListActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerProceedTraningListActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerProceedTraningListActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerProceedTraningListActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerProceedTraningListActivity.this)));
 
 
-        adapter = new ManagerRequestTraningAdapter(ManagerProceedTraningListActivity.this,list,
-                ManagerProceedTraningListActivity.this,"2");
+        adapter = new ManagerRequestTraningAdapter(ManagerProceedTraningListActivity.this, list,
+                ManagerProceedTraningListActivity.this, "2");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerProceedTraningListActivity.this);
         traningRecy.setLayoutManager(mLayoutManager);
         traningRecy.setItemAnimator(new DefaultItemAnimator());
@@ -114,22 +114,19 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
         traningRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         //bind list
-        if (conn.getConnectivityStatus()>0)
-        {
-            traningRequestData(authCode,userId,"2");
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            traningRequestData(authCode, userId, "2");
+        } else {
             conn.showNoInternetAlret();
         }
-
 
 
     }
 
     //Traning Request List Bind
-    public void traningRequestData(final String AuthCode , final String AdminID, final String Status) {
+    public void traningRequestData(final String AuthCode, final String AdminID, final String Status) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerProceedTraningListActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerProceedTraningListActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -141,25 +138,23 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         if (object.has("status")) {
                             LoginStatus = object.getString("status");
                             msgstatus = object.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String ApplicationID = object.getString("ApplicationID");
                             String DomainName = object.getString("DomainName");
@@ -170,21 +165,18 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
                             String EmployeeName = object.getString("EmployeeName");
                             String StatusText = object.getString("StatusText");
 
-                            list.add(new ManagerRequestTraningModel(DomainName,CourseName,StartDate  ,EndDate
-                                    ,ProficiencyName,EmployeeName, ApplicationID,StatusText));
+                            list.add(new ManagerRequestTraningModel(DomainName, CourseName, StartDate, EndDate
+                                    , ProficiencyName, EmployeeName, ApplicationID, StatusText));
 
                         }
 
                     }
 
 
-
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         traningRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         traningRecy.setVisibility(View.VISIBLE);
                     }
@@ -193,7 +185,7 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -230,12 +222,12 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
                 params.put("Status", Status);
 
 
@@ -250,6 +242,7 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
+
     @Override
     public void onBackPressed() {
 
@@ -264,9 +257,6 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
 
         finishAffinity();
         startActivity(new Intent(ManagerProceedTraningListActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
 
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerProceedTraningListActivity.this,
@@ -289,11 +279,6 @@ public class ManagerProceedTraningListActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerProceedTraningListActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

@@ -82,24 +82,21 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
-    public TextView titleTxt,startDateTxt,startDateBtn,endDateBtn,endDateTxt;
+    public TextView titleTxt, startDateTxt, startDateBtn, endDateBtn, endDateTxt;
     public Spinner policyTypeSpinner;
     public String personalDdlDetailsUrl = SettingConstant.BaseUrl + "AppddlEmployeePersonalData";
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeeMedicalPolicyInsUpdt";
     public ArrayList<PolicyTypeModel> policyTypeList = new ArrayList<>();
     public ArrayAdapter<PolicyTypeModel> policyTypeAdapter;
     public ConnectionDetector conn;
-    public EditText   policyNumberTxt, policyNameTxt, policyDurationTxt, policyByTxt, insuranceCompTxt,
-                    amountInsuredTxt;
+    public EditText policyNumberTxt, policyNameTxt, policyDurationTxt, policyByTxt, insuranceCompTxt,
+            amountInsuredTxt;
     public Button addBtn, uploadBtn;
     public StringTokenizer tokens;
     private int yy, mm, dd;
     private static final int FILE_SELECT_CODE = 0;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    public String policyTypeIdStr = "", authcode = "", userId = "", actionMode = "", recordidStr = "",policyTypeStr = ""
-            ,policyNameStr = "", policyNumberStr = "", policyDurationStr = "", policyByStr = "", insuranceCompStr = ""
-            ,amountStr = "", startDateStr = "", endDateStr = "",policyType = "",imageBase64 = "", imageExtenstion = ""
-            ,uploadedFileName = "", first = "", fileStr = "";
+    public String policyTypeIdStr = "", authcode = "", userId = "", actionMode = "", recordidStr = "", policyTypeStr = "", policyNameStr = "", policyNumberStr = "", policyDurationStr = "", policyByStr = "", insuranceCompStr = "", amountStr = "", startDateStr = "", endDateStr = "", policyType = "", imageBase64 = "", imageExtenstion = "", uploadedFileName = "", first = "", fileStr = "";
     String[] permissions = new String[]{
 
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -130,11 +127,11 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.medicaltollbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -150,8 +147,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
         titleTxt.setText("Add New Medical&Insurance");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             actionMode = intent.getStringExtra("Mode");
             recordidStr = intent.getStringExtra("RecordId");
             policyTypeStr = intent.getStringExtra("PolicyType");
@@ -167,12 +163,12 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
         }
 
         conn = new ConnectionDetector(AddMedicalandAnssuranceActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddMedicalandAnssuranceActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddMedicalandAnssuranceActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddMedicalandAnssuranceActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddMedicalandAnssuranceActivity.this)));
 
 
         //   policyCompanySpinner = (Spinner)findViewById(R.id.policycompanynamespinner);
-        policyTypeSpinner = (Spinner)findViewById(R.id.policytypespinner);
+        policyTypeSpinner = (Spinner) findViewById(R.id.policytypespinner);
         startDateBtn = (TextView) findViewById(R.id.startdatetxt);
         endDateBtn = (TextView) findViewById(R.id.enddatetxt);
         startDateTxt = (TextView) findViewById(R.id.startdatetxt);
@@ -191,8 +187,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
         downloadBtn = (ImageView) findViewById(R.id.downloadbtn);
 
         //change button name
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
             addBtn.setText("Update Medical AND Insurance");
             titleTxt.setText("Update Medical&Insurance");
 
@@ -205,11 +200,10 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
             startDateTxt.setText(startDateStr);
             endDateTxt.setText(endDateStr);
 
-            if (fileStr.equalsIgnoreCase(""))
-            {
+            if (fileStr.equalsIgnoreCase("")) {
                 uploadBtn.setVisibility(View.VISIBLE);
                 fileSelectTxt.setVisibility(View.GONE);
-            }else {
+            } else {
 
                 uploadBtn.setVisibility(View.GONE);
                 fileSelectTxt.setVisibility(View.VISIBLE);
@@ -339,30 +333,23 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (policyTypeIdStr.equalsIgnoreCase(""))
-                {
+                if (policyTypeIdStr.equalsIgnoreCase("")) {
                     Toast.makeText(AddMedicalandAnssuranceActivity.this, "Please select Policy Type", Toast.LENGTH_SHORT).show();
-                }else if (policyNumberTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (policyNumberTxt.getText().toString().equalsIgnoreCase("")) {
                     policyNumberTxt.setError("Please enter policy number");
-                }else if (policyNameTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (policyNameTxt.getText().toString().equalsIgnoreCase("")) {
                     policyNameTxt.setError("Please enter policy name");
-                }else if (policyDurationTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (policyDurationTxt.getText().toString().equalsIgnoreCase("")) {
                     policyDurationTxt.setError("please enter policy duration");
-                }else if (policyByTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (policyByTxt.getText().toString().equalsIgnoreCase("")) {
                     policyByTxt.setError("Please enter policy by");
-                }else if (insuranceCompTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (insuranceCompTxt.getText().toString().equalsIgnoreCase("")) {
                     insuranceCompTxt.setError("Please enter insurance company ");
-                }else if (amountInsuredTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (amountInsuredTxt.getText().toString().equalsIgnoreCase("")) {
                     amountInsuredTxt.setError("Please enter amount insured");
-                }else {
+                } else {
 
-                    if (conn.getConnectivityStatus()>0) {
+                    if (conn.getConnectivityStatus() > 0) {
 
                         if (!imageBase64.equalsIgnoreCase("")) {
 
@@ -370,26 +357,22 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                                     policyNumberTxt.getText().toString(), startDateTxt.getText().toString(), endDateTxt.getText().toString(),
                                     policyDurationTxt.getText().toString(), policyByTxt.getText().toString(), insuranceCompTxt.getText().toString(),
                                     amountInsuredTxt.getText().toString(), imageBase64, imageExtenstion);
-                        }else
-                            {
-                                Toast.makeText(AddMedicalandAnssuranceActivity.this, "This file is not supported", Toast.LENGTH_SHORT).show();
-                            }
-                    }else
-                        {
-                            conn.showNoInternetAlret();
+                        } else {
+                            Toast.makeText(AddMedicalandAnssuranceActivity.this, "This file is not supported", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        conn.showNoInternetAlret();
+                    }
                 }
 
             }
         });
         // bind spinner data
-        if (conn.getConnectivityStatus()>0)
-        {
+        if (conn.getConnectivityStatus() > 0) {
             personalDdlDetails();
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        } else {
+            conn.showNoInternetAlret();
+        }
 
         //Upload Documents
         uploadBtn.setOnClickListener(new View.OnClickListener() {
@@ -397,7 +380,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (checkPermissions()){
+                if (checkPermissions()) {
                     showFileChooser();
 
                 }
@@ -428,7 +411,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                 if (checkPermissions()) {
 
 
-                    new DownloadTask(AddMedicalandAnssuranceActivity.this, SettingConstant.DownloadUrl + fileStr,"MedialAnssurance");
+                    new DownloadTask(AddMedicalandAnssuranceActivity.this, SettingConstant.DownloadUrl + fileStr, "MedialAnssurance");
                 }
             }
         });
@@ -465,8 +448,6 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
     }
 
 
-
-
     //choose attcahment
     private void showFileChooser() {
 
@@ -497,6 +478,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }*/
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -561,13 +543,13 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
         private ProgressDialog progressBar;
 
-        public MyTask( ProgressDialog progressBar ) {
+        public MyTask(ProgressDialog progressBar) {
 
-            this.progressBar= progressBar;
+            this.progressBar = progressBar;
         }
 
         @Override
-        protected String doInBackground(String... params ) {
+        protected String doInBackground(String... params) {
             progressBar.show();
             //do your work
             return "OK";
@@ -577,14 +559,17 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            progressBar.dismiss( );
+            progressBar.dismiss();
         }
 
         /* @Override
         protected void onPostExecute( ArrayList<Comment> result ) {
             progressBar.setVisibility( View.GONE );
         }*/
-    };
+    }
+
+    ;
+
     public static boolean isImageFile(String path) {
         String mimeType = URLConnection.guessContentTypeFromName(path);
         return mimeType != null && mimeType.startsWith("image");
@@ -661,7 +646,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
     public void personalDdlDetails() {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(AddMedicalandAnssuranceActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddMedicalandAnssuranceActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -673,45 +658,40 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     //bind material List
-                    if (policyTypeList.size()>0)
-                    {
+                    if (policyTypeList.size() > 0) {
                         policyTypeList.clear();
                     }
-                    policyTypeList.add(new PolicyTypeModel("Please Select Policy Type",""));
+                    policyTypeList.add(new PolicyTypeModel("Please Select Policy Type", ""));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray policyObj = jsonObject.getJSONArray("PolicyTypeMaster");
-                        for (int i =0; i<policyObj.length(); i++)
-                        {
+                        for (int i = 0; i < policyObj.length(); i++) {
                             JSONObject object = policyObj.getJSONObject(i);
 
                             String PolicyTypeID = object.getString("PolicyTypeID");
                             String PolicyTypeName = object.getString("PolicyTypeName");
 
-                            policyTypeList.add(new PolicyTypeModel(PolicyTypeName,PolicyTypeID));
+                            policyTypeList.add(new PolicyTypeModel(PolicyTypeName, PolicyTypeID));
 
                         }
 
 
-                        for (int k =0; k<policyTypeList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (policyTypeList.get(k).getPolicyType().equalsIgnoreCase(policyTypeStr))
-                                {
+                        for (int k = 0; k < policyTypeList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (policyTypeList.get(k).getPolicyType().equalsIgnoreCase(policyTypeStr)) {
                                     policyTypeSpinner.setSelection(k);
                                 }
                             }
@@ -726,7 +706,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -772,12 +752,12 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
     }
 
     //add new medical anssurance
-    public void addMedicalAnssuranceData(final String AdminID  , final String RecordID, final String PolicyID, final String Name,
+    public void addMedicalAnssuranceData(final String AdminID, final String RecordID, final String PolicyID, final String Name,
                                          final String AuthCode, final String Number, final String StartDate, final String EndDate,
                                          final String Duration, final String PolicyBy, final String InsuranceCompany,
-                                         final String AmountInsured, final String ImgJson, final String ImageExtension  )  {
+                                         final String AmountInsured, final String ImgJson, final String ImageExtension) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddMedicalandAnssuranceActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddMedicalandAnssuranceActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -789,19 +769,19 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")){
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
 
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -809,7 +789,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -846,25 +826,24 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("PolicyID",PolicyID);
-                params.put("Name",Name);
-                params.put("Number",Number);
-                params.put("StartDate",StartDate);
-                params.put("EndDate",EndDate);
-                params.put("Duration",Duration);
-                params.put("PolicyBy",PolicyBy);
-                params.put("InsuranceCompany",InsuranceCompany);
-                params.put("AmountInsured",AmountInsured);
-                params.put("FileExtension",ImageExtension);
-                params.put("FileJson",ImgJson);
-
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("PolicyID", PolicyID);
+                params.put("Name", Name);
+                params.put("Number", Number);
+                params.put("StartDate", StartDate);
+                params.put("EndDate", EndDate);
+                params.put("Duration", Duration);
+                params.put("PolicyBy", PolicyBy);
+                params.put("InsuranceCompany", InsuranceCompany);
+                params.put("AmountInsured", AmountInsured);
+                params.put("FileExtension", ImageExtension);
+                params.put("FileJson", ImgJson);
 
 
                 Log.e("Parms", params.toString());
@@ -888,6 +867,7 @@ public class AddMedicalandAnssuranceActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+
     private void Logout() {
 
 

@@ -74,7 +74,7 @@ public class HotelBookingListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     public ConnectionDetector conn;
-    public String userId = "",authCode = "",strtext = "";
+    public String userId = "", authCode = "", strtext = "";
     public TextView noCust;
 
     String LoginStatus;
@@ -121,22 +121,22 @@ public class HotelBookingListFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             strtext = bundle.getString("Count");
-        }else {
+        } else {
             strtext = getArguments().getString("Count");
         }
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        hotelRecycler = (RecyclerView)rootView.findViewById(R.id.hotel_booking_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        hotelRecycler = (RecyclerView) rootView.findViewById(R.id.hotel_booking_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new HotelBookingListAdapter(getActivity(),list,getActivity());
+        adapter = new HotelBookingListAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         hotelRecycler.setLayoutManager(mLayoutManager);
         hotelRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -152,14 +152,14 @@ public class HotelBookingListFragment extends Fragment {
 
                 Intent i = new Intent(getActivity(), AddHotelActivity.class);
                 i.putExtra("Mode", "Add");
-                i.putExtra("Hotel type","");
-                i.putExtra("Booking City","");
-                i.putExtra("Guest House","");
-                i.putExtra("Check In Date","");
-                i.putExtra("Check In Time","");
-                i.putExtra("Check Out Time","");
-                i.putExtra("Remark","");
-                i.putExtra("BID","");
+                i.putExtra("Hotel type", "");
+                i.putExtra("Booking City", "");
+                i.putExtra("Guest House", "");
+                i.putExtra("Check In Date", "");
+                i.putExtra("Check In Time", "");
+                i.putExtra("Check Out Time", "");
+                i.putExtra("Remark", "");
+                i.putExtra("BID", "");
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -171,19 +171,19 @@ public class HotelBookingListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            hotelListData(authCode,userId,"0");
+            hotelListData(authCode, userId, "0");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
-    //Hotel List Data
-    public void hotelListData(final String AuthCode , final String AdminID, final String AppStatus) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+    //Hotel List Data
+    public void hotelListData(final String AuthCode, final String AdminID, final String AppStatus) {
+
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -195,14 +195,12 @@ public class HotelBookingListFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
 
@@ -211,11 +209,11 @@ public class HotelBookingListFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
                             String EmployeeName = jsonObject.getString("HotelName");
                             String CityName = jsonObject.getString("CityName");
                             String requestDate = jsonObject.getString("AddDateText");
@@ -230,23 +228,18 @@ public class HotelBookingListFragment extends Fragment {
                             String HotelType = jsonObject.getString("HotelType");
                             String AppStatus = jsonObject.getString("AppStatus");
 
-                            list.add(new HotelBookingListModel(EmployeeName,CityName,requestDate,CheckInDateText
-                                    ,CheckInTime,CheckOutDateText,AppStatusText,followUpDate,BID,Visibility,EmpRemark,HotelType,AppStatus));
+                            list.add(new HotelBookingListModel(EmployeeName, CityName, requestDate, CheckInDateText
+                                    , CheckInTime, CheckOutDateText, AppStatusText, followUpDate, BID, Visibility, EmpRemark, HotelType, AppStatus));
 
                         }
 
 
-
-
-
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         hotelRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         hotelRecycler.setVisibility(View.VISIBLE);
                     }
@@ -256,7 +249,7 @@ public class HotelBookingListFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -293,13 +286,13 @@ public class HotelBookingListFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
-                params.put("AppStatus",AppStatus);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("AppStatus", AppStatus);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -388,7 +381,6 @@ public class HotelBookingListFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

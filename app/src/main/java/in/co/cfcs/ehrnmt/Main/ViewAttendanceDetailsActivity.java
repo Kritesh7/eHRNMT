@@ -222,9 +222,9 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")){
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             popupWindow.dismiss();
                         }
                     }
@@ -330,11 +330,11 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
                             String Name = jsonObject.getString("Name");
                             String AttendanceDateText = jsonObject.getString("AttendanceDateText");
                             String InTime = jsonObject.getString("InTime");
@@ -365,8 +365,6 @@ public class ViewAttendanceDetailsActivity extends AppCompatActivity {
                             }
 
                         }
-
-
 
 
                     }

@@ -56,9 +56,9 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
     public AssestsDetailsAdapter adapter;
     public ArrayList<AssestDetailsModel> list = new ArrayList<>();
     public String assestsUrl = SettingConstant.BaseUrl + "AppEmployeeAssetList";
-    public TextView noCust ;
+    public TextView noCust;
     public ConnectionDetector conn;
-    public String userId = "",authCode = "", empId = "";
+    public String userId = "", authCode = "", empId = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -79,11 +79,11 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -97,22 +97,21 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Asset Details");
 
-        assetsRecycler = (RecyclerView)findViewById(R.id.assets_recycler);
+        assetsRecycler = (RecyclerView) findViewById(R.id.assets_recycler);
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerAssetDetailsActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerAssetDetailsActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerAssetDetailsActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerAssetDetailsActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerAssetDetailsActivity.this)));
 
 
-        adapter = new AssestsDetailsAdapter(ManagerAssetDetailsActivity.this,list);
+        adapter = new AssestsDetailsAdapter(ManagerAssetDetailsActivity.this, list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerAssetDetailsActivity.this);
         assetsRecycler.setLayoutManager(mLayoutManager);
         assetsRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -122,24 +121,21 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
 
 
         // set data
-        if (conn.getConnectivityStatus()>0)
-        {
-            assetsDetails(authCode,userId,empId);
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        if (conn.getConnectivityStatus() > 0) {
+            assetsDetails(authCode, userId, empId);
+        } else {
+            conn.showNoInternetAlret();
+        }
 
         // show details of assests
-
 
 
     }
 
     //Assets list
-    public void assetsDetails(final String AuthCode , final String AdminID, final String empId) {
+    public void assetsDetails(final String AuthCode, final String AdminID, final String empId) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerAssetDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerAssetDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -151,25 +147,23 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         if (object.has("status")) {
                             LoginStatus = object.getString("status");
                             msgstatus = object.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String AssetsHolder = object.getString("AssetsHolder");
                             String Assets = object.getString("AssetsName");
                             String IssueDate = object.getString("IssueDate");
@@ -179,21 +173,18 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
                             String Reasion = object.getString("Reasion");
                             String Remarks = object.getString("Remarks");
 
-                            list.add(new AssestDetailsModel(AssetsHolder,Assets,BrandName + " " +SerialNo ,IssueDate
-                                    ,ExpReturnDate,Reasion, Remarks));
+                            list.add(new AssestDetailsModel(AssetsHolder, Assets, BrandName + " " + SerialNo, IssueDate
+                                    , ExpReturnDate, Reasion, Remarks));
 
                         }
 
                     }
 
 
-
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         assetsRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         assetsRecycler.setVisibility(View.VISIBLE);
                     }
@@ -202,7 +193,7 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -239,13 +230,13 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",empId);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", empId);
 
                 Log.e("Parms", params.toString());
                 return params;

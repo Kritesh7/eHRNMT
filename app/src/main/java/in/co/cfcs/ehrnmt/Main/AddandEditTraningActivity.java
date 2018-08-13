@@ -18,7 +18,7 @@ import in.co.cfcs.ehrnmt.R;
 public class AddandEditTraningActivity extends AppCompatActivity {
 
     public TextView titleTxt;
-    public Spinner domainSpinner,courseSpinner, profeceancySpinner,prioritySpinner;
+    public Spinner domainSpinner, courseSpinner, profeceancySpinner, prioritySpinner;
     public ArrayList<String> domainList = new ArrayList<>();
     public ArrayList<String> courseList = new ArrayList<>();
     public ArrayList<String> proficeancyList = new ArrayList<>();
@@ -39,11 +39,11 @@ public class AddandEditTraningActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.traningtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -58,15 +58,14 @@ public class AddandEditTraningActivity extends AppCompatActivity {
 
         titleTxt.setText("Add New Training");
 
-        domainSpinner = (Spinner)findViewById(R.id.domainspinner);
-        courseSpinner = (Spinner)findViewById(R.id.coursespinner);
-        profeceancySpinner = (Spinner)findViewById(R.id.proficiencyspinner);
-        prioritySpinner = (Spinner)findViewById(R.id.priorityspinner);
+        domainSpinner = (Spinner) findViewById(R.id.domainspinner);
+        courseSpinner = (Spinner) findViewById(R.id.coursespinner);
+        profeceancySpinner = (Spinner) findViewById(R.id.proficiencyspinner);
+        prioritySpinner = (Spinner) findViewById(R.id.priorityspinner);
 
 
         //domain Spinner
-        if (domainList.size()>0)
-        {
+        if (domainList.size() > 0) {
             domainList.clear();
         }
         domainList.add("Please Select Domain");
@@ -85,8 +84,7 @@ public class AddandEditTraningActivity extends AppCompatActivity {
         domainSpinner.setAdapter(DomainAdapter);
 
         // course Spinner
-        if (courseList.size()>0)
-        {
+        if (courseList.size() > 0) {
             courseList.clear();
         }
         courseList.add("Please Select Course");
@@ -105,13 +103,11 @@ public class AddandEditTraningActivity extends AppCompatActivity {
         courseSpinner.setAdapter(courseAdapter);
 
         // profeceancy Spinner
-        if (proficeancyList.size()>0)
-        {
+        if (proficeancyList.size() > 0) {
             proficeancyList.clear();
         }
         proficeancyList.add("Please Select Proficiency");
         proficeancyList.add("Beginner");
-
 
 
         //change spinner arrow color
@@ -125,8 +121,7 @@ public class AddandEditTraningActivity extends AppCompatActivity {
 
         //prioirty Spinner
 
-        if (priorityList.size()>0)
-        {
+        if (priorityList.size() > 0) {
             priorityList.clear();
         }
         priorityList.add("Please Select Priority");

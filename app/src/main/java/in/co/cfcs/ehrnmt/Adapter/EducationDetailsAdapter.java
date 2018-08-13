@@ -43,8 +43,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
  * Created by Admin on 21-09-2017.
  */
 
-public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetailsAdapter.ViewHolder>
-{
+public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetailsAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<EducationModel> list = new ArrayList<>();
@@ -83,49 +82,43 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
         holder.courseTypeTxt.setText(model.getCourseType());
         holder.statusTxt.setText(model.getStatusTxt());
 
-        if (model.getHighestDegree().equalsIgnoreCase("true"))
-        {
+        if (model.getHighestDegree().equalsIgnoreCase("true")) {
             holder.highestDegreeTxt.setVisibility(View.VISIBLE);
             holder.view.setVisibility(View.VISIBLE);
 
-        }else
-            {
-                holder.highestDegreeTxt.setVisibility(View.GONE);
-                holder.view.setVisibility(View.GONE);
-            }
+        } else {
+            holder.highestDegreeTxt.setVisibility(View.GONE);
+            holder.view.setVisibility(View.GONE);
+        }
 
-            //Comment lay visibile or not
-        if (model.getComment().equalsIgnoreCase(""))
-            {
-                holder.commLay.setVisibility(View.GONE);
-                holder.commentView.setVisibility(View.GONE);
-            }else
-                {
-                    holder.commLay.setVisibility(View.VISIBLE);
-                    holder.commentView.setVisibility(View.VISIBLE);
+        //Comment lay visibile or not
+        if (model.getComment().equalsIgnoreCase("")) {
+            holder.commLay.setVisibility(View.GONE);
+            holder.commentView.setVisibility(View.GONE);
+        } else {
+            holder.commLay.setVisibility(View.VISIBLE);
+            holder.commentView.setVisibility(View.VISIBLE);
 
-                    holder.commentTxt.setText(model.getComment());
-                }
+            holder.commentTxt.setText(model.getComment());
+        }
 
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (model.getEditable().equalsIgnoreCase("1"))
-                {
+                if (model.getEditable().equalsIgnoreCase("1")) {
                     Intent i = new Intent(context, AddQualificationActivity.class);
-                    i.putExtra("RecordId",model.getRecordId());
-                    i.putExtra("Mode","EditMode");
-                    i.putExtra("QualificationName",model.getQualification());
-                    i.putExtra("DeciplineName",model.getDescipline());
-                    i.putExtra("PassingDate",model.getPassingDate());
-                    i.putExtra("Institute",model.getInstitute());
-                    i.putExtra("CourseTypeName",model.getCourseType());
-                    i.putExtra("HighestDegree",model.getHighestDegree());
+                    i.putExtra("RecordId", model.getRecordId());
+                    i.putExtra("Mode", "EditMode");
+                    i.putExtra("QualificationName", model.getQualification());
+                    i.putExtra("DeciplineName", model.getDescipline());
+                    i.putExtra("PassingDate", model.getPassingDate());
+                    i.putExtra("Institute", model.getInstitute());
+                    i.putExtra("CourseTypeName", model.getCourseType());
+                    i.putExtra("HighestDegree", model.getHighestDegree());
                     activity.startActivity(i);
                     activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-                }else
-                {
+                } else {
                     //Toast.makeText(context, "Your Previous request waiting for Hr approval.", Toast.LENGTH_SHORT).show();
 
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -143,7 +136,6 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
                             dialog.dismiss();
 
 
-
                         }
                     });
 
@@ -158,11 +150,9 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
             @Override
             public void onClick(View view) {
 
-                if (model.getDeletable().equalsIgnoreCase("1"))
-                {
-                    showSettingsAlert(position,authCode,model.getRecordId(),userId);
-                }else
-                {
+                if (model.getDeletable().equalsIgnoreCase("1")) {
+                    showSettingsAlert(position, authCode, model.getRecordId(), userId);
+                } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
                     // Setting Dialog Title
@@ -187,16 +177,13 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
             }
         });
 
-        if (checkNavigate.equalsIgnoreCase("FirstOne"))
-        {
+        if (checkNavigate.equalsIgnoreCase("FirstOne")) {
             holder.view2.setVisibility(View.VISIBLE);
             holder.btnLay.setVisibility(View.VISIBLE);
-        }else
-            {
-                holder.view2.setVisibility(View.GONE);
-                holder.btnLay.setVisibility(View.GONE);
-            }
-
+        } else {
+            holder.view2.setVisibility(View.GONE);
+            holder.btnLay.setVisibility(View.GONE);
+        }
 
 
     }
@@ -207,22 +194,22 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView qualificationTxt,desciplineTxt,passingDateTxt,instituteTxt, courseTypeTxt, commentTxt, statusTxt;
+        public TextView qualificationTxt, desciplineTxt, passingDateTxt, instituteTxt, courseTypeTxt, commentTxt, statusTxt;
         public View view, commentView, view2;
         public ImageView editBtn, delBtn;
-        public LinearLayout mainLay,highestDegreeTxt, commLay, btnLay;
+        public LinearLayout mainLay, highestDegreeTxt, commLay, btnLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            qualificationTxt = (TextView)itemView.findViewById(R.id.qualification);
-            desciplineTxt = (TextView)itemView.findViewById(R.id.decipline);
-            passingDateTxt = (TextView)itemView.findViewById(R.id.passingdate);
-            instituteTxt = (TextView)itemView.findViewById(R.id.institute);
-            courseTypeTxt = (TextView)itemView.findViewById(R.id.coursetype);
+            qualificationTxt = (TextView) itemView.findViewById(R.id.qualification);
+            desciplineTxt = (TextView) itemView.findViewById(R.id.decipline);
+            passingDateTxt = (TextView) itemView.findViewById(R.id.passingdate);
+            instituteTxt = (TextView) itemView.findViewById(R.id.institute);
+            courseTypeTxt = (TextView) itemView.findViewById(R.id.coursetype);
             highestDegreeTxt = (LinearLayout) itemView.findViewById(R.id.highestdegree);
             view = (View) itemView.findViewById(R.id.view);
-            mainLay = (LinearLayout)itemView.findViewById(R.id.main_lay);
+            mainLay = (LinearLayout) itemView.findViewById(R.id.main_lay);
             commentTxt = (TextView) itemView.findViewById(R.id.commenttxt);
             statusTxt = (TextView) itemView.findViewById(R.id.status);
             commentView = (View) itemView.findViewById(R.id.commView);
@@ -231,9 +218,6 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
             delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
             btnLay = (LinearLayout) itemView.findViewById(R.id.btnlay);
             view2 = (View) itemView.findViewById(R.id.view2);
-
-
-
 
 
         }
@@ -262,7 +246,7 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                deleteMethod(authcode,recordId, postion, userid);
+                deleteMethod(authcode, recordId, postion, userid);
             }
         });
 
@@ -276,10 +260,11 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
         // Showing Alert Message
         alertDialog.show();
     }
-    //delete the Details
-    public void deleteMethod(final String AuthCode , final String RecordID, final int  postion, final String userid) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+    //delete the Details
+    public void deleteMethod(final String AuthCode, final String RecordID, final int postion, final String userid) {
+
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -290,14 +275,12 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
 
                             remove(postion);
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
@@ -308,7 +291,7 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -323,13 +306,13 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",userid);
-                params.put("RecordID",RecordID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", userid);
+                params.put("RecordID", RecordID);
 
                 Log.e("Parms", params.toString());
                 return params;

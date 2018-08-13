@@ -81,10 +81,10 @@ public class TrainingFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_training, container, false);
 
-        traniningRecycler = (RecyclerView)rootView.findViewById(R.id.traning_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        traniningRecycler = (RecyclerView) rootView.findViewById(R.id.traning_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
 
-        adapter = new TraningAdapter(getActivity(),list);
+        adapter = new TraningAdapter(getActivity(), list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         traniningRecycler.setLayoutManager(mLayoutManager);
         traniningRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -109,15 +109,15 @@ public class TrainingFragment extends Fragment {
 
     private void prepareInsDetails() {
 
-        TraningModel model = new TraningModel(".Net","MVC","03-09-2017","02-01-2017","Approved");
+        TraningModel model = new TraningModel(".Net", "MVC", "03-09-2017", "02-01-2017", "Approved");
         list.add(model);
-        model = new TraningModel(".Net","MVC","03-09-2017","02-01-2017","Approved");
+        model = new TraningModel(".Net", "MVC", "03-09-2017", "02-01-2017", "Approved");
         list.add(model);
-        model = new TraningModel(".Net","MVC","03-09-2017","02-01-2017","Approved");
+        model = new TraningModel(".Net", "MVC", "03-09-2017", "02-01-2017", "Approved");
         list.add(model);
-        model = new TraningModel(".Net","MVC","03-09-2017","02-01-2017","Approved");
+        model = new TraningModel(".Net", "MVC", "03-09-2017", "02-01-2017", "Approved");
         list.add(model);
-        model = new TraningModel(".Net","MVC","03-09-2017","02-01-2017","Approved");
+        model = new TraningModel(".Net", "MVC", "03-09-2017", "02-01-2017", "Approved");
         list.add(model);
 
 

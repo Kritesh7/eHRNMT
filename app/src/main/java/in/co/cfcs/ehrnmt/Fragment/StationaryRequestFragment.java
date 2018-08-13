@@ -73,7 +73,7 @@ public class StationaryRequestFragment extends Fragment {
     public FloatingActionButton fab;
     public String stationoryUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryRequestList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
     public ArrayList<BookMeaPrevisionModel> itemBindList = new ArrayList<>();
     public TextView noCust;
     public String strtext = "";
@@ -125,31 +125,29 @@ public class StationaryRequestFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             strtext = bundle.getString("Count");
-        }else {
+        } else {
             strtext = getArguments().getString("Count");
         }
-        Log.e("checking count",strtext + " null");
-
+        Log.e("checking count", strtext + " null");
 
 
         mListener.onFragmentInteraction(strtext);
 
-        stainoryRecy = (RecyclerView)rootView.findViewById(R.id.stationary_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        stainoryRecy = (RecyclerView) rootView.findViewById(R.id.stationary_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new StatinaryRequestAdapter(getActivity(),list,getActivity());
+        adapter = new StatinaryRequestAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         stainoryRecy.setLayoutManager(mLayoutManager);
         stainoryRecy.setItemAnimator(new DefaultItemAnimator());
         stainoryRecy.setAdapter(adapter);
 
         stainoryRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -170,12 +168,11 @@ public class StationaryRequestFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            stationryData(authCode,userId,"0","1");
+            stationryData(authCode, userId, "0", "1");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
@@ -204,9 +201,9 @@ public class StationaryRequestFragment extends Fragment {
     }*/
 
     //Staionry Data
-    public void stationryData(final String AuthCode , final String AdminID, final String AppStatus, final String ItemCatID) {
+    public void stationryData(final String AuthCode, final String AdminID, final String AppStatus, final String ItemCatID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -218,25 +215,23 @@ public class StationaryRequestFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String EmployeeName = jsonObject.getString("EmployeeName");
                             String ZoneName = jsonObject.getString("ZoneName");
                             String Quantity = jsonObject.getString("Items");
@@ -249,22 +244,18 @@ public class StationaryRequestFragment extends Fragment {
                             String AppStatus = jsonObject.getString("AppStatus");
 
 
-                            list.add(new StationaryRequestModel(EmployeeName,ZoneName,Quantity,requestDate,IdealClosureDateText
-                                    ,followDate,AppStatusText,RID,ItemCatID,AppStatus));
-
-
+                            list.add(new StationaryRequestModel(EmployeeName, ZoneName, Quantity, requestDate, IdealClosureDateText
+                                    , followDate, AppStatusText, RID, ItemCatID, AppStatus));
 
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         stainoryRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         stainoryRecy.setVisibility(View.VISIBLE);
                     }
@@ -273,7 +264,7 @@ public class StationaryRequestFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -310,14 +301,14 @@ public class StationaryRequestFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
-                params.put("AppStatus",AppStatus);
-                params.put("ItemCatID",ItemCatID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("AppStatus", AppStatus);
+                params.put("ItemCatID", ItemCatID);
 
 
                 Log.e("Parms", params.toString());
@@ -357,7 +348,6 @@ public class StationaryRequestFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

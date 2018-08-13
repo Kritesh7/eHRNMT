@@ -64,7 +64,7 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     public ArrayList<LeaveTypeModel> leaveTypeList = new ArrayList<>();
     public ArrayList<LeaveYearTypeModel> leaveYearList = new ArrayList<>();
     public int month, year, day;
-    public TextView titleTxt,startCal, endCal,startTxt, endTxt;
+    public TextView titleTxt, startCal, endCal, startTxt, endTxt;
     public String leaveYearUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveYearList";
     public String leaveTypeUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveTypeList";
     public ArrayAdapter<LeaveYearTypeModel> leaveYearAdapter;
@@ -242,14 +242,14 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
 
                 try {
 
-                    if(loginStatus != 0){
+                    if (loginStatus != 0) {
                         getLeaveType(authcode, userId, leaveYearList.get(i + 1).getLeaveYear());
                     }
 
 
                 } catch (IndexOutOfBoundsException e) {
 
-                    if(loginStatus != 0){
+                    if (loginStatus != 0) {
                         getLeaveType(authcode, userId, leaveYearList.get(i).getLeaveYear());
                     }
 
@@ -375,19 +375,17 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String LeaveYear = jsonObject.getString("LeaveYear");
                             String LeaveYearText = jsonObject.getString("LeaveYearText");
 
                             leaveYearList.add(new LeaveYearTypeModel(LeaveYear, LeaveYearText));
 
                         }
-
-
 
 
                     }
@@ -487,19 +485,17 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
                             String LeaveID = jsonObject.getString("LeaveID");
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
 
                             leaveTypeList.add(new LeaveTypeModel(LeaveID, LeaveTypeName));
 
                         }
-
-
 
 
                     }
@@ -593,12 +589,12 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                            } else  if (LoginStatus.equalsIgnoreCase("success")){
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else if (LoginStatus.equalsIgnoreCase("success")) {
                                 onBackPressed();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                            }else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -653,6 +649,7 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
     }
 
     int loginStatus = 1;
+
     private void Logout() {
 
         loginStatus = 0;
@@ -687,8 +684,6 @@ public class NewAddLeaveMangementActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
 }

@@ -27,9 +27,8 @@ import in.co.cfcs.ehrnmt.Source.SettingConstant;
  * Created by Admin on 25-09-2017.
  */
 
-public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapter.ViewHolder>
-{
-    public Context context ;
+public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapter.ViewHolder> {
+    public Context context;
     public ArrayList<AppreceationModel> list = new ArrayList<>();
     String[] permissions = new String[]{
 
@@ -63,22 +62,20 @@ public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapte
         holder.appreceationDetailsTxt.setText(model.getAppreceationDetails());
         holder.appreceationTitleTxt.setText(model.getAppreceationTitle());
 
-        if (model.getFileNameText().equalsIgnoreCase(""))
-        {
+        if (model.getFileNameText().equalsIgnoreCase("")) {
             holder.downloadLay.setVisibility(View.GONE);
             holder.view.setVisibility(View.GONE);
-        }else
-            {
-                holder.downloadLay.setVisibility(View.VISIBLE);
-                holder.view.setVisibility(View.VISIBLE);
-            }
+        } else {
+            holder.downloadLay.setVisibility(View.VISIBLE);
+            holder.view.setVisibility(View.VISIBLE);
+        }
 
         holder.downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (checkPermissions()) {
-                    new DownloadTask(context, SettingConstant.DownloadUrl + model.getFileNameText(),checkNavigateStr);
+                    new DownloadTask(context, SettingConstant.DownloadUrl + model.getFileNameText(), checkNavigateStr);
                 }
 
             }
@@ -93,7 +90,7 @@ public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView appreceaionDateTxt,appreceationDetailsTxt, appreceationTitleTxt;
+        public TextView appreceaionDateTxt, appreceationDetailsTxt, appreceationTitleTxt;
         public View view;
         public LinearLayout downloadLay;
         public ImageView downloadBtn;
@@ -101,18 +98,18 @@ public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            appreceaionDateTxt = (TextView)itemView.findViewById(R.id.appreceation_date);
-            appreceationDetailsTxt = (TextView)itemView.findViewById(R.id.appreceation_details);
-            appreceationTitleTxt = (TextView)itemView.findViewById(R.id.appreceation_title);
+            appreceaionDateTxt = (TextView) itemView.findViewById(R.id.appreceation_date);
+            appreceationDetailsTxt = (TextView) itemView.findViewById(R.id.appreceation_details);
+            appreceationTitleTxt = (TextView) itemView.findViewById(R.id.appreceation_title);
             downloadLay = (LinearLayout) itemView.findViewById(R.id.downloadOptionLay);
-            view = (View)itemView.findViewById(R.id.view);
+            view = (View) itemView.findViewById(R.id.view);
             downloadBtn = (ImageView) itemView.findViewById(R.id.downloadOptionBtn);
             /*issuesDateTxt = (TextView)itemView.findViewById(R.id.issuesdate);
             estimatedReturnDateTxt = (TextView)itemView.findViewById(R.id.estimated_return_date);
             issuesReasonsTxt = (TextView)itemView.findViewById(R.id.issuesreasons);
             remarkTxt = (TextView)itemView.findViewById(R.id.remark);*/
 
-           // mainLay = (CardView)itemView.findViewById(R.id.assets_main_lay);
+            // mainLay = (CardView)itemView.findViewById(R.id.assets_main_lay);
         }
     }
 

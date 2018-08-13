@@ -106,23 +106,21 @@ public class WeekOfListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_week_of_list, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
         weekOfTxt = (TextView) rootView.findViewById(R.id.weekoftxt);
 
         conn = new ConnectionDetector(getActivity());
-        userid =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            weekOfurl(authcode,userid);
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        if (conn.getConnectivityStatus() > 0) {
+            weekOfurl(authcode, userid);
+        } else {
+            conn.showNoInternetAlret();
+        }
 
 
         return rootView;
@@ -130,10 +128,10 @@ public class WeekOfListFragment extends Fragment {
 
 
     // get week of Text
-    public void weekOfurl(final String AuthCode , final String Admin ) {
+    public void weekOfurl(final String AuthCode, final String Admin) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -144,10 +142,9 @@ public class WeekOfListFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
 
@@ -156,11 +153,11 @@ public class WeekOfListFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
                             String EmployeeWeeklyOff = jsonObject.getString("EmployeeWeeklyOff");
                             weekOfTxt.setText(EmployeeWeeklyOff);
                         }
@@ -170,7 +167,7 @@ public class WeekOfListFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -207,14 +204,14 @@ public class WeekOfListFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",Admin);
-                params.put("EmployeeID",Admin);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", Admin);
+                params.put("EmployeeID", Admin);
 
 
                 Log.e("Parms", params.toString());
@@ -254,6 +251,7 @@ public class WeekOfListFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
     private void Logout() {
 
 

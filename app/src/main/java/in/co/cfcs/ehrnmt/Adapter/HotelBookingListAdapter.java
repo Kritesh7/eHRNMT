@@ -44,8 +44,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
  * Created by Admin on 18-09-2017.
  */
 
-public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingListAdapter.ViewHolder>
-{
+public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingListAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<HotelBookingListModel> list = new ArrayList<>();
@@ -70,8 +69,8 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         HotelBookingListModel model = list.get(position);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
 
         holder.empNameTxt.setText(model.getEmpName());
@@ -89,68 +88,61 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
 
                 Intent i = new Intent(context, AddHotelActivity.class);
                 i.putExtra("Mode", "Edit");
-                i.putExtra("Hotel type",model.getHotelTypeId());
-                i.putExtra("Booking City",model.getCityName());
-                i.putExtra("Guest House",model.getEmpName());
-                i.putExtra("Check In Date",model.getCheckInDate());
-                i.putExtra("Check In Time",model.getCheckInTime());
-                i.putExtra("Check Out Time",model.getCheckOutDate());
-                i.putExtra("Remark",model.getEmpRemark());
-                i.putExtra("BID",model.getBID());
+                i.putExtra("Hotel type", model.getHotelTypeId());
+                i.putExtra("Booking City", model.getCityName());
+                i.putExtra("Guest House", model.getEmpName());
+                i.putExtra("Check In Date", model.getCheckInDate());
+                i.putExtra("Check In Time", model.getCheckInTime());
+                i.putExtra("Check Out Time", model.getCheckOutDate());
+                i.putExtra("Remark", model.getEmpRemark());
+                i.putExtra("BID", model.getBID());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
 
-       holder.delBtb.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
+        holder.delBtb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-               showSettingsAlert(position,authCode,model.getBID(),userId);
-           }
-       });
+                showSettingsAlert(position, authCode, model.getBID(), userId);
+            }
+        });
 
-       if (model.getFollowUpDate().equalsIgnoreCase("null"))
-       {
-           holder.hotelFollowLay.setVisibility(View.GONE);
-           holder.view.setVisibility(View.GONE);
-       }else
-           {
-               holder.hotelFollowLay.setVisibility(View.VISIBLE);
-               holder.view.setVisibility(View.VISIBLE);
-           }
+        if (model.getFollowUpDate().equalsIgnoreCase("null")) {
+            holder.hotelFollowLay.setVisibility(View.GONE);
+            holder.view.setVisibility(View.GONE);
+        } else {
+            holder.hotelFollowLay.setVisibility(View.VISIBLE);
+            holder.view.setVisibility(View.VISIBLE);
+        }
 
         //Visibile gone or
-        if (model.getVisibility().equalsIgnoreCase("0"))
-        {
+        if (model.getVisibility().equalsIgnoreCase("0")) {
             holder.btnLay.setVisibility(View.GONE);
             holder.view2.setVisibility(View.GONE);
-        }else
-            {
-                holder.btnLay.setVisibility(View.VISIBLE);
-                holder.view2.setVisibility(View.VISIBLE);
-            }
+        } else {
+            holder.btnLay.setVisibility(View.VISIBLE);
+            holder.view2.setVisibility(View.VISIBLE);
+        }
 
-            //View data
+        //View data
         holder.mainLayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent i = new Intent(context, ViewHotelDetailActivity.class);
-                i.putExtra("BID",model.getBID());
+                i.putExtra("BID", model.getBID());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
 
-        if (model.getAppStatus().equalsIgnoreCase("1"))
-        {
+        if (model.getAppStatus().equalsIgnoreCase("1")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.orange_color));
-        }else if (model.getAppStatus().equalsIgnoreCase("2"))
-        {
+        } else if (model.getAppStatus().equalsIgnoreCase("2")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.green_color));
-        }else if (model.getAppStatus().equalsIgnoreCase("3"))
-        {
+        } else if (model.getAppStatus().equalsIgnoreCase("3")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.red_color));
         }
     }
@@ -161,7 +153,7 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView empNameTxt,cityNameTXT,requestDateTxt, checkInDate,checkInTime,checkOutDate,followupDateTxt,statusTxt;
+        public TextView empNameTxt, cityNameTXT, requestDateTxt, checkInDate, checkInTime, checkOutDate, followupDateTxt, statusTxt;
         public LinearLayout hotelFollowLay, btnLay, mainLayView;
         public ImageView mainLay, delBtb;
         public View view, view2;
@@ -169,21 +161,21 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
         public ViewHolder(View itemView) {
             super(itemView);
 
-            empNameTxt = (TextView)itemView.findViewById(R.id.hotel_employename);
-            cityNameTXT = (TextView)itemView.findViewById(R.id.hotel_cityname);
-            checkInDate = (TextView)itemView.findViewById(R.id.checkindate);
-            checkInTime = (TextView)itemView.findViewById(R.id.checkintime);
-            checkOutDate = (TextView)itemView.findViewById(R.id.checkoutdate);
-            requestDateTxt = (TextView)itemView.findViewById(R.id.hotel_requestdate);
-            followupDateTxt = (TextView)itemView.findViewById(R.id.hotelfollowdate);
-            statusTxt = (TextView)itemView.findViewById(R.id.hotel_status);
+            empNameTxt = (TextView) itemView.findViewById(R.id.hotel_employename);
+            cityNameTXT = (TextView) itemView.findViewById(R.id.hotel_cityname);
+            checkInDate = (TextView) itemView.findViewById(R.id.checkindate);
+            checkInTime = (TextView) itemView.findViewById(R.id.checkintime);
+            checkOutDate = (TextView) itemView.findViewById(R.id.checkoutdate);
+            requestDateTxt = (TextView) itemView.findViewById(R.id.hotel_requestdate);
+            followupDateTxt = (TextView) itemView.findViewById(R.id.hotelfollowdate);
+            statusTxt = (TextView) itemView.findViewById(R.id.hotel_status);
             delBtb = (ImageView) itemView.findViewById(R.id.delbtn);
-            mainLay = (ImageView)itemView.findViewById(R.id.hotel_main_lay);
-            hotelFollowLay = (LinearLayout)itemView.findViewById(R.id.hotel_follow_lay);
-            view = (View)itemView.findViewById(R.id.view);
+            mainLay = (ImageView) itemView.findViewById(R.id.hotel_main_lay);
+            hotelFollowLay = (LinearLayout) itemView.findViewById(R.id.hotel_follow_lay);
+            view = (View) itemView.findViewById(R.id.view);
             btnLay = (LinearLayout) itemView.findViewById(R.id.btnLay);
-            view2 = (View)itemView.findViewById(R.id.view2);
-            mainLayView = (LinearLayout)itemView.findViewById(R.id.main_lay);
+            view2 = (View) itemView.findViewById(R.id.view2);
+            mainLayView = (LinearLayout) itemView.findViewById(R.id.main_lay);
         }
     }
 
@@ -210,7 +202,7 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                deleteMethod(authcode,recordId,userid,postion);
+                deleteMethod(authcode, recordId, userid, postion);
             }
         });
 
@@ -227,9 +219,9 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
 
 
     //delete the Details
-    public void deleteMethod(final String AuthCode , final String BID, final String userId, final int postion) {
+    public void deleteMethod(final String AuthCode, final String BID, final String userId, final int postion) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -240,14 +232,12 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
                             remove(postion);
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
                         }
@@ -257,7 +247,7 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -272,13 +262,13 @@ public class HotelBookingListAdapter extends RecyclerView.Adapter<HotelBookingLi
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("BID",BID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("BID", BID);
+                params.put("AdminID", userId);
 
 
                 Log.e("Parms", params.toString());

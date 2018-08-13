@@ -57,7 +57,7 @@ public class ManagerSkillsActivity extends AppCompatActivity {
     public RecyclerView skillRecycler;
     public String skillsListUrl = SettingConstant.BaseUrl + "AppEmployeeSkillList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
     public TextView noCust;
 
     String LoginStatus;
@@ -79,11 +79,11 @@ public class ManagerSkillsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -97,22 +97,21 @@ public class ManagerSkillsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Skills Details");
 
-        skillRecycler = (RecyclerView)findViewById(R.id.skill_recycler);
+        skillRecycler = (RecyclerView) findViewById(R.id.skill_recycler);
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerSkillsActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerSkillsActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerSkillsActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerSkillsActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerSkillsActivity.this)));
 
 
-        adapter = new SkillAdapter(ManagerSkillsActivity.this,list,ManagerSkillsActivity.this,"secondOne");
+        adapter = new SkillAdapter(ManagerSkillsActivity.this, list, ManagerSkillsActivity.this, "secondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerSkillsActivity.this);
         skillRecycler.setLayoutManager(mLayoutManager);
         skillRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -129,20 +128,19 @@ public class ManagerSkillsActivity extends AppCompatActivity {
             }
         });*/
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            skillsList(authCode,userId,empId);
+            skillsList(authCode, userId, empId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //Skills list
-    public void skillsList(final String AuthCode , final String AdminID, final  String EmployeeID) {
+    public void skillsList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerSkillsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerSkillsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -154,25 +152,23 @@ public class ManagerSkillsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String SkillName = jsonObject.getString("SkillName");
                             String ProficiencyName = jsonObject.getString("ProficiencyName");
@@ -181,18 +177,16 @@ public class ManagerSkillsActivity extends AppCompatActivity {
                             String CurrentlyUsed = jsonObject.getString("CurrentlyUsed");
                             String RecordID = jsonObject.getString("RecordID");
 
-                            list.add(new SkillsModel(SkillName,ProficiencyName,SkillSourceName,LastUsed,CurrentlyUsed,RecordID));
+                            list.add(new SkillsModel(SkillName, ProficiencyName, SkillSourceName, LastUsed, CurrentlyUsed, RecordID));
 
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         skillRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         skillRecycler.setVisibility(View.VISIBLE);
                     }
@@ -202,7 +196,7 @@ public class ManagerSkillsActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -239,13 +233,13 @@ public class ManagerSkillsActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -274,10 +268,6 @@ public class ManagerSkillsActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerSkillsActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerSkillsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerSkillsActivity.this,
@@ -298,11 +288,6 @@ public class ManagerSkillsActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerSkillsActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

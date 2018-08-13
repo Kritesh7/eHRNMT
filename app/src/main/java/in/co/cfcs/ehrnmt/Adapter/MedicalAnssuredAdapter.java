@@ -60,8 +60,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
  * Created by Admin on 20-09-2017.
  */
 
-public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssuredAdapter.ViewHolder>
-{
+public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssuredAdapter.ViewHolder> {
     public Context context;
     public ArrayList<MedicalAnssuranceModel> list = new ArrayList<>();
     public Activity activity;
@@ -100,7 +99,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         MedicalAnssuranceModel model = list.get(position);
-        
+
         authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
         userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
@@ -117,38 +116,36 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
             public void onClick(View view) {
 
                 Intent i = new Intent(context, AddMedicalandAnssuranceActivity.class);
-                i.putExtra("RecordId",model.getRecordId());
-                i.putExtra("Mode","EditMode");
-                i.putExtra("PolicyType",model.getPolicyType());
-                i.putExtra("PolicyName",model.getPolicyName());
-                i.putExtra("PolicyNumber",model.getPolicyNumber());
-                i.putExtra("PolicyDuration",model.getPolicyDuration());
-                i.putExtra("PolicyBy",model.getPolicyBy());
-                i.putExtra("InsuranceCompany",model.getInsuranceComp());
-                i.putExtra("AmountInsured",model.getPolicyInsured());
-                i.putExtra("StartDate",model.getStartDate());
+                i.putExtra("RecordId", model.getRecordId());
+                i.putExtra("Mode", "EditMode");
+                i.putExtra("PolicyType", model.getPolicyType());
+                i.putExtra("PolicyName", model.getPolicyName());
+                i.putExtra("PolicyNumber", model.getPolicyNumber());
+                i.putExtra("PolicyDuration", model.getPolicyDuration());
+                i.putExtra("PolicyBy", model.getPolicyBy());
+                i.putExtra("InsuranceCompany", model.getInsuranceComp());
+                i.putExtra("AmountInsured", model.getPolicyInsured());
+                i.putExtra("StartDate", model.getStartDate());
                 i.putExtra("EndDate", model.getEndDate());
-                i.putExtra("File",model.getFileNameText());
+                i.putExtra("File", model.getFileNameText());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
-        
+
         //delete the list
         holder.delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                showSettingsAlert(position,authCode,model.getRecordId(),userid);
+                showSettingsAlert(position, authCode, model.getRecordId(), userid);
             }
         });
 
-        if (model.getFileNameText().equalsIgnoreCase(""))
-        {
+        if (model.getFileNameText().equalsIgnoreCase("")) {
             holder.downloadLay.setVisibility(View.GONE);
             holder.view.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             holder.downloadLay.setVisibility(View.VISIBLE);
             holder.view.setVisibility(View.VISIBLE);
         }
@@ -176,32 +173,30 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
                   /*  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(SettingConstant.DownloadUrl + model.getFileNameText()));
                     activity.startActivity(browserIntent);
 */
-                    new DownloadTask(context, SettingConstant.DownloadUrl + model.getFileNameText(),checkNavigateStr);
+                    new DownloadTask(context, SettingConstant.DownloadUrl + model.getFileNameText(), checkNavigateStr);
                 }
             }
         });
 
-        if (checkNaviagte.equalsIgnoreCase("FirstOne"))
-        {
+        if (checkNaviagte.equalsIgnoreCase("FirstOne")) {
             holder.btnLay.setVisibility(View.VISIBLE);
             holder.view2.setVisibility(View.VISIBLE);
 
-        }else
-            {
-                holder.btnLay.setVisibility(View.GONE);
-                holder.view2.setVisibility(View.GONE);
-            }
+        } else {
+            holder.btnLay.setVisibility(View.GONE);
+            holder.view2.setVisibility(View.GONE);
+        }
     }
 
 
-    void downloadFile(String UrlStr, String fileName){
+    void downloadFile(String UrlStr, String fileName) {
 
         Log.e("checking the url is", UrlStr);
 
         try {
             URL url = new URL(UrlStr);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            Log.e("code:",urlConnection.getResponseCode()+ " f");
+            Log.e("code:", urlConnection.getResponseCode() + " f");
             urlConnection.setRequestMethod("GET");
             //urlConnection.setDoOutput(true);
 
@@ -211,7 +206,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
             // getting file length
             int lenghtOfFile = urlConnection.getContentLength();
 
-            Log.e("check file lenth",lenghtOfFile + "");
+            Log.e("check file lenth", lenghtOfFile + "");
 
             //If Connection response is not OK then show Logs
           /*  if (c.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -237,7 +232,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
                 Log.e("Checking one", "Directory Created.");
             }
 
-         //   outputFile = new File(apkStorage, downloadFileName);//Create Output file in Main File
+            //   outputFile = new File(apkStorage, downloadFileName);//Create Output file in Main File
 
             //Create New File if not present
           /*  if (!outputFile.exists()) {
@@ -260,7 +255,6 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
             totalSize = urlConnection.getContentLength();
 
 
-
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     pb.setMax(totalSize);
@@ -271,20 +265,20 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
             byte[] buffer = new byte[1024];
             int bufferLength = 0;
 
-            while ( (bufferLength = inputStream.read(buffer)) > 0 ) {
-               // fileOutput.write(buffer, 0, bufferLength);
+            while ((bufferLength = inputStream.read(buffer)) > 0) {
+                // fileOutput.write(buffer, 0, bufferLength);
                 downloadedSize += bufferLength;
                 // update the progressbar //
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
                         pb.setProgress(downloadedSize);
-                        float per = ((float)downloadedSize/totalSize) * 100;
-                        cur_val.setText("Downloaded " + downloadedSize + "KB / " + totalSize + "KB (" + (int)per + "%)" );
+                        float per = ((float) downloadedSize / totalSize) * 100;
+                        cur_val.setText("Downloaded " + downloadedSize + "KB / " + totalSize + "KB (" + (int) per + "%)");
                     }
                 });
             }
             //close the output stream when complete //
-          //  fileOutput.close();
+            //  fileOutput.close();
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     // pb.dismiss(); // if you want close it..
@@ -297,25 +291,24 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
         } catch (final IOException e) {
             showError("Error : IOException " + e);
             e.printStackTrace();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             showError("Error : Please check your internet connection " + e);
         }
     }
 
-    void showError(final String err){
+    void showError(final String err) {
         activity.runOnUiThread(new Runnable() {
             public void run() {
 
                 Toast.makeText(activity, err, Toast.LENGTH_SHORT).show();
 
-                Log.e("Cheking the error",err);
+                Log.e("Cheking the error", err);
                 //Toast.makeText(context, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    void showProgress(String file_path){
+    void showProgress(String file_path) {
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.myprogressdialog);
@@ -327,7 +320,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
         cur_val.setText("Starting download...");
         dialog.show();
 
-        pb = (ProgressBar)dialog.findViewById(R.id.progress_bar);
+        pb = (ProgressBar) dialog.findViewById(R.id.progress_bar);
         pb.setProgress(0);
         pb.setProgressDrawable(activity.getResources().getDrawable(R.drawable.green_progress));
     }
@@ -338,7 +331,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView policyTypeTxt,policyNumberTxt,policyDurationTxt,policyNameTxt, amountInsuredTxt, policyByTxt;
+        public TextView policyTypeTxt, policyNumberTxt, policyDurationTxt, policyNameTxt, amountInsuredTxt, policyByTxt;
         public ImageView delBtn;
         public ImageView mainLay;
         public View view, view2;
@@ -348,16 +341,16 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
         public ViewHolder(View itemView) {
             super(itemView);
 
-            policyTypeTxt = (TextView)itemView.findViewById(R.id.policytype);
-            policyNumberTxt = (TextView)itemView.findViewById(R.id.policynumber);
-            policyDurationTxt = (TextView)itemView.findViewById(R.id.policy_duration);
-            policyNameTxt = (TextView)itemView.findViewById(R.id.policyname);
-            amountInsuredTxt = (TextView)itemView.findViewById(R.id.amountinsured);
-            policyByTxt = (TextView)itemView.findViewById(R.id.policyby);
+            policyTypeTxt = (TextView) itemView.findViewById(R.id.policytype);
+            policyNumberTxt = (TextView) itemView.findViewById(R.id.policynumber);
+            policyDurationTxt = (TextView) itemView.findViewById(R.id.policy_duration);
+            policyNameTxt = (TextView) itemView.findViewById(R.id.policyname);
+            amountInsuredTxt = (TextView) itemView.findViewById(R.id.amountinsured);
+            policyByTxt = (TextView) itemView.findViewById(R.id.policyby);
             delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
-            mainLay = (ImageView)itemView.findViewById(R.id.main_lay);
+            mainLay = (ImageView) itemView.findViewById(R.id.main_lay);
             downloadLay = (LinearLayout) itemView.findViewById(R.id.downloadOptionLay);
-            view = (View)itemView.findViewById(R.id.view);
+            view = (View) itemView.findViewById(R.id.view);
             downloadBtn = (ImageView) itemView.findViewById(R.id.downloadOptionBtn);
             btnLay = (LinearLayout) itemView.findViewById(R.id.btnlay);
             view2 = (View) itemView.findViewById(R.id.view2);
@@ -389,7 +382,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                deleteMethod(authcode,recordId, postion,userId);
+                deleteMethod(authcode, recordId, postion, userId);
             }
         });
 
@@ -403,10 +396,11 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
         // Showing Alert Message
         alertDialog.show();
     }
-    //delete the Details
-    public void deleteMethod(final String AuthCode , final String RecordID, final int  postion, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+    //delete the Details
+    public void deleteMethod(final String AuthCode, final String RecordID, final int postion, final String AdminID) {
+
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -417,14 +411,12 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
 
                             remove(postion);
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
@@ -435,7 +427,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -450,13 +442,13 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
-                params.put("RecordID",RecordID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("RecordID", RecordID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -469,6 +461,7 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
+
     private boolean checkPermissions() {
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();

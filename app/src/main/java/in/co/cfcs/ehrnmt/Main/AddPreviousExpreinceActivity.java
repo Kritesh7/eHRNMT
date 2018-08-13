@@ -58,19 +58,17 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddPreviousExpreinceActivity extends AppCompatActivity {
 
-    public TextView titleTxt,joiningDateBtn,joiningDateTxt,releavinfDateBtn,releavingDateTxt;
+    public TextView titleTxt, joiningDateBtn, joiningDateTxt, releavinfDateBtn, releavingDateTxt;
     public Spinner yearSpinner, monthSpinner;
     public ArrayList<YearModel> yearList = new ArrayList<>();
     public ArrayList<MonthModel> monthList = new ArrayList<>();
-    public EditText   compNameTxt, designationTxt, jobDesTxt;
+    public EditText compNameTxt, designationTxt, jobDesTxt;
     public Button addBtn;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public String addUrl = SettingConstant.BaseUrl + "AppEmployeePreviousExperienceInsUpdt";
     public ConnectionDetector conn;
-    public String authcode = "", userId = "", year = "", month = "", actionMode = "", recordId = "", compNameStr = ""
-            , joiningDateStr = "" , relivingDateStr = "", designationStr = "", yearStrId = "", monthIdStr = ""
-            ,jobDescStr = "";
+    public String authcode = "", userId = "", year = "", month = "", actionMode = "", recordId = "", compNameStr = "", joiningDateStr = "", relivingDateStr = "", designationStr = "", yearStrId = "", monthIdStr = "", jobDescStr = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -92,11 +90,11 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.previoustollbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -112,8 +110,7 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         titleTxt.setText("Add Previous Experience");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             actionMode = intent.getStringExtra("ActionMode");
             recordId = intent.getStringExtra("RecordId");
             compNameStr = intent.getStringExtra("CompanyName");
@@ -126,12 +123,12 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         }
 
         conn = new ConnectionDetector(AddPreviousExpreinceActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddPreviousExpreinceActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddPreviousExpreinceActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddPreviousExpreinceActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddPreviousExpreinceActivity.this)));
 
 
-        yearSpinner = (Spinner)findViewById(R.id.yearspinner);
-        monthSpinner = (Spinner)findViewById(R.id.monthspinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearspinner);
+        monthSpinner = (Spinner) findViewById(R.id.monthspinner);
         joiningDateBtn = (TextView) findViewById(R.id.joinongdatetxt);
         joiningDateTxt = (TextView) findViewById(R.id.joinongdatetxt);
         releavinfDateBtn = (TextView) findViewById(R.id.releavingdatetxt);
@@ -141,8 +138,7 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         jobDesTxt = (EditText) findViewById(R.id.jobdesc);
         addBtn = (Button) findViewById(R.id.newrequestbtn);
 
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
             compNameTxt.setText(compNameStr);
             joiningDateTxt.setText(joiningDateStr);
             releavingDateTxt.setText(relivingDateStr);
@@ -156,47 +152,46 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
 
 
         //Year List Spinner
-        if (yearList.size()>0)
-        {
+        if (yearList.size() > 0) {
             yearList.clear();
         }
         yearList.add(new YearModel("Please Select Year", ""));
-        yearList.add(new YearModel("0 Year","0"));
-        yearList.add(new YearModel("1 Year","1"));
-        yearList.add(new YearModel("2 Year's","2"));
-        yearList.add(new YearModel("3 Year's","3"));
-        yearList.add(new YearModel("4 Year's","4"));
-        yearList.add(new YearModel("5 Year's","5"));
-        yearList.add(new YearModel("6 Year's","6"));
-        yearList.add(new YearModel("7 Year's","7"));
-        yearList.add(new YearModel("8 Year's","8"));
-        yearList.add(new YearModel("9 Year's","9"));
-        yearList.add(new YearModel("10 Year's","10"));
-        yearList.add(new YearModel("11 Year's","11"));
-        yearList.add(new YearModel("12 Year's","12"));
-        yearList.add(new YearModel("13 Year's","13"));
-        yearList.add(new YearModel("14 Year's","14"));
-        yearList.add(new YearModel("15 Year's","15"));
-        yearList.add(new YearModel("16 Year's","16"));
-        yearList.add(new YearModel("17 Year's","17"));
-        yearList.add(new YearModel("18 Year's","18"));
-        yearList.add(new YearModel("19 Year's","19"));
-        yearList.add(new YearModel("20 Year's","20"));
-        yearList.add(new YearModel("21 Year's","21"));
-        yearList.add(new YearModel("22 Year's","22"));
-        yearList.add(new YearModel("23 Year's","23"));
-        yearList.add(new YearModel("24 Year's","24"));
-        yearList.add(new YearModel("25 Year's","25"));
-        yearList.add(new YearModel("26 Year's","26"));
-        yearList.add(new YearModel("27 Year's","27"));
-        yearList.add(new YearModel("28 Year's","28"));
-        yearList.add(new YearModel("29 Year's","29"));
-        yearList.add(new YearModel("30 Year's","30"));
-        yearList.add(new YearModel("31 Year's","31"));
-        yearList.add(new YearModel("32 Year's","32"));
-        yearList.add(new YearModel("33 Year's","33"));
-        yearList.add(new YearModel("34 Year's","34"));
-        yearList.add(new YearModel("35 Year's","35"));
+        yearList.add(new YearModel("0 Year", "0"));
+        yearList.add(new YearModel("1 Year", "1"));
+        yearList.add(new YearModel("2 Year's", "2"));
+        yearList.add(new YearModel("3 Year's", "3"));
+        yearList.add(new YearModel("4 Year's", "4"));
+        yearList.add(new YearModel("5 Year's", "5"));
+        yearList.add(new YearModel("6 Year's", "6"));
+        yearList.add(new YearModel("7 Year's", "7"));
+        yearList.add(new YearModel("8 Year's", "8"));
+        yearList.add(new YearModel("9 Year's", "9"));
+        yearList.add(new YearModel("10 Year's", "10"));
+        yearList.add(new YearModel("11 Year's", "11"));
+        yearList.add(new YearModel("12 Year's", "12"));
+        yearList.add(new YearModel("13 Year's", "13"));
+        yearList.add(new YearModel("14 Year's", "14"));
+        yearList.add(new YearModel("15 Year's", "15"));
+        yearList.add(new YearModel("16 Year's", "16"));
+        yearList.add(new YearModel("17 Year's", "17"));
+        yearList.add(new YearModel("18 Year's", "18"));
+        yearList.add(new YearModel("19 Year's", "19"));
+        yearList.add(new YearModel("20 Year's", "20"));
+        yearList.add(new YearModel("21 Year's", "21"));
+        yearList.add(new YearModel("22 Year's", "22"));
+        yearList.add(new YearModel("23 Year's", "23"));
+        yearList.add(new YearModel("24 Year's", "24"));
+        yearList.add(new YearModel("25 Year's", "25"));
+        yearList.add(new YearModel("26 Year's", "26"));
+        yearList.add(new YearModel("27 Year's", "27"));
+        yearList.add(new YearModel("28 Year's", "28"));
+        yearList.add(new YearModel("29 Year's", "29"));
+        yearList.add(new YearModel("30 Year's", "30"));
+        yearList.add(new YearModel("31 Year's", "31"));
+        yearList.add(new YearModel("32 Year's", "32"));
+        yearList.add(new YearModel("33 Year's", "33"));
+        yearList.add(new YearModel("34 Year's", "34"));
+        yearList.add(new YearModel("35 Year's", "35"));
 
 
         //change spinner arrow color
@@ -208,8 +203,7 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         yearSpinner.setAdapter(yearAdapter);
 
         //month list spinner
-        if (monthList.size()>0)
-        {
+        if (monthList.size() > 0) {
             monthList.clear();
         }
         monthList.add(new MonthModel(0, "0 Month"));
@@ -227,20 +221,15 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
         monthList.add(new MonthModel(12, "12 Month"));
 
         //Edit Mode spinner
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
-            for (int i=0; i<yearList.size(); i++)
-            {
-                if (yearList.get(i).getYearId().equalsIgnoreCase(yearStrId))
-                {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
+            for (int i = 0; i < yearList.size(); i++) {
+                if (yearList.get(i).getYearId().equalsIgnoreCase(yearStrId)) {
                     yearSpinner.setSelection(i);
                 }
             }
 
-            for (int i=0; i<monthList.size(); i++)
-            {
-                if (monthList.get(i).getMonthId()== Integer.parseInt(monthIdStr))
-                {
+            for (int i = 0; i < monthList.size(); i++) {
+                if (monthList.get(i).getMonthId() == Integer.parseInt(monthIdStr)) {
                     monthSpinner.setSelection(i);
                 }
             }
@@ -369,22 +358,17 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (compNameTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                if (compNameTxt.getText().toString().equalsIgnoreCase("")) {
                     compNameTxt.setError("Please enter company name");
-                }else if (joiningDateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (joiningDateTxt.getText().toString().equalsIgnoreCase("")) {
                     joiningDateTxt.setError("Please enter joining date");
-                }else if (releavingDateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (releavingDateTxt.getText().toString().equalsIgnoreCase("")) {
                     releavingDateTxt.setError("Please enter Reliving date");
-                }else if (year.equalsIgnoreCase("Please Select Year"))
-                {
+                } else if (year.equalsIgnoreCase("Please Select Year")) {
                     Toast.makeText(AddPreviousExpreinceActivity.this, "Please select job periode", Toast.LENGTH_SHORT).show();
-                }else if (jobDesTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (jobDesTxt.getText().toString().equalsIgnoreCase("")) {
                     jobDesTxt.setError("Please enter job description");
-                }else {
+                } else {
                     if (conn.getConnectivityStatus() > 0) {
 
                         addPreviousExpreinceDetails(userId, recordId, compNameTxt.getText().toString(), joiningDateTxt.getText().toString(),
@@ -399,11 +383,11 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
     }
 
     //Add Previous Expreince
-    public void addPreviousExpreinceDetails(final String AdminID  , final String RecordID, final String CompanyName, final String JoiningDate,
-                                            final String Designation, final String RelievingDate , final String Year , final String Month,
-                                            final String Desc , final String AuthCode)  {
+    public void addPreviousExpreinceDetails(final String AdminID, final String RecordID, final String CompanyName, final String JoiningDate,
+                                            final String Designation, final String RelievingDate, final String Year, final String Month,
+                                            final String Desc, final String AuthCode) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddPreviousExpreinceActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddPreviousExpreinceActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -415,20 +399,20 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        }else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
 
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -437,7 +421,7 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -473,21 +457,21 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
                 pDialog.dismiss();
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("CompanyName",CompanyName);
-                params.put("Designation",Designation);
-                params.put("JoiningDate",JoiningDate);
-                params.put("RelievingDate",RelievingDate);
-                params.put("Year",Year);
-                params.put("Month",Month);
-                params.put("Desc",Desc);
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("CompanyName", CompanyName);
+                params.put("Designation", Designation);
+                params.put("JoiningDate", JoiningDate);
+                params.put("RelievingDate", RelievingDate);
+                params.put("Year", Year);
+                params.put("Month", Month);
+                params.put("Desc", Desc);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -508,6 +492,7 @@ public class AddPreviousExpreinceActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+
     private void Logout() {
 
 

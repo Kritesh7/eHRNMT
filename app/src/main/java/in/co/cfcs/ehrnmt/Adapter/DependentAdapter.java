@@ -42,8 +42,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
  * Created by Admin on 20-09-2017.
  */
 
-public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.ViewHolder>
-{
+public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.ViewHolder> {
     public Context context;
     public ArrayList<DependentModel> list = new ArrayList<>();
     public Activity activity;
@@ -71,7 +70,7 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
         authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
         userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
-        holder.nameTxt.setText(model.getFirstName()+ " " + model.getLastName());
+        holder.nameTxt.setText(model.getFirstName() + " " + model.getLastName());
         holder.dobTxt.setText(model.getDob());
         holder.genderTxt.setText(model.getGender());
         holder.relationshipTxt.setText(model.getRelationship());
@@ -81,13 +80,13 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
             public void onClick(View view) {
 
                 Intent i = new Intent(context, AddDependentActivity.class);
-                i.putExtra("RecordId",model.getRecordId());
-                i.putExtra("Mode","EditMode");
-                i.putExtra("FirstName",model.getFirstName());
-                i.putExtra("LastName",model.getLastName());
-                i.putExtra("GenderName",model.getGender());
-                i.putExtra("RelationshipName",model.getRelationship());
-                i.putExtra("DOB",model.getDob());
+                i.putExtra("RecordId", model.getRecordId());
+                i.putExtra("Mode", "EditMode");
+                i.putExtra("FirstName", model.getFirstName());
+                i.putExtra("LastName", model.getLastName());
+                i.putExtra("GenderName", model.getGender());
+                i.putExtra("RelationshipName", model.getRelationship());
+                i.putExtra("DOB", model.getDob());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -98,7 +97,7 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
             @Override
             public void onClick(View view) {
 
-                showSettingsAlert(position,authCode,model.getRecordId(),userid);
+                showSettingsAlert(position, authCode, model.getRecordId(), userid);
             }
         });
     }
@@ -109,19 +108,19 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTxt,dobTxt,genderTxt,relationshipTxt;
+        public TextView nameTxt, dobTxt, genderTxt, relationshipTxt;
         public ImageView delBtn;
         public ImageView mainLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            nameTxt = (TextView)itemView.findViewById(R.id.dependent_name);
-            dobTxt = (TextView)itemView.findViewById(R.id.dependent_dob);
-            genderTxt = (TextView)itemView.findViewById(R.id.dependent_gender);
-            relationshipTxt = (TextView)itemView.findViewById(R.id.dependent_relationship);
+            nameTxt = (TextView) itemView.findViewById(R.id.dependent_name);
+            dobTxt = (TextView) itemView.findViewById(R.id.dependent_dob);
+            genderTxt = (TextView) itemView.findViewById(R.id.dependent_gender);
+            relationshipTxt = (TextView) itemView.findViewById(R.id.dependent_relationship);
             delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
-            mainLay = (ImageView)itemView.findViewById(R.id.main_lay);
+            mainLay = (ImageView) itemView.findViewById(R.id.main_lay);
         }
     }
 
@@ -148,7 +147,7 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                deleteMethod(authcode,recordId, postion,userid);
+                deleteMethod(authcode, recordId, postion, userid);
             }
         });
 
@@ -162,10 +161,11 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
         // Showing Alert Message
         alertDialog.show();
     }
-    //delete the Details
-    public void deleteMethod(final String AuthCode , final String RecordID, final int  postion, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+    //delete the Details
+    public void deleteMethod(final String AuthCode, final String RecordID, final int postion, final String AdminID) {
+
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -176,14 +176,12 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
 
                             remove(postion);
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
@@ -194,7 +192,7 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -209,13 +207,13 @@ public class DependentAdapter extends RecyclerView.Adapter<DependentAdapter.View
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("AdminID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;

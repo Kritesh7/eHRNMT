@@ -49,11 +49,10 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  * Created by Admin on 18-09-2017.
  */
 
-public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAdapter.ViewHolder>
-{
+public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAdapter.ViewHolder> {
 
-    public Context context ;
-    public ArrayList<LeaveManagementModel> list =new ArrayList<>();
+    public Context context;
+    public ArrayList<LeaveManagementModel> list = new ArrayList<>();
     Activity activity;
     public String deleteUrl = SettingConstant.BaseUrl + "AppEmployeeLeaveDelete";
     public String authCode = "", userId = "";
@@ -78,8 +77,8 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
 
         final LeaveManagementModel model = list.get(position);
 
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
 
         holder.leaveTypeTxt.setText(model.getLeaveType());
@@ -94,7 +93,7 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
             public void onClick(View view) {
 
                 Intent i = new Intent(context, ViewLeavemangementActivity.class);
-                i.putExtra("LeaveApplication_Id",model.getLeaveApplication_Id());
+                i.putExtra("LeaveApplication_Id", model.getLeaveApplication_Id());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -102,15 +101,13 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
 
         holder.noOfDaysTxt.setText(model.getNoofdays());
 
-        if (model.getIsDeleteable().equalsIgnoreCase("1"))
-        {
+        if (model.getIsDeleteable().equalsIgnoreCase("1")) {
             holder.btnLay.setVisibility(View.VISIBLE);
             holder.view.setVisibility(View.VISIBLE);
-        }else
-            {
-                holder.btnLay.setVisibility(View.GONE);
-                holder.view.setVisibility(View.GONE);
-            }
+        } else {
+            holder.btnLay.setVisibility(View.GONE);
+            holder.view.setVisibility(View.GONE);
+        }
 
         //delete leave
         holder.delBtn.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +115,7 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
             public void onClick(View view) {
 
 
-                setPopupWindow(position,authCode,model.getLeaveApplication_Id(),userId);
+                setPopupWindow(position, authCode, model.getLeaveApplication_Id(), userId);
             }
         });
 
@@ -128,16 +125,13 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
                 model.getStatusId().equalsIgnoreCase("5") || model.getStatusId().equalsIgnoreCase("8") ||
                 model.getStatusId().equalsIgnoreCase("9") || model.getCancelStatus().equalsIgnoreCase("3") ||
                 model.getCancelStatus().equalsIgnoreCase("4") || model.getCancelStatus().equalsIgnoreCase("5") ||
-                model.getCancelStatus().equalsIgnoreCase("8") || model.getCancelStatus().equalsIgnoreCase("9"))
-        {
+                model.getCancelStatus().equalsIgnoreCase("8") || model.getCancelStatus().equalsIgnoreCase("9")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.red_color));
-        }else if (model.getStatusId().equalsIgnoreCase("0") || model.getCancelStatus().equalsIgnoreCase("0"))
-        {
+        } else if (model.getStatusId().equalsIgnoreCase("0") || model.getCancelStatus().equalsIgnoreCase("0")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.orange_color));
-        }else
-            {
-                holder.statusTxt.setTextColor(context.getResources().getColor(R.color.green_color));
-            }
+        } else {
+            holder.statusTxt.setTextColor(context.getResources().getColor(R.color.green_color));
+        }
 
 
     }
@@ -148,7 +142,7 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView leaveTypeTxt,startDateTxt,endDateTxt,appliedOnTxt, statusTxt,noOfDaysTxt, empNameTxt;
+        public TextView leaveTypeTxt, startDateTxt, endDateTxt, appliedOnTxt, statusTxt, noOfDaysTxt, empNameTxt;
         public ImageView delBtn;
         public LinearLayout mainLay, btnLay;
         public View view;
@@ -156,20 +150,17 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
         public ViewHolder(View itemView) {
             super(itemView);
 
-            leaveTypeTxt = (TextView)itemView.findViewById(R.id.leave_type);
-            startDateTxt = (TextView)itemView.findViewById(R.id.start_date);
-            endDateTxt = (TextView)itemView.findViewById(R.id.end_date);
-            appliedOnTxt = (TextView)itemView.findViewById(R.id.appliedon);
-            statusTxt = (TextView)itemView.findViewById(R.id.status);
-            noOfDaysTxt = (TextView)itemView.findViewById(R.id.noofdaystxt);
-            delBtn = (ImageView)itemView.findViewById(R.id.delbtn);
+            leaveTypeTxt = (TextView) itemView.findViewById(R.id.leave_type);
+            startDateTxt = (TextView) itemView.findViewById(R.id.start_date);
+            endDateTxt = (TextView) itemView.findViewById(R.id.end_date);
+            appliedOnTxt = (TextView) itemView.findViewById(R.id.appliedon);
+            statusTxt = (TextView) itemView.findViewById(R.id.status);
+            noOfDaysTxt = (TextView) itemView.findViewById(R.id.noofdaystxt);
+            delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
             btnLay = (LinearLayout) itemView.findViewById(R.id.btnLay);
             view = (View) itemView.findViewById(R.id.view2);
             empNameTxt = (TextView) itemView.findViewById(R.id.leave_user);
-            mainLay = (LinearLayout)itemView.findViewById(R.id.leave_management_main_lay);
-
-
-
+            mainLay = (LinearLayout) itemView.findViewById(R.id.leave_management_main_lay);
 
 
         }
@@ -200,8 +191,7 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
             public void onClick(DialogInterface dialog, int which) {
 
 
-
-                    deleteMethod(authcode, recordId, userid, postion, remark,"1","5");
+                deleteMethod(authcode, recordId, userid, postion, remark, "1", "5");
 
             }
         });
@@ -219,10 +209,10 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
 
 
     //delete the Details
-    public void deleteMethod(final String AuthCode , final String LeaveApplicationID, final String userId,
+    public void deleteMethod(final String AuthCode, final String LeaveApplicationID, final String userId,
                              final int postion, final String Remark, final String Type, final String status) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -233,14 +223,12 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
                             //remove(postion);
                             notifyItemChanged(postion);
                             popupWindow.dismiss();
@@ -252,7 +240,7 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -267,17 +255,16 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LeaveApplicationID",LeaveApplicationID);
-                params.put("AdminID",userId);
-                params.put("Remark",Remark);
-                params.put("Type",Type);
-                params.put("Status",status);
-
+                params.put("AuthCode", AuthCode);
+                params.put("LeaveApplicationID", LeaveApplicationID);
+                params.put("AdminID", userId);
+                params.put("Remark", Remark);
+                params.put("Type", Type);
+                params.put("Status", status);
 
 
                 Log.e("Parms", params.toString());
@@ -295,8 +282,7 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
     private void setPopupWindow(final int position, final String authCode, final String recordId, final String userId) {
 
 
-
-        LayoutInflater layoutInflater = (LayoutInflater)activity.getBaseContext()
+        LayoutInflater layoutInflater = (LayoutInflater) activity.getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.popup_layout, null);
         Button cancel, backBtn;
@@ -311,18 +297,17 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
 
 
         cancel = (Button) popupView.findViewById(R.id.cancel_leaverequest);
-        remarkTxt = (EditText)popupView.findViewById(R.id.remarktxt);
-        backBtn = (Button)popupView.findViewById(R.id.backbtn);
+        remarkTxt = (EditText) popupView.findViewById(R.id.remarktxt);
+        backBtn = (Button) popupView.findViewById(R.id.backbtn);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (remarkTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                if (remarkTxt.getText().toString().equalsIgnoreCase("")) {
                     remarkTxt.setError("Please enter remark");
                     Toast.makeText(activity, "Plesae enter remark", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
 
                     showSettingsAlert(position, authCode, recordId, userId, remarkTxt.getText().toString());
                 }

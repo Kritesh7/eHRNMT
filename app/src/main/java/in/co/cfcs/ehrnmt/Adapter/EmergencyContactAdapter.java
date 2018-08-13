@@ -21,8 +21,7 @@ import in.co.cfcs.ehrnmt.R;
  * Created by Admin on 27-10-2017.
  */
 
-public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyContactAdapter.ViewHolder>
-{
+public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyContactAdapter.ViewHolder> {
     public Context context;
     public ArrayList<EmergencyContactModel> list = new ArrayList<>();
     public Activity activity;
@@ -32,7 +31,7 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
         this.context = context;
         this.list = list;
         this.activity = activity;
-        this.checkNavigate =  checkNavigate;
+        this.checkNavigate = checkNavigate;
     }
 
     @Override
@@ -48,8 +47,8 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
 
         EmergencyContactModel model = list.get(position);
 
-        holder.nameTxt.setText(model.getTitle() +" " + model.getName());
-        holder.addressTxt.setText(model.getAddress() +","+ model.getCity() +","+ model.getState() +"," +model.getPostalcode());
+        holder.nameTxt.setText(model.getTitle() + " " + model.getName());
+        holder.addressTxt.setText(model.getAddress() + "," + model.getCity() + "," + model.getState() + "," + model.getPostalcode());
         holder.telNumberTxt.setText(model.getTelephoneNumber());
         holder.mobileNumberTxt.setText(model.getMobileNumber());
         holder.emailTxt.setText(model.getEmail());
@@ -61,10 +60,9 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
 
             holder.emergencyContactTypeTxt.setText("Primary Contact");
 
-        }else
-            {
-                holder.emergencyContactTypeTxt.setText("Secondary Contact");
-            }
+        } else {
+            holder.emergencyContactTypeTxt.setText("Secondary Contact");
+        }
 
         holder.mainLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,25 +100,24 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTxt,addressTxt,countryNameTxt,telNumberTxt, mobileNumberTxt, emailTxt, relationshipnameTxt, lastUpdateTxt
-                , emergencyContactTypeTxt;
+        public TextView nameTxt, addressTxt, countryNameTxt, telNumberTxt, mobileNumberTxt, emailTxt, relationshipnameTxt, lastUpdateTxt, emergencyContactTypeTxt;
         public LinearLayout mainLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            nameTxt = (TextView)itemView.findViewById(R.id.emergency_contact_name);
-            addressTxt = (TextView)itemView.findViewById(R.id.emergency_contact_address);
-            countryNameTxt = (TextView)itemView.findViewById(R.id.emergency_contact_countryname);
-            telNumberTxt = (TextView)itemView.findViewById(R.id.emergency_contact_telno);
-            mobileNumberTxt = (TextView)itemView.findViewById(R.id.emergency_contact_mobileno);
-            emailTxt = (TextView)itemView.findViewById(R.id.emergency_contact_email);
-            relationshipnameTxt = (TextView)itemView.findViewById(R.id.emergecncy_contact_relationshipname);
-            lastUpdateTxt = (TextView)itemView.findViewById(R.id.emergency_contact_lastupdate);
+            nameTxt = (TextView) itemView.findViewById(R.id.emergency_contact_name);
+            addressTxt = (TextView) itemView.findViewById(R.id.emergency_contact_address);
+            countryNameTxt = (TextView) itemView.findViewById(R.id.emergency_contact_countryname);
+            telNumberTxt = (TextView) itemView.findViewById(R.id.emergency_contact_telno);
+            mobileNumberTxt = (TextView) itemView.findViewById(R.id.emergency_contact_mobileno);
+            emailTxt = (TextView) itemView.findViewById(R.id.emergency_contact_email);
+            relationshipnameTxt = (TextView) itemView.findViewById(R.id.emergecncy_contact_relationshipname);
+            lastUpdateTxt = (TextView) itemView.findViewById(R.id.emergency_contact_lastupdate);
             emergencyContactTypeTxt = (TextView) itemView.findViewById(R.id.emergency_contact_type);
 
 
-            mainLay = (LinearLayout)itemView.findViewById(R.id.main_lay);
+            mainLay = (LinearLayout) itemView.findViewById(R.id.main_lay);
         }
     }
 }

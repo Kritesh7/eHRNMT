@@ -75,7 +75,7 @@ public class MedicalDetailsFragment extends Fragment {
     public EditText illnessTxt, allergiesTxt, familyDrNameTxt, familyDrNumberTxt;
     public Button editAddBtn;
     public String bloodGroupIdString = "", BloodGroup = "";
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
     public boolean flag = true;
     public ProgressDialog pDialog;
 
@@ -122,7 +122,7 @@ public class MedicalDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_medical_details, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
@@ -134,8 +134,8 @@ public class MedicalDetailsFragment extends Fragment {
         editAddBtn = (Button) rootView.findViewById(R.id.editmedicaldetailsBtn);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
         //Blood Group Spinner
         bloodGroupSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
@@ -145,14 +145,12 @@ public class MedicalDetailsFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.customizespinner);
         bloodGroupSpinner.setAdapter(adapter);
 
-        if (conn.getConnectivityStatus()>0)
-        {
+        if (conn.getConnectivityStatus() > 0) {
             personalDdlDetails();
 
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        } else {
+            conn.showNoInternetAlret();
+        }
 
         // disable all widget
         bloodGroupSpinner.setEnabled(false);
@@ -178,26 +176,21 @@ public class MedicalDetailsFragment extends Fragment {
                     editAddBtn.setText("Update Medical Details");
 
                     flag = false;
-                }else
-                    {
-                        //update medical details
-                        if (bloodGroupIdString.equalsIgnoreCase(""))
-                        {
-                            Toast.makeText(getActivity(), "Please select Blood Group", Toast.LENGTH_SHORT).show();
-                        }else {
-                            if (conn.getConnectivityStatus()>0) {
+                } else {
+                    //update medical details
+                    if (bloodGroupIdString.equalsIgnoreCase("")) {
+                        Toast.makeText(getActivity(), "Please select Blood Group", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (conn.getConnectivityStatus() > 0) {
 
-                                updateMedicalDetails(userId,bloodGroupIdString,familyDrNameTxt.getText().toString(),familyDrNumberTxt.getText().toString(),
-                                        allergiesTxt.getText().toString(),illnessTxt.getText().toString(),authCode);
+                            updateMedicalDetails(userId, bloodGroupIdString, familyDrNameTxt.getText().toString(), familyDrNumberTxt.getText().toString(),
+                                    allergiesTxt.getText().toString(), illnessTxt.getText().toString(), authCode);
 
-                            }else
-                            {
-                                conn.showNoInternetAlret();
-                            }
+                        } else {
+                            conn.showNoInternetAlret();
                         }
                     }
-
-
+                }
 
 
             }
@@ -219,11 +212,10 @@ public class MedicalDetailsFragment extends Fragment {
         });
 
 
-
         return rootView;
     }
 
-    public void getMedicalDetails(final String AuthCode , final String AdminID) {
+    public void getMedicalDetails(final String AuthCode, final String AdminID) {
 
         /*final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
@@ -236,21 +228,20 @@ public class MedicalDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             BloodGroup = jsonObject.getString("BloodGroup");
                             String FamilyDoctorName = jsonObject.getString("FamilyDoctorName");
                             String FamilyDoctorNo = jsonObject.getString("FamilyDoctorNo");
@@ -264,18 +255,15 @@ public class MedicalDetailsFragment extends Fragment {
 
 
                             // select by default spinner
-                            for (int k =0; k<bloodList.size(); k++)
-                            {
-                                if (bloodList.get(k).getBloodGroupId().equalsIgnoreCase(BloodGroup))
-                                {
+                            for (int k = 0; k < bloodList.size(); k++) {
+                                if (bloodList.get(k).getBloodGroupId().equalsIgnoreCase(BloodGroup)) {
                                     bloodGroupSpinner.setSelection(k);
                                 }
                             }
 
-                            if (FamilyDoctorName.equalsIgnoreCase(""))
-                            {
+                            if (FamilyDoctorName.equalsIgnoreCase("")) {
                                 editAddBtn.setText("Add Medical Details");
-                            }else {
+                            } else {
                                 editAddBtn.setText("Edit Medical Details");
                             }
 
@@ -288,7 +276,7 @@ public class MedicalDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -325,12 +313,12 @@ public class MedicalDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -348,7 +336,7 @@ public class MedicalDetailsFragment extends Fragment {
     public void personalDdlDetails() {
 
 
-        pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -360,48 +348,45 @@ public class MedicalDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     //bind material List
-                    if (bloodList.size()>0)
-                    {
+                    if (bloodList.size() > 0) {
                         bloodList.clear();
                     }
-                    bloodList.add(new BloodGroupModel("","Please Select Blood Group"));
+                    bloodList.add(new BloodGroupModel("", "Please Select Blood Group"));
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray bloodGroupObj = jsonObject.getJSONArray("BloodGroupMaster");
-                        for (int i =0; i<bloodGroupObj.length(); i++)
-                        {
+                        for (int i = 0; i < bloodGroupObj.length(); i++) {
                             JSONObject object = bloodGroupObj.getJSONObject(i);
 
                             String BloodGroupID = object.getString("BloodGroupID");
                             String BloodGroupName = object.getString("BloodGroupName");
 
-                            bloodList.add(new BloodGroupModel(BloodGroupID,BloodGroupName));
+                            bloodList.add(new BloodGroupModel(BloodGroupID, BloodGroupName));
 
                         }
 
                         //Show all Medical Details Data
-                        getMedicalDetails(authCode,userId);
+                        getMedicalDetails(authCode, userId);
 
                     }
-
 
 
                     adapter.notifyDataSetChanged();
 
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -447,11 +432,11 @@ public class MedicalDetailsFragment extends Fragment {
     }
 
     // Update Medical Details
-    public void updateMedicalDetails(final String AdminID  , final String BloodGroup, final String FamilyDoctorName,
+    public void updateMedicalDetails(final String AdminID, final String BloodGroup, final String FamilyDoctorName,
                                      final String FamilyDoctorNo, final String Allergies, final String Illness
-                                 , final String AuthCode)  {
+            , final String AuthCode) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -463,7 +448,7 @@ public class MedicalDetailsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
 
                     if (jsonObject.has("status")) {
@@ -471,9 +456,9 @@ public class MedicalDetailsFragment extends Fragment {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
-                            getMedicalDetails(AuthCode,AdminID);
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
+                            getMedicalDetails(AuthCode, AdminID);
 
                             // disable all widget
                             bloodGroupSpinner.setEnabled(false);
@@ -486,9 +471,9 @@ public class MedicalDetailsFragment extends Fragment {
                             editAddBtn.setText("Edit Medical Details");
 
 
-                        }else {
+                        } else {
 
-                            Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -523,7 +508,7 @@ public class MedicalDetailsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -560,17 +545,17 @@ public class MedicalDetailsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("BloodGroup",BloodGroup);
-                params.put("FamilyDoctorName",FamilyDoctorName);
-                params.put("FamilyDoctorNo",FamilyDoctorNo);
-                params.put("Allergies",Allergies);
-                params.put("Illness",Illness);
-                params.put("AuthCode",AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("BloodGroup", BloodGroup);
+                params.put("FamilyDoctorName", FamilyDoctorName);
+                params.put("FamilyDoctorNo", FamilyDoctorNo);
+                params.put("Allergies", Allergies);
+                params.put("Illness", Illness);
+                params.put("AuthCode", AuthCode);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -609,6 +594,7 @@ public class MedicalDetailsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
     private void Logout() {
 
 

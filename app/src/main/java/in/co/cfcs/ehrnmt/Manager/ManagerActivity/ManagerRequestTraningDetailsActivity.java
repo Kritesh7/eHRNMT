@@ -282,10 +282,6 @@ public class ManagerRequestTraningDetailsActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerRequestTraningDetailsActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerRequestTraningDetailsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerRequestTraningDetailsActivity.this,
@@ -306,8 +302,6 @@ public class ManagerRequestTraningDetailsActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerRequestTraningDetailsActivity.this,
                 "")));
-
-
 
     }
 

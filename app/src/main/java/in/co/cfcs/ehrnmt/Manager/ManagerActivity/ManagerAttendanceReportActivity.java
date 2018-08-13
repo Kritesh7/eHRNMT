@@ -71,8 +71,8 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
     public ArrayAdapter<MonthModel> monthAdapter;
     public ArrayAdapter<String> yearAdapter;
     public ImageView serchBtn;
-    public String  yearString ="", empId = "";
-    public int monthString =0;
+    public String yearString = "", empId = "";
+    public int monthString = 0;
     public TextView noRecordFoundTxt;
 
     String LoginStatus;
@@ -94,11 +94,11 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -112,25 +112,24 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Attendance Report");
 
-        ateendanceListRecy = (RecyclerView)findViewById(R.id.attendace_list_recycler);
-        monthSpinner = (Spinner)findViewById(R.id.monthspinner);
-        yearSpinner = (Spinner)findViewById(R.id.yearspinner);
-        serchBtn = (ImageView)findViewById(R.id.serchresult);
-        noRecordFoundTxt = (TextView)findViewById(R.id.norecordfound);
+        ateendanceListRecy = (RecyclerView) findViewById(R.id.attendace_list_recycler);
+        monthSpinner = (Spinner) findViewById(R.id.monthspinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearspinner);
+        serchBtn = (ImageView) findViewById(R.id.serchresult);
+        noRecordFoundTxt = (TextView) findViewById(R.id.norecordfound);
 
         conn = new ConnectionDetector(ManagerAttendanceReportActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerAttendanceReportActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerAttendanceReportActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerAttendanceReportActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerAttendanceReportActivity.this)));
 
-        adapter = new AttendanceListAdapter(ManagerAttendanceReportActivity.this,list,ManagerAttendanceReportActivity.this);
+        adapter = new AttendanceListAdapter(ManagerAttendanceReportActivity.this, list, ManagerAttendanceReportActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerAttendanceReportActivity.this);
         ateendanceListRecy.setLayoutManager(mLayoutManager);
         ateendanceListRecy.setItemAnimator(new DefaultItemAnimator());
@@ -139,32 +138,31 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
         ateendanceListRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         //current month and year
-        Calendar c= Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         final int cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
         final int cmonth = c.get(Calendar.MONTH);//this is april so you will receive  3 instead of 4.
-        int rearYear = cyear-2;
+        int rearYear = cyear - 2;
 
         //Log.e("current Year", cyear + "");
-       // Log.e("current Month", month_name + "");
+        // Log.e("current Month", month_name + "");
 
         //Month spinner work
-        if (monthList.size()>0)
-        {
+        if (monthList.size() > 0) {
             monthList.clear();
         }
 
-        monthList.add(new MonthModel(1,"Jan"));
-        monthList.add(new MonthModel(2,"Feb"));
-        monthList.add(new MonthModel(3,"Mar"));
-        monthList.add(new MonthModel(4,"Apr"));
-        monthList.add(new MonthModel(5,"May"));
-        monthList.add(new MonthModel(6,"Jun"));
-        monthList.add(new MonthModel(7,"July"));
-        monthList.add(new MonthModel(8,"Aug"));
-        monthList.add(new MonthModel(9,"Sep"));
-        monthList.add(new MonthModel(10,"Oct"));
-        monthList.add(new MonthModel(11,"Nov"));
-        monthList.add(new MonthModel(12,"Dec"));
+        monthList.add(new MonthModel(1, "Jan"));
+        monthList.add(new MonthModel(2, "Feb"));
+        monthList.add(new MonthModel(3, "Mar"));
+        monthList.add(new MonthModel(4, "Apr"));
+        monthList.add(new MonthModel(5, "May"));
+        monthList.add(new MonthModel(6, "Jun"));
+        monthList.add(new MonthModel(7, "July"));
+        monthList.add(new MonthModel(8, "Aug"));
+        monthList.add(new MonthModel(9, "Sep"));
+        monthList.add(new MonthModel(10, "Oct"));
+        monthList.add(new MonthModel(11, "Nov"));
+        monthList.add(new MonthModel(12, "Dec"));
 
         monthSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -174,23 +172,20 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
         monthSpinner.setAdapter(monthAdapter);
 
         //select the current Month First Time
-        for (int i=0; i<monthList.size(); i++)
-        {
-            if (cmonth+1 == monthList.get(i).getMonthId())
-            {
+        for (int i = 0; i < monthList.size(); i++) {
+            if (cmonth + 1 == monthList.get(i).getMonthId()) {
                 monthSpinner.setSelection(i);
             }
         }
 
         //year Spinner Work
-        if (yearList.size()>0)
-        {
+        if (yearList.size() > 0) {
             yearList.clear();
         }
 
-        yearList.add(cyear+ "");
-        yearList.add(cyear-1 + "");
-        yearList.add(cyear-2 + "");
+        yearList.add(cyear + "");
+        yearList.add(cyear - 1 + "");
+        yearList.add(cyear - 2 + "");
 
         yearSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -200,12 +195,11 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
         yearSpinner.setAdapter(yearAdapter);
 
         //first Time Call API
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            attendaceList(authCode, userId, empId, cmonth+1 +"", cyear + "");
+            attendaceList(authCode, userId, empId, cmonth + 1 + "", cyear + "");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -242,21 +236,20 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (monthString == 0 || yearString.equalsIgnoreCase(""))
-                {
-                    monthString = cmonth+1;
+                if (monthString == 0 || yearString.equalsIgnoreCase("")) {
+                    monthString = cmonth + 1;
                     yearString = cyear + "";
 
                 }
-                attendaceList(authCode, userId,empId, monthString + "", yearString);
+                attendaceList(authCode, userId, empId, monthString + "", yearString);
             }
         });
     }
 
     //Attendace List
-    public void attendaceList(final String AuthCode , final String AdminID,final String EmployeeID,  final String Month, final String year) {
+    public void attendaceList(final String AuthCode, final String AdminID, final String EmployeeID, final String Month, final String year) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerAttendanceReportActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerAttendanceReportActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -268,14 +261,12 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -283,11 +274,11 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String AttendanceLogID = jsonObject.getString("AttendanceLogID");
                             String AttendanceDateText = jsonObject.getString("AttendanceDateText");
                             String InTime = jsonObject.getString("InTime");
@@ -300,21 +291,18 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
                             String Name = jsonObject.getString("Name");
 
 
-                            list.add(new AttendanceListModel(Name,AttendanceLogID,AttendanceDateText,InTime,OutTime,WorkTime
-                                    ,Halfday,LateArrivalText,EarlyLeavingText,StatusText,""));
+                            list.add(new AttendanceListModel(Name, AttendanceLogID, AttendanceDateText, InTime, OutTime, WorkTime
+                                    , Halfday, LateArrivalText, EarlyLeavingText, StatusText, ""));
 
                         }
 
 
-
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         ateendanceListRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         ateendanceListRecy.setVisibility(View.VISIBLE);
                     }
@@ -323,7 +311,7 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -360,16 +348,15 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
-                params.put("Month",Month);
-                params.put("Year",year);
-
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
+                params.put("Month", Month);
+                params.put("Year", year);
 
 
                 Log.e("Parms", params.toString());
@@ -430,7 +417,6 @@ public class ManagerAttendanceReportActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

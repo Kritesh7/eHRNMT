@@ -61,8 +61,8 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddQualificationActivity extends AppCompatActivity {
 
-    public TextView titleTxt,passDateTxt,passDateBtn;
-    public Spinner qualificationSpinner, courseTypeSpinner,deciplineSpinner;
+    public TextView titleTxt, passDateTxt, passDateBtn;
+    public Spinner qualificationSpinner, courseTypeSpinner, deciplineSpinner;
     public ArrayList<QualificationSpinnerModel> qualificationList = new ArrayList<>();
     public ArrayList<String> courseTypeList = new ArrayList<>();
     public ArrayList<DisciplineSpinnerModel> deciplineList = new ArrayList<>();
@@ -77,9 +77,7 @@ public class AddQualificationActivity extends AppCompatActivity {
     public EditText instituteTxt;
     public CheckBox highestDegreeCheck;
     public Button addBtn;
-    public String courseType = "", deciplineID = "", qualifiucationId = "", highestDegreeTxt = "false", recordId = "", actionMode = ""
-            ,qualificationNameStr = "",disciplineNameStr = "", passinDateStr = "", instituteStr = "", courseTypeNameStr = ""
-            ,highestDegreeStr = "";
+    public String courseType = "", deciplineID = "", qualifiucationId = "", highestDegreeTxt = "false", recordId = "", actionMode = "", qualificationNameStr = "", disciplineNameStr = "", passinDateStr = "", instituteStr = "", courseTypeNameStr = "", highestDegreeStr = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -101,11 +99,11 @@ public class AddQualificationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.addqualificationtollbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -122,8 +120,7 @@ public class AddQualificationActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             actionMode = intent.getStringExtra("Mode");
             recordId = intent.getStringExtra("RecordId");
             qualificationNameStr = intent.getStringExtra("QualificationName");
@@ -138,34 +135,30 @@ public class AddQualificationActivity extends AppCompatActivity {
         }
 
         conn = new ConnectionDetector(AddQualificationActivity.this);
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddQualificationActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddQualificationActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(AddQualificationActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(AddQualificationActivity.this)));
 
 
-
-        qualificationSpinner = (Spinner)findViewById(R.id.qualificationspinner);
-        courseTypeSpinner = (Spinner)findViewById(R.id.coursetypespinner);
-        deciplineSpinner = (Spinner)findViewById(R.id.deciplinespinner);
+        qualificationSpinner = (Spinner) findViewById(R.id.qualificationspinner);
+        courseTypeSpinner = (Spinner) findViewById(R.id.coursetypespinner);
+        deciplineSpinner = (Spinner) findViewById(R.id.deciplinespinner);
         passDateBtn = (TextView) findViewById(R.id.passdateTxt);
         passDateTxt = (TextView) findViewById(R.id.passdateTxt);
         instituteTxt = (EditText) findViewById(R.id.institutetxt);
         highestDegreeCheck = (CheckBox) findViewById(R.id.checkHighest);
         addBtn = (Button) findViewById(R.id.newrequestbtn);
 
-        if (actionMode.equalsIgnoreCase("EditMode"))
-        {
+        if (actionMode.equalsIgnoreCase("EditMode")) {
             passDateTxt.setText(passinDateStr);
             instituteTxt.setText(instituteStr);
 
-            if (highestDegreeStr.equalsIgnoreCase("true"))
-            {
+            if (highestDegreeStr.equalsIgnoreCase("true")) {
                 highestDegreeCheck.setChecked(true);
             }
 
             addBtn.setText("Update Qualification Details");
 
         }
-
 
 
         //Qualification List Spinner
@@ -178,8 +171,7 @@ public class AddQualificationActivity extends AppCompatActivity {
         qualificationSpinner.setAdapter(qualificationAdapter);
 
         //course Type Spinner
-        if (courseTypeList.size()>0)
-        {
+        if (courseTypeList.size() > 0) {
             courseTypeList.clear();
         }
         courseTypeList.add("Please Select Course Type");
@@ -197,12 +189,9 @@ public class AddQualificationActivity extends AppCompatActivity {
         courseTypeSpinner.setAdapter(CourseTypeAdapter);
 
         //eDIT mode
-        for (int k =0; k<courseTypeList.size(); k++)
-        {
-            if (actionMode.equalsIgnoreCase("EditMode"))
-            {
-                if (courseTypeList.get(k).equalsIgnoreCase(courseTypeNameStr))
-                {
+        for (int k = 0; k < courseTypeList.size(); k++) {
+            if (actionMode.equalsIgnoreCase("EditMode")) {
+                if (courseTypeList.get(k).equalsIgnoreCase(courseTypeNameStr)) {
                     courseTypeSpinner.setSelection(k);
                     courseType = courseTypeList.get(k);
                 }
@@ -219,13 +208,11 @@ public class AddQualificationActivity extends AppCompatActivity {
         deciplineAdapter.setDropDownViewResource(R.layout.customizespinner);
         deciplineSpinner.setAdapter(deciplineAdapter);
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            personalDdlDetails(userId,authcode);
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        if (conn.getConnectivityStatus() > 0) {
+            personalDdlDetails(userId, authcode);
+        } else {
+            conn.showNoInternetAlret();
+        }
 
         //Passing Date Picker
         passDateBtn.setOnClickListener(new View.OnClickListener() {
@@ -319,13 +306,11 @@ public class AddQualificationActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                if (b)
-                {
-                  highestDegreeTxt = "true";
-                }else
-                    {
-                        highestDegreeTxt = "false";
-                    }
+                if (b) {
+                    highestDegreeTxt = "true";
+                } else {
+                    highestDegreeTxt = "false";
+                }
             }
         });
 
@@ -334,30 +319,24 @@ public class AddQualificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (qualifiucationId.equalsIgnoreCase(""))
-                {
+                if (qualifiucationId.equalsIgnoreCase("")) {
                     Toast.makeText(AddQualificationActivity.this, "Please select qualification", Toast.LENGTH_SHORT).show();
-                }else if (deciplineID.equalsIgnoreCase(""))
-                {
+                } else if (deciplineID.equalsIgnoreCase("")) {
                     Toast.makeText(AddQualificationActivity.this, "Please select descipline", Toast.LENGTH_SHORT).show();
-                }else if (passDateTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (passDateTxt.getText().toString().equalsIgnoreCase("")) {
                     passDateTxt.setError("Please enter passing date");
-                }else if (instituteTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                } else if (instituteTxt.getText().toString().equalsIgnoreCase("")) {
                     instituteTxt.setError("Please enter institute");
-                }else if (courseType.equalsIgnoreCase("Please Select Course Type"))
-                {
+                } else if (courseType.equalsIgnoreCase("Please Select Course Type")) {
                     Toast.makeText(AddQualificationActivity.this, "Please select course type", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
 
-                    if (conn.getConnectivityStatus()>0) {
+                    if (conn.getConnectivityStatus() > 0) {
                         addEducationDetails(userId, recordId, instituteTxt.getText().toString(), passDateTxt.getText().toString(),
                                 courseType, deciplineID, qualifiucationId, highestDegreeTxt, authcode);
-                    }else
-                        {
-                            conn.showNoInternetAlret();
-                        }
+                    } else {
+                        conn.showNoInternetAlret();
+                    }
                 }
             }
         });
@@ -365,10 +344,10 @@ public class AddQualificationActivity extends AppCompatActivity {
     }
 
     //bind all spiiner data
-    public void personalDdlDetails(final String AdminID, final String AuthCode ) {
+    public void personalDdlDetails(final String AdminID, final String AuthCode) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(AddQualificationActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddQualificationActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -380,75 +359,65 @@ public class AddQualificationActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
                     //bind Skills List
-                    if (qualificationList.size()>0)
-                    {
+                    if (qualificationList.size() > 0) {
                         qualificationList.clear();
                     }
-                    qualificationList.add(new QualificationSpinnerModel("Please Select Qualification",""));
+                    qualificationList.add(new QualificationSpinnerModel("Please Select Qualification", ""));
 
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray qualificationObj = jsonObject.getJSONArray("QualificationMaster");
-                        for (int i =0; i<qualificationObj.length(); i++)
-                        {
+                        for (int i = 0; i < qualificationObj.length(); i++) {
                             JSONObject object = qualificationObj.getJSONObject(i);
 
                             String QualificationID = object.getString("QualificationID");
                             String QualificationName = object.getString("QualificationName");
 
-                            qualificationList.add(new QualificationSpinnerModel(QualificationName,QualificationID));
+                            qualificationList.add(new QualificationSpinnerModel(QualificationName, QualificationID));
 
                         }
 
-                        if (deciplineList.size()>0)
-                        {
+                        if (deciplineList.size() > 0) {
                             deciplineList.clear();
                         }
-                        deciplineList.add(new DisciplineSpinnerModel("Please Select Discipline",""));
+                        deciplineList.add(new DisciplineSpinnerModel("Please Select Discipline", ""));
 
                         JSONArray descObj = jsonObject.getJSONArray("DisciplineMaster");
-                        for (int i =0; i<descObj.length(); i++)
-                        {
+                        for (int i = 0; i < descObj.length(); i++) {
                             JSONObject object = descObj.getJSONObject(i);
 
                             String DisciplineID = object.getString("DisciplineID");
                             String DisciplineName = object.getString("DisciplineName");
 
-                            deciplineList.add(new DisciplineSpinnerModel(DisciplineName,DisciplineID));
+                            deciplineList.add(new DisciplineSpinnerModel(DisciplineName, DisciplineID));
 
                         }
 
                         //Edit Mode
-                        for (int k =0; k<qualificationList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (qualificationList.get(k).getQualification().equalsIgnoreCase(qualificationNameStr))
-                                {
+                        for (int k = 0; k < qualificationList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (qualificationList.get(k).getQualification().equalsIgnoreCase(qualificationNameStr)) {
                                     qualificationSpinner.setSelection(k);
                                     qualifiucationId = qualificationList.get(k).getQualificationId();
                                 }
                             }
                         }
 
-                        for (int k =0; k<deciplineList.size(); k++)
-                        {
-                            if (actionMode.equalsIgnoreCase("EditMode"))
-                            {
-                                if (deciplineList.get(k).getDescipline().equalsIgnoreCase(disciplineNameStr))
-                                {
+                        for (int k = 0; k < deciplineList.size(); k++) {
+                            if (actionMode.equalsIgnoreCase("EditMode")) {
+                                if (deciplineList.get(k).getDescipline().equalsIgnoreCase(disciplineNameStr)) {
                                     deciplineSpinner.setSelection(k);
                                     deciplineID = deciplineList.get(k).getDesciplineId();
                                 }
@@ -463,7 +432,7 @@ public class AddQualificationActivity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -500,14 +469,13 @@ public class AddQualificationActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
 
 
                 Log.e("Parms", params.toString());
@@ -523,11 +491,11 @@ public class AddQualificationActivity extends AppCompatActivity {
     }
 
     //Add EducationDeatils
-    public void addEducationDetails(final String AdminID  , final String RecordID, final String Institute, final String PassingDate,
-                                    final String CourseType, final String DisciplineID , final String QualificationID ,
-                                    final String HighestDegree, final String AuthCode)  {
+    public void addEducationDetails(final String AdminID, final String RecordID, final String Institute, final String PassingDate,
+                                    final String CourseType, final String DisciplineID, final String QualificationID,
+                                    final String HighestDegree, final String AuthCode) {
 
-        final ProgressDialog pDialog = new ProgressDialog(AddQualificationActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(AddQualificationActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -539,24 +507,24 @@ public class AddQualificationActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")){
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -593,19 +561,19 @@ public class AddQualificationActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AdminID",AdminID);
-                params.put("AuthCode",AuthCode);
-                params.put("RecordID",RecordID);
-                params.put("Institute",Institute);
-                params.put("CourseType",CourseType);
-                params.put("PassingDate",PassingDate);
-                params.put("DisciplineID",DisciplineID);
-                params.put("QualificationID",QualificationID);
-                params.put("HighestDegree",HighestDegree);
+                params.put("AdminID", AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("RecordID", RecordID);
+                params.put("Institute", Institute);
+                params.put("CourseType", CourseType);
+                params.put("PassingDate", PassingDate);
+                params.put("DisciplineID", DisciplineID);
+                params.put("QualificationID", QualificationID);
+                params.put("HighestDegree", HighestDegree);
 
                 Log.e("Parms", params.toString());
                 return params;

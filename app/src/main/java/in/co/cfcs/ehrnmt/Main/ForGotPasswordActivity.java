@@ -60,16 +60,16 @@ public class ForGotPasswordActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.status_color));
         }
 
-        userTxt = (EditText)findViewById(R.id.usernmaetxt);
-        forgotBtn = (Button)findViewById(R.id.forgotpassword);
-        backToLoginBtn = (Button)findViewById(R.id.backtologin);
+        userTxt = (EditText) findViewById(R.id.usernmaetxt);
+        forgotBtn = (Button) findViewById(R.id.forgotpassword);
+        backToLoginBtn = (Button) findViewById(R.id.backtologin);
         conn = new ConnectionDetector(ForGotPasswordActivity.this);
 
         backToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent ik = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_left_in,
                         R.anim.push_right_out);
@@ -81,19 +81,17 @@ public class ForGotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (userTxt.getText().toString().equalsIgnoreCase(""))
-                {
+                if (userTxt.getText().toString().equalsIgnoreCase("")) {
                     userTxt.setError("Please enter valid userid");
-                }else {
+                } else {
 
-                    if (conn.getConnectivityStatus()>0) {
+                    if (conn.getConnectivityStatus() > 0) {
 
                         forgotAPI(userTxt.getText().toString());
 
-                    }else
-                        {
-                            conn.showNoInternetAlret();
-                        }
+                    } else {
+                        conn.showNoInternetAlret();
+                    }
                 }
             }
         });
@@ -102,7 +100,7 @@ public class ForGotPasswordActivity extends AppCompatActivity {
     //forgot password
     public void forgotAPI(final String userName) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ForGotPasswordActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ForGotPasswordActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -114,28 +112,27 @@ public class ForGotPasswordActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
-                            //    Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                            } else  if (LoginStatus.equalsIgnoreCase("success")) {
-                                Intent ik = new Intent(getApplicationContext(),LoginActivity.class);
+                                //    Logout();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else if (LoginStatus.equalsIgnoreCase("success")) {
+                                Intent ik = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(ik);
                                 overridePendingTransition(R.anim.push_left_in,
                                         R.anim.push_right_out);
                                 finish();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                            }else {
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                            } else {
 
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -144,7 +141,7 @@ public class ForGotPasswordActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -181,7 +178,7 @@ public class ForGotPasswordActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();

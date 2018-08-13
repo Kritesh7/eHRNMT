@@ -71,10 +71,10 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
     public ArrayAdapter<MonthModel> monthAdapter;
     public ArrayAdapter<String> yearAdapter;
     public ImageView serchBtn;
-    public String  yearString ="", empId = "";
+    public String yearString = "", empId = "";
     public int monthString;
     public TextView noRecordFoundTxt;
-    public int cmonth,cyear,rearYear;
+    public int cmonth, cyear, rearYear;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -95,11 +95,11 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -115,23 +115,22 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
         titleTxt.setText("Short Leave History");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
-        shortLeaveHistoryRecycler = (RecyclerView)findViewById(R.id.short_leave_history_recycler);
-        monthSpinner = (Spinner)findViewById(R.id.monthspinner);
-        yearSpinner = (Spinner)findViewById(R.id.yearspinner);
-        serchBtn = (ImageView)findViewById(R.id.serchresult);
-        noRecordFoundTxt = (TextView)findViewById(R.id.norecordfound);
+        shortLeaveHistoryRecycler = (RecyclerView) findViewById(R.id.short_leave_history_recycler);
+        monthSpinner = (Spinner) findViewById(R.id.monthspinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearspinner);
+        serchBtn = (ImageView) findViewById(R.id.serchresult);
+        noRecordFoundTxt = (TextView) findViewById(R.id.norecordfound);
 
         conn = new ConnectionDetector(ManagerShortLeaveHistoryActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerShortLeaveHistoryActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerShortLeaveHistoryActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerShortLeaveHistoryActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerShortLeaveHistoryActivity.this)));
 
-        adapter = new ShortLeaveHistoryAdapter(ManagerShortLeaveHistoryActivity.this,list,ManagerShortLeaveHistoryActivity.this);
+        adapter = new ShortLeaveHistoryAdapter(ManagerShortLeaveHistoryActivity.this, list, ManagerShortLeaveHistoryActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerShortLeaveHistoryActivity.this);
         shortLeaveHistoryRecycler.setLayoutManager(mLayoutManager);
         shortLeaveHistoryRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -140,33 +139,32 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
         shortLeaveHistoryRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         //current month and year
-        Calendar c= Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
         cmonth = c.get(Calendar.MONTH);//this is april so you will receive  3 instead of 4.
-        rearYear = cyear-2;
+        rearYear = cyear - 2;
 
         Log.e("current Year", rearYear + "");
         Log.e("current Month", cmonth + "");
 
         //Month spinner work
-        if (monthList.size()>0)
-        {
+        if (monthList.size() > 0) {
             monthList.clear();
         }
 
-        monthList.add(new MonthModel(0,"All"));
-        monthList.add(new MonthModel(1,"Jan"));
-        monthList.add(new MonthModel(2,"Feb"));
-        monthList.add(new MonthModel(3,"Mar"));
-        monthList.add(new MonthModel(4,"Apr"));
-        monthList.add(new MonthModel(5,"May"));
-        monthList.add(new MonthModel(6,"Jun"));
-        monthList.add(new MonthModel(7,"July"));
-        monthList.add(new MonthModel(8,"Aug"));
-        monthList.add(new MonthModel(9,"Sep"));
-        monthList.add(new MonthModel(10,"Oct"));
-        monthList.add(new MonthModel(11,"Nov"));
-        monthList.add(new MonthModel(12,"Dec"));
+        monthList.add(new MonthModel(0, "All"));
+        monthList.add(new MonthModel(1, "Jan"));
+        monthList.add(new MonthModel(2, "Feb"));
+        monthList.add(new MonthModel(3, "Mar"));
+        monthList.add(new MonthModel(4, "Apr"));
+        monthList.add(new MonthModel(5, "May"));
+        monthList.add(new MonthModel(6, "Jun"));
+        monthList.add(new MonthModel(7, "July"));
+        monthList.add(new MonthModel(8, "Aug"));
+        monthList.add(new MonthModel(9, "Sep"));
+        monthList.add(new MonthModel(10, "Oct"));
+        monthList.add(new MonthModel(11, "Nov"));
+        monthList.add(new MonthModel(12, "Dec"));
 
         monthSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -176,23 +174,20 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
         monthSpinner.setAdapter(monthAdapter);
 
         //select the current Month First Time
-        for (int i=0; i<monthList.size(); i++)
-        {
-            if (cmonth+1 == monthList.get(i).getMonthId())
-            {
+        for (int i = 0; i < monthList.size(); i++) {
+            if (cmonth + 1 == monthList.get(i).getMonthId()) {
                 monthSpinner.setSelection(i);
             }
         }
 
         //year Spinner Work
-        if (yearList.size()>0)
-        {
+        if (yearList.size() > 0) {
             yearList.clear();
         }
 
-        yearList.add(cyear+ "");
-        yearList.add(cyear-1 + "");
-        yearList.add(cyear-2 + "");
+        yearList.add(cyear + "");
+        yearList.add(cyear - 1 + "");
+        yearList.add(cyear - 2 + "");
 
         yearSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -200,7 +195,6 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                 yearList);
         yearAdapter.setDropDownViewResource(R.layout.customizespinner);
         yearSpinner.setAdapter(yearAdapter);
-
 
 
         //selected spinner Data then call API
@@ -236,28 +230,26 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                shortLeaveHistoryList(authCode, userId, empId,monthString + "", yearString);
+                shortLeaveHistoryList(authCode, userId, empId, monthString + "", yearString);
             }
         });
 
 
         //set list
-        if (conn.getConnectivityStatus()>0)
-        {
-            shortLeaveHistoryList(authCode, userId, empId,cmonth+1 +"", cyear + "");
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        if (conn.getConnectivityStatus() > 0) {
+            shortLeaveHistoryList(authCode, userId, empId, cmonth + 1 + "", cyear + "");
+        } else {
+            conn.showNoInternetAlret();
+        }
 
 
     }
 
     //Short Leave History List
-    public void shortLeaveHistoryList(final String AuthCode , final String AdminID, final String EmployeeID ,
+    public void shortLeaveHistoryList(final String AuthCode, final String AdminID, final String EmployeeID,
                                       final String Month, final String year) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerShortLeaveHistoryActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerShortLeaveHistoryActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -269,14 +261,12 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -284,11 +274,11 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String LeaveApplication_Id = jsonObject.getString("LeaveApplication_Id");
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDate = jsonObject.getString("StartDateText");
@@ -300,18 +290,16 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                             //  String IsDeleteable = jsonObject.getString("IsDeleteable");
                             String UserName = jsonObject.getString("UserNameWithComp");
 
-                            list.add(new ShortLeaveHistoryModel(UserName,LeaveApplication_Id,LeaveTypeName,StartDate,TimeFrom,TimeTo,AppliedDate,
-                                    StatusText,CommentText,"0"));
+                            list.add(new ShortLeaveHistoryModel(UserName, LeaveApplication_Id, LeaveTypeName, StartDate, TimeFrom, TimeTo, AppliedDate,
+                                    StatusText, CommentText, "0"));
                         }
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         shortLeaveHistoryRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         shortLeaveHistoryRecycler.setVisibility(View.VISIBLE);
                     }
@@ -321,12 +309,11 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
 
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
 
-                }catch (StringIndexOutOfBoundsException ex)
-                {
-                    Toast.makeText(ManagerShortLeaveHistoryActivity.this,"Error in request processing", Toast.LENGTH_SHORT).show();
+                } catch (StringIndexOutOfBoundsException ex) {
+                    Toast.makeText(ManagerShortLeaveHistoryActivity.this, "Error in request processing", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     //  Log.e("checking exception", ex.getMessage());
                 }
@@ -364,15 +351,15 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
-                params.put("Month",Month);
-                params.put("Year",year);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
+                params.put("Month", Month);
+                params.put("Year", year);
 
 
                 Log.e("Parms", params.toString());
@@ -426,11 +413,6 @@ public class ManagerShortLeaveHistoryActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerShortLeaveHistoryActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

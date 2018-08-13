@@ -16,6 +16,7 @@ public class ManagerDashboardActivity extends AppCompatActivity {
 
     public TextView titleTxt;
     public LinearLayout requaestApprovedLay, proceedLay, sixthTilesLay, thirdTilesLay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +32,11 @@ public class ManagerDashboardActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -59,7 +60,7 @@ public class ManagerDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerDashboardActivity.this,ManagerRequestToApproveActivity.class);
+                Intent ik = new Intent(ManagerDashboardActivity.this, ManagerRequestToApproveActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -69,7 +70,7 @@ public class ManagerDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerDashboardActivity.this,ManagerProceedRequestActivity.class);
+                Intent ik = new Intent(ManagerDashboardActivity.this, ManagerProceedRequestActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
@@ -80,8 +81,8 @@ public class ManagerDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Asset Details");
+                Intent ik = new Intent(ManagerDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Asset Details");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -92,7 +93,7 @@ public class ManagerDashboardActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent ik = new Intent(ManagerDashboardActivity.this,ManagerLeaveMangementActivity.class);
+                Intent ik = new Intent(ManagerDashboardActivity.this, ManagerLeaveMangementActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }

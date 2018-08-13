@@ -21,8 +21,7 @@ import in.co.cfcs.ehrnmt.R;
  * Created by Admin on 21-09-2017.
  */
 
-public class LangaugeAdapter extends RecyclerView.Adapter<LangaugeAdapter.ViewHolder>
-{
+public class LangaugeAdapter extends RecyclerView.Adapter<LangaugeAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<LanguageModel> list = new ArrayList<>();
@@ -51,27 +50,21 @@ public class LangaugeAdapter extends RecyclerView.Adapter<LangaugeAdapter.ViewHo
 
         holder.languageTxt.setText(model.getLangaugae());
 
-        if (model.getRead().equalsIgnoreCase("true"))
-        {
+        if (model.getRead().equalsIgnoreCase("true")) {
             holder.readTxt.setText("Yes");
-        }else
-            {
-                holder.readTxt.setText("No");
-            }
+        } else {
+            holder.readTxt.setText("No");
+        }
 
-        if (model.getWrite().equalsIgnoreCase("true"))
-        {
+        if (model.getWrite().equalsIgnoreCase("true")) {
             holder.writeTxt.setText("Yes");
-        }else
-        {
+        } else {
             holder.writeTxt.setText("No");
         }
 
-        if (model.getSpeak().equalsIgnoreCase("true"))
-        {
+        if (model.getSpeak().equalsIgnoreCase("true")) {
             holder.speakTxt.setText("Yes");
-        }else
-        {
+        } else {
             holder.speakTxt.setText("No");
         }
 
@@ -97,7 +90,6 @@ public class LangaugeAdapter extends RecyclerView.Adapter<LangaugeAdapter.ViewHo
         });
 
 
-
     }
 
     @Override
@@ -106,17 +98,17 @@ public class LangaugeAdapter extends RecyclerView.Adapter<LangaugeAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView languageTxt,readTxt,writeTxt,speakTxt;
+        public TextView languageTxt, readTxt, writeTxt, speakTxt;
 
         public LinearLayout mainLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            languageTxt = (TextView)itemView.findViewById(R.id.langauge);
-            readTxt = (TextView)itemView.findViewById(R.id.read);
-            writeTxt = (TextView)itemView.findViewById(R.id.write);
-            speakTxt = (TextView)itemView.findViewById(R.id.speak);
+            languageTxt = (TextView) itemView.findViewById(R.id.langauge);
+            readTxt = (TextView) itemView.findViewById(R.id.read);
+            writeTxt = (TextView) itemView.findViewById(R.id.write);
+            speakTxt = (TextView) itemView.findViewById(R.id.speak);
             mainLay = (LinearLayout) itemView.findViewById(R.id.main_lay);
 
         }

@@ -21,8 +21,7 @@ import in.co.cfcs.ehrnmt.R;
  * Created by Admin on 10-10-2017.
  */
 
-public class AttendanceListAdapter extends RecyclerView.Adapter<AttendanceListAdapter.ViewHolder>
-{
+public class AttendanceListAdapter extends RecyclerView.Adapter<AttendanceListAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<AttendanceListModel> list = new ArrayList<>();
@@ -57,8 +56,7 @@ public class AttendanceListAdapter extends RecyclerView.Adapter<AttendanceListAd
         holder.statusTxt.setText(model.getStatus());
         holder.nameTxt.setText(model.getName());
 
-        if (model.getStatus().equalsIgnoreCase("absent"))
-        {
+        if (model.getStatus().equalsIgnoreCase("absent")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.red_color));
         }
 
@@ -67,7 +65,7 @@ public class AttendanceListAdapter extends RecyclerView.Adapter<AttendanceListAd
             public void onClick(View view) {
 
                 Intent i = new Intent(context, ViewAttendanceDetailsActivity.class);
-                i.putExtra("AttendnaceLogId",model.getAttendanceLogID());
+                i.putExtra("AttendnaceLogId", model.getAttendanceLogID());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -80,28 +78,25 @@ public class AttendanceListAdapter extends RecyclerView.Adapter<AttendanceListAd
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView dateTxt,inTimeTxt,outTimeTxt,workTimeTxt,halfDayTxt,lateArivalTxt,earlyLeavingTxt,statusTxt, nameTxt;
+        public TextView dateTxt, inTimeTxt, outTimeTxt, workTimeTxt, halfDayTxt, lateArivalTxt, earlyLeavingTxt, statusTxt, nameTxt;
 
         public LinearLayout mainLay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            dateTxt = (TextView)itemView.findViewById(R.id.attendancelist_date);
-            inTimeTxt = (TextView)itemView.findViewById(R.id.attendancelist_intime);
-            outTimeTxt = (TextView)itemView.findViewById(R.id.attendancelist_outtime);
-            workTimeTxt = (TextView)itemView.findViewById(R.id.attendancelist_worktime);
-            halfDayTxt = (TextView)itemView.findViewById(R.id.attendacelist_halfday);
-            lateArivalTxt = (TextView)itemView.findViewById(R.id.attendacelist_latearival);
-            earlyLeavingTxt = (TextView)itemView.findViewById(R.id.attendacelist_earlyleaving);
-            statusTxt = (TextView)itemView.findViewById(R.id.attendacelist_status);
+            dateTxt = (TextView) itemView.findViewById(R.id.attendancelist_date);
+            inTimeTxt = (TextView) itemView.findViewById(R.id.attendancelist_intime);
+            outTimeTxt = (TextView) itemView.findViewById(R.id.attendancelist_outtime);
+            workTimeTxt = (TextView) itemView.findViewById(R.id.attendancelist_worktime);
+            halfDayTxt = (TextView) itemView.findViewById(R.id.attendacelist_halfday);
+            lateArivalTxt = (TextView) itemView.findViewById(R.id.attendacelist_latearival);
+            earlyLeavingTxt = (TextView) itemView.findViewById(R.id.attendacelist_earlyleaving);
+            statusTxt = (TextView) itemView.findViewById(R.id.attendacelist_status);
             nameTxt = (TextView) itemView.findViewById(R.id.attendancelist_name);
 
 
-            mainLay = (LinearLayout)itemView.findViewById(R.id.attendacelistlay);
-
-
-
+            mainLay = (LinearLayout) itemView.findViewById(R.id.attendacelistlay);
 
 
         }

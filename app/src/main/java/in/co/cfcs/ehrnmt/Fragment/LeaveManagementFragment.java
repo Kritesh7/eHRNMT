@@ -89,10 +89,10 @@ public class LeaveManagementFragment extends Fragment {
     public ArrayAdapter<MonthModel> monthAdapter;
     public ArrayAdapter<String> yearAdapter;
     public ImageView serchBtn;
-    public String yearString ="";
+    public String yearString = "";
     public int monthString;
     public TextView noRecordFoundTxt;
-    public int cmonth,cyear,rearYear;
+    public int cmonth, cyear, rearYear;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -137,23 +137,23 @@ public class LeaveManagementFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_leave_management, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        leaveMangementRecy = (RecyclerView)rootView.findViewById(R.id.leave_management_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
-        monthSpinner = (Spinner)rootView.findViewById(R.id.monthspinner);
+        leaveMangementRecy = (RecyclerView) rootView.findViewById(R.id.leave_management_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        monthSpinner = (Spinner) rootView.findViewById(R.id.monthspinner);
         yearSpinner = (Spinner) rootView.findViewById(R.id.yearspinner);
-        serchBtn = (ImageView)rootView.findViewById(R.id.serchresult);
-        noRecordFoundTxt = (TextView)rootView.findViewById(R.id.norecordfound);
+        serchBtn = (ImageView) rootView.findViewById(R.id.serchresult);
+        noRecordFoundTxt = (TextView) rootView.findViewById(R.id.norecordfound);
 
         conn = new ConnectionDetector(getActivity());
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new LeaveMangementAdapter(getActivity(),list,getActivity());
+        adapter = new LeaveMangementAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         leaveMangementRecy.setLayoutManager(mLayoutManager);
         leaveMangementRecy.setItemAnimator(new DefaultItemAnimator());
@@ -173,33 +173,32 @@ public class LeaveManagementFragment extends Fragment {
         });
 
         //current month and year
-        Calendar c= Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
         cmonth = c.get(Calendar.MONTH);//this is april so you will receive  3 instead of 4.
-        rearYear = cyear-2;
+        rearYear = cyear - 2;
 
         Log.e("current Year", rearYear + "");
         Log.e("current Month", cmonth + "");
 
         //Month spinner work
-        if (monthList.size()>0)
-        {
+        if (monthList.size() > 0) {
             monthList.clear();
         }
 
-        monthList.add(new MonthModel(0,"All"));
-        monthList.add(new MonthModel(1,"Jan"));
-        monthList.add(new MonthModel(2,"Feb"));
-        monthList.add(new MonthModel(3,"Mar"));
-        monthList.add(new MonthModel(4,"Apr"));
-        monthList.add(new MonthModel(5,"May"));
-        monthList.add(new MonthModel(6,"Jun"));
-        monthList.add(new MonthModel(7,"July"));
-        monthList.add(new MonthModel(8,"Aug"));
-        monthList.add(new MonthModel(9,"Sep"));
-        monthList.add(new MonthModel(10,"Oct"));
-        monthList.add(new MonthModel(11,"Nov"));
-        monthList.add(new MonthModel(12,"Dec"));
+        monthList.add(new MonthModel(0, "All"));
+        monthList.add(new MonthModel(1, "Jan"));
+        monthList.add(new MonthModel(2, "Feb"));
+        monthList.add(new MonthModel(3, "Mar"));
+        monthList.add(new MonthModel(4, "Apr"));
+        monthList.add(new MonthModel(5, "May"));
+        monthList.add(new MonthModel(6, "Jun"));
+        monthList.add(new MonthModel(7, "July"));
+        monthList.add(new MonthModel(8, "Aug"));
+        monthList.add(new MonthModel(9, "Sep"));
+        monthList.add(new MonthModel(10, "Oct"));
+        monthList.add(new MonthModel(11, "Nov"));
+        monthList.add(new MonthModel(12, "Dec"));
 
         monthSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -209,23 +208,20 @@ public class LeaveManagementFragment extends Fragment {
         monthSpinner.setAdapter(monthAdapter);
 
         //select the current Month First Time
-        for (int i=0; i<monthList.size(); i++)
-        {
-            if (cmonth+1 == monthList.get(i).getMonthId())
-            {
+        for (int i = 0; i < monthList.size(); i++) {
+            if (cmonth + 1 == monthList.get(i).getMonthId()) {
                 monthSpinner.setSelection(i);
             }
         }
 
         //year Spinner Work
-        if (yearList.size()>0)
-        {
+        if (yearList.size() > 0) {
             yearList.clear();
         }
 
-        yearList.add(cyear+ "");
-        yearList.add(cyear-1 + "");
-        yearList.add(cyear-2 + "");
+        yearList.add(cyear + "");
+        yearList.add(cyear - 1 + "");
+        yearList.add(cyear - 2 + "");
 
         yearSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -233,7 +229,6 @@ public class LeaveManagementFragment extends Fragment {
                 yearList);
         yearAdapter.setDropDownViewResource(R.layout.customizespinner);
         yearSpinner.setAdapter(yearAdapter);
-
 
 
         //selected spinner Data then call API
@@ -284,26 +279,24 @@ public class LeaveManagementFragment extends Fragment {
         });
 
 
-
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            leaveManagementData(authCode, userId, cmonth+1 +"", cyear + "");
+            leaveManagementData(authCode, userId, cmonth + 1 + "", cyear + "");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
-    public void leaveManagementData(final String AuthCode , final String AdminID, final String Month, final String year) {
+    public void leaveManagementData(final String AuthCode, final String AdminID, final String Month, final String year) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -315,25 +308,23 @@ public class LeaveManagementFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDateText = jsonObject.getString("StartDateText");
@@ -348,21 +339,18 @@ public class LeaveManagementFragment extends Fragment {
                             String Status = jsonObject.getString("Status");
 
 
-                            list.add(new LeaveManagementModel(UserName, LeaveTypeName,StartDateText,EndDateText,AppliedDate,StatusText,
-                                    LeaveApplication_Id,Noofdays,IsDeleteable,CancelStatus,Status));
+                            list.add(new LeaveManagementModel(UserName, LeaveTypeName, StartDateText, EndDateText, AppliedDate, StatusText,
+                                    LeaveApplication_Id, Noofdays, IsDeleteable, CancelStatus, Status));
 
                         }
 
 
-
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         leaveMangementRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         leaveMangementRecy.setVisibility(View.VISIBLE);
                     }
@@ -371,7 +359,7 @@ public class LeaveManagementFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -408,15 +396,15 @@ public class LeaveManagementFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
-                params.put("Month",Month);
-                params.put("Year",year);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
+                params.put("Month", Month);
+                params.put("Year", year);
 
 
                 Log.e("Parms", params.toString());

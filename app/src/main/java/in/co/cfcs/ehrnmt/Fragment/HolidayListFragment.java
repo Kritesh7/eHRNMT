@@ -114,17 +114,17 @@ public class HolidayListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_holiday_list, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
         holidayListRecy = (RecyclerView) rootView.findViewById(R.id.hotellist_recycler);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new HolidayListAdapter(getActivity(),list);
+        adapter = new HolidayListAdapter(getActivity(), list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         holidayListRecy.setLayoutManager(mLayoutManager);
         holidayListRecy.setItemAnimator(new DefaultItemAnimator());
@@ -132,12 +132,11 @@ public class HolidayListFragment extends Fragment {
 
         holidayListRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
             holidayList(authCode, userId, "");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -146,9 +145,9 @@ public class HolidayListFragment extends Fragment {
 
 
     //Holiday List Api
-    public void holidayList(final String AuthCode , final String AdminID, final String Year) {
+    public void holidayList(final String AuthCode, final String AdminID, final String Year) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -160,14 +159,12 @@ public class HolidayListFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -175,17 +172,17 @@ public class HolidayListFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
 
                             String HolidayName = jsonObject.getString("HolidayName");
                             String Desc = jsonObject.getString("Desc");
                             String HoliDateText = jsonObject.getString("HoliDateText");
                             String HolidayType = jsonObject.getString("HolidayType");
-                            list.add(new HolidayListModel(HolidayName,HoliDateText,HolidayType,Desc));
+                            list.add(new HolidayListModel(HolidayName, HoliDateText, HolidayType, Desc));
                         }
 
                     }
@@ -194,7 +191,7 @@ public class HolidayListFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -231,14 +228,13 @@ public class HolidayListFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
-                params.put("Year",Year);
-
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
+                params.put("Year", Year);
 
 
                 Log.e("Parms", params.toString());
@@ -327,7 +323,6 @@ public class HolidayListFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

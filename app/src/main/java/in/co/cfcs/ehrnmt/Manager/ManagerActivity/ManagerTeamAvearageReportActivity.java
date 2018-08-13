@@ -73,8 +73,8 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
     public ArrayAdapter<MonthModel> monthAdapter;
     public ArrayAdapter<String> yearAdapter;
     public ImageView serchBtn;
-    public String  yearString ="", empId = "";
-    public String monthString ;
+    public String yearString = "", empId = "";
+    public String monthString;
     public TextView noRecordFoundTxt;
 
 
@@ -97,11 +97,11 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -117,23 +117,22 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
         titleTxt.setText("Team Average Report");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
-        teamAveargeRecy = (RecyclerView)findViewById(R.id.attendace_list_recycler);
-        monthSpinner = (Spinner)findViewById(R.id.monthspinner);
-        yearSpinner = (Spinner)findViewById(R.id.yearspinner);
-        serchBtn = (ImageView)findViewById(R.id.serchresult);
-        noRecordFoundTxt = (TextView)findViewById(R.id.norecordfound);
+        teamAveargeRecy = (RecyclerView) findViewById(R.id.attendace_list_recycler);
+        monthSpinner = (Spinner) findViewById(R.id.monthspinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearspinner);
+        serchBtn = (ImageView) findViewById(R.id.serchresult);
+        noRecordFoundTxt = (TextView) findViewById(R.id.norecordfound);
 
         conn = new ConnectionDetector(ManagerTeamAvearageReportActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerTeamAvearageReportActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerTeamAvearageReportActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerTeamAvearageReportActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerTeamAvearageReportActivity.this)));
 
-        adapter = new ManagerTeamAverageReportAdapter(ManagerTeamAvearageReportActivity.this,list);
+        adapter = new ManagerTeamAverageReportAdapter(ManagerTeamAvearageReportActivity.this, list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerTeamAvearageReportActivity.this);
         teamAveargeRecy.setLayoutManager(mLayoutManager);
         teamAveargeRecy.setItemAnimator(new DefaultItemAnimator());
@@ -142,12 +141,12 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
         teamAveargeRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         //current month and year
-        Calendar c= Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         final int cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
         final int cmonth = c.get(Calendar.MONTH);//this is april so you will receive  3 instead of 4.
-        int rearYear = cyear-2;
+        int rearYear = cyear - 2;
 
-        Calendar cal=Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         SimpleDateFormat month_date = new SimpleDateFormat("MMM");
         String month_name = month_date.format(cal.getTime());
 
@@ -155,23 +154,22 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
         Log.e("current Month", cmonth + "");
 
         //Month spinner work
-        if (monthList.size()>0)
-        {
+        if (monthList.size() > 0) {
             monthList.clear();
         }
 
-        monthList.add(new MonthModel(1,"Jan"));
-        monthList.add(new MonthModel(2,"Feb"));
-        monthList.add(new MonthModel(3,"Mar"));
-        monthList.add(new MonthModel(4,"Apr"));
-        monthList.add(new MonthModel(5,"May"));
-        monthList.add(new MonthModel(6,"Jun"));
-        monthList.add(new MonthModel(7,"July"));
-        monthList.add(new MonthModel(8,"Aug"));
-        monthList.add(new MonthModel(9,"Sep"));
-        monthList.add(new MonthModel(10,"Oct"));
-        monthList.add(new MonthModel(11,"Nov"));
-        monthList.add(new MonthModel(12,"Dec"));
+        monthList.add(new MonthModel(1, "Jan"));
+        monthList.add(new MonthModel(2, "Feb"));
+        monthList.add(new MonthModel(3, "Mar"));
+        monthList.add(new MonthModel(4, "Apr"));
+        monthList.add(new MonthModel(5, "May"));
+        monthList.add(new MonthModel(6, "Jun"));
+        monthList.add(new MonthModel(7, "July"));
+        monthList.add(new MonthModel(8, "Aug"));
+        monthList.add(new MonthModel(9, "Sep"));
+        monthList.add(new MonthModel(10, "Oct"));
+        monthList.add(new MonthModel(11, "Nov"));
+        monthList.add(new MonthModel(12, "Dec"));
 
         monthSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -181,23 +179,20 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
         monthSpinner.setAdapter(monthAdapter);
 
         //select the current Month First Time
-        for (int i=0; i<monthList.size(); i++)
-        {
-            if (cmonth+1 == monthList.get(i).getMonthId())
-            {
+        for (int i = 0; i < monthList.size(); i++) {
+            if (cmonth + 1 == monthList.get(i).getMonthId()) {
                 monthSpinner.setSelection(i);
             }
         }
 
         //year Spinner Work
-        if (yearList.size()>0)
-        {
+        if (yearList.size() > 0) {
             yearList.clear();
         }
 
-        yearList.add(cyear+ "");
-        yearList.add(cyear-1 + "");
-        yearList.add(cyear-2 + "");
+        yearList.add(cyear + "");
+        yearList.add(cyear - 1 + "");
+        yearList.add(cyear - 2 + "");
 
         yearSpinner.getBackground().setColorFilter(getResources().getColor(R.color.status_color), PorterDuff.Mode.SRC_ATOP);
 
@@ -239,18 +234,17 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                teamAvearageList(authCode, userId, empId,monthString + "", yearString);
+                teamAvearageList(authCode, userId, empId, monthString + "", yearString);
             }
         });
 
 
         //first Time Call API
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            teamAvearageList(authCode, userId, empId,month_name +"", cyear + "");
+            teamAvearageList(authCode, userId, empId, month_name + "", cyear + "");
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -258,9 +252,9 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
     }
 
     //Attendace List
-    public void teamAvearageList(final String AuthCode , final String AdminID,final String EmployeeID,  final String Month, final String year) {
+    public void teamAvearageList(final String AuthCode, final String AdminID, final String EmployeeID, final String Month, final String year) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerTeamAvearageReportActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerTeamAvearageReportActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -272,25 +266,23 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String EmployeeName = jsonObject.getString("EmployeeName");
                             String EmpID = jsonObject.getString("EmpID");
                             String AvgMonth = jsonObject.getString("AvgMonth");
@@ -300,22 +292,17 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
                             String AVGE = jsonObject.getString("AVGE");
 
 
-
-                            list.add(new ManagerTeamAvearageModel(EmployeeName,EmpID,AvgMonth,AvgYear,TotalNoOfDays,TotalNoOfHours
-                                    ,AVGE));
+                            list.add(new ManagerTeamAvearageModel(EmployeeName, EmpID, AvgMonth, AvgYear, TotalNoOfDays, TotalNoOfHours
+                                    , AVGE));
                         }
-
-
 
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         teamAveargeRecy.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         teamAveargeRecy.setVisibility(View.VISIBLE);
                     }
@@ -324,7 +311,7 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -361,16 +348,15 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
-                params.put("Month",Month);
-                params.put("Year",year);
-
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
+                params.put("Month", Month);
+                params.put("Year", year);
 
 
                 Log.e("Parms", params.toString());
@@ -394,15 +380,12 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
                 R.anim.push_right_out);
 
     }
+
     private void Logout() {
 
 
         finishAffinity();
         startActivity(new Intent(ManagerTeamAvearageReportActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerTeamAvearageReportActivity.this,
                 "")));
@@ -424,10 +407,6 @@ public class ManagerTeamAvearageReportActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerTeamAvearageReportActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
 
 
     }

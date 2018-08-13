@@ -1601,9 +1601,9 @@ public class HomeActivity extends AppCompatActivity implements DashBoardFragment
 
                         if (jsonObject.has("MsgNotification")) {
                             String MsgNotification = jsonObject.getString("MsgNotification");
-                            Toast.makeText(HomeActivity.this,MsgNotification, Toast.LENGTH_LONG).show();
+                            Toast.makeText(HomeActivity.this, MsgNotification, Toast.LENGTH_LONG).show();
                             getLogout(userId, authCode);
-                        }else {
+                        } else {
 
                             String LeaveCount = jsonObject.getString("LeaveCount");
                             String CancelLeaveCount = jsonObject.getString("CancelLeaveCount");
@@ -1630,9 +1630,6 @@ public class HomeActivity extends AppCompatActivity implements DashBoardFragment
                             loadHomeFragment();
 
                         }
-
-
-
 
 
                     }

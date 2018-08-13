@@ -45,13 +45,13 @@ import in.co.cfcs.ehrnmt.Source.SettingConstant;
 import in.co.cfcs.ehrnmt.Source.SharedPrefs;
 import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
-public class ManagerRequestToApproveActivity extends AppCompatActivity{
+public class ManagerRequestToApproveActivity extends AppCompatActivity {
 
     public TextView titleTxt;
     public String countUrl = SettingConstant.BaseUrl + "AppManagerRequestToApproveDashBoard";
-    public TextView leaveCountTxt, leaveCancelCpuntTxt, shortLeaveCountTxt, shortLeaveCancelCountTxt,traningCountTxt;
+    public TextView leaveCountTxt, leaveCancelCpuntTxt, shortLeaveCountTxt, shortLeaveCancelCountTxt, traningCountTxt;
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
     public LinearLayout thirdTilesLay, fourthTileLay, firstTileLat, secondTileLay, fivthLay;
 
     public Bundle bundle;
@@ -77,11 +77,11 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -104,8 +104,8 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
         titleTxt.setText("Request To Approve");
 
         conn = new ConnectionDetector(ManagerRequestToApproveActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerRequestToApproveActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerRequestToApproveActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerRequestToApproveActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerRequestToApproveActivity.this)));
 
         leaveCountTxt = (TextView) findViewById(R.id.leavecount);
         leaveCancelCpuntTxt = (TextView) findViewById(R.id.leavecancelcount);
@@ -123,7 +123,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerRequestToApproveActivity.this,RequestToApprovedShortLeaveActivity.class);
+                Intent ik = new Intent(ManagerRequestToApproveActivity.this, RequestToApprovedShortLeaveActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -133,7 +133,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerRequestToApproveActivity.this,RequestToApproveShortLeaveCancelationActivity.class);
+                Intent ik = new Intent(ManagerRequestToApproveActivity.this, RequestToApproveShortLeaveCancelationActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -142,7 +142,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
         firstTileLat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ik = new Intent(ManagerRequestToApproveActivity.this,RequestToApproveLeaveActivity.class);
+                Intent ik = new Intent(ManagerRequestToApproveActivity.this, RequestToApproveLeaveActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -151,7 +151,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
         secondTileLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ik = new Intent(ManagerRequestToApproveActivity.this,RequestToApproveLeaveCancelActivity.class);
+                Intent ik = new Intent(ManagerRequestToApproveActivity.this, RequestToApproveLeaveCancelActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -160,7 +160,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
         fivthLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ik = new Intent(ManagerRequestToApproveActivity.this,ManagerRequestTraningListActivity.class);
+                Intent ik = new Intent(ManagerRequestToApproveActivity.this, ManagerRequestTraningListActivity.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -171,19 +171,17 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         //get count of dashboard
-        if (conn.getConnectivityStatus()>0)
-        {
-            getCount(authCode,userId);
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            getCount(authCode, userId);
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //show dashbaord count api
-    public void getCount(final String AuthCode , final String AdminID) {
+    public void getCount(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerRequestToApproveActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerRequestToApproveActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -195,10 +193,9 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -206,11 +203,11 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String LeaveCount = jsonObject.getString("LeaveCount");
                             String CancelLeaveCount = jsonObject.getString("CancelLeaveCount");
@@ -218,11 +215,11 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
                             String ShortCancelLeaveCount = jsonObject.getString("ShortCancelLeaveCount");
                             String TrainingCount = jsonObject.getString("TrainingCount");
 
-                            leaveCountTxt.setText("("+LeaveCount+")");
-                            leaveCancelCpuntTxt.setText("("+CancelLeaveCount+")");
-                            shortLeaveCountTxt.setText("("+ShortLeaveCount+")");
-                            shortLeaveCancelCountTxt.setText("("+ShortCancelLeaveCount+")");
-                            traningCountTxt.setText("("+TrainingCount+")");
+                            leaveCountTxt.setText("(" + LeaveCount + ")");
+                            leaveCancelCpuntTxt.setText("(" + CancelLeaveCount + ")");
+                            shortLeaveCountTxt.setText("(" + ShortLeaveCount + ")");
+                            shortLeaveCancelCountTxt.setText("(" + ShortCancelLeaveCount + ")");
+                            traningCountTxt.setText("(" + TrainingCount + ")");
                         }
 
 
@@ -231,7 +228,7 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -268,12 +265,12 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
 
                 Log.e("Parms", params.toString());
@@ -291,8 +288,8 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-            overridePendingTransition(R.anim.push_left_in,
-                    R.anim.push_right_out);
+        overridePendingTransition(R.anim.push_left_in,
+                R.anim.push_right_out);
     }
 
 
@@ -301,10 +298,6 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
 
         finishAffinity();
         startActivity(new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerRequestToApproveActivity.this,
                 "")));
@@ -326,11 +319,6 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity{
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerRequestToApproveActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

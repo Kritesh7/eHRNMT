@@ -47,14 +47,14 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class ViewRequestDetailsActivity extends AppCompatActivity {
 
-    public TextView titleTxt,requestByTxt, requestDateTxt,empNameTxt,statusTxt,hrCommentTxt ,closerDateTxt, hrTxt;
+    public TextView titleTxt, requestByTxt, requestDateTxt, empNameTxt, statusTxt, hrCommentTxt, closerDateTxt, hrTxt;
     public in.co.cfcs.ehrnmt.Source.MyListLayout requestItemList;
     public RequestedItemAdapter adapter;
     public ArrayList<BookMeaPrevisionModel> list = new ArrayList<>();
     public ArrayList<AddNewStationoryRequestModel> itemBindList = new ArrayList<>();
     public ConnectionDetector conn;
     public String stationoryUrl = SettingConstant.BaseUrl + "AppEmployeeStationaryRequestDetail";
-    public String authCode = "", rid="", userId = "", ridStr = "",IdealClosureDateText = "";
+    public String authCode = "", rid = "", userId = "", ridStr = "", IdealClosureDateText = "";
     public Button updateDetails;
 
     String LoginStatus;
@@ -76,11 +76,11 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.viewleavtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -96,47 +96,42 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
         titleTxt.setText("Stationary Request Details");
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             rid = intent.getStringExtra("Rid");
         }
         conn = new ConnectionDetector(ViewRequestDetailsActivity.this);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewRequestDetailsActivity.this)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ViewRequestDetailsActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ViewRequestDetailsActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ViewRequestDetailsActivity.this)));
 
         requestItemList = (in.co.cfcs.ehrnmt.Source.MyListLayout) findViewById(R.id.request_item_list);
         requestByTxt = (TextView) findViewById(R.id.staionory_request);
         requestDateTxt = (TextView) findViewById(R.id.staionory_request_date);
-        empNameTxt = (TextView)findViewById(R.id.staionory_empname);
-        statusTxt = (TextView)findViewById(R.id.stationory_current_status);
-        hrCommentTxt = (TextView)findViewById(R.id.statonory_hr_comment);
-        closerDateTxt = (TextView)findViewById(R.id.staionory_closer_date);
-        hrTxt = (TextView)findViewById(R.id.hrcommenttxt);
-        updateDetails = (Button)findViewById(R.id.editstaionry);
+        empNameTxt = (TextView) findViewById(R.id.staionory_empname);
+        statusTxt = (TextView) findViewById(R.id.stationory_current_status);
+        hrCommentTxt = (TextView) findViewById(R.id.statonory_hr_comment);
+        closerDateTxt = (TextView) findViewById(R.id.staionory_closer_date);
+        hrTxt = (TextView) findViewById(R.id.hrcommenttxt);
+        updateDetails = (Button) findViewById(R.id.editstaionry);
 
-        adapter = new RequestedItemAdapter(list,ViewRequestDetailsActivity.this);
+        adapter = new RequestedItemAdapter(list, ViewRequestDetailsActivity.this);
 
         requestItemList.setAdapter(adapter);
-       // MyListLayout.setListViewHeightBasedOnChildren(requestItemList);
+        // MyListLayout.setListViewHeightBasedOnChildren(requestItemList);
 
 
+        updateDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
-     updateDetails.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-
-             Intent i = new Intent(ViewRequestDetailsActivity.this, AddNewStationaryRequestActivity.class);
-             i.putExtra("Mode", "Edit");
-             i.putExtra("mylist", itemBindList);
-             i.putExtra("Rid",ridStr);
-             i.putExtra("IdealClosureDateText",IdealClosureDateText);
-             startActivity(i);
-             overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-         }
-     });
-
-
+                Intent i = new Intent(ViewRequestDetailsActivity.this, AddNewStationaryRequestActivity.class);
+                i.putExtra("Mode", "Edit");
+                i.putExtra("mylist", itemBindList);
+                i.putExtra("Rid", ridStr);
+                i.putExtra("IdealClosureDateText", IdealClosureDateText);
+                startActivity(i);
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
+            }
+        });
 
 
     }
@@ -144,19 +139,17 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0)
-        {
-            viewStationryDetails(authCode,rid,"1", userId);
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            viewStationryDetails(authCode, rid, "1", userId);
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //View Stationry Details
-    public void viewStationryDetails(final String AuthCode , final String RID, final String ItemCatID, final String userId) {
+    public void viewStationryDetails(final String AuthCode, final String RID, final String ItemCatID, final String userId) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ViewRequestDetailsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ViewRequestDetailsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -168,21 +161,20 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                     if (jsonObject.has("status")) {
                         LoginStatus = jsonObject.getString("status");
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray requestDetailsArray = jsonObject.getJSONArray("RequestDetail");
-                        for (int i = 0; i<requestDetailsArray.length(); i++)
-                        {
+                        for (int i = 0; i < requestDetailsArray.length(); i++) {
                             JSONObject object = requestDetailsArray.getJSONObject(i);
                             String EmpName = object.getString("EmpName");
                             String AddDateText = object.getString("AddDateText");
@@ -201,8 +193,7 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                             statusTxt.setText(AppStatusText);
 
 
-                            if (HrComment.equalsIgnoreCase(""))
-                            {
+                            if (HrComment.equalsIgnoreCase("")) {
                                 hrTxt.setVisibility(View.GONE);
                                 hrCommentTxt.setVisibility(View.GONE);
                             }
@@ -211,12 +202,10 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                         }
 
                         JSONArray itemdetaislArray = jsonObject.getJSONArray("ItemsDetail");
-                        if (list.size()>0)
-                        {
+                        if (list.size() > 0) {
                             list.clear();
                         }
-                        for (int j=0 ; j<itemdetaislArray.length();j++)
-                        {
+                        for (int j = 0; j < itemdetaislArray.length(); j++) {
                             JSONObject object = itemdetaislArray.getJSONObject(j);
 
                             String ItemName = object.getString("ItemName");
@@ -227,20 +216,17 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                             String chkValue = object.getString("chkValue");
 
 
-                            list.add(new BookMeaPrevisionModel(ItemName,ItemID,NoOfItem,Remark,chkValue,"0"));
-
+                            list.add(new BookMeaPrevisionModel(ItemName, ItemID, NoOfItem, Remark, chkValue, "0"));
 
 
                         }
 
                         JSONArray itemsBindDataArray = jsonObject.getJSONArray("ItemsBindData");
 
-                        if (itemBindList.size()>0)
-                        {
+                        if (itemBindList.size() > 0) {
                             itemBindList.clear();
                         }
-                        for (int k=0 ; k<itemsBindDataArray.length(); k++)
-                        {
+                        for (int k = 0; k < itemsBindDataArray.length(); k++) {
                             JSONObject object = itemsBindDataArray.getJSONObject(k);
                             String ItemID = object.getString("ItemID");
                             String ItemName = object.getString("ItemName");
@@ -249,7 +235,7 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                             String Remark = object.getString("Remark");
                             String chkValue = object.getString("chkValue");
 
-                            itemBindList.add(new AddNewStationoryRequestModel(ItemName,maxQuantity,ItemID,Quantity,Remark));
+                            itemBindList.add(new AddNewStationoryRequestModel(ItemName, maxQuantity, ItemID, Quantity, Remark));
                         }
 
                     }
@@ -260,7 +246,7 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -297,14 +283,14 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("RID",RID);
-                params.put("ItemCatID",ItemCatID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("RID", RID);
+                params.put("ItemCatID", ItemCatID);
+                params.put("AdminID", userId);
 
                 Log.e("Parms", params.toString());
                 return params;

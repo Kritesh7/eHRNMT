@@ -318,10 +318,6 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerPreviousExprinceActivity.this,
                 "")));
 
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

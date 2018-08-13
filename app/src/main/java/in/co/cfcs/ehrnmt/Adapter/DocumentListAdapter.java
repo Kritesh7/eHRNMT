@@ -42,8 +42,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
  * Created by Admin on 18-09-2017.
  */
 
-public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapter.ViewHolder>
-{
+public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapter.ViewHolder> {
 
     public Context context;
     public ArrayList<DocumentListModel> list = new ArrayList<>();
@@ -68,9 +67,8 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final DocumentListModel model = list.get(position);
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
-
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
 
         holder.empNameTxt.setText(model.getEmployName());
@@ -86,29 +84,26 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
             public void onClick(View view) {
 
                 Intent i = new Intent(context, ViewDocumentDetailsActivity.class);
-                i.putExtra("Rid",model.getRID());
+                i.putExtra("Rid", model.getRID());
                 activity.startActivity(i);
                 activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
         });
 
-      //Delet record
+        //Delet record
         holder.delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                showSettingsAlert(position,authCode,model.getRID(),userId);
+                showSettingsAlert(position, authCode, model.getRID(), userId);
             }
         });
 
-        if (model.getAppStatus().equalsIgnoreCase("1"))
-        {
+        if (model.getAppStatus().equalsIgnoreCase("1")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.orange_color));
-        }else if (model.getAppStatus().equalsIgnoreCase("2"))
-        {
+        } else if (model.getAppStatus().equalsIgnoreCase("2")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.green_color));
-        }else if (model.getAppStatus().equalsIgnoreCase("3"))
-        {
+        } else if (model.getAppStatus().equalsIgnoreCase("3")) {
             holder.statusTxt.setTextColor(context.getResources().getColor(R.color.red_color));
         }
     }
@@ -119,22 +114,22 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView empNameTxt,zoneNameTxt,qunatityTxt,requestDateTxt, idleclouserDateTxt,followupDateTxt,statusTxt;
+        public TextView empNameTxt, zoneNameTxt, qunatityTxt, requestDateTxt, idleclouserDateTxt, followupDateTxt, statusTxt;
 
         public ImageView mainLay, delBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            empNameTxt = (TextView)itemView.findViewById(R.id.document_employename);
-            zoneNameTxt = (TextView)itemView.findViewById(R.id.document_zonename);
-            qunatityTxt = (TextView)itemView.findViewById(R.id.document_quantity);
-            requestDateTxt = (TextView)itemView.findViewById(R.id.document_requestdate);
-            idleclouserDateTxt = (TextView)itemView.findViewById(R.id.document_idleclouserdate);
-            followupDateTxt = (TextView)itemView.findViewById(R.id.document_followupdate);
-            statusTxt = (TextView)itemView.findViewById(R.id.document_statinarystatus);
-            delBtn = (ImageView)itemView.findViewById(R.id.delbtn);
-            mainLay = (ImageView)itemView.findViewById(R.id.document_main_lay);
+            empNameTxt = (TextView) itemView.findViewById(R.id.document_employename);
+            zoneNameTxt = (TextView) itemView.findViewById(R.id.document_zonename);
+            qunatityTxt = (TextView) itemView.findViewById(R.id.document_quantity);
+            requestDateTxt = (TextView) itemView.findViewById(R.id.document_requestdate);
+            idleclouserDateTxt = (TextView) itemView.findViewById(R.id.document_idleclouserdate);
+            followupDateTxt = (TextView) itemView.findViewById(R.id.document_followupdate);
+            statusTxt = (TextView) itemView.findViewById(R.id.document_statinarystatus);
+            delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
+            mainLay = (ImageView) itemView.findViewById(R.id.document_main_lay);
         }
     }
 
@@ -161,7 +156,7 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                deleteMethod(authcode,recordId,userid,postion);
+                deleteMethod(authcode, recordId, userid, postion);
             }
         });
 
@@ -177,11 +172,10 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
     }
 
 
-
     //delete the Details
-    public void deleteMethod(final String AuthCode , final String RID, final String userId, final int postion) {
+    public void deleteMethod(final String AuthCode, final String RID, final String userId, final int postion) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -192,14 +186,12 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
                             remove(postion);
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
                         }
@@ -209,7 +201,7 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -224,13 +216,13 @@ public class DocumentListAdapter extends  RecyclerView.Adapter<DocumentListAdapt
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("RID",RID);
-                params.put("AdminID",userId);
+                params.put("AuthCode", AuthCode);
+                params.put("RID", RID);
+                params.put("AdminID", userId);
 
                 Log.e("Parms", params.toString());
                 return params;

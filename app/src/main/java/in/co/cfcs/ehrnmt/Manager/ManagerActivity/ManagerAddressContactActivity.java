@@ -56,8 +56,8 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
     public ContactAdapter adapter;
     public ArrayList<ContactModel> list = new ArrayList<>();
     public ConnectionDetector conn;
-    public String userId = "",authCode = "", IsAddAddressDetail = "", IsVisibilityAdd = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "", IsAddAddressDetail = "", IsVisibilityAdd = "";
+    public TextView noCust;
     public String contactUrl = SettingConstant.BaseUrl + "AppEmployeeAddressList";
 
     String LoginStatus;
@@ -79,11 +79,11 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -97,8 +97,7 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
@@ -108,10 +107,10 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerAddressContactActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerAddressContactActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerAddressContactActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerAddressContactActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerAddressContactActivity.this)));
 
-        adapter = new ContactAdapter(list,ManagerAddressContactActivity.this, ManagerAddressContactActivity.this, "SecondOne");
+        adapter = new ContactAdapter(list, ManagerAddressContactActivity.this, ManagerAddressContactActivity.this, "SecondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerAddressContactActivity.this);
         contactRecyler.setLayoutManager(mLayoutManager);
         contactRecyler.setItemAnimator(new DefaultItemAnimator());
@@ -128,21 +127,20 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
             }
         });*/
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            contactDetailsList(authCode,userId,empId);
+            contactDetailsList(authCode, userId, empId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
     }
 
     // Address List
-    public void contactDetailsList(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void contactDetailsList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerAddressContactActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerAddressContactActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -154,26 +152,24 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
                     JSONArray jsonArray = jsonObject.getJSONArray("AddressList");
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String Type = object.getString("Type");
                             String Address = object.getString("Address");
@@ -184,15 +180,14 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
                             String LastUpdated = object.getString("LastUpdated");
                             String RecordID = object.getString("RecordID");
 
-                            list.add(new ContactModel(Type , Address ,City,State,PostCode,CountryName,LastUpdated,RecordID));
+                            list.add(new ContactModel(Type, Address, City, State, PostCode, CountryName, LastUpdated, RecordID));
                         }
 
 
                     }
 
                     JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k =0; k<statusArray.length(); k++)
-                    {
+                    for (int k = 0; k < statusArray.length(); k++) {
                         JSONObject obj = statusArray.getJSONObject(k);
 
                         IsAddAddressDetail = obj.getString("IsAddAddressDetail");
@@ -200,12 +195,10 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         contactRecyler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         contactRecyler.setVisibility(View.VISIBLE);
                     }
@@ -215,7 +208,7 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -252,13 +245,13 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;

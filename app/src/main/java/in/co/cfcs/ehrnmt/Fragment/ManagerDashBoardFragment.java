@@ -81,14 +81,14 @@ public class ManagerDashBoardFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_manager_dash_board, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        requaestApprovedLay = (LinearLayout)rootView. findViewById(R.id.requesttoapprovetxt);
-        proceedLay = (LinearLayout)rootView. findViewById(R.id.proceedlay);
-        sixthTilesLay = (LinearLayout)rootView. findViewById(R.id.sixthtiles);
-        thirdTilesLay = (LinearLayout)rootView. findViewById(R.id.thirdTiles);
+        requaestApprovedLay = (LinearLayout) rootView.findViewById(R.id.requesttoapprovetxt);
+        proceedLay = (LinearLayout) rootView.findViewById(R.id.proceedlay);
+        sixthTilesLay = (LinearLayout) rootView.findViewById(R.id.sixthtiles);
+        thirdTilesLay = (LinearLayout) rootView.findViewById(R.id.thirdTiles);
         fourthLay = (LinearLayout) rootView.findViewById(R.id.fourthtile);
         fivthLay = (LinearLayout) rootView.findViewById(R.id.fivthtiles);
 
@@ -96,8 +96,8 @@ public class ManagerDashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getActivity(),ManagerRequestToApproveActivity.class);
-                ik.putExtra("BackValue","1");
+                Intent ik = new Intent(getActivity(), ManagerRequestToApproveActivity.class);
+                ik.putExtra("BackValue", "1");
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -107,7 +107,7 @@ public class ManagerDashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getActivity(),ManagerProceedRequestActivity.class);
+                Intent ik = new Intent(getActivity(), ManagerProceedRequestActivity.class);
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
@@ -118,8 +118,8 @@ public class ManagerDashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getActivity(),ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Asset Details");
+                Intent ik = new Intent(getActivity(), ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Asset Details");
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -130,7 +130,7 @@ public class ManagerDashBoardFragment extends Fragment {
             public void onClick(View view) {
 
 
-                Intent ik = new Intent(getActivity(),ManagerLeaveMangementActivity.class);
+                Intent ik = new Intent(getActivity(), ManagerLeaveMangementActivity.class);
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -140,7 +140,7 @@ public class ManagerDashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getActivity(),ManagerReportDashboardActivity.class);
+                Intent ik = new Intent(getActivity(), ManagerReportDashboardActivity.class);
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -150,7 +150,7 @@ public class ManagerDashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getActivity(),ManagerEmployeeDataDashboardActivity.class);
+                Intent ik = new Intent(getActivity(), ManagerEmployeeDataDashboardActivity.class);
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 

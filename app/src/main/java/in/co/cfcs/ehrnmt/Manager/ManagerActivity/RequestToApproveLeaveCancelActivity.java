@@ -50,7 +50,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
 
-    public TextView titleTxt,noRecordFoundTxt;
+    public TextView titleTxt, noRecordFoundTxt;
     public String leaveListUrl = SettingConstant.BaseUrl + "AppManagerToApproveCancelLeaveRequestDashBoardList";
     public RecyclerView leaveRequestRecycler;
     public ManagerLeaveRequestApproveAndRejectAdapter adapter;
@@ -77,11 +77,11 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -100,11 +100,11 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
 
         conn = new ConnectionDetector(RequestToApproveLeaveCancelActivity.this);
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(RequestToApproveLeaveCancelActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(RequestToApproveLeaveCancelActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(RequestToApproveLeaveCancelActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(RequestToApproveLeaveCancelActivity.this)));
 
-        adapter = new ManagerLeaveRequestApproveAndRejectAdapter(RequestToApproveLeaveCancelActivity.this,list,
-                RequestToApproveLeaveCancelActivity.this,"Leave Cancel Request");
+        adapter = new ManagerLeaveRequestApproveAndRejectAdapter(RequestToApproveLeaveCancelActivity.this, list,
+                RequestToApproveLeaveCancelActivity.this, "Leave Cancel Request");
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(RequestToApproveLeaveCancelActivity.this);
         leaveRequestRecycler.setLayoutManager(mLayoutManager);
@@ -114,23 +114,22 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
         leaveRequestRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            requestToApproveLeave(authCode,userId);
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            requestToApproveLeave(authCode, userId);
+        } else {
             conn.showNoInternetAlret();
         }
 
     }
 
-    public void requestToApproveLeave(final String AuthCode , final String AdminID) {
+    public void requestToApproveLeave(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(RequestToApproveLeaveCancelActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(RequestToApproveLeaveCancelActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -142,14 +141,12 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -157,11 +154,11 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
@@ -173,20 +170,17 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
                             String Noofdays = jsonObject.getString("Noofdays");
                             String UserName = jsonObject.getString("UserName");
 
-                            list.add(new ManagerLeaveRequestApproveAndRejectModel(UserName,LeaveTypeName,StartDateText,EndDateText,
-                                    AppliedDate,StatusText, LeaveApplication_Id,Noofdays));
+                            list.add(new ManagerLeaveRequestApproveAndRejectModel(UserName, LeaveTypeName, StartDateText, EndDateText,
+                                    AppliedDate, StatusText, LeaveApplication_Id, Noofdays));
                         }
-
 
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noRecordFoundTxt.setVisibility(View.VISIBLE);
                         leaveRequestRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noRecordFoundTxt.setVisibility(View.GONE);
                         leaveRequestRecycler.setVisibility(View.VISIBLE);
                     }
@@ -195,7 +189,7 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -232,12 +226,12 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
 
                 Log.e("Parms", params.toString());

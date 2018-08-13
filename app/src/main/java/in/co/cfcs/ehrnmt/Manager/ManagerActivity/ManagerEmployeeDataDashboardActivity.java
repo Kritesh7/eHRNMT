@@ -20,8 +20,7 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
     public LinearLayout firstLay, secondLay, thirdTilesLay, fourthTileLay, fivthLay, sixthLay;
 
 
-
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_employee_data_dashboard);
@@ -36,11 +35,11 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -67,8 +66,8 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Administrative Information");
+                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Administrative Information");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -78,8 +77,8 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Medical And Insurance");
+                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Medical And Insurance");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -89,8 +88,8 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Address And Contact");
+                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Address And Contact");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -100,8 +99,8 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Emergency Contact Address");
+                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Emergency Contact Address");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -111,8 +110,8 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Personal Information");
+                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Personal Information");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
@@ -123,7 +122,7 @@ public class ManagerEmployeeDataDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this,ManagerSkillsAndCareerDashboard.class);
+                Intent ik = new Intent(ManagerEmployeeDataDashboardActivity.this, ManagerSkillsAndCareerDashboard.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }

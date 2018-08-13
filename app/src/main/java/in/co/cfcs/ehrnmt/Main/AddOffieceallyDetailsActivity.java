@@ -85,7 +85,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddOffieceallyDetailsActivity extends AppCompatActivity {
 
-    public TextView titleTxt,issueDateTxt,issueDateBtn,expiryDateBtn,expiryDateTxt;
+    public TextView titleTxt, issueDateTxt, issueDateBtn, expiryDateBtn, expiryDateTxt;
     public Spinner documentTypeSpinner;
     public ArrayList<DocumentTypeModel> documentTypeList = new ArrayList<>();
     public Button uploadBtn;
@@ -99,7 +99,7 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
 
     };
-    public EditText   noTxt, issuesOfPlaceTxt;
+    public EditText noTxt, issuesOfPlaceTxt;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public String personalDdlDetailsUrl = SettingConstant.BaseUrl + "AppddlEmployeePersonalData";
@@ -922,11 +922,11 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
                         JSONArray documentTypeObj = jsonObject.getJSONArray("DocumentTypeMaster");
                         for (int i = 0; i < documentTypeObj.length(); i++) {
                             JSONObject object = documentTypeObj.getJSONObject(i);
@@ -1027,12 +1027,12 @@ public class AddOffieceallyDetailsActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")){
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
                     }
 

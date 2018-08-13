@@ -79,11 +79,11 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -97,8 +97,7 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
@@ -108,11 +107,11 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(ManagerEmergencyAddressActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerEmergencyAddressActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerEmergencyAddressActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerEmergencyAddressActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerEmergencyAddressActivity.this)));
 
-        adapter = new EmergencyContactAdapter(ManagerEmergencyAddressActivity.this,list,
-                ManagerEmergencyAddressActivity.this,"SecondOne");
+        adapter = new EmergencyContactAdapter(ManagerEmergencyAddressActivity.this, list,
+                ManagerEmergencyAddressActivity.this, "SecondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerEmergencyAddressActivity.this);
         emergencyContactRecyler.setLayoutManager(mLayoutManager);
         emergencyContactRecyler.setItemAnimator(new DefaultItemAnimator());
@@ -121,20 +120,19 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
         emergencyContactRecyler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            emergencyContactDetailsList(authCode,userId, empId);
+            emergencyContactDetailsList(authCode, userId, empId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
     //emergency Contact  List
-    public void emergencyContactDetailsList(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void emergencyContactDetailsList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerEmergencyAddressActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerEmergencyAddressActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -146,26 +144,24 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
                     JSONArray emergencyContactArray = jsonObject.getJSONArray("EmergencyContactList");
-                    for (int i=0 ; i<emergencyContactArray.length();i++)
-                    {
+                    for (int i = 0; i < emergencyContactArray.length(); i++) {
                         JSONObject object = emergencyContactArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String Title = object.getString("Title");
                             String Name = object.getString("Name");
@@ -183,10 +179,8 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                             String RecordID = object.getString("RecordID");
 
 
-
-                            list.add(new EmergencyContactModel(Title , Name ,Address,City,State,PostCode,CountryName,PhoneNo,MobileNo,
-                                    Email,RelationshipName,LastUpdate,Type,RecordID));
-
+                            list.add(new EmergencyContactModel(Title, Name, Address, City, State, PostCode, CountryName, PhoneNo, MobileNo,
+                                    Email, RelationshipName, LastUpdate, Type, RecordID));
 
 
                         }
@@ -195,20 +189,17 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                     }
 
                     JSONArray statusArray = jsonObject.getJSONArray("Status");
-                    for (int k =0; k<statusArray.length(); k++)
-                    {
+                    for (int k = 0; k < statusArray.length(); k++) {
                         JSONObject obj = statusArray.getJSONObject(k);
 
                         String IsVisibilityAdd = obj.getString("IsVisibilityAdd");
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         emergencyContactRecyler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         emergencyContactRecyler.setVisibility(View.VISIBLE);
                     }
@@ -218,7 +209,7 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -255,13 +246,13 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;

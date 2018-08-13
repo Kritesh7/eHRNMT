@@ -62,14 +62,14 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class AddCabActivity extends AppCompatActivity {
 
-    public TextView titleTxt,timeBtn,timeTxt,timeBtn1,timeTxt1,timeBtn2,timeTxt2;
+    public TextView titleTxt, timeBtn, timeTxt, timeBtn1, timeTxt1, timeBtn2, timeTxt2;
     public Spinner cityOfBookingSpinner;
     public ArrayList<CabCityModel> listOfBooking = new ArrayList<>();
     public ArrayList<StaticModel> staticList = new ArrayList<>();
     public Button addBtn;
-    public ImageView   dateBtn1, dateBtn2;
+    public ImageView dateBtn1, dateBtn2;
     public EditText dateTxt, dateTxt1, dateTxt2, sourceAddTxt, destinationDDtXT, bookingRemarkTxt,
-            sourceAddTxt1, destinationDDtXT1, sourceAddTxt2, destinationDDtXT2,dateBtn;
+            sourceAddTxt1, destinationDDtXT1, sourceAddTxt2, destinationDDtXT2, dateBtn;
     private int yy, mm, dd;
     private int mYear, mMonth, mDay, mHour, mMinute;
     public String ddlBindTxt = SettingConstant.BaseUrl + "AppddlBookMeAProvision";
@@ -484,11 +484,11 @@ public class AddCabActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray cityObj = jsonObject.getJSONArray("TaxiCityName");
                         for (int i = 0; i < cityObj.length(); i++) {
@@ -583,12 +583,12 @@ public class AddCabActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
-                        } else  if (LoginStatus.equalsIgnoreCase("success")) {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
+                        } else if (LoginStatus.equalsIgnoreCase("success")) {
                             onBackPressed();
 
-                        }else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -766,11 +766,11 @@ public class AddCabActivity extends AppCompatActivity {
                         msgstatus = jsonObject.getString("MsgNotification");
                         if (LoginStatus.equals(invalid)) {
                             Logout();
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                         }
-                    }else {
+                    } else {
 
                         JSONArray requestDetailsArray = jsonObject.getJSONArray("TaxiBookingMaster");
                         for (int i = 0; i < requestDetailsArray.length(); i++) {
@@ -904,6 +904,7 @@ public class AddCabActivity extends AppCompatActivity {
         }
 
     }
+
     private void Logout() {
 
 

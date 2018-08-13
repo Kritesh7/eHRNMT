@@ -50,10 +50,7 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 public class PersonalDeatilsActivity extends AppCompatActivity {
 
-    public TextView titleTxt, nameTxt, fatherNameTxt, dobTxt, genderTxt, prefferdNameTxt, materialStatusTxt, noOfChildTxt, nationloityTxt
-            , emailtxt, alternativeEmailTxt, panNoTxt, passportNameTxt, passportNumberTxt, mobileNumberTxt, phoneNumberTxt, personalEmailTxt
-            , coprativeEmailTxt, empIdTxt, compNameTxt, zoneNameTxt, designationTxt, departmentTxt, joingDateTxt, managerNameTxt
-            , bloodGroupTxt, allergiesTxt, seriousIllnessTxt, familyDrNameTxt, famiilyDrNoTxt;
+    public TextView titleTxt, nameTxt, fatherNameTxt, dobTxt, genderTxt, prefferdNameTxt, materialStatusTxt, noOfChildTxt, nationloityTxt, emailtxt, alternativeEmailTxt, panNoTxt, passportNameTxt, passportNumberTxt, mobileNumberTxt, phoneNumberTxt, personalEmailTxt, coprativeEmailTxt, empIdTxt, compNameTxt, zoneNameTxt, designationTxt, departmentTxt, joingDateTxt, managerNameTxt, bloodGroupTxt, allergiesTxt, seriousIllnessTxt, familyDrNameTxt, famiilyDrNoTxt;
     public LinearLayout noOfChildLay;
     public String empId = "";
     public ConnectionDetector conn;
@@ -81,11 +78,11 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -99,16 +96,15 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Personal Information");
 
         conn = new ConnectionDetector(PersonalDeatilsActivity.this);
-        userid =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(PersonalDeatilsActivity.this)));
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(PersonalDeatilsActivity.this)));
+        userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(PersonalDeatilsActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(PersonalDeatilsActivity.this)));
 
 
         nameTxt = (TextView) findViewById(R.id.proname);
@@ -153,19 +149,17 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
             }
         });*/
 
-       if (conn.getConnectivityStatus()>0)
-       {
-           personalInfoData(authcode,userid,empId);
-       }else
-           {
-               conn.showNoInternetAlret();
-           }
+        if (conn.getConnectivityStatus() > 0) {
+            personalInfoData(authcode, userid, empId);
+        } else {
+            conn.showNoInternetAlret();
+        }
     }
 
     //Personal Information Data bind
-    public void personalInfoData(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void personalInfoData(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(PersonalDeatilsActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(PersonalDeatilsActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -177,22 +171,21 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         if (object.has("status")) {
                             LoginStatus = object.getString("status");
                             msgstatus = object.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String Title = object.getString("Title");
                             String EmployeeName = object.getString("EmployeeName");
@@ -227,15 +220,13 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
                             String EmailPersonal = object.getString("EmailPersonal");
                             String EmailCorporate = object.getString("EmailCorporate");
 
-                            if (Children.equalsIgnoreCase("0"))
-                            {
+                            if (Children.equalsIgnoreCase("0")) {
                                 noOfChildLay.setVisibility(View.GONE);
-                            }else
-                            {
+                            } else {
                                 noOfChildLay.setVisibility(View.VISIBLE);
                             }
 
-                            nameTxt.setText(Title + " " +EmployeeName);
+                            nameTxt.setText(Title + " " + EmployeeName);
                             empIdTxt.setText(EmpID);
                             emailtxt.setText(Email);
                             fatherNameTxt.setText(FatherName);
@@ -279,18 +270,15 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
                                     .into(proImg);
 
 
-
                         }
 
 
                     }
 
-
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -327,13 +315,13 @@ public class PersonalDeatilsActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;

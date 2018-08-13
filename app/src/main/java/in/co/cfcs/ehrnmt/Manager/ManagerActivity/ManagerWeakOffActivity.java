@@ -69,11 +69,11 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -87,8 +87,7 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
@@ -97,27 +96,23 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
         weekOfTxt = (TextView) findViewById(R.id.weekoftxt);
 
         conn = new ConnectionDetector(ManagerWeakOffActivity.this);
-        userid =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerWeakOffActivity.this)));
-        authcode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerWeakOffActivity.this)));
+        userid = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerWeakOffActivity.this)));
+        authcode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerWeakOffActivity.this)));
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            weekOfurl(authcode,userid, empId);
-        }else
-        {
+        if (conn.getConnectivityStatus() > 0) {
+            weekOfurl(authcode, userid, empId);
+        } else {
             conn.showNoInternetAlret();
         }
-
-
 
 
     }
 
     // get week of Text
-    public void weekOfurl( final String AuthCode , final String Admin, final String EmployeeID ) {
+    public void weekOfurl(final String AuthCode, final String Admin, final String EmployeeID) {
 
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerWeakOffActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerWeakOffActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -129,10 +124,9 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -140,22 +134,22 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else {
+                        } else {
 
                             String EmployeeWeeklyOff = jsonObject.getString("EmployeeWeeklyOff");
                             weekOfTxt.setText(EmployeeWeeklyOff);
                         }
-                        
+
                     }
 
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -192,14 +186,14 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",Admin);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", Admin);
+                params.put("EmployeeID", EmployeeID);
 
 
                 Log.e("Parms", params.toString());
@@ -229,10 +223,6 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerWeakOffActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerWeakOffActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerWeakOffActivity.this,
@@ -253,11 +243,6 @@ public class ManagerWeakOffActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerWeakOffActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

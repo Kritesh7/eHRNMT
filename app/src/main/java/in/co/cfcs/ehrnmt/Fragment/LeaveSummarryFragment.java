@@ -118,19 +118,19 @@ public class LeaveSummarryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_leave_summarry, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        leaveSummrryRecy =(RecyclerView)rootView.findViewById(R.id.leave_summerry_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        leaveSummrryRecy = (RecyclerView) rootView.findViewById(R.id.leave_summerry_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
 
         conn = new ConnectionDetector(getActivity());
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
-        adapter = new LeaveSummarryAdapter(getActivity(),list);
+        adapter = new LeaveSummarryAdapter(getActivity(), list);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         leaveSummrryRecy.setLayoutManager(mLayoutManager);
         leaveSummrryRecy.setItemAnimator(new DefaultItemAnimator());
@@ -138,14 +138,13 @@ public class LeaveSummarryFragment extends Fragment {
 
         leaveSummrryRecy.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
             leaveSummeryData(authCode, userId);
 
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
+        } else {
+            conn.showNoInternetAlret();
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,11 +161,10 @@ public class LeaveSummarryFragment extends Fragment {
     }
 
 
-
     //Leave Summery List
-    public void leaveSummeryData(final String AuthCode , final String AdminID) {
+    public void leaveSummeryData(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -178,25 +176,23 @@ public class LeaveSummarryFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String LeaveYear = jsonObject.getString("LeaveYear");
                             String EntitledFor = jsonObject.getString("LeaveAvailable");
@@ -206,8 +202,8 @@ public class LeaveSummarryFragment extends Fragment {
                             String LeaveAvail = jsonObject.getString("LeaveAvail");
                             String SPLeaveText = jsonObject.getString("SPLeaveText");
 
-                            list.add(new LeaveSummarryModel(LeaveTypeName,LeaveYear,EntitledFor,LeaveCarryOver,LeaveTaken,
-                                    LeaveBalance,LeaveAvail,SPLeaveText));
+                            list.add(new LeaveSummarryModel(LeaveTypeName, LeaveYear, EntitledFor, LeaveCarryOver, LeaveTaken,
+                                    LeaveBalance, LeaveAvail, SPLeaveText));
 
 
                         }
@@ -219,7 +215,7 @@ public class LeaveSummarryFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -256,13 +252,13 @@ public class LeaveSummarryFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
 
                 Log.e("Parms", params.toString());
@@ -278,39 +274,39 @@ public class LeaveSummarryFragment extends Fragment {
     }
 
 
-   /* // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    /* // TODO: Rename method, update argument and hook method into UI event
+     public void onButtonPressed(Uri uri) {
+         if (mListener != null) {
+             mListener.onFragmentInteraction(uri);
+         }
+     }
+
+     @Override
+     public void onAttach(Context context) {
+         super.onAttach(context);
+         if (context instanceof OnFragmentInteractionListener) {
+             mListener = (OnFragmentInteractionListener) context;
+         } else {
+             throw new RuntimeException(context.toString()
+                     + " must implement OnFragmentInteractionListener");
+         }
+     }
+
+     @Override
+     public void onDetach() {
+         super.onDetach();
+         mListener = null;
+     }
+ */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
         }
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-*/
-   @Override
-   public void onAttach(Activity activity) {
-       super.onAttach(activity);
-       try {
-           mListener = (OnFragmentInteractionListener) activity;
-       } catch (ClassCastException e) {
-           throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
-       }
-   }
 
 
     /**
@@ -327,6 +323,7 @@ public class LeaveSummarryFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
     private void Logout() {
 
 

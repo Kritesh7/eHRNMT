@@ -51,14 +51,14 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 public class ManagerOfficealyDataActivity extends AppCompatActivity {
 
     public TextView titleTxt;
-    public String empId ="";
+    public String empId = "";
     public OfficelyAdapter adapter;
     public ArrayList<OfficealyModel> list = new ArrayList<>();
     public RecyclerView officelyRecycler;
     public String officealyDocsUrl = SettingConstant.BaseUrl + "AppEmployeeOfficeDocumentList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -79,11 +79,11 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -97,22 +97,21 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent != null)
-        {
+        if (intent != null) {
             empId = intent.getStringExtra("empId");
         }
 
         titleTxt.setText("Administrative Information");
 
-        officelyRecycler = (RecyclerView)findViewById(R.id.officely_recycler);
+        officelyRecycler = (RecyclerView) findViewById(R.id.officely_recycler);
         noCust = (TextView) findViewById(R.id.no_record_txt);
 
 
         conn = new ConnectionDetector(ManagerOfficealyDataActivity.this);
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerOfficealyDataActivity.this)));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerOfficealyDataActivity.this)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(ManagerOfficealyDataActivity.this)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(ManagerOfficealyDataActivity.this)));
 
-        adapter = new OfficelyAdapter(ManagerOfficealyDataActivity.this,list,ManagerOfficealyDataActivity.this,"SecondOne");
+        adapter = new OfficelyAdapter(ManagerOfficealyDataActivity.this, list, ManagerOfficealyDataActivity.this, "SecondOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ManagerOfficealyDataActivity.this);
         officelyRecycler.setLayoutManager(mLayoutManager);
         officelyRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -121,22 +120,19 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
         officelyRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
 
-        if (conn.getConnectivityStatus()>0)
-        {
-            officeallyDocsList(authCode,userId,empId);
-        }else
-            {
-                conn.showNoInternetAlret();
-            }
-
+        if (conn.getConnectivityStatus() > 0) {
+            officeallyDocsList(authCode, userId, empId);
+        } else {
+            conn.showNoInternetAlret();
+        }
 
 
     }
 
     //Officeally docs List Api
-    public void officeallyDocsList(final String AuthCode , final String AdminID, final String EmployeeID) {
+    public void officeallyDocsList(final String AuthCode, final String AdminID, final String EmployeeID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(ManagerOfficealyDataActivity.this,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(ManagerOfficealyDataActivity.this, R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -148,25 +144,23 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getBaseContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String DocumentTypeName = jsonObject.getString("DocumentTypeName");
                             String IssueDate = jsonObject.getString("IssueDate");
                             String ExpiryDate = jsonObject.getString("ExpiryDate");
@@ -177,8 +171,7 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
                             String RecordID = jsonObject.getString("RecordID");
 
 
-
-                            list.add(new OfficealyModel(DocumentTypeName,Number,IssueDate,ExpiryDate,IssuePlace,FileNameText,"",
+                            list.add(new OfficealyModel(DocumentTypeName, Number, IssueDate, ExpiryDate, IssuePlace, FileNameText, "",
                                     RecordID));
 
 
@@ -187,12 +180,10 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         officelyRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         officelyRecycler.setVisibility(View.VISIBLE);
                     }
@@ -202,7 +193,7 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -239,13 +230,13 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",EmployeeID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", EmployeeID);
 
                 Log.e("Parms", params.toString());
                 return params;

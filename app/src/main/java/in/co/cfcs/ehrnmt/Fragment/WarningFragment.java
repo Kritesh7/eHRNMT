@@ -69,8 +69,8 @@ public class WarningFragment extends Fragment {
     public RecyclerView warningRecycler;
     public String warningUrl = SettingConstant.BaseUrl + "AppEmployeeWarning";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
-    public TextView noCust ;
+    public String userId = "", authCode = "";
+    public TextView noCust;
 
     private OnFragmentInteractionListener mListener;
 
@@ -115,15 +115,15 @@ public class WarningFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_warning, container, false);
 
-        warningRecycler = (RecyclerView)rootView.findViewById(R.id.warning_recycler);
+        warningRecycler = (RecyclerView) rootView.findViewById(R.id.warning_recycler);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new WarningAdapter(getActivity(),list, getActivity());
+        adapter = new WarningAdapter(getActivity(), list, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         warningRecycler.setLayoutManager(mLayoutManager);
         warningRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -131,45 +131,44 @@ public class WarningFragment extends Fragment {
 
         warningRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-       // prepareInsDetails();
+        // prepareInsDetails();
 
         return rootView;
     }
 
-   /* private void prepareInsDetails() {
+    /* private void prepareInsDetails() {
 
-        WarningModel model = new WarningModel("03-09-2017","First Warning");
-        list.add(model);
-        model = new WarningModel("03-09-2017","First Warning");
-        list.add(model);
-        model = new WarningModel("03-09-2017","First Warning");
-        list.add(model);
-        model = new WarningModel("03-09-2017","First Warning");
-        list.add(model);
-        model = new WarningModel("03-09-2017","First Warning");
-        list.add(model);
+         WarningModel model = new WarningModel("03-09-2017","First Warning");
+         list.add(model);
+         model = new WarningModel("03-09-2017","First Warning");
+         list.add(model);
+         model = new WarningModel("03-09-2017","First Warning");
+         list.add(model);
+         model = new WarningModel("03-09-2017","First Warning");
+         list.add(model);
+         model = new WarningModel("03-09-2017","First Warning");
+         list.add(model);
 
-        adapter.notifyDataSetChanged();
+         adapter.notifyDataSetChanged();
 
-    }*/
+     }*/
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            langauageList(authCode,userId);
+            langauageList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //WarningDetails  list
-    public void langauageList(final String AuthCode , final String AdminID) {
+    public void langauageList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -181,14 +180,12 @@ public class WarningFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         if (jsonObject.has("status")) {
@@ -196,18 +193,18 @@ public class WarningFragment extends Fragment {
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String WarningTitle = jsonObject.getString("WarningTitle");
                             String WarningDetail = jsonObject.getString("WarningDetail");
                             String WarningDateText = jsonObject.getString("WarningDateText");
                             String FileNameText = jsonObject.getString("FileNameText");
 
-                            list.add(new WarningModel(WarningDateText,WarningDetail,WarningTitle,FileNameText));
+                            list.add(new WarningModel(WarningDateText, WarningDetail, WarningTitle, FileNameText));
 
 
                         }
@@ -215,12 +212,10 @@ public class WarningFragment extends Fragment {
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         warningRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         warningRecycler.setVisibility(View.VISIBLE);
                     }
@@ -229,7 +224,7 @@ public class WarningFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -266,12 +261,12 @@ public class WarningFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("AdminID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("AdminID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -310,6 +305,7 @@ public class WarningFragment extends Fragment {
         mListener = null;
     }
 */
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -324,6 +320,7 @@ public class WarningFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     private void Logout() {
 
         getActivity().finishAffinity();
@@ -349,7 +346,6 @@ public class WarningFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
-
 
 
 //

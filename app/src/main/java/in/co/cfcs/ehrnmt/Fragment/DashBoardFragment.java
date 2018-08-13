@@ -94,18 +94,18 @@ public class DashBoardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public LinearLayout leaverequsLay, attendanceLay, stationaryLay,docsLay,cabLay,hotelLay,appreceationLay,warningLay,
-            req_approve,holiday,log_report,attendence_list;
+    public LinearLayout leaverequsLay, attendanceLay, stationaryLay, docsLay, cabLay, hotelLay, appreceationLay, warningLay,
+            req_approve, holiday, log_report, attendence_list;
 
     public OnFragmentInteractionListenerForToolbar mListener;
 
-    public ArrayList<LeaveSummarryModel> list ;
+    public ArrayList<LeaveSummarryModel> list;
 
-    PieChart pieChart,pieChart11 ;
-    ArrayList entries ;
-    ArrayList PieEntryLabels ;
-    PieDataSet pieDataSet ;
-    PieData pieData ;
+    PieChart pieChart, pieChart11;
+    ArrayList entries;
+    ArrayList PieEntryLabels;
+    PieDataSet pieDataSet;
+    PieData pieData;
 
     BarChart barchart;
     BarData barData;
@@ -137,8 +137,8 @@ public class DashBoardFragment extends Fragment {
 
     String currentVersion = null;
 
-    String month ="";
-    String year ="";
+    String month = "";
+    String year = "";
 
     String LoginStatus;
     String invalid = "loginfailed";
@@ -184,7 +184,7 @@ public class DashBoardFragment extends Fragment {
 
 
         String strtext = getArguments().getString("Count");
-    //    Log.e("checking count for dashboard fragment",strtext + " null");
+        //    Log.e("checking count for dashboard fragment",strtext + " null");
 
         //transfer data fragment to other Fragment
         Bundle bundle = new Bundle();
@@ -192,20 +192,20 @@ public class DashBoardFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        mListener.onFragmentInteractionForToolbarMethod(0,"DashBoard",strtext);
+        mListener.onFragmentInteractionForToolbarMethod(0, "DashBoard", strtext);
 
-        leaverequsLay = (LinearLayout)rootView.findViewById(R.id.leavereq);
-        attendanceLay = (LinearLayout)rootView.findViewById(R.id.attendance_lay);
-        attendence_list = (LinearLayout)rootView.findViewById(R.id.attendence_list);
-        stationaryLay = (LinearLayout)rootView.findViewById(R.id.stationary_lay);
-        docsLay = (LinearLayout)rootView.findViewById(R.id.docs_lay);
-        cabLay = (LinearLayout)rootView.findViewById(R.id.cab_lay);
-        hotelLay = (LinearLayout)rootView.findViewById(R.id.hotel_lay);
-        appreceationLay = (LinearLayout)rootView.findViewById(R.id.appre_lay);
-        warningLay = (LinearLayout)rootView.findViewById(R.id.warning_lay);
-       // req_approve = (LinearLayout)rootView.findViewById(R.id.req_approve);
-        holiday = (LinearLayout)rootView.findViewById(R.id.holiday);
-        log_report = (LinearLayout)rootView.findViewById(R.id.log_report);
+        leaverequsLay = (LinearLayout) rootView.findViewById(R.id.leavereq);
+        attendanceLay = (LinearLayout) rootView.findViewById(R.id.attendance_lay);
+        attendence_list = (LinearLayout) rootView.findViewById(R.id.attendence_list);
+        stationaryLay = (LinearLayout) rootView.findViewById(R.id.stationary_lay);
+        docsLay = (LinearLayout) rootView.findViewById(R.id.docs_lay);
+        cabLay = (LinearLayout) rootView.findViewById(R.id.cab_lay);
+        hotelLay = (LinearLayout) rootView.findViewById(R.id.hotel_lay);
+        appreceationLay = (LinearLayout) rootView.findViewById(R.id.appre_lay);
+        warningLay = (LinearLayout) rootView.findViewById(R.id.warning_lay);
+        // req_approve = (LinearLayout)rootView.findViewById(R.id.req_approve);
+        holiday = (LinearLayout) rootView.findViewById(R.id.holiday);
+        log_report = (LinearLayout) rootView.findViewById(R.id.log_report);
 
         conn = new ConnectionDetector(getActivity());
 
@@ -215,8 +215,8 @@ public class DashBoardFragment extends Fragment {
             e.printStackTrace();
         }
 
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
         barWidth = 0.2f;
@@ -224,16 +224,15 @@ public class DashBoardFragment extends Fragment {
         groupSpace = 0.4f;
 
 
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-          //  new ForceUpdateAsync(currentVersion).execute();
+            //  new ForceUpdateAsync(currentVersion).execute();
 
             leaveSummeryData(authCode, userId);
 
-            AttendanceSummaryData(authCode,userId,userId,month,year);
+            AttendanceSummaryData(authCode, userId, userId, month, year);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
 
@@ -252,7 +251,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(18,"Attendence Request",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(18, "Attendence Request", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new AttendaceListFragment();
@@ -275,7 +274,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(18,"Stationary Request",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(18, "Stationary Request", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new StationaryRequestFragment();
@@ -298,7 +297,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(19 , "Document List",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(19, "Document List", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new DocumentListFragment();
@@ -321,7 +320,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(20, "Cab List",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(20, "Cab List", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new TaxiListFragment();
@@ -333,7 +332,7 @@ public class DashBoardFragment extends Fragment {
                 // update the main content by replacing fragments
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, frag)
-                       // .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        // .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .addToBackStack(null)
                         .commit();
 
@@ -344,7 +343,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(21,"Hotel Booking List",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(21, "Hotel Booking List", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new HotelBookingListFragment();
@@ -366,7 +365,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(220,"Appreciation",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(220, "Appreciation", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new AppreceationFragment();
@@ -397,7 +396,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(201, "Holiday List",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(201, "Holiday List", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new HolidayListFragment();
@@ -419,7 +418,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(202, "Log List",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(202, "Log List", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new AttendanceLogListFragment();
@@ -441,7 +440,7 @@ public class DashBoardFragment extends Fragment {
         warningLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onFragmentInteractionForToolbarMethod(221,"Warning",strtext);
+                mListener.onFragmentInteractionForToolbarMethod(221, "Warning", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new WarningFragment();
@@ -463,14 +462,14 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(getActivity(),NewAddLeaveMangementActivity.class);
+                Intent ik = new Intent(getActivity(), NewAddLeaveMangementActivity.class);
                 startActivity(ik);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
             }
         });
 
-        barchart = (BarChart)rootView.findViewById(R.id.chart2);
+        barchart = (BarChart) rootView.findViewById(R.id.chart2);
         barchart.setDescription(null);
         barchart.setPinchZoom(false);
         barchart.setScaleEnabled(false);
@@ -479,7 +478,7 @@ public class DashBoardFragment extends Fragment {
         barchart.animateY(3000);
 
 
-        pieChart = (PieChart)rootView.findViewById(R.id.chart1);
+        pieChart = (PieChart) rootView.findViewById(R.id.chart1);
         pieChart.setDescription(null);
         pieChart.animateY(3000);
         pieChart.setDrawHoleEnabled(true);
@@ -499,7 +498,7 @@ public class DashBoardFragment extends Fragment {
         pieChart.setMaxAngle(180f); // HALF CHART
         pieChart.setRotationAngle(180f);
         pieChart.setCenterTextOffset(0, -00);
-        pieChart.setExtraOffsets(0,5,0,-110);
+        pieChart.setExtraOffsets(0, 5, 0, -110);
         pieChart.setCenterText("Attendance");
 
         return rootView;
@@ -518,25 +517,24 @@ public class DashBoardFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String ValueText = jsonObject.getString("ValueText");
                             String ValueCount = jsonObject.getString("ValueCount");
 
-                            PieEntryLable.add(i,ValueText);
+                            PieEntryLable.add(i, ValueText);
                             pievalue.add(i, ValueCount);
 
                         }
@@ -547,10 +545,10 @@ public class DashBoardFragment extends Fragment {
                     checkMethodPie();
 
                     // adapter.notifyDataSetChanged();
-                   // pDialog.dismiss();
+                    // pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -583,19 +581,19 @@ public class DashBoardFragment extends Fragment {
                             "Parse Error",
                             Toast.LENGTH_LONG).show();
                 }
-              //  pDialog.dismiss();
+                //  pDialog.dismiss();
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",authCode);
-                params.put("LoginAdminID",logInid);
-                params.put("EmployeeID",userId);
-                params.put("Month",month);
-                params.put("Year",year);
+                params.put("AuthCode", authCode);
+                params.put("LoginAdminID", logInid);
+                params.put("EmployeeID", userId);
+                params.put("Month", month);
+                params.put("Year", year);
 
 
                 Log.e("Parms", params.toString());
@@ -628,11 +626,10 @@ public class DashBoardFragment extends Fragment {
     }
 
 
-
     //Leave Summery List
-    public void leaveSummeryData(final String AuthCode , final String AdminID) {
+    public void leaveSummeryData(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -649,21 +646,20 @@ public class DashBoardFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String LeaveYear = jsonObject.getString("LeaveYear");
                             String EntitledFor = jsonObject.getString("LeaveAvailable");
@@ -676,12 +672,12 @@ public class DashBoardFragment extends Fragment {
 
                             float entitled = Float.parseFloat(EntitledFor);
                             float carryOver = Float.parseFloat(LeaveCarryOver);
-                            float totalLeave = entitled+carryOver;
+                            float totalLeave = entitled + carryOver;
 
-                            BarEntryLable.add(i,LeaveTypeName);
+                            BarEntryLable.add(i, LeaveTypeName);
                             barvaluelistLeaveTotal.add(i, String.valueOf(totalLeave));
-                            barvaluelistLeaveTaken.add(i,LeaveTaken);
-                            barvaluelistLeaveAvail.add(i,LeaveAvail);
+                            barvaluelistLeaveTaken.add(i, LeaveTaken);
+                            barvaluelistLeaveAvail.add(i, LeaveAvail);
                             barColor.add(i, Color);
 
                         }
@@ -691,11 +687,11 @@ public class DashBoardFragment extends Fragment {
 
                     checkMethod();
 
-                   // adapter.notifyDataSetChanged();
+                    // adapter.notifyDataSetChanged();
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -732,13 +728,13 @@ public class DashBoardFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
 
                 Log.e("Parms", params.toString());
@@ -758,7 +754,7 @@ public class DashBoardFragment extends Fragment {
         ArrayList<PieEntry> yVals1 = new ArrayList<PieEntry>();
 
         for (int i = 0; i < PieEntryLable.size(); i++)
-            yVals1.add(new PieEntry(Float.parseFloat(pievalue.get(i)),PieEntryLable.get(i)));
+            yVals1.add(new PieEntry(Float.parseFloat(pievalue.get(i)), PieEntryLable.get(i)));
 
 
         // create pie data set
@@ -827,23 +823,23 @@ public class DashBoardFragment extends Fragment {
         List<BarEntry> entriesGroup1 = new ArrayList<>();
         List<BarEntry> entriesGroup2 = new ArrayList<>();
         List<BarEntry> entriesGroup3 = new ArrayList<>();
-        List<Integer>  barColourGroup = new ArrayList<>();
+        List<Integer> barColourGroup = new ArrayList<>();
 
 
         // fill the lists
-        for(int i = 0; i < barvaluelistLeaveTotal.size(); i++) {
+        for (int i = 0; i < barvaluelistLeaveTotal.size(); i++) {
             entriesGroup1.add(new BarEntry(i, Float.parseFloat(barvaluelistLeaveTotal.get(i))));
             entriesGroup2.add(new BarEntry(i, Float.parseFloat(barvaluelistLeaveTaken.get(i))));
             entriesGroup3.add(new BarEntry(i, Float.parseFloat(barvaluelistLeaveAvail.get(i))));
             groupCount += 1;
             int colour = Color.parseColor(barColor.get(i));
-            barColourGroup.add(i,colour);
+            barColourGroup.add(i, colour);
 
         }
 
         float barwidthActoGroup = (float) (groupCount / 20.0);
 
-        BarDataSet set1, set2,set3;
+        BarDataSet set1, set2, set3;
         set1 = new BarDataSet(entriesGroup1, "Entitlements");
         set1.setColors(barColourGroup);
         set2 = new BarDataSet(entriesGroup2, "Taken");
@@ -852,7 +848,7 @@ public class DashBoardFragment extends Fragment {
         set3.setColor(Color.GREEN);
         BarData data = new BarData(set1, set2, set3);
         data.setValueFormatter(new LargeValueFormatter());
-       // data.setBarWidth(0.5f);
+        // data.setBarWidth(0.5f);
         barchart.setData(data);
         barchart.getBarData().setBarWidth(barwidthActoGroup);
         barchart.getXAxis().setAxisMinimum(0);
@@ -887,8 +883,6 @@ public class DashBoardFragment extends Fragment {
         leftAxis.setDrawGridLines(true);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-
-
 
 
     }

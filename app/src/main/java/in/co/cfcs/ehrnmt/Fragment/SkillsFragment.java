@@ -72,7 +72,7 @@ public class SkillsFragment extends Fragment {
     public FloatingActionButton fab;
     public String skillsListUrl = SettingConstant.BaseUrl + "AppEmployeeSkillList";
     public ConnectionDetector conn;
-    public String userId = "",authCode = "";
+    public String userId = "", authCode = "";
     public TextView noCust;
 
 
@@ -121,20 +121,20 @@ public class SkillsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_skills, container, false);
 
         String strtext = getArguments().getString("Count");
-        Log.e("checking count",strtext + " null");
+        Log.e("checking count", strtext + " null");
 
         mListener.onFragmentInteraction(strtext);
 
-        skillRecycler = (RecyclerView)rootView.findViewById(R.id.skill_recycler);
-        fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        skillRecycler = (RecyclerView) rootView.findViewById(R.id.skill_recycler);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         noCust = (TextView) rootView.findViewById(R.id.no_record_txt);
 
         conn = new ConnectionDetector(getActivity());
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(getActivity())));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        adapter = new SkillAdapter(getActivity(),list,getActivity(),"FirstOne");
+        adapter = new SkillAdapter(getActivity(), list, getActivity(), "FirstOne");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         skillRecycler.setLayoutManager(mLayoutManager);
         skillRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -152,9 +152,9 @@ public class SkillsFragment extends Fragment {
                 i.putExtra("ActionMode", "AddMode");
                 i.putExtra("RecordId", "");
                 i.putExtra("SkillName", "");
-                i.putExtra("ProficeiancyName","");
-                i.putExtra("SourceName","");
-                i.putExtra("CurrentelyUsed","");
+                i.putExtra("ProficeiancyName", "");
+                i.putExtra("SourceName", "");
+                i.putExtra("CurrentelyUsed", "");
                 i.putExtra("LastUsedDate", "");
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
@@ -164,41 +164,40 @@ public class SkillsFragment extends Fragment {
         return rootView;
     }
 
-  /*  private void prepareInsDetails() {
+    /*  private void prepareInsDetails() {
 
-        SkillsModel model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
-        list.add(model);
-        model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
-        list.add(model);
-        model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
-        list.add(model);
-        model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
-        list.add(model);
-        model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
-        list.add(model);
+          SkillsModel model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
+          list.add(model);
+          model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
+          list.add(model);
+          model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
+          list.add(model);
+          model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
+          list.add(model);
+          model = new SkillsModel("Java","Beginner","By Internet","03-09-2017","Present");
+          list.add(model);
 
 
-        adapter.notifyDataSetChanged();
+          adapter.notifyDataSetChanged();
 
-    }*/
+      }*/
     @Override
     public void onResume() {
         super.onResume();
-        if (conn.getConnectivityStatus()>0) {
+        if (conn.getConnectivityStatus() > 0) {
 
-            skillsList(authCode,userId);
+            skillsList(authCode, userId);
 
-        }else
-        {
+        } else {
             conn.showNoInternetAlret();
         }
     }
 
 
     //Skills list
-    public void skillsList(final String AuthCode , final String AdminID) {
+    public void skillsList(final String AuthCode, final String AdminID) {
 
-        final ProgressDialog pDialog = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity(), R.style.AppCompatAlertDialogStyle);
         pDialog.setCancelable(false);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -210,25 +209,23 @@ public class SkillsFragment extends Fragment {
 
                 try {
                     Log.e("Login", response);
-                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["),response.lastIndexOf("]") +1 ));
+                    JSONArray jsonArray = new JSONArray(response.substring(response.indexOf("["), response.lastIndexOf("]") + 1));
 
-                    if (list.size()>0)
-                    {
+                    if (list.size() > 0) {
                         list.clear();
                     }
-                    for (int i=0 ; i<jsonArray.length();i++)
-                    {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.has("status")) {
                             LoginStatus = jsonObject.getString("status");
                             msgstatus = jsonObject.getString("MsgNotification");
                             if (LoginStatus.equals(invalid)) {
                                 Logout();
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(getContext(),msgstatus, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
-                        }else{
+                        } else {
 
                             String SkillName = jsonObject.getString("SkillName");
                             String ProficiencyName = jsonObject.getString("ProficiencyName");
@@ -238,21 +235,16 @@ public class SkillsFragment extends Fragment {
                             String RecordID = jsonObject.getString("RecordID");
 
 
-
-                            list.add(new SkillsModel(SkillName,ProficiencyName,SkillSourceName,LastUsed,CurrentlyUsed,RecordID));
+                            list.add(new SkillsModel(SkillName, ProficiencyName, SkillSourceName, LastUsed, CurrentlyUsed, RecordID));
                         }
-
-
 
 
                     }
 
-                    if (list.size() == 0)
-                    {
+                    if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);
                         skillRecycler.setVisibility(View.GONE);
-                    }else
-                    {
+                    } else {
                         noCust.setVisibility(View.GONE);
                         skillRecycler.setVisibility(View.VISIBLE);
                     }
@@ -262,7 +254,7 @@ public class SkillsFragment extends Fragment {
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -299,13 +291,13 @@ public class SkillsFragment extends Fragment {
 
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",AuthCode);
-                params.put("LoginAdminID",AdminID);
-                params.put("EmployeeID",AdminID);
+                params.put("AuthCode", AuthCode);
+                params.put("LoginAdminID", AdminID);
+                params.put("EmployeeID", AdminID);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -367,6 +359,7 @@ public class SkillsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String count);
     }
+
     private void Logout() {
 
 

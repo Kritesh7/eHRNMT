@@ -18,6 +18,7 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
 
     public TextView titleTxt;
     public LinearLayout firstTilesLay, secondTileLay, thirdLay, fourthLay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +34,11 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mgrtoolbar);
         setSupportActionBar(toolbar);
 
-        titleTxt = (TextView)toolbar.findViewById(R.id.titletxt);
+        titleTxt = (TextView) toolbar.findViewById(R.id.titletxt);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -61,8 +62,8 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerLeaveMangementActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Leave Summery");
+                Intent ik = new Intent(ManagerLeaveMangementActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Leave Summery");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -72,8 +73,8 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerLeaveMangementActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Weak Off");
+                Intent ik = new Intent(ManagerLeaveMangementActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Weak Off");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -83,8 +84,8 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerLeaveMangementActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Leave History");
+                Intent ik = new Intent(ManagerLeaveMangementActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Leave History");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -94,8 +95,8 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ik = new Intent(ManagerLeaveMangementActivity.this,ManagerFilterActivity.class);
-                ik.putExtra("CheckingTheActivity","Short Leave History");
+                Intent ik = new Intent(ManagerLeaveMangementActivity.this, ManagerFilterActivity.class);
+                ik.putExtra("CheckingTheActivity", "Short Leave History");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
 
