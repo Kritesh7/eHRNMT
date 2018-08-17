@@ -117,8 +117,6 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
         } else {
             conn.showNoInternetAlret();
         }
-
-
     }
 
     //Short Leave History List
@@ -162,7 +160,6 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
                             String StatusText = jsonObject.getString("StatusText");
                             String CommentText = jsonObject.getString("CommentText");
                             String UserName = jsonObject.getString("UserName");
-
 
                             list.add(new ShortLeaveHistoryModel(UserName, LeaveApplication_Id, LeaveTypeName, StartDate, TimeFrom, TimeTo, AppliedDate,
                                     StatusText, CommentText, "0"));
@@ -222,8 +219,6 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
                 pDialog.dismiss();
-
-
             }
         }) {
             @Override
@@ -256,13 +251,8 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
 
     private void Logout() {
 
-
         finishAffinity();
         startActivity(new Intent(ProceedShortLeaveListActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ProceedShortLeaveListActivity.this,
                 "")));
@@ -284,11 +274,6 @@ public class ProceedShortLeaveListActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ProceedShortLeaveListActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

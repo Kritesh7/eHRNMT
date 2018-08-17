@@ -21,7 +21,6 @@ import in.co.cfcs.ehrnmt.Model.SendListModel;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.EditTextWatcher;
 
-
 /**
  * Created by Admin on 21-09-2017.
  */
@@ -69,15 +68,11 @@ public class BookMeaPrevisonAdapter extends BaseAdapter {
         return 0;
     }
 
-
-
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         ViewHolder holder = null;
 
         //Log.e("MyList Size",myList.size()+ "");
-
-
 
         holder = new ViewHolder();
         holder.mWatcher = new EditTextWatcher();
@@ -86,9 +81,6 @@ public class BookMeaPrevisonAdapter extends BaseAdapter {
         holder.tvName = (CheckBox) view.findViewById(R.id.itemcheckbox);
         holder.quantityTxt = (EditText)view.findViewById(R.id.edit_quantity);
         holder.remarkTxt = (EditText)view.findViewById(R.id.remark);
-
-
-
 
 
         holder.tvName.setText(list.get(i).getItemName());
@@ -125,8 +117,6 @@ public class BookMeaPrevisonAdapter extends BaseAdapter {
                 list.get(i).setRemarkString(editable.toString());
             }
         });
-
-
 
 
         final ViewHolder finalHolder = holder;
@@ -288,7 +278,6 @@ public class BookMeaPrevisonAdapter extends BaseAdapter {
 
         return view;
     }
-
 
     private class ViewHolder {
 

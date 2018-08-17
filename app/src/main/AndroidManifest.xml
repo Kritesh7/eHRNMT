@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.co.cfcs.ehrnmt">
 
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -36,15 +35,15 @@
         <activity
             android:name=".Main.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".Main.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AttendanceModule"
             android:label="@string/title_activity_attendance_module"
@@ -81,329 +80,329 @@
         <activity
             android:name=".Main.ShoweRouteLocation"
             android:label="@string/title_activity_showe_route_location"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main.NewAddLeaveMangementActivity"
             android:label="@string/title_activity_new_add_leave_mangement"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Main.ViewLeavemangementActivity"
             android:label="@string/title_activity_view_leavemangement"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddandEditTraningActivity"
             android:label="@string/title_activity_addand_edit_traning"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddNewStationaryRequestActivity"
             android:label="@string/title_activity_add_new_stationary_request"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".Main.AddDocumentActivity"
             android:label="@string/title_activity_add_document"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".Main.AddCabActivity"
             android:label="@string/title_activity_add_cab"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Main.AddHotelActivity"
             android:label="@string/title_activity_add_hotel"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".Main.AddOffieceallyDetailsActivity"
             android:label="@string/title_activity_add_offieceally_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddDependentActivity"
             android:label="@string/title_activity_add_dependent"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddMedicalandAnssuranceActivity"
             android:label="@string/title_activity_medicaland_anssurance"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Main.AddQualificationActivity"
             android:label="@string/title_activity_add_qualification"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddPreviousExpreinceActivity"
             android:label="@string/title_activity_add_previous_expreince"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Main.AddNewLnaguageActivity"
             android:label="@string/title_activity_add_new_lnaguage"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddNewSkilActivity"
             android:label="@string/title_activity_add_new_skil"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Main.ForGotPasswordActivity"
             android:label="@string/title_activity_for_got_password"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Main.ViewShortLeaveHistoryActivity"
             android:label="@string/title_activity_view_short_leave_history"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.ApplyShortLeaveActivity"
             android:label="@string/title_activity_apply_short_leave"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Main.ViewAttendanceDetailsActivity"
             android:label="@string/title_activity_view_attendance_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.ViewRequestDetailsActivity"
             android:label="@string/title_activity_view_request_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.ViewDocumentDetailsActivity"
             android:label="@string/title_activity_view_document_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.ViewCabDetailsActivity"
             android:label="@string/title_activity_view_cab_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.ViewHotelDetailActivity"
             android:label="@string/title_activity_view_hotel_detail"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main.AddNewEmergencyContactDetailsActivity"
             android:label="@string/title_activity_add_new_emergency_contact_details"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Main.AddNewContactActivity"
             android:label="@string/title_activity_add_new_contact"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerDashboardActivity"
             android:label="@string/title_activity_manager_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerRequestToApproveActivity"
             android:label="@string/title_activity_manager_leave_management"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerProceedRequestActivity"
             android:label="@string/title_activity_manager_proceed_request"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ProceedLeaveRequestListActivity"
             android:label="@string/title_activity_proceed_leave_request_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Manager.ManagerActivity.ProceedShortLeaveListActivity"
             android:label="@string/title_activity_proceed_short_leave_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Manager.ManagerActivity.RequestToApprovedShortLeaveActivity"
             android:label="@string/title_activity_reequest_to_approved_short_leave"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Manager.ManagerActivity.RequestToApproveShortLeaveCancelationActivity"
             android:label="@string/title_activity_request_to_approve_short_leave_cancelation"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.RequestToApproveLeaveActivity"
             android:label="@string/title_activity_request_to_approve_leave"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.RequestToApproveLeaveCancelActivity"
             android:label="@string/title_activity_request_to_approve_leave_cancel"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerFilterActivity"
             android:label="@string/title_activity_manager_filter"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerAssetDetailsActivity"
             android:label="@string/title_activity_manager_asset_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerLeaveMangementActivity"
             android:label="@string/title_activity_manager_leave_mangement"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerLeaveSummeryActivity"
             android:label="@string/title_activity_manager_leave_summery"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerWeakOffActivity"
             android:label="@string/title_activity_manager_weak_off"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerTeamLeaveHistoryActivity"
             android:label="@string/title_activity_manager_team_leave_history"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerShortLeaveHistoryActivity"
             android:label="@string/title_activity_manager_short_leave_history"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerReportDashboardActivity"
             android:label="@string/title_activity_manager_attendace_report"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerAttendanceReportActivity"
             android:label="@string/title_activity_manager_attendance_report"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerTeamAvearageReportActivity"
             android:label="@string/title_activity_manager_team_avearage_report"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerEmployeeDataDashboardActivity"
             android:label="@string/title_activity_manager_employee_data_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerOfficealyDataActivity"
             android:label="@string/title_activity_manager_officealy_data"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerMedicalActivity"
             android:label="@string/title_activity_manager_medical"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerAddressContactActivity"
             android:label="@string/title_activity_manager_address_contact"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerEmergencyAddressActivity"
             android:label="@string/title_activity_manager_emergency_address"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.PersonalDeatilsActivity"
             android:label="@string/title_activity_personal_deatils"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerSkillsAndCareerDashboard"
             android:label="@string/title_activity_manager_skills_and_career_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerSkillsActivity"
             android:label="@string/title_activity_manager_skills"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerLangaugeActivity"
             android:label="@string/title_activity_manager_langauge"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerPreviousExprinceActivity"
             android:label="@string/title_activity_manager_previous_exprince"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerEducationDetailsActivity"
             android:label="@string/title_activity_manager_education_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerAttendanceLogDetailsActivity"
             android:label="@string/title_activity_manager_attendance_log_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerRequestTraningListActivity"
             android:label="@string/title_activity_manager_request_traning_list"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerRequestTraningDetailsActivity"
             android:label="@string/title_activity_manager_request_traning_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Manager.ManagerActivity.ManagerProceedTraningListActivity"
             android:label="@string/title_activity_manager_proceed_traning_list"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".Interface.GeofenceTrasitionService" />
-
-
         <service
             android:name=".Interface.LocationUpdateService"
             android:enabled="true"
             android:process=":in.co.cfcs.ehrnmt_kritesh"
-            android:stopWithTask="false"></service>
+            android:stopWithTask="false" />
 
-        <!--<receiver android:name=".Interface.ServiceLocationBoradcastehrms" />-->
-
+        <!-- <receiver android:name=".Interface.ServiceLocationBoradcastehrms" /> -->
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".Manager.ManagerActivity.AttendanceRequest"
+            android:label="@string/title_activity_manager_proceed_traning_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 

@@ -564,9 +564,7 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
-
     }
-
 
     @Override
     public void getAllItem(ArrayList<String> sendList) {
@@ -575,13 +573,8 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
 
     private void Logout() {
 
-
         finishAffinity();
         startActivity(new Intent(AddDocumentActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddDocumentActivity.this,
                 "")));
@@ -595,26 +588,12 @@ public class AddDocumentActivity extends AppCompatActivity implements AddItemInt
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddDocumentActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddDocumentActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddDocumentActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddDocumentActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
 
-
-
-  /*  @Override
-    public void getAllItem(ArrayList<SendListModel> songList) {
-
-    }*/
 }

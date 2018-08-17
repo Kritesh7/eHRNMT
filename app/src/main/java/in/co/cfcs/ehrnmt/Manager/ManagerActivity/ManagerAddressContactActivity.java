@@ -280,10 +280,6 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerAddressContactActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerAddressContactActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerAddressContactActivity.this,
@@ -296,19 +292,12 @@ public class ManagerAddressContactActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerAddressContactActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerAddressContactActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerAddressContactActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerAddressContactActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

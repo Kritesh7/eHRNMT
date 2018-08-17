@@ -422,11 +422,8 @@ public class AddDependentActivity extends AppCompatActivity {
 
                             String RelationshipID = object.getString("RelationshipID");
                             String RelationshipName = object.getString("RelationshipName");
-
                             relationshipList.add(new RelationShipeTypeModel(RelationshipName, RelationshipID));
-
                         }
-
                         for (int k = 0; k < relationshipList.size(); k++) {
                             if (actionMode.equalsIgnoreCase("EditMode")) {
                                 if (relationshipList.get(k).getRelationshipName().equalsIgnoreCase(relationshipNameStr)) {
@@ -499,13 +496,8 @@ public class AddDependentActivity extends AppCompatActivity {
 
     private void Logout() {
 
-
         finishAffinity();
         startActivity(new Intent(AddDependentActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddDependentActivity.this,
                 "")));
@@ -519,19 +511,12 @@ public class AddDependentActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(AddDependentActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(AddDependentActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(AddDependentActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddDependentActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

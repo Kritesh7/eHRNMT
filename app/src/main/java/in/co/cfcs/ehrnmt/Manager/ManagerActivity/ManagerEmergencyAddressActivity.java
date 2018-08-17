@@ -178,13 +178,10 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                             String LastUpdate = object.getString("LastUpdate");
                             String RecordID = object.getString("RecordID");
 
-
                             list.add(new EmergencyContactModel(Title, Name, Address, City, State, PostCode, CountryName, PhoneNo, MobileNo,
                                     Email, RelationshipName, LastUpdate, Type, RecordID));
 
-
                         }
-
 
                     }
 
@@ -244,7 +241,6 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                 }
                 pDialog.dismiss();
 
-
             }
         }) {
             @Override
@@ -269,11 +265,9 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
-
     }
 
     private void Logout() {
@@ -281,10 +275,6 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
 
         finishAffinity();
         startActivity(new Intent(ManagerEmergencyAddressActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerEmergencyAddressActivity.this,
                 "")));
@@ -298,20 +288,12 @@ public class ManagerEmergencyAddressActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerEmergencyAddressActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerEmergencyAddressActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerEmergencyAddressActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerEmergencyAddressActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
 
 }

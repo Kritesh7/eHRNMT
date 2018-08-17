@@ -40,6 +40,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -50,6 +51,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
@@ -219,11 +221,6 @@ public class DashBoardFragment extends Fragment {
         authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(getActivity())));
 
 
-        barWidth = 0.2f;
-        barSpace = 0f;
-        groupSpace = 0.4f;
-
-
         if (conn.getConnectivityStatus() > 0) {
 
             //  new ForceUpdateAsync(currentVersion).execute();
@@ -235,6 +232,8 @@ public class DashBoardFragment extends Fragment {
         } else {
             conn.showNoInternetAlret();
         }
+
+
 
         attendanceLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -475,7 +474,9 @@ public class DashBoardFragment extends Fragment {
         barchart.setScaleEnabled(false);
         barchart.setDrawBarShadow(false);
         barchart.setDrawGridBackground(false);
+        barchart.fitScreen();
         barchart.animateY(3000);
+
 
 
         pieChart = (PieChart) rootView.findViewById(R.id.chart1);
@@ -660,7 +661,7 @@ public class DashBoardFragment extends Fragment {
                                 Toast.makeText(getContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            String LeaveTypeName = jsonObject.getString("LeaveTypeName");
+                            String LeaveTypeName = jsonObject.getString("SCode");
                             String LeaveYear = jsonObject.getString("LeaveYear");
                             String EntitledFor = jsonObject.getString("LeaveAvailable");
                             String LeaveCarryOver = jsonObject.getString("LeaveCarryOver");
@@ -685,7 +686,7 @@ public class DashBoardFragment extends Fragment {
 
                     }
 
-                    checkMethod();
+                  checkMethod();
 
                     // adapter.notifyDataSetChanged();
                     pDialog.dismiss();
@@ -818,13 +819,21 @@ public class DashBoardFragment extends Fragment {
 
     private void checkMethod() {
 
-        int groupCount = 0;
+         int groupCount = 0;
+
+        // for 3 bars in a dataset, this must equals "1" :
+       // (barWidth + barSpace) * 3 + groupSpace = 1
+
+        final float groupSpace = 0.25f;
+        // space between bars in same data set
+        final float barSpace = 0.05f;
+        // width of bar
+        final float barWidth = 0.2f;
 
         List<BarEntry> entriesGroup1 = new ArrayList<>();
         List<BarEntry> entriesGroup2 = new ArrayList<>();
         List<BarEntry> entriesGroup3 = new ArrayList<>();
         List<Integer> barColourGroup = new ArrayList<>();
-
 
         // fill the lists
         for (int i = 0; i < barvaluelistLeaveTotal.size(); i++) {
@@ -833,11 +842,10 @@ public class DashBoardFragment extends Fragment {
             entriesGroup3.add(new BarEntry(i, Float.parseFloat(barvaluelistLeaveAvail.get(i))));
             groupCount += 1;
             int colour = Color.parseColor(barColor.get(i));
-            barColourGroup.add(i, colour);
+           barColourGroup.add(i, colour);
 
         }
 
-        float barwidthActoGroup = (float) (groupCount / 20.0);
 
         BarDataSet set1, set2, set3;
         set1 = new BarDataSet(entriesGroup1, "Entitlements");
@@ -848,15 +856,14 @@ public class DashBoardFragment extends Fragment {
         set3.setColor(Color.GREEN);
         BarData data = new BarData(set1, set2, set3);
         data.setValueFormatter(new LargeValueFormatter());
-        // data.setBarWidth(0.5f);
         barchart.setData(data);
-        barchart.getBarData().setBarWidth(barwidthActoGroup);
+        barchart.getBarData().setBarWidth(barWidth);
         barchart.getXAxis().setAxisMinimum(0);
+        barchart.getXAxis().setCenterAxisLabels(true);
         barchart.getXAxis().setAxisMaximum(0 + barchart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
         barchart.groupBars(0, groupSpace, barSpace);
         barchart.getData().setHighlightEnabled(false);
         barchart.invalidate();
-
 
         Legend l = barchart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -864,7 +871,7 @@ public class DashBoardFragment extends Fragment {
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(true);
         l.setYOffset(0f);
-        l.setXOffset(0f);
+        l.setXOffset(10f);
         l.setYEntrySpace(0f);
         l.setTextSize(8f);
 
@@ -873,17 +880,19 @@ public class DashBoardFragment extends Fragment {
         xAxis.setGranularityEnabled(true);
         xAxis.setCenterAxisLabels(true);
         xAxis.setDrawGridLines(false);
-        xAxis.setAxisMaximum(groupCount);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setAxisMaximum(data.getXMax() + 1);
+        xAxis.setCenterAxisLabels(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BarEntryLable));
-//Y-axis
+
+       //Y-axis
         barchart.getAxisRight().setEnabled(false);
         YAxis leftAxis = barchart.getAxisLeft();
         leftAxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(true);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
-
 
     }
 
@@ -945,13 +954,8 @@ public class DashBoardFragment extends Fragment {
 
     private void Logout() {
 
-
         getActivity().finishAffinity();
         startActivity(new Intent(getContext(), LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(getContext(),
                 "")));
@@ -973,7 +977,6 @@ public class DashBoardFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
                 "")));
-
 
     }
 

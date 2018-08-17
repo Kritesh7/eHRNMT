@@ -129,7 +129,6 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
 
         // show details of assests
 
-
     }
 
     //Assets list
@@ -179,7 +178,6 @@ public class ManagerAssetDetailsActivity extends AppCompatActivity {
                         }
 
                     }
-
 
                     if (list.size() == 0) {
                         noCust.setVisibility(View.VISIBLE);

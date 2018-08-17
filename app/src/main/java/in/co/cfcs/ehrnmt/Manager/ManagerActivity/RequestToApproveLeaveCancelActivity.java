@@ -62,7 +62,6 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
     String invalid = "loginfailed";
     String msgstatus;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +111,6 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
         leaveRequestRecycler.setAdapter(adapter);
 
         leaveRequestRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
     }
 
     @Override
@@ -124,7 +122,6 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
         } else {
             conn.showNoInternetAlret();
         }
-
     }
 
     public void requestToApproveLeave(final String AuthCode, final String AdminID) {
@@ -159,7 +156,6 @@ public class RequestToApproveLeaveCancelActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         } else {
-
 
                             String LeaveTypeName = jsonObject.getString("LeaveTypeName");
                             String StartDateText = jsonObject.getString("StartDateText");

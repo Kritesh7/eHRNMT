@@ -227,7 +227,6 @@ public class ManagerLeaveRequestApproveAndRejectAdapter extends RecyclerView.Ada
                   //  }
                 }
 
-
             }
         });
 
@@ -271,7 +270,6 @@ public class ManagerLeaveRequestApproveAndRejectAdapter extends RecyclerView.Ada
                         }
                     }
 
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
@@ -288,7 +286,6 @@ public class ManagerLeaveRequestApproveAndRejectAdapter extends RecyclerView.Ada
                 Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
 
-
             }
         }){
             @Override
@@ -301,11 +298,9 @@ public class ManagerLeaveRequestApproveAndRejectAdapter extends RecyclerView.Ada
                 params.put("Type",type);
                 params.put("Status",status);
 
-
                 Log.e("Parms", params.toString());
                 return params;
             }
-
         };
         historyInquiry.setRetryPolicy(new DefaultRetryPolicy(SettingConstant.Retry_Time,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -313,7 +308,6 @@ public class ManagerLeaveRequestApproveAndRejectAdapter extends RecyclerView.Ada
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
-
     //remove list
     public void remove(int position) {
         if (position < 0 || position >= list.size()) {

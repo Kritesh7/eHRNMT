@@ -491,7 +491,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
                                         attendaceDetails(userId, gpsTracker.getLongitude() + "", gpsTracker.getLatitude() + "", addTxt.getText().toString(),
                                                 remarkTxt.getText().toString(), imageBase64, authCode, ".jpeg", AttDateTimePresentTime, TypeAuto);
-                                        Toast.makeText(AttendanceModule.this, AttDateTimePresentTime, Toast.LENGTH_LONG).show();
+                                       // Toast.makeText(AttendanceModule.this, AttDateTimePresentTime, Toast.LENGTH_LONG).show();
                                     } else {
 
                                         conn.showNoInternetAlret();
@@ -868,9 +868,6 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AttendanceModule.this,
                 "")));
 
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
 
 
     }
@@ -1183,7 +1180,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
     }
 
     private static final long GEO_DURATION = 60 * 60 * 1000;
-    private static final String GEOFENCE_REQ_ID = "CFCS Office";
+    private static final String GEOFENCE_REQ_ID = "Office";
     private static final float GEOFENCE_RADIUS = 40.0f; // in meters
 
     // Create a Geofence
@@ -1422,7 +1419,6 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
                 params.put("AttDateTime", Attdatetime);
                 params.put("Type", Type);
 
-
                 Log.e("Parms", params.toString());
                 return params;
             }
@@ -1632,12 +1628,9 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
 
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
-
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
-
     }
 }
 

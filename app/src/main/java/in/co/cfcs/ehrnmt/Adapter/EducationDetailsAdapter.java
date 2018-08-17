@@ -218,8 +218,6 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
             delBtn = (ImageView) itemView.findViewById(R.id.delbtn);
             btnLay = (LinearLayout) itemView.findViewById(R.id.btnlay);
             view2 = (View) itemView.findViewById(R.id.view2);
-
-
         }
     }
 
@@ -287,7 +285,6 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
                         }
                     }
 
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
@@ -303,7 +300,6 @@ public class EducationDetailsAdapter extends RecyclerView.Adapter<EducationDetai
 
                 Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
-
 
             }
         }) {

@@ -265,10 +265,6 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerOfficealyDataActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerOfficealyDataActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerOfficealyDataActivity.this,
@@ -289,11 +285,6 @@ public class ManagerOfficealyDataActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerOfficealyDataActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

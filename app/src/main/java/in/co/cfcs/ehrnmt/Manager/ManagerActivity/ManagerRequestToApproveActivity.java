@@ -49,10 +49,10 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
 
     public TextView titleTxt;
     public String countUrl = SettingConstant.BaseUrl + "AppManagerRequestToApproveDashBoard";
-    public TextView leaveCountTxt, leaveCancelCpuntTxt, shortLeaveCountTxt, shortLeaveCancelCountTxt, traningCountTxt;
+    public TextView leaveCountTxt, leaveCancelCpuntTxt, shortLeaveCountTxt, shortLeaveCancelCountTxt, traningCountTxt,attendanceApprove;
     public ConnectionDetector conn;
     public String userId = "", authCode = "";
-    public LinearLayout thirdTilesLay, fourthTileLay, firstTileLat, secondTileLay, fivthLay;
+    public LinearLayout thirdTilesLay, fourthTileLay, firstTileLat, secondTileLay, fivthLay,sixthlay;
 
     public Bundle bundle;
     String BackValue;
@@ -117,6 +117,8 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
         firstTileLat = (LinearLayout) findViewById(R.id.firsttile);
         secondTileLay = (LinearLayout) findViewById(R.id.cancel_request);
         fivthLay = (LinearLayout) findViewById(R.id.fivthlay);
+        attendanceApprove = (TextView) findViewById(R.id.attendanceApprove);
+        sixthlay = (LinearLayout) findViewById(R.id.sixthlay);
 
 
         thirdTilesLay.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +126,16 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent ik = new Intent(ManagerRequestToApproveActivity.this, RequestToApprovedShortLeaveActivity.class);
+                startActivity(ik);
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
+            }
+        });
+
+        sixthlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent ik = new Intent(ManagerRequestToApproveActivity.this, AttendanceRequest.class);
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             }
@@ -214,12 +226,14 @@ public class ManagerRequestToApproveActivity extends AppCompatActivity {
                             String ShortLeaveCount = jsonObject.getString("ShortLeaveCount");
                             String ShortCancelLeaveCount = jsonObject.getString("ShortCancelLeaveCount");
                             String TrainingCount = jsonObject.getString("TrainingCount");
+                            String AttendanceRequestCount = jsonObject.getString("AttendanceRequestCount");
 
                             leaveCountTxt.setText("(" + LeaveCount + ")");
                             leaveCancelCpuntTxt.setText("(" + CancelLeaveCount + ")");
                             shortLeaveCountTxt.setText("(" + ShortLeaveCount + ")");
                             shortLeaveCancelCountTxt.setText("(" + ShortCancelLeaveCount + ")");
                             traningCountTxt.setText("(" + TrainingCount + ")");
+                            attendanceApprove.setText("(" + AttendanceRequestCount + ")");
                         }
 
 

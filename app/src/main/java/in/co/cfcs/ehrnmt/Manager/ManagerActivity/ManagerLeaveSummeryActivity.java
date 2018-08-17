@@ -273,13 +273,8 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
 
     private void Logout() {
 
-
         finishAffinity();
         startActivity(new Intent(ManagerLeaveSummeryActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerLeaveSummeryActivity.this,
                 "")));
@@ -301,11 +296,6 @@ public class ManagerLeaveSummeryActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerLeaveSummeryActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

@@ -52,7 +52,6 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
 
     public ConnectionDetector conn;
 
-
     /**
      * Time when the location was updated represented as a String.
      */
@@ -63,7 +62,6 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     private Location newLocation;
 
     protected String ANDROID_CHANNEL_ID = "100";
-
 
     /**
      * Total distance covered
@@ -319,7 +317,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
     public void stopLocationUpdates() {
 
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        Toast.makeText(this, "Service Stop", Toast.LENGTH_LONG).show();
+     //   Toast.makeText(this, "Service Stop", Toast.LENGTH_LONG).show();
 
     }
 

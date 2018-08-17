@@ -266,10 +266,6 @@ public class ManagerMedicalActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerMedicalActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerMedicalActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerMedicalActivity.this,
@@ -290,11 +286,6 @@ public class ManagerMedicalActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerMedicalActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

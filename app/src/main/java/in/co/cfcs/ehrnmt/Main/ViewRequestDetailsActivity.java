@@ -192,7 +192,6 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
                             hrCommentTxt.setText(HrComment);
                             statusTxt.setText(AppStatusText);
 
-
                             if (HrComment.equalsIgnoreCase("")) {
                                 hrTxt.setVisibility(View.GONE);
                                 hrCommentTxt.setVisibility(View.GONE);
@@ -313,16 +312,10 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
 
     }
 
-
     private void Logout() {
-
 
         finishAffinity();
         startActivity(new Intent(ViewRequestDetailsActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewRequestDetailsActivity.this,
                 "")));
@@ -345,13 +338,7 @@ public class ViewRequestDetailsActivity extends AppCompatActivity {
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewRequestDetailsActivity.this,
                 "")));
 
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
-
 
 }
 

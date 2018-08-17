@@ -377,12 +377,6 @@ public class TaxiListFragment extends Fragment {
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getActivity(),
                 "")));
 
-
-//
-//        Intent intent = new Intent(getContext(), LoginActivity.class);
-//        startActivity(intent);
-
-
     }
 
 }

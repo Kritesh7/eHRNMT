@@ -291,10 +291,6 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ViewLeavemangementActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewLeavemangementActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewLeavemangementActivity.this,
@@ -307,20 +303,12 @@ public class ViewLeavemangementActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewLeavemangementActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewLeavemangementActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewLeavemangementActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewLeavemangementActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
 
 

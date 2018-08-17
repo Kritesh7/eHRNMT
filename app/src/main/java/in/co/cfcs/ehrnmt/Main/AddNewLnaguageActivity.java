@@ -298,12 +298,8 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
                         }
 
                     }
-
-
                     langageTypeAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-
-
                 } catch (JSONException e) {
                     Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
@@ -465,10 +461,6 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(AddNewLnaguageActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddNewLnaguageActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddNewLnaguageActivity.this,
@@ -489,11 +481,6 @@ public class AddNewLnaguageActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddNewLnaguageActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

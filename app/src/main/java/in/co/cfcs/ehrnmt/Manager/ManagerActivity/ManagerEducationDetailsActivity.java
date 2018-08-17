@@ -274,10 +274,6 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ManagerEducationDetailsActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerEducationDetailsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ManagerEducationDetailsActivity.this,
@@ -298,12 +294,5 @@ public class ManagerEducationDetailsActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerEducationDetailsActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
-
 }

@@ -266,10 +266,6 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ProceedLeaveRequestListActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ProceedLeaveRequestListActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ProceedLeaveRequestListActivity.this,
@@ -290,11 +286,6 @@ public class ProceedLeaveRequestListActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ProceedLeaveRequestListActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

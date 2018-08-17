@@ -156,7 +156,6 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
                     Log.e("Login", response);
                     JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
 
-
                     if (list.size()>0)
                     {
                         list.clear();
@@ -256,7 +255,6 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
                 }
                 pDialog.dismiss();
 
-
             }
         }){
             @Override
@@ -289,13 +287,8 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
 
     private void Logout() {
 
-
         finishAffinity();
         startActivity(new Intent(ManagerPreviousExprinceActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerPreviousExprinceActivity.this,
                 "")));
@@ -309,15 +302,12 @@ public class ManagerPreviousExprinceActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerPreviousExprinceActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerPreviousExprinceActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerPreviousExprinceActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerPreviousExprinceActivity.this,
                 "")));
-
 
     }
 

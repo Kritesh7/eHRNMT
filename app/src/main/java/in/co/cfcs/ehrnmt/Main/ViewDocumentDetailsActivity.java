@@ -194,8 +194,6 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
                             requestDateTxt.setText(AddDateText);
                             hrCommentTxt.setText(HrComment);
                             statusTxt.setText(AppStatusText);
-
-
                             if (HrComment.equalsIgnoreCase("")) {
                                 hrTxt.setVisibility(View.GONE);
                                 hrCommentTxt.setVisibility(View.GONE);
@@ -322,10 +320,6 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ViewDocumentDetailsActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewDocumentDetailsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewDocumentDetailsActivity.this,
@@ -338,20 +332,12 @@ public class ViewDocumentDetailsActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ViewDocumentDetailsActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ViewDocumentDetailsActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ViewDocumentDetailsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewDocumentDetailsActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
 
 }

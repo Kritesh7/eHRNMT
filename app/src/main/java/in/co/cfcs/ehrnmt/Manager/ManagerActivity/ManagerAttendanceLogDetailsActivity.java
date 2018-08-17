@@ -189,8 +189,6 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
         } else {
             conn.showNoInternetAlret();
         }
-
-
     }
 
     //get current time
@@ -344,12 +342,8 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
 
     private void Logout() {
 
-
         finishAffinity();
         startActivity(new Intent(ManagerAttendanceLogDetailsActivity.this, LoginActivity.class));
-
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
 
 
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ManagerAttendanceLogDetailsActivity.this,
@@ -364,19 +358,12 @@ public class ManagerAttendanceLogDetailsActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(ManagerAttendanceLogDetailsActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(ManagerAttendanceLogDetailsActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(ManagerAttendanceLogDetailsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ManagerAttendanceLogDetailsActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

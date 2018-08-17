@@ -204,7 +204,6 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                             cityNameTxt.setText(CityName);
                             bookDateTxt.setText(BookDateText);
 
-
                             if (HrComment.equalsIgnoreCase("") || HrComment.equalsIgnoreCase("null")) {
                                 hrcommTxt.setVisibility(View.GONE);
                                 hrcommentFontTxt.setVisibility(View.GONE);
@@ -213,7 +212,6 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                                 approvedByTxt.setVisibility(View.GONE);
                                 followDateTxt.setVisibility(View.GONE);
                             }
-
 
                         }
 
@@ -227,16 +225,11 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                             BookTime = object.getString("BookTime");
                             SourceAdd = object.getString("SourceAdd");
                             DestinationAdd = object.getString("DestinationAdd");
-
-
                             list.add(new CabItemModel(BookTime, SourceAdd, DestinationAdd));
-
-
                         }
 
 
                     }
-
                     adapter.notifyDataSetChanged();
                     pDialog.dismiss();
 
@@ -275,8 +268,6 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
                 pDialog.dismiss();
-
-
             }
         }) {
             @Override
@@ -285,8 +276,6 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                 params.put("AuthCode", AuthCode);
                 params.put("BID", BID);
                 params.put("AdminID", userId);
-
-
                 Log.e("Parms", params.toString());
                 return params;
             }
@@ -314,10 +303,6 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(ViewCabDetailsActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(ViewCabDetailsActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(ViewCabDetailsActivity.this,
@@ -338,11 +323,6 @@ public class ViewCabDetailsActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ViewCabDetailsActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

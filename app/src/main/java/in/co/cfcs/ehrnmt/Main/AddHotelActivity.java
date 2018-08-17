@@ -131,8 +131,6 @@ public class AddHotelActivity extends AppCompatActivity {
             checkOutDateStr = intent.getStringExtra("Check Out Time");
             reamrkStr = intent.getStringExtra("Remark");
             bidStr = intent.getStringExtra("BID");
-
-
         }
 
         conn = new ConnectionDetector(AddHotelActivity.this);
@@ -413,7 +411,6 @@ public class AddHotelActivity extends AppCompatActivity {
             timeSet = "PM";
         else
             timeSet = "AM";
-
 
         String minutes = "";
         if (mins < 10)

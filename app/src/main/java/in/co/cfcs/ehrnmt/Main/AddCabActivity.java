@@ -631,7 +631,6 @@ public class AddCabActivity extends AppCompatActivity {
                 }
                 pDialog.dismiss();
 
-
             }
         }) {
             @Override
@@ -646,7 +645,6 @@ public class AddCabActivity extends AppCompatActivity {
                 params.put("EmpComment", EmpComment);
                 params.put("AuthCode", AuthCode);
                 params.put("ItemDetailJson", mainArray.toString());
-
                 Log.e("Parms", params.toString());
                 return params;
             }
@@ -804,10 +802,7 @@ public class AddCabActivity extends AppCompatActivity {
                             String BookTime = object.getString("BookTime");
                             String SourceAdd = object.getString("SourceAdd");
                             String DestinationAdd = object.getString("DestinationAdd");
-
-
                             staticList.add(new StaticModel(BookTime, SourceAdd, DestinationAdd));
-
 
                         }
 
@@ -911,10 +906,6 @@ public class AddCabActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(AddCabActivity.this, LoginActivity.class));
 
-//        Intent ik = new Intent(ManagerRequestToApproveActivity.this, LoginActivity.class);
-//        startActivity(ik);
-
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(AddCabActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(AddCabActivity.this,
@@ -935,11 +926,6 @@ public class AddCabActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(AddCabActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
 
     }
 

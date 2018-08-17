@@ -126,10 +126,10 @@ public class GeofenceTrasitionService extends IntentService {
     private Notification createNotification(String msg, PendingIntent notificationPendingIntent) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         notificationBuilder
-                .setSmallIcon(R.drawable.ic_action_location)
+                .setSmallIcon(R.drawable.ic_logo_notification)
                 .setColor(Color.RED)
                 .setContentTitle(msg)
-                .setContentText("Cfcs Office Area!")
+                .setContentText("Office Area!")
                 .setContentIntent(notificationPendingIntent)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                 .setAutoCancel(true);

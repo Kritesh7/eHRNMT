@@ -85,7 +85,6 @@ public class LeaveSummarryAdapter extends RecyclerView.Adapter<LeaveSummarryAdap
             view = (View) itemView.findViewById(R.id.lview);
             balanceTxt = (TextView) itemView.findViewById(R.id.balance);
 
-
         }
     }
 }

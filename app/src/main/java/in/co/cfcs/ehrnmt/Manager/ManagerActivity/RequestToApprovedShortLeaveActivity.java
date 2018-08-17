@@ -114,10 +114,7 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
         requestRecycler.setLayoutManager(mLayoutManager);
         requestRecycler.setItemAnimator(new DefaultItemAnimator());
         requestRecycler.setAdapter(adapter);
-
         requestRecycler.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
-
     }
 
     @Override
@@ -175,14 +172,9 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
                             String CommentText = jsonObject.getString("CommentText");
                             String UserName = jsonObject.getString("UserName");
 
-
                             list.add(new ManagerRequestToApprovedShortLeaveModel(UserName, LeaveApplication_Id, LeaveTypeName, StartDate, TimeFrom, TimeTo, AppliedDate,
                                     StatusText, CommentText));
-
-
                         }
-
-
                     }
 
                     if (list.size() == 0) {
@@ -238,7 +230,6 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
                 }
                 pDialog.dismiss();
 
-
             }
         }) {
             @Override
@@ -246,8 +237,6 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("AuthCode", AuthCode);
                 params.put("AdminID", AdminID);
-
-
                 Log.e("Parms", params.toString());
                 return params;
             }
@@ -275,7 +264,6 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(new Intent(RequestToApprovedShortLeaveActivity.this, LoginActivity.class));
 
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setStatus(RequestToApprovedShortLeaveActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setAdminId(RequestToApprovedShortLeaveActivity.this,
@@ -288,10 +276,8 @@ public class RequestToApprovedShortLeaveActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpId(RequestToApprovedShortLeaveActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setEmpPhoto(RequestToApprovedShortLeaveActivity.this,
                 "")));
-
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setDesignation(RequestToApprovedShortLeaveActivity.this,
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(RequestToApprovedShortLeaveActivity.this,

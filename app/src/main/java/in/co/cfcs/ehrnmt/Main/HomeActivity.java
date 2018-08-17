@@ -1610,10 +1610,11 @@ public class HomeActivity extends AppCompatActivity implements DashBoardFragment
                             String ShortLeaveCount = jsonObject.getString("ShortLeaveCount");
                             String ShortCancelLeaveCount = jsonObject.getString("ShortCancelLeaveCount");
                             String TrainingCount = jsonObject.getString("TrainingCount");
+                            String AttendanceRequestCount = jsonObject.getString("AttendanceRequestCount");
 
 
                             count = Integer.parseInt(LeaveCount) + Integer.parseInt(CancelLeaveCount) + Integer.parseInt(ShortLeaveCount) +
-                                    Integer.parseInt(ShortCancelLeaveCount) + Integer.parseInt(TrainingCount);
+                                    Integer.parseInt(ShortCancelLeaveCount) + Integer.parseInt(TrainingCount)  + Integer.parseInt(AttendanceRequestCount);
 
                             Log.e("count is ", count + "");
                             //     countinOne = String.valueOf(count);

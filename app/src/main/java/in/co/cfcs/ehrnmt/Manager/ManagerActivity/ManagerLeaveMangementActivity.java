@@ -99,10 +99,8 @@ public class ManagerLeaveMangementActivity extends AppCompatActivity {
                 ik.putExtra("CheckingTheActivity", "Short Leave History");
                 startActivity(ik);
                 overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-
             }
         });
-
 
     }
 

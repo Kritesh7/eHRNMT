@@ -198,7 +198,6 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
         alertDialog.show();
     }
 
-
     //delete the Details
     public void deleteMethod(final String AuthCode, final String BID, final String userId, final int postion) {
 
@@ -223,7 +222,6 @@ public class CabListAdapter extends RecyclerView.Adapter<CabListAdapter.ViewHold
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
-
 
                     pDialog.dismiss();
 

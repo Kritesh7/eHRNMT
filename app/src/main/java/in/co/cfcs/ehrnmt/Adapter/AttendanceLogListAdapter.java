@@ -131,7 +131,6 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
                 .tag(activity)
                 .into(holder.proImg);
 
-
         holder.proImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +171,6 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
             zoneTxt = (TextView) itemView.findViewById(R.id.zonename);
             proImg = (de.hdodenhof.circleimageview.CircleImageView) itemView.findViewById(R.id.pro_image);
 
-
             punchLocationLay = (LinearLayout) itemView.findViewById(R.id.punchlocationlay);
             reamrkLay = (LinearLayout) itemView.findViewById(R.id.reameklay);
 
@@ -203,7 +201,6 @@ public class AttendanceLogListAdapter extends RecyclerView.Adapter<AttendanceLog
         croosImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
             }
         });

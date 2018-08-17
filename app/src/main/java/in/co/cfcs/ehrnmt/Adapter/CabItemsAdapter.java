@@ -75,8 +75,6 @@ public class CabItemsAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-
         TextView sNoTxt, sourceAddTxt, destAddTxt, bookingTimeTxt;
-
     }
 }

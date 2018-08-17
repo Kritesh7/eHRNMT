@@ -233,7 +233,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                android:layout_weight=".5">
 
                 <LinearLayout
                     android:id="@+id/fivthlay"
@@ -261,6 +262,51 @@
 
                     <TextView
                         android:id="@+id/traningcount"
+                        android:textSize="15sp"
+                        android:textColor="#4CAF50"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="(0)"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight=".5">
+
+                <LinearLayout
+                    android:id="@+id/sixthlay"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:src="@drawable/mgrtran"/>
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:textColor="@color/dahboard_textcolor"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Attendance Request"/>
+
+                    <TextView
+                        android:id="@+id/attendanceApprove"
                         android:textSize="15sp"
                         android:textColor="#4CAF50"
                         android:gravity="center"

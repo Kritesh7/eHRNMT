@@ -6,6 +6,7 @@ package in.co.cfcs.ehrnmt.Model;
 
 public class AppreceationModel
 {
+
     public String appreceationTitle;
     public String appreceationDate;
     public String appreceationDetails;
@@ -34,3 +35,5 @@ public class AppreceationModel
         return appreceationDetails;
     }
 }
+
+

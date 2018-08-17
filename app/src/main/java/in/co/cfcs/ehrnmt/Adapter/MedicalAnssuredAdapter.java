@@ -423,7 +423,6 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
                         }
                     }
 
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {

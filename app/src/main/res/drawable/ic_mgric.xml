@@ -1,0 +1,11 @@
+<vector android:height="24dp" android:viewportHeight="989"
+    android:viewportWidth="941" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#0f43b4" android:name="Shape 1" android:pathData="m188 481 -37 -25c0 0 -54.3 -3.5 -63 48l-1 105l37 59l1 138l131 -1l-1 -139l34 -52v-113c0 0 -1.7 -37.9 -58 -48l-43 28z"/>
+    <path android:fillColor="#0f43b4" android:name="Shape 1 copy" android:pathData="m449 535 -43 -133c0 0 -60.4 -4.3 -72 64l-1 151l55 77l-1 200l159 -1l-1 -199l52 -84.5v-149.8c0 0 5.8 -48.2 -69 -61.6c0 0 -39.3 129.8 -40 131c-17.2 32.4 -39 6 -39 6z"/>
+    <path android:fillColor="#0f43b4" android:name="Shape 2" android:pathData="m464 424 -4 58 6 14 6 -13 -4 -60 11 -11v-11h-26v11l11 12z"/>
+    <path android:fillColor="#0f43b4" android:name="Shape 3" android:pathData="m198 229c0 0 66.4 -85.1 181 -117c0 0 93.1 -30.9 209 11c0 0 100.2 41.6 151 111c0 0 5.7 9.1 2 18c0 0 -8.8 16.6 -23 1c0 0 -52.8 -89.4 -200 -120c0 0 -87.6 -21.4 -185 26c0 0 -70.1 28.6 -119 94c0 0 -9.6 13.6 -24 1c0 0 -5.5 -12.5 8 -25z"/>
+    <path android:fillColor="#0f43b4" android:name="Ellipse 1" android:pathData="m465.5 206c41.1 0 74.5 33.4 74.5 74.5c0 41.1 -33.4 74.5 -74.5 74.5c-41.1 0 -74.5 -33.4 -74.5 -74.5c0 -41.1 33.4 -74.5 74.5 -74.5z"/>
+    <path android:fillColor="#0f43b4" android:name="Ellipse 1 copy" android:pathData="m187.5 314c31.8 0 57.5 25.7 57.5 57.5c0 31.8 -25.7 57.5 -57.5 57.5c-31.8 0 -57.5 -25.7 -57.5 -57.5c0 -31.8 25.7 -57.5 57.5 -57.5z"/>
+    <path android:fillColor="#0f43b4" android:name="Ellipse 1 copy 2" android:pathData="m742.5 313c31.8 0 57.5 25.7 57.5 57.5c0 31.8 -25.7 57.5 -57.5 57.5c-31.8 0 -57.5 -25.7 -57.5 -57.5c0 -31.8 25.7 -57.5 57.5 -57.5z"/>
+    <path android:fillColor="#0f43b4" android:name="Shape 1 copy 2" android:pathData="m743 480 -37 -25c0 0 -54.3 -3.5 -63 48l-1 105l37 59l1 138l131 -1l-1 -139l34 -52v-113c0 0 -1.7 -37.9 -58 -48l-43 28z"/>
+</vector>

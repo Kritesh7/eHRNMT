@@ -86,20 +86,6 @@ public class SplashActivity extends AppCompatActivity {
             userid = "";
         }
 
-      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_NETWORK_STATE
-            }, REQUEST_WRITE_PERMISSION);
-        }else
-            {
-
-                checkGPS();
-            }*/
-
-
-       /* progressDialog = ProgressDialog.show(SplashActivity.this,"Loading...",
-                "Loading application View, please wait...", false, false);*/
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_NETWORK_STATE
@@ -119,22 +105,6 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_NETWORK_STATE
-            }, REQUEST_WRITE_PERMISSION);
-        }else
-        {
-
-            checkGPS();
-        }
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -405,12 +375,9 @@ public class SplashActivity extends AppCompatActivity {
 
                             dialog.dismiss();
 
-
                         } else {
-
                             String MsgNotification = jsonObject.getString("MsgNotification");
                             Toast.makeText(SplashActivity.this, MsgNotification, Toast.LENGTH_SHORT).show();
-
 
                             Intent ik = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(ik);
@@ -477,7 +444,6 @@ public class SplashActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
-
     }
 
     //cancel Notification
