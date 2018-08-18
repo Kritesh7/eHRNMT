@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -184,7 +185,8 @@ public class ShortLeaveHistoryAdapter extends RecyclerView.Adapter<ShortLeaveHis
 
                 if (remarkTxt.getText().toString().equalsIgnoreCase(""))
                 {
-                    remarkTxt.setError("Please enter remark");
+                    remarkTxt.setHint("Please Enter Remark");
+                    remarkTxt.setHintTextColor(Color.parseColor("#FF0000"));
                     Toast.makeText(activity, "Plesae enter remark", Toast.LENGTH_SHORT).show();
                 }else {
 
@@ -271,15 +273,13 @@ public class ShortLeaveHistoryAdapter extends RecyclerView.Adapter<ShortLeaveHis
 
                         if (status.equalsIgnoreCase("success"))
                         {
-                            //remove(postion);
+                            remove(postion);
                           //  notifyDataSetChanged(postion);
                             notifyItemChanged(postion);
                             popupWindow.dismiss();
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
-
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {

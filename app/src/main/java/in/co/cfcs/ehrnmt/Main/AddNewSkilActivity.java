@@ -119,7 +119,6 @@ public class AddNewSkilActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // onBackPressed();
                 onBackPressed();
-
             }
         });
 
@@ -134,7 +133,6 @@ public class AddNewSkilActivity extends AppCompatActivity {
             sourceNameStr = intent.getStringExtra("SourceName");
             useSkillStr = intent.getStringExtra("CurrentelyUsed");
             lastDateStr = intent.getStringExtra("LastUsedDate");
-
         }
 
         conn = new ConnectionDetector(AddNewSkilActivity.this);
@@ -644,6 +642,7 @@ public class AddNewSkilActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         super.onBackPressed();
+        finish();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
 

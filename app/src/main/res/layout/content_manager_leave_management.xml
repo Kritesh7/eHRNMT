@@ -295,7 +295,7 @@
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:src="@drawable/mgrtran"/>
+                        android:src="@drawable/ic_attendance"/>
 
                     <TextView
                         android:textSize="16sp"

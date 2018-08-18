@@ -82,7 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -128,7 +128,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -174,15 +174,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check In Date"
+                android:textColor="@color/purple700"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/hotel_checkindatetxt"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="4"
                 android:textColor="@color/purple700"
                 android:textColorHint="@color/dark_gray"
                 android:textSize="14sp"
@@ -199,20 +206,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check In Time"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/hotel_checkintimetxt"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="4"
                     android:background="@drawable/spinner_background"
                     android:clickable="true"
                     android:drawablePadding="10dp"
-                    android:drawableRight="@drawable/stopwatch"
+                    android:drawableRight="@drawable/ic_stopwatch"
                     android:editable="false"
                     android:hint="Check In Time"
                     android:padding="10dp"
@@ -226,15 +239,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Out Date"
+                android:textColor="@color/purple700"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/hotel_checkoutdatetxt"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="4"
                 android:textColor="@color/purple700"
                 android:textColorHint="@color/dark_gray"
                 android:textSize="14sp"
@@ -266,10 +286,6 @@
                 android:textColorHint="@color/dark_gray"
                 android:textSize="14sp"
                 android:layout_marginTop="10dp"/>
-
-
-
-
 
         </LinearLayout>
 

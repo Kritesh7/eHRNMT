@@ -104,12 +104,7 @@ public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapte
             downloadLay = (LinearLayout) itemView.findViewById(R.id.downloadOptionLay);
             view = (View) itemView.findViewById(R.id.view);
             downloadBtn = (ImageView) itemView.findViewById(R.id.downloadOptionBtn);
-            /*issuesDateTxt = (TextView)itemView.findViewById(R.id.issuesdate);
-            estimatedReturnDateTxt = (TextView)itemView.findViewById(R.id.estimated_return_date);
-            issuesReasonsTxt = (TextView)itemView.findViewById(R.id.issuesreasons);
-            remarkTxt = (TextView)itemView.findViewById(R.id.remark);*/
 
-            // mainLay = (CardView)itemView.findViewById(R.id.assets_main_lay);
         }
     }
 
@@ -128,16 +123,5 @@ public class AppreceationAdapter extends RecyclerView.Adapter<AppreceationAdapte
         }
         return true;
     }
-
-  /*  @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (requestCode == 100) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                showFileChooser();
-            }
-            return;
-        }
-    }*/
 
 }

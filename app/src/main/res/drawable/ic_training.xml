@@ -1,0 +1,25 @@
+<vector android:height="24dp" android:viewportHeight="899"
+    android:viewportWidth="914" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#0d47a1" android:name="Ellipse 1" android:pathData="m170.5 118c24.6 0 44.5 19.9 44.5 44.5c0 24.6 -19.9 44.5 -44.5 44.5c-24.6 0 -44.5 -19.9 -44.5 -44.5c0 -24.6 19.9 -44.5 44.5 -44.5z"/>
+    <path android:fillColor="#0d47a1" android:name="Shape 1" android:pathData="m126 223h-27c0 0 -23 2 -23 21l1 139c0 0 3 20.5 32 24l4 8l-1 178c0 0 8 24 37 11c0 0 6.5 -3 9 -12v-176c0 0 4 -19.5 20 -12c0 0 5 0 6 14l1 167c0 0 5 33.5 39 17c0 0 7.5 -6 7 -15v-298c0 0 -0.5 -15.5 14 -7l21 23c0 0 10.5 10.5 26 1l47 -48c0 0 8.5 -20.5 -3 -31c0 0 -13 -8 -23 -3l-27 28c0 0 -6.5 7.5 -12 1l-24 -26l-7 -4h-29l-20 30h-6l-17 -24l-12 22l-9 1l-24 -29z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 1" android:pathData="m275 102h12v111h-12v-111z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 1 copy" android:pathData="m275 337h12v60h-12v-60z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 5" android:pathData="m378 275h37v71h-37v-71z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 5 copy" android:pathData="m444 246h37v101h-37v-101z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 5 copy 2" android:pathData="m518 200h37v146h-37v-146z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 5 copy 3" android:pathData="m587 222h37v124h-37v-124z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 5 copy 4" android:pathData="m654 149h37v198h-37v-198z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 2" android:pathData="m763 94h14v303h-14v-303z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 3" android:pathData="m277 383h499v15h-499v-15z"/>
+    <path android:fillColor="#0d47a1" android:name="Rectangle 4" android:pathData="m275 94h500v15h-500v-15z"/>
+    <path android:fillColor="#0d47a1" android:name="Ellipse 2" android:pathData="m424 428c23.7 0 43 19.3 43 43c0 23.7 -19.3 43 -43 43c-23.7 0 -43 -19.3 -43 -43c0 -23.7 19.3 -43 43 -43z"/>
+    <path android:fillColor="#0d47a1" android:name="Shape 2" android:pathData="m363 530c0 0 -32.5 1 -25 33c0 0 73 14.5 49 91l74 1c0 0 -26 -69.5 48 -93c0 0 18.5 -18.5 -12 -30h-45c0 0 -37 10 -49 0l-40 -2z"/>
+    <path android:fillColor="#0d47a1" android:name="Shape 2 copy" android:pathData="m565 530c0 0 -32.5 1 -25 33c0 0 73 14.5 49 91l74 1c0 0 -26 -69.5 48 -93c0 0 18.5 -18.5 -12 -30h-45c0 0 -37 10 -49 0l-40 -2z"/>
+    <path android:fillColor="#0d47a1" android:name="Ellipse 2 copy" android:pathData="m626 428c23.7 0 43 19.3 43 43c0 23.7 -19.3 43 -43 43c-23.7 0 -43 -19.3 -43 -43c0 -23.7 19.3 -43 43 -43z"/>
+    <path android:fillColor="#0d47a1" android:name="Ellipse 2 copy 2" android:pathData="m320 583c23.7 0 43 19.3 43 43c0 23.7 -19.3 43 -43 43c-23.7 0 -43 -19.3 -43 -43c0 -23.7 19.3 -43 43 -43z"/>
+    <path android:fillColor="#0d47a1" android:name="Ellipse 2 copy 3" android:pathData="m524 583c23.7 0 43 19.3 43 43c0 23.7 -19.3 43 -43 43c-23.7 0 -43 -19.3 -43 -43c0 -23.7 19.3 -43 43 -43z"/>
+    <path android:fillColor="#0d47a1" android:name="Ellipse 2 copy 4" android:pathData="m728 583c23.7 0 43 19.3 43 43c0 23.7 -19.3 43 -43 43c-23.7 0 -43 -19.3 -43 -43c0 -23.7 19.3 -43 43 -43z"/>
+    <path android:fillColor="#0d47a1" android:name="Shape 3" android:pathData="m238 683v113l17 19l136 -1l20 -15l-2 -114l-171 -2z"/>
+    <path android:fillColor="#0d47a1" android:name="Shape 3 copy" android:pathData="m439 685v113l17 19l136 -1l20 -15l-2 -114l-171 -2z"/>
+    <path android:fillColor="#0d47a1" android:name="Shape 3 copy 2" android:pathData="m642 683v113l17 19l136 -1l20 -15l-2 -114l-171 -2z"/>
+</vector>

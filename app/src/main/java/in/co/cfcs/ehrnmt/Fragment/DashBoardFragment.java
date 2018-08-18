@@ -97,7 +97,7 @@ public class DashBoardFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     public LinearLayout leaverequsLay, attendanceLay, stationaryLay, docsLay, cabLay, hotelLay, appreceationLay, warningLay,
-            req_approve, holiday, log_report, attendence_list;
+            req_approve, holiday, log_report, attendence_list,weeek_off;
 
     public OnFragmentInteractionListenerForToolbar mListener;
 
@@ -208,6 +208,7 @@ public class DashBoardFragment extends Fragment {
         // req_approve = (LinearLayout)rootView.findViewById(R.id.req_approve);
         holiday = (LinearLayout) rootView.findViewById(R.id.holiday);
         log_report = (LinearLayout) rootView.findViewById(R.id.log_report);
+        weeek_off = (LinearLayout) rootView.findViewById(R.id.weeek_off);
 
         conn = new ConnectionDetector(getActivity());
 
@@ -223,7 +224,7 @@ public class DashBoardFragment extends Fragment {
 
         if (conn.getConnectivityStatus() > 0) {
 
-            //  new ForceUpdateAsync(currentVersion).execute();
+            new ForceUpdateAsync(currentVersion).execute();
 
             leaveSummeryData(authCode, userId);
 
@@ -250,7 +251,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mListener.onFragmentInteractionForToolbarMethod(18, "Attendence Request", strtext);
+                mListener.onFragmentInteractionForToolbarMethod(18, "Attendance List", strtext);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment frag = new AttendaceListFragment();
@@ -413,6 +414,28 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
+        weeek_off.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mListener.onFragmentInteractionForToolbarMethod(202, "Week Off", strtext);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment frag = new WeekOfListFragment();
+                frag.setArguments(bundle);
+
+                /*fragmentManager.setCustomAnimations(
+                        R.anim.push_right_in,
+                        R.anim.push_left_out, R.anim.push_left_in, R.anim.push_right_out);*/
+                // update the main content by replacing fragments
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, frag)
+                        // .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         log_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -476,7 +499,6 @@ public class DashBoardFragment extends Fragment {
         barchart.setDrawGridBackground(false);
         barchart.fitScreen();
         barchart.animateY(3000);
-
 
 
         pieChart = (PieChart) rootView.findViewById(R.id.chart1);
@@ -682,8 +704,6 @@ public class DashBoardFragment extends Fragment {
                             barColor.add(i, Color);
 
                         }
-
-
                     }
 
                   checkMethod();
@@ -726,8 +746,6 @@ public class DashBoardFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
                 }
                 pDialog.dismiss();
-
-
             }
         }) {
             @Override
@@ -736,7 +754,6 @@ public class DashBoardFragment extends Fragment {
                 params.put("AuthCode", AuthCode);
                 params.put("LoginAdminID", AdminID);
                 params.put("EmployeeID", AdminID);
-
 
                 Log.e("Parms", params.toString());
                 return params;

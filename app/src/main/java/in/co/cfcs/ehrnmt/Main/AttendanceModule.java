@@ -452,7 +452,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onClick(View view) {
 
-                if (rd_out.isChecked() && InOutStatus.compareToIgnoreCase("1") == 0) {
+                if (rd_out.isChecked() && InOutStatusDate.compareToIgnoreCase(getCurrentTime()) != 0) {
                     ShowPopupAttendanceMiss();
                 } else {
 
@@ -705,13 +705,7 @@ public class AttendanceModule extends AppCompatActivity implements GoogleApiClie
         double inerlog = gpsTracker.getLongitude();
         subBtn.setVisibility(View.GONE);
 
-//        Intent serviceIntent = new Intent(getBaseContext(), LocationUpdateService.class);
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            getBaseContext().startForegroundService(serviceIntent);
-//        } else {
-//            getBaseContext().startService(serviceIntent);
-//        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);

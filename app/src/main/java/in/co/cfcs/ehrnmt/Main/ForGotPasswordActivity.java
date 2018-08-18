@@ -135,7 +135,6 @@ public class ForGotPasswordActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
-
                     }
 
                     pDialog.dismiss();

@@ -1,0 +1,6 @@
+<vector android:height="24dp" android:viewportHeight="911"
+    android:viewportWidth="905" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#113fa9" android:name="Shape 3" android:pathData="m482 147c0 0 -3 30.6 -3 31c-0 0.3 5 1 5 1l204 677l178 -54l-213 -707l-21 38l12 40l-56 18l6 20l56 -16l8 25l-36 11l6 21l37 -10l10 34l-56 17l6 20l56 -16l8 25l-37 11l7 21l36 -11l10 35l-60 18l6 21l61 -19l7 25l-41 14l6 20l42 -11l10 34l-61 19l7 20l61 -18l8 26l-42 13l6 21l42 -13l9 32l-62 18l8 22l61 -19l7 25l-41 13l6 21l43 -12l9 34l-61 19l7 21l61 -19l8 26l-42 13l6 21l42 -13l10 32l-119 35l-196 -647l119 -37l21 -38l-171 52z"/>
+    <path android:fillColor="#113fa9" android:name="Shape 2" android:pathData="m58 436v381h36v25h436v-25h29v-381h-77v-342l-20 19v39h-74v-39h74l20 -19h-115v342h-47v-215l-9 1v16l-30 -33l-16 26l-19 -26l-30 29l-1 -11l36 -76h30l30 75l9 -1l-51 -133l-62 131l-1 217h-10v-365l-12 13v352h-54l1 -352h53l12 -13h-15v-27h-44v27h-65l13 214h12l-2 -187h24l-1 338v39h38v295h-53v-296l15 2v-40h-60z"/>
+    <path android:fillColor="#113fa9" android:name="Rectangle 1" android:pathData="m142 112h24v128h-24v-128z"/>
+</vector>

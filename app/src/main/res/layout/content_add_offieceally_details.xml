@@ -79,16 +79,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Number"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <EditText
                         android:id="@+id/number"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="4"
                         android:background="@drawable/spinner_background"
                         android:drawablePadding="10dp"
                         android:hint="Number"
@@ -104,15 +110,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Issues Date"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
 
 
                     <TextView
                         android:id="@+id/issuedatetxt"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:textColor="@color/purple700"
                         android:textColorHint="@color/dark_gray"
                         android:textSize="14sp"
@@ -131,15 +146,22 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expriy Date"
+                        android:textColor="@color/purple700"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <TextView
                         android:id="@+id/expirydatetxt"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
                         android:textColor="@color/purple700"
                         android:textColorHint="@color/dark_gray"
                         android:textSize="14sp"
@@ -155,6 +177,16 @@
                 </LinearLayout>
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Place Of Issue"
+                    android:textColor="@color/purple700"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+
                 <EditText
                     android:id="@+id/issueplace"
                     android:layout_width="match_parent"
@@ -168,7 +200,7 @@
                     android:textColor="@color/purple700"
                     android:textColorHint="@color/dark_gray"
                     android:textSize="14sp"
-                    android:layout_marginTop="10dp"/>
+                    />
 
         <Button
             android:id="@+id/uploaddocsbtn"

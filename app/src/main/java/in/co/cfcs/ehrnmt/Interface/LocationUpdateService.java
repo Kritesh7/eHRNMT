@@ -25,9 +25,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import in.co.cfcs.ehrnmt.Main.AddCabActivity;
 import in.co.cfcs.ehrnmt.Main.AttendanceModule;
+import in.co.cfcs.ehrnmt.Main.LoginActivity;
 import in.co.cfcs.ehrnmt.R;
 import in.co.cfcs.ehrnmt.Source.ConnectionDetector;
+import in.co.cfcs.ehrnmt.Source.SharedPrefs;
+import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 
 public class LocationUpdateService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ILocationConstants {
@@ -97,6 +101,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
 
     // build a persistent notification and return it.
     public Notification getNotification(String message) {
+
 
         return new NotificationCompat.Builder(getApplicationContext(), AttendanceModule.id1)
                 .setSmallIcon(R.drawable.ic_logo_notification)
@@ -403,7 +408,6 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, service);
     }
-
 
 }
 

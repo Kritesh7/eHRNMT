@@ -159,7 +159,6 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
                     //startDownload(SettingConstant.DownloadUrl + model.getFileNameText());
 
 
-
                   /*  showProgress(SettingConstant.DownloadUrl + model.getFileNameText());
 
                     new Thread(new Runnable() {
@@ -167,7 +166,6 @@ public class MedicalAnssuredAdapter extends RecyclerView.Adapter<MedicalAnssured
                             downloadFile(SettingConstant.DownloadUrl + model.getFileNameText(),model.getFileNameText());
                         }
                     }).start();*/
-
 
                     //show online
                   /*  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(SettingConstant.DownloadUrl + model.getFileNameText()));

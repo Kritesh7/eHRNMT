@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -114,7 +115,6 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
             @Override
             public void onClick(View view) {
 
-
                 setPopupWindow(position, authCode, model.getLeaveApplication_Id(), userId);
             }
         });
@@ -207,7 +207,6 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
         alertDialog.show();
     }
 
-
     //delete the Details
     public void deleteMethod(final String AuthCode, final String LeaveApplicationID, final String userId,
                              final int postion, final String Remark, final String Type, final String status) {
@@ -229,13 +228,12 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
                         String status = jsonObject.getString("status");
 
                         if (status.equalsIgnoreCase("success")) {
-                            //remove(postion);
+                            remove(postion);
                             notifyItemChanged(postion);
                             popupWindow.dismiss();
                             Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
-
 
                     pDialog.dismiss();
 
@@ -305,7 +303,8 @@ public class LeaveMangementAdapter extends RecyclerView.Adapter<LeaveMangementAd
             public void onClick(View v) {
 
                 if (remarkTxt.getText().toString().equalsIgnoreCase("")) {
-                    remarkTxt.setError("Please enter remark");
+                    remarkTxt.setHint("Please Enter Remark");
+                    remarkTxt.setHintTextColor(Color.parseColor("#FF0000"));
                     Toast.makeText(activity, "Plesae enter remark", Toast.LENGTH_SHORT).show();
                 } else {
 

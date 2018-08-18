@@ -297,7 +297,7 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                                 // set dialog message
                                 alertDialogBuilder
                                         .setTitle("Short Leave Status")
-                                        .setMessage(MsgNotification)
+                                        .setMessage(msgstatus)
                                         .setCancelable(false)
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                             @Override
@@ -331,6 +331,8 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                                 alertDialog.show();
 
 
+                            }else {
+                                Toast.makeText(getBaseContext(), msgstatus, Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -473,6 +475,7 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         super.onBackPressed();
+        finish();
         overridePendingTransition(R.anim.push_left_in,
                 R.anim.push_right_out);
 
@@ -508,12 +511,6 @@ public class ApplyShortLeaveActivity extends AppCompatActivity {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(ApplyShortLeaveActivity.this,
                 "")));
-
-//        Intent intent = new Intent(NewAddLeaveMangementActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
     }
 
 }

@@ -274,7 +274,6 @@ public class PreviousExprienceFragment extends Fragment {
                             JSONObject obj = statusArray.getJSONObject(k);
                             IsAddPreviousExperience = obj.getString("IsAddPreviousExperience");
 
-
                         }
 
                         if (list.size() == 0) {
@@ -404,7 +403,5 @@ public class PreviousExprienceFragment extends Fragment {
                 "")));
         UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.setCompanyLogo(getContext(),
                 "")));
-
-
     }
 }

@@ -147,11 +147,9 @@ public class MedicalDetailsFragment extends Fragment {
 
         if (conn.getConnectivityStatus() > 0) {
             personalDdlDetails();
-
         } else {
             conn.showNoInternetAlret();
         }
-
         // disable all widget
         bloodGroupSpinner.setEnabled(false);
         illnessTxt.setEnabled(false);
@@ -170,11 +168,8 @@ public class MedicalDetailsFragment extends Fragment {
                 familyDrNumberTxt.setEnabled(true);
                 familyDrNameTxt.setEnabled(true);
 
-
                 if (flag) {
-
                     editAddBtn.setText("Update Medical Details");
-
                     flag = false;
                 } else {
                     //update medical details

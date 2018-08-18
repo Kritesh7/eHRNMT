@@ -279,7 +279,8 @@
                         android:padding="10dp"
                         android:textColor="@color/purple700"
                         android:textColorHint="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:inputType="number"/>
 
 
                 </LinearLayout>

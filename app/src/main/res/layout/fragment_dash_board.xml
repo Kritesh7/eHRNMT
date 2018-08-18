@@ -68,7 +68,7 @@
                                     android:layout_gravity="center"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/leave_request"/>
+                                    app:srcCompat="@drawable/ic_leave_request"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -138,7 +138,6 @@
 
                             </LinearLayout>
 
-
                         </LinearLayout>
 
                         <View
@@ -165,7 +164,7 @@
                                     android:layout_gravity="center"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    app:srcCompat="@drawable/ic_attendance"/>
+                                    app:srcCompat="@drawable/ic_atten_list"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -183,7 +182,6 @@
                                     android:text="Attendence" />
 
                             </LinearLayout>
-
 
 
                         </LinearLayout>
@@ -637,7 +635,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/weekof"
+                                        app:srcCompat="@drawable/ic_week_off_dashboard"
                                         android:padding="3dp"/>
                                 </LinearLayout>
 
@@ -737,7 +735,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/warning"
+                                        app:srcCompat="@drawable/ic_warning"
                                         android:padding="3dp"/>
                                 </LinearLayout>
 

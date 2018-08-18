@@ -45,17 +45,16 @@ import in.co.cfcs.ehrnmt.Source.UtilsMethods;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttendanceRequest.ViewHolder>
-{
-    public Context context ;
-    public ArrayList<ManagerAttendanceRequestModel> list =new ArrayList<>();
+public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttendanceRequest.ViewHolder> {
+    public Context context;
+    public ArrayList<ManagerAttendanceRequestModel> list = new ArrayList<>();
     public Activity activity;
-    public  String checkStatus;
+    public String checkStatus;
     public String deleteUrl = SettingConstant.BaseUrl + "AppPunchLogApproveReject";
     public String authCode = "", userId = "";
 
     public ManagerAttendanceRequest(Context context, ArrayList<ManagerAttendanceRequestModel> list, Activity activity,
-                                                      String checkStatus) {
+                                    String checkStatus) {
         this.context = context;
         this.list = list;
         this.checkStatus = checkStatus;
@@ -75,8 +74,8 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
 
         ManagerAttendanceRequestModel model = list.get(position);
 
-        authCode =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
-        userId =  UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
+        authCode = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAuthCode(context)));
+        userId = UtilsMethods.getBlankIfStringNull(String.valueOf(SharedPrefs.getAdminId(context)));
 
         holder.username.setText(model.getUserName());
         holder.employee_id.setText(model.getEmpID());
@@ -91,7 +90,7 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
             @Override
             public void onClick(View view) {
 
-              setPopupWindow("3",authCode,userId,model.getDeviceLogID(),position);
+                setPopupWindow("3", authCode, userId, model.getDeviceLogID(), position);
             }
         });
 
@@ -99,7 +98,7 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
             @Override
             public void onClick(View view) {
 
-               setPopupWindow("2",authCode,userId,model.getDeviceLogID(),position);
+                setPopupWindow("2", authCode, userId, model.getDeviceLogID(), position);
             }
         });
 
@@ -111,7 +110,7 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView username,employee_id,designation_name,log_date,log_time,log_by,status;
+        public TextView username, employee_id, designation_name, log_date, log_time, log_by, status;
         public ImageView delBtn;
         public LinearLayout mainLay, btnLay;
         public View view;
@@ -120,28 +119,28 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
         public ViewHolder(View itemView) {
             super(itemView);
 
-            username = (TextView)itemView.findViewById(R.id.username);
+            username = (TextView) itemView.findViewById(R.id.username);
             employee_id = (TextView) itemView.findViewById(R.id.employee_id);
-            designation_name = (TextView)itemView.findViewById(R.id.designation_name);
-            log_date = (TextView)itemView.findViewById(R.id.log_date);
-            log_time = (TextView)itemView.findViewById(R.id.log_time);
-            log_by = (TextView)itemView.findViewById(R.id.log_by);
-            status = (TextView)itemView.findViewById(R.id.status);
-            rejectBtn = (ImageView)itemView.findViewById(R.id.rejectbtn);
-            approvedBtn = (ImageView)itemView.findViewById(R.id.approedbtn);
-            mainLay = (LinearLayout)itemView.findViewById(R.id.leave_management_main_lay);
+            designation_name = (TextView) itemView.findViewById(R.id.designation_name);
+            log_date = (TextView) itemView.findViewById(R.id.log_date);
+            log_time = (TextView) itemView.findViewById(R.id.log_time);
+            log_by = (TextView) itemView.findViewById(R.id.log_by);
+            status = (TextView) itemView.findViewById(R.id.status);
+            rejectBtn = (ImageView) itemView.findViewById(R.id.rejectbtn);
+            approvedBtn = (ImageView) itemView.findViewById(R.id.approedbtn);
+            mainLay = (LinearLayout) itemView.findViewById(R.id.leave_management_main_lay);
 
         }
     }
 
-    private void setPopupWindow(final String check,final String authCode,final String userId, final String deviceLogID,
+    private void setPopupWindow(final String check, final String authCode, final String userId, final String deviceLogID,
                                 final int postion) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
-        if(check.compareToIgnoreCase("2") == 0){
+        if (check.compareToIgnoreCase("2") == 0) {
             alertDialog.setMessage("Do you want to Approve?");
-        }else {
+        } else {
             alertDialog.setMessage("Do you want to Reject?");
         }
 
@@ -152,8 +151,7 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
                 // TODO Auto-generated method stub
 
 
-
-                apiRejectToApprove(check,authCode,userId,deviceLogID,postion);
+                apiRejectToApprove(check, authCode, userId, deviceLogID, postion);
 
 
                 dialog.dismiss();
@@ -178,7 +176,7 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
     //approve reject API
     public void apiRejectToApprove(String check, String authCode, String userId, String deviceLogID, int postion) {
 
-        final ProgressDialog pDialog = new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+        final ProgressDialog pDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
@@ -190,24 +188,21 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
 
                 try {
                     Log.e("Login", response);
-                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"),response.lastIndexOf("}") +1 ));
+                    JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 
-                    if (jsonObject.has("status"))
-                    {
+                    if (jsonObject.has("status")) {
                         String status = jsonObject.getString("status");
                         String MsgNotification = jsonObject.getString("MsgNotification");
 
-                        if (status.equalsIgnoreCase("success"))
-                        {
+                        if (status.equalsIgnoreCase("success")) {
                             remove(postion);
                             Toast.makeText(context, MsgNotification, Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     pDialog.dismiss();
 
                 } catch (JSONException e) {
-                    Log.e("checking json excption" , e.getMessage());
+                    Log.e("checking json excption", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -221,14 +216,14 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
                 pDialog.dismiss();
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("AuthCode",authCode);
-                params.put("AdminID",userId);
-                params.put("DeviceLogID",deviceLogID);
-                params.put("ApprovalStatusID",check);
+                params.put("AuthCode", authCode);
+                params.put("AdminID", userId);
+                params.put("DeviceLogID", deviceLogID);
+                params.put("ApprovalStatusID", check);
 
                 Log.e("Parms", params.toString());
                 return params;
@@ -240,6 +235,7 @@ public class ManagerAttendanceRequest extends RecyclerView.Adapter<ManagerAttend
         AppController.getInstance().addToRequestQueue(historyInquiry, "Login");
 
     }
+
     //remove list
     public void remove(int position) {
         if (position < 0 || position >= list.size()) {
